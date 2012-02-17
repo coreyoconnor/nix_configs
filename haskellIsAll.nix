@@ -23,8 +23,13 @@ with pkgs.lib;
               pkgs.haskellPackages_ghc6123.darcs
               # pkgs.haskellPackages.yesod
               pkgs.haskellPackages.vty
+              pkgs.haskellPackages.aeson
+              pkgs.haskellPackages.httpConduit
               pkgs.haskellPackages.xmonad
               pkgs.haskellPackages.xmonadContrib
+              pkgs.haskellPackages.QuickCheck
+              # pkgs.haskellPackages.cabalInstall_0_10_2
+              pkgs.haskellPackages.cabalGhci
               # pkgs.haskellPackages.xmonadExtras
             ];
     };

@@ -109,7 +109,7 @@
                         ${pkgs.linuxPackages.virtualboxGuestAdditions}/bin/VBoxClient-all
                         xrdb -merge $HOME/.app-defaults/*
                         xfsettingsd
-                        xterm +sb -class xmonad_TopTerm -e top &
+                        urxvt +sb -name xmonad_TopTerm -e top &
                     '';
                     bgSupport = false;
                 } 
@@ -159,6 +159,7 @@
         pkgs.hicolor_icon_theme
         pkgs.evince
         pkgs.xclip
+        pkgs.rxvt_unicode
     ];
 
     services.xfs.enable = true;
@@ -180,7 +181,7 @@
         pkgs.ffmpeg
         pkgs.freetype
         pkgs.fuse
-        pkgs.gimp
+        # pkgs.gimp
         pkgs.inconsolata
         pkgs.isabelle
         pkgs.jdk
