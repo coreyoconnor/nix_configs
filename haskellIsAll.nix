@@ -28,8 +28,12 @@ with pkgs.lib;
               pkgs.haskellPackages.xmonad
               pkgs.haskellPackages.xmonadContrib
               pkgs.haskellPackages.QuickCheck
+              pkgs.haskellPackages.monadsTF
+              pkgs.haskellPackages.transformers
+              # currently broken
               # pkgs.haskellPackages.cabalInstall_0_10_2
               pkgs.haskellPackages.cabalGhci
+              # broken, but I don't need it
               # pkgs.haskellPackages.xmonadExtras
             ];
     };

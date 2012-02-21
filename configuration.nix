@@ -66,6 +66,8 @@
 
     services.dbus.enable = true;
     services.hal.enable = true;
+    services.udisks.enable = true;
+    services.upower.enable = true;
     services.acpid.enable = true;
 
     # Add an OpenSSH daemon.
@@ -106,10 +108,21 @@
                 {
                     name = "bind-desktop";
                     start = ''
+                        xcompmgr -n &
                         ${pkgs.linuxPackages.virtualboxGuestAdditions}/bin/VBoxClient-all
                         xrdb -merge $HOME/.app-defaults/*
-                        xfsettingsd
-                        urxvt +sb -name xmonad_TopTerm -e top &
+
+                        # Set GTK_PATH so that GTK+ can find the Xfce theme engine.
+                        export GTK_PATH=${pkgs.xfce.gtk_xfce_engine}/lib/gtk-2.0
+
+                        # Set GTK_DATA_PREFIX so that GTK+ can find the Xfce themes.
+                        export GTK_DATA_PREFIX=${config.system.path}
+
+                        # Necessary to get xfce4-mixer to find GST's ALSA plugin.
+                        # Ugly.
+                        export GST_PLUGIN_PATH=${config.system.path}/lib
+
+                        xfce4-session
                     '';
                     bgSupport = false;
                 } 
@@ -140,34 +153,68 @@
 
     environment.x11Packages = 
     [
+        pkgs.desktop_file_utils
         pkgs.linuxPackages.virtualboxGuestAdditions
         pkgs.xfce.thunar
         pkgs.gnome.gtk
+        pkgs.gtkLibs.gtk # To get GTK+'s themes.
+        # pkgs.gtk3
+        pkgs.gnome.intltool
         pkgs.gnome.gtk_doc
+        pkgs.gnome.gnomeicontheme
+        pkgs.gnome.pango
+        pkgs.gnome.vte
+        pkgs.shared_mime_info
+        pkgs.xfce.exo
+        pkgs.xfce.gtk_xfce_engine
+        pkgs.xfce.libxfcegui4 # For the icons.
+        pkgs.xfce.libxfce4ui
+        pkgs.xfce.ristretto
+        pkgs.xfce.terminal
         pkgs.xfce.xfce4icontheme
         pkgs.xfce.xfce4session
-        pkgs.xfce.xfdesktop
-        pkgs.xfce.gtk_xfce_engine
+        pkgs.xfce.xfce4panel
         pkgs.xfce.xfce4settings
+        pkgs.xfce.xfce4mixer
+        pkgs.xfce.xfceutils
+        pkgs.xfce.xfconf
+        pkgs.xfce.xfdesktop
+        pkgs.xfce.garcon
+        pkgs.xfce.thunar_volman
+        pkgs.xfce.gvfs
+        pkgs.xfce.xfce4_appfinder
         pkgs.xterm
         pkgs.xcompmgr
         pkgs.chrome
         pkgs.firefox
         pkgs.flashplayer
         pkgs.xlibs.fontutil
+        pkgs.xlibs.kbproto
+        pkgs.xlibs.xproto
         pkgs.fontconfig
         pkgs.hicolor_icon_theme
         pkgs.evince
         pkgs.xclip
+        pkgs.xdg_utils
         pkgs.rxvt_unicode
     ];
+
+    environment.pathsToLink =
+      [ "/share/xfce4" "/share/themes" "/share/mime" "/share/desktop-directories" ];
+
+    environment.shellInit = ''
+        export GIO_EXTRA_MODULES=${pkgs.xfce.gvfs}/lib/gio/modules
+    '';
 
     services.xfs.enable = true;
     fonts.enableFontDir = true;
 
     environment.systemPackages =
     [
+        pkgs.atk
         pkgs.bashInteractive
+        pkgs.cairo
+        pkgs.gdk_pixbuf
         pkgs.glibcLocales
         pkgs.screen
         pkgs.utillinuxCurses
@@ -181,6 +228,9 @@
         pkgs.ffmpeg
         pkgs.freetype
         pkgs.fuse
+        pkgs.gettext
+        pkgs.glib
+        pkgs.gnumake
         # pkgs.gimp
         pkgs.inconsolata
         pkgs.isabelle
@@ -189,11 +239,13 @@
         pkgs.nginx
         pkgs.octave
         pkgs.ocaml
+        pkgs.python
         pkgs.emacs23
         pkgs.emacs23Packages.proofgeneral
         pkgs.qemu
+        pkgs.vala
         pkgs.kvm
-        pkgs.linuxPackages.systemtap
+        # pkgs.linuxPackages.systemtap
     ];
 
     time.timeZone = "America/Los_Angeles";
