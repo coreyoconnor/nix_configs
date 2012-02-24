@@ -18,6 +18,11 @@ with pkgs.lib;
 
     config = mkIf config.environment.haskellIsAll 
     {
+        nixpkgs.config.packageOverrides = pkgs : 
+            { 
+                haskellPackages = pkgs.haskellPackages_ghc741;
+            };
+
         environment.systemPackages = 
             [ pkgs.haskellPackages.ghc
               pkgs.haskellPackages_ghc6123.darcs
