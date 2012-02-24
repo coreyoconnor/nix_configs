@@ -30,15 +30,16 @@
 
     # I need to disable IPv6 because VirtualBox appears to have an issue with DHCP and IPv6. I have
     # not traced down exactly what is up. I just observed disabling IPv6 avoids problems.
+    # XXX not anymore?
     networking = 
     {
         hostName = "dev"; # Define your hostname.
         interfaceMonitor.enable = true; # Watch for plugged cable.
-        enableIPv6 = false;
+        # enableIPv6 = false;
     };
 
     # Also required to disable ipv6
-    boot.extraKernelParams = [ "ipv6.disable=1" ];
+    # boot.extraKernelParams = [ "ipv6.disable=1" ];
 
     fileSystems = 
     [
@@ -73,7 +74,8 @@
     # Add an OpenSSH daemon.
     services.openssh.enable = true;
 
-    # XXX: Both disables X11 forwarding for the client as well as server.
+    # XXX: Disables both X11 forwarding for the client as well as server.
+    # I only want to disable X11 forwarding for ssh client
     services.openssh.forwardX11 = false;
 
     # Add the NixOS Manual on virtual console 8
@@ -97,6 +99,7 @@
     {
         enable = true;
         autorun = true;
+        useXFS = "unix/:7100";
         videoDrivers = [ "virtualbox" "vesa" ];
 
         displayManager.slim.defaultUser = "corey";
@@ -190,6 +193,7 @@
         pkgs.flashplayer
         pkgs.xlibs.fontutil
         pkgs.xlibs.kbproto
+        pkgs.xlibs.libXaw
         pkgs.xlibs.xproto
         pkgs.fontconfig
         pkgs.hicolor_icon_theme
@@ -237,7 +241,7 @@
         pkgs.jdk
         pkgs.jre
         pkgs.nginx
-        pkgs.octave
+        # pkgs.octave
         pkgs.ocaml
         pkgs.python
         pkgs.emacs23
