@@ -156,9 +156,12 @@
 
     environment.x11Packages = 
     [
+        pkgs.abiword
+        pkgs.chrome
         pkgs.desktop_file_utils
-        pkgs.linuxPackages.virtualboxGuestAdditions
-        pkgs.xfce.thunar
+        pkgs.evince
+        pkgs.firefox
+        pkgs.flashplayer
         pkgs.gnome.gtk
         pkgs.gtkLibs.gtk # To get GTK+'s themes.
         # pkgs.gtk3
@@ -167,7 +170,11 @@
         pkgs.gnome.gnomeicontheme
         pkgs.gnome.pango
         pkgs.gnome.vte
+        pkgs.kde4.calligra
+        pkgs.kde4.oxygen_icons
+        pkgs.linuxPackages.virtualboxGuestAdditions
         pkgs.shared_mime_info
+        pkgs.shared_desktop_ontologies
         pkgs.xfce.exo
         pkgs.xfce.gtk_xfce_engine
         pkgs.xfce.libxfcegui4 # For the icons.
@@ -183,28 +190,31 @@
         pkgs.xfce.xfconf
         pkgs.xfce.xfdesktop
         pkgs.xfce.garcon
+        pkgs.xfce.thunar
         pkgs.xfce.thunar_volman
         pkgs.xfce.gvfs
         pkgs.xfce.xfce4_appfinder
         pkgs.xterm
         pkgs.xcompmgr
-        pkgs.chrome
-        pkgs.firefox
-        pkgs.flashplayer
         pkgs.xlibs.fontutil
         pkgs.xlibs.kbproto
         pkgs.xlibs.libXaw
         pkgs.xlibs.xproto
         pkgs.fontconfig
         pkgs.hicolor_icon_theme
-        pkgs.evince
         pkgs.xclip
         pkgs.xdg_utils
         pkgs.rxvt_unicode
     ];
 
     environment.pathsToLink =
-      [ "/share/xfce4" "/share/themes" "/share/mime" "/share/desktop-directories" ];
+    [ 
+        "/share/xfce4" 
+        "/share/themes" 
+        "/share/mime" 
+        "/share/desktop-directories" 
+        "/share/doc"
+    ];
 
     environment.shellInit = ''
         export GIO_EXTRA_MODULES=${pkgs.xfce.gvfs}/lib/gio/modules
