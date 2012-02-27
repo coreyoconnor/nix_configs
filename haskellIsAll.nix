@@ -35,8 +35,8 @@ with pkgs.lib;
               pkgs.haskellPackages.QuickCheck
               pkgs.haskellPackages.monadsTf
               pkgs.haskellPackages.transformers
-              # currently broken
-              # pkgs.haskellPackages.cabalInstall_0_10_2
+              # currently broken under GHC 7.4.1
+              # pkgs.haskellPackages_ghc6123.cabalInstall_0_10_2
               pkgs.haskellPackages.cabalGhci
               pkgs.haskellPackages.cabal2nix
               # broken, but I don't need it

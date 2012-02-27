@@ -99,7 +99,7 @@
     {
         enable = true;
         autorun = true;
-        useXFS = "unix/:7100";
+        # useXFS = "unix/:7100";
         videoDrivers = [ "virtualbox" "vesa" ];
 
         displayManager.slim.defaultUser = "corey";
@@ -170,7 +170,11 @@
         pkgs.gnome.gnomeicontheme
         pkgs.gnome.pango
         pkgs.gnome.vte
+        # pkgs.kde4.kdeartwork
         pkgs.kde4.calligra
+        pkgs.kde4.kdelibs
+        # pkgs.kde4.kde_baseapps
+        pkgs.kde4.kde_runtime
         pkgs.kde4.oxygen_icons
         pkgs.linuxPackages.virtualboxGuestAdditions
         pkgs.shared_mime_info
@@ -194,12 +198,12 @@
         pkgs.xfce.thunar_volman
         pkgs.xfce.gvfs
         pkgs.xfce.xfce4_appfinder
-        pkgs.xterm
         pkgs.xcompmgr
         pkgs.xlibs.fontutil
         pkgs.xlibs.kbproto
         pkgs.xlibs.libXaw
         pkgs.xlibs.xproto
+        pkgs.xlibs.xinput
         pkgs.fontconfig
         pkgs.hicolor_icon_theme
         pkgs.xclip
@@ -209,18 +213,14 @@
 
     environment.pathsToLink =
     [ 
-        "/share/xfce4" 
-        "/share/themes" 
-        "/share/mime" 
-        "/share/desktop-directories" 
-        "/share/doc"
+        "/share"
     ];
 
     environment.shellInit = ''
         export GIO_EXTRA_MODULES=${pkgs.xfce.gvfs}/lib/gio/modules
     '';
 
-    services.xfs.enable = true;
+    services.xfs.enable = false;
     fonts.enableFontDir = true;
 
     environment.systemPackages =
@@ -228,6 +228,7 @@
         pkgs.atk
         pkgs.bashInteractive
         pkgs.cairo
+        pkgs.gdb
         pkgs.gdk_pixbuf
         pkgs.glibcLocales
         pkgs.screen
@@ -253,6 +254,7 @@
         pkgs.nginx
         # pkgs.octave
         pkgs.ocaml
+        pkgs.perlXMLParser
         pkgs.python
         pkgs.emacs23
         pkgs.emacs23Packages.proofgeneral
@@ -260,6 +262,7 @@
         pkgs.vala
         pkgs.kvm
         # pkgs.linuxPackages.systemtap
+        pkgs.xterm
     ];
 
     time.timeZone = "America/Los_Angeles";
