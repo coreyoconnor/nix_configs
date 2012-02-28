@@ -21,11 +21,12 @@ with pkgs.lib;
         nixpkgs.config.packageOverrides = pkgs : 
             { 
                 haskellPackages = pkgs.haskellPackages_ghc741;
+                darcs = pkgs.haskellPackages_ghc6123.darcs;
             };
 
         environment.systemPackages = 
             [ pkgs.haskellPackages.ghc
-              pkgs.haskellPackages_ghc6123.darcs
+              pkgs.darcs
               pkgs.haskellPackages.yesod
               pkgs.haskellPackages.vty
               pkgs.haskellPackages.aeson
@@ -35,9 +36,11 @@ with pkgs.lib;
               pkgs.haskellPackages.QuickCheck
               pkgs.haskellPackages.monadsTf
               pkgs.haskellPackages.transformers
-              # currently broken under GHC 7.4.1
-              # pkgs.haskellPackages_ghc6123.cabalInstall_0_10_2
+              pkgs.haskellPackages.cabalInstall_darcs
               pkgs.haskellPackages.cabalGhci
+              # cabal2nix depends on these to build.
+              pkgs.haskellPackages.hackageDb
+              pkgs.haskellPackages.HTTP
               pkgs.haskellPackages.cabal2nix
               # broken, but I don't need it
               # pkgs.haskellPackages.xmonadExtras
