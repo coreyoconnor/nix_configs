@@ -5,6 +5,7 @@
     [
         # Include the configuration for part of your system which have been
         # detected automatically.
+
         ./hardware-configuration.nix
         ./editorIsVim.nix
         ./haskellIsAll.nix
@@ -179,6 +180,7 @@
         pkgs.linuxPackages.virtualboxGuestAdditions
         pkgs.shared_mime_info
         pkgs.shared_desktop_ontologies
+        pkgs.swt
         pkgs.xfce.exo
         pkgs.xfce.gtk_xfce_engine
         pkgs.xfce.libxfcegui4 # For the icons.
@@ -201,6 +203,9 @@
         pkgs.xcompmgr
         pkgs.xlibs.fontutil
         pkgs.xlibs.kbproto
+        pkgs.xlibs.libICE
+        pkgs.xlibs.libXt
+        pkgs.xlibs.libXtst
         pkgs.xlibs.libXaw
         pkgs.xlibs.xproto
         pkgs.xlibs.xinput
@@ -247,8 +252,10 @@
         pkgs.glib
         pkgs.gnumake
         # pkgs.gimp
+        pkgs.linuxPackages.virtualbox
         pkgs.inconsolata
         pkgs.isabelle
+        pkgs.maven3
         pkgs.jdk
         pkgs.jre
         pkgs.nginx
