@@ -164,17 +164,15 @@
         pkgs.firefox
         pkgs.flashplayer
         pkgs.gnome.gtk
-        pkgs.gtkLibs.gtk # To get GTK+'s themes.
-        # pkgs.gtk3
         pkgs.gnome.intltool
+        pkgs.gnome.GConf
         pkgs.gnome.gtk_doc
         pkgs.gnome.gnomeicontheme
         pkgs.gnome.pango
         pkgs.gnome.vte
-        # pkgs.kde4.kdeartwork
+        pkgs.gtkLibs.gtk # To get GTK+'s themes.
         pkgs.kde4.calligra
         pkgs.kde4.kdelibs
-        # pkgs.kde4.kde_baseapps
         pkgs.kde4.kde_runtime
         pkgs.kde4.oxygen_icons
         pkgs.linuxPackages.virtualboxGuestAdditions
@@ -213,6 +211,9 @@
         pkgs.hicolor_icon_theme
         pkgs.xclip
         pkgs.xdg_utils
+        # stuff for redcar
+        pkgs.nspr
+        pkgs.xulrunner
         pkgs.rxvt_unicode
     ];
 
@@ -241,6 +242,7 @@
         pkgs.gitSVN
         pkgs.acpi
         pkgs.pulseaudio
+        pkgs.jruby165
         pkgs.ruby19
         pkgs.gcc
         pkgs.coq
@@ -251,7 +253,6 @@
         pkgs.gettext
         pkgs.glib
         pkgs.gnumake
-        # pkgs.gimp
         pkgs.linuxPackages.virtualbox
         pkgs.inconsolata
         pkgs.isabelle
@@ -259,7 +260,6 @@
         pkgs.jdk
         pkgs.jre
         pkgs.nginx
-        # pkgs.octave
         pkgs.ocaml
         pkgs.perlXMLParser
         pkgs.python
@@ -268,7 +268,6 @@
         pkgs.qemu
         pkgs.vala
         pkgs.kvm
-        # pkgs.linuxPackages.systemtap
         pkgs.xterm
     ];
 
