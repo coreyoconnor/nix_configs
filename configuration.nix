@@ -3,20 +3,25 @@
 {
     require = 
     [
-        # Include the configuration for part of your system which have been
-        # detected automatically.
-
-        ./hardware-configuration.nix
+        /home/corey/docs/secure_access.nix
         ./editorIsVim.nix
         ./haskellIsAll.nix
     ];
 
+    boot.extraModulePackages = 
+    [
+        pkgs.linuxPackages.virtualbox
+    ];
+
+    nix.maxJobs = 2;
+
+    boot.kernelModules = [ "acpi-cpufreq" ];
+
     boot.initrd.kernelModules = 
     [
-        # Specify all kernel modules that are necessary for mounting the root
-        # file system.
-        #
         "ext4" "ata_piix"
+        "mptspi" "uhci_hcd" "ehci_hcd"
+        "vboxdrv" "vboxnetadp" "vboxnetflt"
     ];
 
     boot.loader.grub = 
@@ -36,12 +41,8 @@
     {
         hostName = "dev"; # Define your hostname.
         interfaceMonitor.enable = true; # Watch for plugged cable.
-        # enableIPv6 = false;
     };
-
-    # Also required to disable ipv6
-    # boot.extraKernelParams = [ "ipv6.disable=1" ];
-
+    
     fileSystems = 
     [
         # root file system
@@ -155,17 +156,23 @@
         '';
     };
 
+    services.dbus.packages =
+    [
+        pkgs.gnome.GConf
+    ];
+
     environment.x11Packages = 
     [
         pkgs.abiword
         pkgs.chrome
         pkgs.desktop_file_utils
+        pkgs.eclipses.eclipse_sdk_37
         pkgs.evince
         pkgs.firefox
         pkgs.flashplayer
+        pkgs.gnome.GConf
         pkgs.gnome.gtk
         pkgs.gnome.intltool
-        pkgs.gnome.GConf
         pkgs.gnome.gtk_doc
         pkgs.gnome.gnomeicontheme
         pkgs.gnome.pango
@@ -208,22 +215,25 @@
         pkgs.xlibs.xproto
         pkgs.xlibs.xinput
         pkgs.fontconfig
+        pkgs.cm_unicode
         pkgs.hicolor_icon_theme
         pkgs.xclip
         pkgs.xdg_utils
-        # stuff for redcar
-        pkgs.nspr
-        pkgs.xulrunner
         pkgs.rxvt_unicode
     ];
 
     environment.pathsToLink =
     [ 
         "/share"
+        "/etc/gconf"
     ];
 
     environment.shellInit = ''
         export GIO_EXTRA_MODULES=${pkgs.xfce.gvfs}/lib/gio/modules
+    '';
+
+    services.syslogd.extraConfig = ''
+        user.* /var/log/user
     '';
 
     services.xfs.enable = false;
@@ -231,7 +241,11 @@
 
     environment.systemPackages =
     [
+        pkgs.stdenv
         pkgs.atk
+        pkgs.ant
+        pkgs.autoconf
+        pkgs.automake
         pkgs.bashInteractive
         pkgs.cairo
         pkgs.gdb
@@ -242,7 +256,6 @@
         pkgs.gitSVN
         pkgs.acpi
         pkgs.pulseaudio
-        pkgs.jruby165
         pkgs.ruby19
         pkgs.gcc
         pkgs.coq
@@ -268,6 +281,7 @@
         pkgs.qemu
         pkgs.vala
         pkgs.kvm
+        pkgs.vpnc
         pkgs.xterm
     ];
 
