@@ -41,6 +41,11 @@
     {
         hostName = "dev"; # Define your hostname.
         interfaceMonitor.enable = true; # Watch for plugged cable.
+        extraHosts = ''
+
+        10.10.4.140 barkeep.mtv barkeep
+        10.11.1.153 engwiki.sv2 engwiki
+        '';
     };
     
     fileSystems = 
@@ -163,7 +168,7 @@
 
     environment.x11Packages = 
     [
-        pkgs.abiword
+        # pkgs.abiword
         pkgs.chrome
         pkgs.desktop_file_utils
         pkgs.eclipses.eclipse_sdk_37
@@ -185,7 +190,7 @@
         pkgs.linuxPackages.virtualboxGuestAdditions
         pkgs.shared_mime_info
         pkgs.shared_desktop_ontologies
-        pkgs.swt
+        # pkgs.swt
         pkgs.xfce.exo
         pkgs.xfce.gtk_xfce_engine
         pkgs.xfce.libxfcegui4 # For the icons.
@@ -214,8 +219,8 @@
         pkgs.xlibs.libXaw
         pkgs.xlibs.xproto
         pkgs.xlibs.xinput
+
         pkgs.fontconfig
-        pkgs.cm_unicode
         pkgs.hicolor_icon_theme
         pkgs.xclip
         pkgs.xdg_utils
@@ -230,6 +235,7 @@
 
     environment.shellInit = ''
         export GIO_EXTRA_MODULES=${pkgs.xfce.gvfs}/lib/gio/modules
+        export JAVA_HOME=${pkgs.jdk}
     '';
 
     services.syslogd.extraConfig = ''
@@ -237,7 +243,23 @@
     '';
 
     services.xfs.enable = false;
-    fonts.enableFontDir = true;
+    fonts =
+    {
+        enableFontDir = true;
+        extraFonts = 
+        [
+            pkgs.andagii
+            pkgs.anonymousPro
+            pkgs.arkpandora_ttf
+            pkgs.bakoma_ttf
+            pkgs.corefonts
+            pkgs.cm_unicode
+            pkgs.junicode
+            pkgs.ucsFonts
+            pkgs.unifont
+            pkgs.vistafonts
+        ];
+    };
 
     environment.systemPackages =
     [
@@ -257,6 +279,7 @@
         pkgs.acpi
         pkgs.pulseaudio
         pkgs.ruby19
+        pkgs.rubySqlite3
         pkgs.gcc
         pkgs.coq
         pkgs.oprofile
@@ -277,7 +300,6 @@
         pkgs.perlXMLParser
         pkgs.python
         pkgs.emacs23
-        pkgs.emacs23Packages.proofgeneral
         pkgs.qemu
         pkgs.vala
         pkgs.kvm
@@ -289,9 +311,12 @@
 
     security.sudo.enable = true;
     security.sudo.configFile = ''
-        Defaults env_keep += "LOCALE_ARCHIVE"
-        root        ALL=(ALL)           ALL
-        %wheel      ALL=(ALL) NOPASSWD: ALL
+        Defaults:root,%wheel env_keep+=LOCALE_ARCHIVE
+        Defaults:root,%wheel env_keep+=NIX_PATH
+        Defaults:root,%wheel env_keep+=TERMINFO_DIRS
+
+        root        ALL=(ALL) SETENV: ALL
+        %wheel      ALL=(ALL) NOPASSWD: SETENV: ALL
 '';
 
     services.virtualbox.enable = true;

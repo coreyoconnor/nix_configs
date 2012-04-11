@@ -24,6 +24,8 @@ with pkgs.lib;
                 darcs = pkgs.haskellPackages_ghc6123.darcs;
             };
 
+        nixpkgs.config.cabal.libraryProfiling = true;
+
         environment.systemPackages = 
             [ pkgs.haskellPackages.ghc
               pkgs.darcs

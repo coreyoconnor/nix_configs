@@ -32,6 +32,56 @@
                 pkgs.dbus
             ];
         };
+
+        rubySqlite3Dev = pkgs.myEnvFun
+        {
+            name = "sqlite3-ruby";
+            buildInputs = 
+            [ 
+                pkgs.stdenv
+                pkgs.autoconf
+                pkgs.automake
+                pkgs.ruby 
+                pkgs.sqlite 
+            ];
+        };
+        
+        rubyNokogiriDev = pkgs.myEnvFun
+        {
+            name = "nokogiri-ruby";
+            buildInputs = 
+            [ 
+                pkgs.stdenv
+                pkgs.autoconf
+                pkgs.automake
+                pkgs.ruby 
+                pkgs.libxml2 
+                pkgs.libxslt
+            ];
+        };
+
+        rubyTyphoeusDev = pkgs.myEnvFun
+        {
+            name = "typhoeus-ruby";
+            buildInputs = 
+            [ 
+                pkgs.stdenv
+                pkgs.autoconf
+                pkgs.automake
+                pkgs.ruby 
+                pkgs.curl
+            ];
+        };
+
+        haskellDev = pkgs.myEnvFun
+        {
+            name = "haskell";
+            buildInputs =
+            [
+                pkgs.haskellPackages_ghc741.ghc
+                pkgs.haskellPackages_ghc741.Cabal
+            ];
+        };
     };
 }
 
