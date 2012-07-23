@@ -3,25 +3,25 @@
 {
     require = 
     [
-        /home/corey/docs/secure_access.nix
         ./editorIsVim.nix
         ./haskellIsAll.nix
     ];
 
-    boot.extraModulePackages = 
-    [
-        pkgs.linuxPackages.virtualbox
-    ];
+    nix.maxJobs = 4;
 
-    nix.maxJobs = 2;
-
-    boot.kernelModules = [ "acpi-cpufreq" ];
+    boot.kernelModules = [ "acpi-cpufreq" "kvm-amd" ];
+    boot.extraModulePackages = [ ];
 
     boot.initrd.kernelModules = 
     [
-        "ext4" "ata_piix"
-        "mptspi" "uhci_hcd" "ehci_hcd"
-        "vboxdrv" "vboxnetadp" "vboxnetflt"
+        "ext4" 
+        "ata_piix"
+        "mptspi"
+        "ehci_hcd"
+        "pata_amd"
+        "ahci"
+        "usb_storage"
+        "usbhid"
     ];
 
     boot.loader.grub = 
@@ -39,36 +39,30 @@
     # XXX not anymore?
     networking = 
     {
-        hostName = "dev"; # Define your hostname.
+        hostName = "toast"; # Define your hostname.
         interfaceMonitor.enable = true; # Watch for plugged cable.
-        extraHosts = ''
-
-        10.10.4.140 barkeep.mtv barkeep
-        10.11.1.153 engwiki.sv2 engwiki
-        '';
     };
     
-    fileSystems = 
-    [
-        # root file system
-        { 
-            mountPoint = "/";
-            # XXX: Use labels
-            device = "/dev/sda2";
+    fileSystems =
+    [ 
+        { mountPoint = "/";
+          device = "/dev/disk/by-label/root";
+        }
+        { mountPoint = "/home/";
+          device = "/dev/sda4";
         }
     ];
 
-    swapDevices = 
-    [
-        # swap
-        { device = "/dev/sda1"; }
+    swapDevices =
+    [ 
+        { device = "/dev/disk/by-label/swap"; }
     ];
 
     # Select internationalisation properties.
     i18n = 
     {
         consoleFont = "lat9w-16";
-        consoleKeyMap = "us";
+        consoleKeyMap = "emacs2";
         defaultLocale = "en_US.UTF-8";
     };
 
@@ -90,12 +84,12 @@
 
     users.extraUsers =
     { 
-        corey = 
+        coconnor = 
         { 
             createHome = true;
             group = "users";
             extraGroups = [ "wheel" ];
-            home = "/home/corey";
+            home = "/home/coconnor";
             shell = pkgs.bashInteractive + "/bin/bash";
         };
     };
@@ -106,59 +100,10 @@
     {
         enable = true;
         autorun = true;
-        # useXFS = "unix/:7100";
-        videoDrivers = [ "virtualbox" "vesa" ];
-
-        displayManager.slim.defaultUser = "corey";
-
-        desktopManager = 
-        {
-            session = 
-            [ 
-                {
-                    name = "bind-desktop";
-                    start = ''
-                        xcompmgr -n &
-                        ${pkgs.linuxPackages.virtualboxGuestAdditions}/bin/VBoxClient-all
-                        xrdb -merge $HOME/.app-defaults/*
-
-                        # Set GTK_PATH so that GTK+ can find the Xfce theme engine.
-                        export GTK_PATH=${pkgs.xfce.gtk_xfce_engine}/lib/gtk-2.0
-
-                        # Set GTK_DATA_PREFIX so that GTK+ can find the Xfce themes.
-                        export GTK_DATA_PREFIX=${config.system.path}
-
-                        # Necessary to get xfce4-mixer to find GST's ALSA plugin.
-                        # Ugly.
-                        export GST_PLUGIN_PATH=${config.system.path}/lib
-
-                        xfce4-session
-                    '';
-                    bgSupport = false;
-                } 
-            ];
-        };
-
-        windowManager =
-        {
-            default = "xmonad";
-            xmonad.enable = true;
-        };
-
-        desktopManager.default = "bind-desktop";
-
-        exportConfiguration = true;
-
-        serverLayoutSection = ''
-            InputDevice "VBoxMouse" "CorePointer"
-        '';
-
-        config = ''
-            Section "InputDevice"
-                Identifier "VBoxMouse"
-                Driver "vboxmouse"
-            EndSection
-        '';
+        videoDrivers = [ "nvidia" "vesa" ];
+        layout = "us";
+        displayManager.kdm.enable = true;
+        desktopManager.kde4.enable = true;
     };
 
     services.dbus.packages =
@@ -169,9 +114,9 @@
     environment.x11Packages = 
     [
         # pkgs.abiword
-        pkgs.chrome
+        # pkgs.chromium
         pkgs.desktop_file_utils
-        pkgs.eclipses.eclipse_sdk_37
+        # pkgs.eclipses.eclipse_sdk_37
         pkgs.evince
         pkgs.firefox
         pkgs.flashplayer
@@ -289,7 +234,7 @@
         pkgs.gettext
         pkgs.glib
         pkgs.gnumake
-        pkgs.linuxPackages.virtualbox
+        pkgs.gnupg
         pkgs.inconsolata
         pkgs.isabelle
         pkgs.maven3
@@ -318,7 +263,5 @@
         root        ALL=(ALL) SETENV: ALL
         %wheel      ALL=(ALL) NOPASSWD: SETENV: ALL
 '';
-
-    services.virtualbox.enable = true;
 }
 
