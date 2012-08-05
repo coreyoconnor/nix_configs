@@ -1,10 +1,14 @@
 {config, pkgs, ...}:
 
 {
+    nixpkgs.config.chromium.channel = "dev";
+
     require = 
     [
         ./editorIsVim.nix
+        ./ooyala-java-config.nix
         ./haskellIsAll.nix
+        ./kde4.nix
     ];
 
     nix.maxJobs = 4;
@@ -102,8 +106,6 @@
         autorun = true;
         videoDrivers = [ "nvidia" "vesa" ];
         layout = "us";
-        displayManager.kdm.enable = true;
-        desktopManager.kde4.enable = true;
     };
 
     services.dbus.packages =
@@ -116,9 +118,9 @@
         # pkgs.abiword
         # pkgs.chromium
         pkgs.desktop_file_utils
-        # pkgs.eclipses.eclipse_sdk_37
         pkgs.evince
-        pkgs.firefox
+        pkgs.firefoxWrapper
+        pkgs.chromeWrapper
         pkgs.flashplayer
         pkgs.gnome.GConf
         pkgs.gnome.gtk
@@ -128,10 +130,7 @@
         pkgs.gnome.pango
         pkgs.gnome.vte
         pkgs.gtkLibs.gtk # To get GTK+'s themes.
-        pkgs.kde4.calligra
-        pkgs.kde4.kdelibs
-        pkgs.kde4.kde_runtime
-        pkgs.kde4.oxygen_icons
+        pkgs.intellij_idea_ce_11
         pkgs.linuxPackages.virtualboxGuestAdditions
         pkgs.shared_mime_info
         pkgs.shared_desktop_ontologies

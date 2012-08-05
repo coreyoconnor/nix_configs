@@ -20,7 +20,7 @@ with pkgs.lib;
     {
         nixpkgs.config.packageOverrides = pkgs : 
             { 
-                haskellPackages = pkgs.haskellPackages_ghc741;
+                haskellPackages = pkgs.haskellPackages_ghc741_profiling;
             };
 
         nixpkgs.config.cabal.libraryProfiling = true;
