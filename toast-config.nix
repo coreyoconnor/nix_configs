@@ -104,7 +104,7 @@
     {
         enable = true;
         autorun = true;
-        videoDrivers = [ "nvidia" "vesa" ];
+        videoDrivers = [ "nouveau" "vesa" ];
         layout = "us";
     };
 
@@ -135,25 +135,6 @@
         pkgs.shared_mime_info
         pkgs.shared_desktop_ontologies
         # pkgs.swt
-        pkgs.xfce.exo
-        pkgs.xfce.gtk_xfce_engine
-        pkgs.xfce.libxfcegui4 # For the icons.
-        pkgs.xfce.libxfce4ui
-        pkgs.xfce.ristretto
-        pkgs.xfce.terminal
-        pkgs.xfce.xfce4icontheme
-        pkgs.xfce.xfce4session
-        pkgs.xfce.xfce4panel
-        pkgs.xfce.xfce4settings
-        pkgs.xfce.xfce4mixer
-        pkgs.xfce.xfceutils
-        pkgs.xfce.xfconf
-        pkgs.xfce.xfdesktop
-        pkgs.xfce.garcon
-        pkgs.xfce.thunar
-        pkgs.xfce.thunar_volman
-        pkgs.xfce.gvfs
-        pkgs.xfce.xfce4_appfinder
         pkgs.xcompmgr
         pkgs.xlibs.fontutil
         pkgs.xlibs.kbproto
@@ -178,7 +159,6 @@
     ];
 
     environment.shellInit = ''
-        export GIO_EXTRA_MODULES=${pkgs.xfce.gvfs}/lib/gio/modules
         export JAVA_HOME=${pkgs.jdk}
     '';
 
