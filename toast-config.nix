@@ -34,8 +34,16 @@
         enable = true;
         version = 2;
 
-        # Define on which hard drive you want to install Grub.
         device = "/dev/sda";
+
+        extraEntries = ''
+        menuentry "Win" {
+            title "Win"
+            insmod ntfs
+            set root='(hd1,1)'
+            chainloader +1
+        }
+        '';
     };
 
     # I need to disable IPv6 because VirtualBox appears to have an issue with DHCP and IPv6. I have
