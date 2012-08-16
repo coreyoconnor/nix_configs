@@ -6,8 +6,9 @@
     require = 
     [
         ./editorIsVim.nix
-        ./ooyala-java-config.nix
-        ./haskellIsAll.nix
+        ./java-dev.nix
+        ./scala-dev.nix
+        ./haskell-dev.nix
         ./kde4.nix
     ];
 
