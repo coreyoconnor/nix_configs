@@ -5,11 +5,13 @@
 
     require = 
     [
+        ./user-coconnor.nix
         ./editorIsVim.nix
         ./java-dev.nix
         ./scala-dev.nix
         ./haskell-dev.nix
         ./kde4.nix
+        ./vm-host.nix
     ];
 
     nix.maxJobs = 4;
@@ -39,13 +41,14 @@
 
         extraEntries = ''
         menuentry "Win" {
-            title "Win"
             insmod ntfs
             set root='(hd1,1)'
             chainloader +1
         }
         '';
     };
+
+    boot.resumeDevice = "8:2";
 
     # I need to disable IPv6 because VirtualBox appears to have an issue with DHCP and IPv6. I have
     # not traced down exactly what is up. I just observed disabling IPv6 avoids problems.
@@ -95,25 +98,13 @@
     # Add the NixOS Manual on virtual console 8
     services.nixosManual.showManual = true;
 
-    users.extraUsers =
-    { 
-        coconnor = 
-        { 
-            createHome = true;
-            group = "users";
-            extraGroups = [ "wheel" ];
-            home = "/home/coconnor";
-            shell = pkgs.bashInteractive + "/bin/bash";
-        };
-    };
-
     # X11 config
     # starts 
     services.xserver = 
     {
         enable = true;
         autorun = true;
-        videoDrivers = [ "nouveau" "vesa" ];
+        videoDrivers = [ "nvidia" "vesa" ];
         layout = "us";
     };
 
@@ -140,7 +131,6 @@
         pkgs.gnome.vte
         pkgs.gtkLibs.gtk # To get GTK+'s themes.
         pkgs.intellij_idea_ce_11
-        pkgs.linuxPackages.virtualboxGuestAdditions
         pkgs.shared_mime_info
         pkgs.shared_desktop_ontologies
         # pkgs.swt
@@ -235,7 +225,6 @@
         pkgs.emacs23
         pkgs.qemu
         pkgs.vala
-        pkgs.kvm
         pkgs.vpnc
         pkgs.xterm
     ];
