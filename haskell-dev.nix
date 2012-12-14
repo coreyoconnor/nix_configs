@@ -18,9 +18,9 @@ with pkgs.lib;
 
     config = mkIf config.environment.haskellIsAll 
     {
-        nixpkgs.config.packageOverrides = pkgs : 
+        nixpkgs.config.packageOverrides = in_pkgs : 
             { 
-                haskellPackages = pkgs.haskellPackages_ghc741_profiling;
+                haskellPackages = in_pkgs.haskellPackages_ghc742_profiling;
             };
 
         nixpkgs.config.cabal.libraryProfiling = true;
