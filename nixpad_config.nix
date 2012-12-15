@@ -16,13 +16,14 @@
 
   nix.maxJobs = 4;
 
-  boot.kernelPackages = pkgs.linuxPackages_3_2;
+  boot.kernelPackages = pkgs.linuxPackages_3_7;
 
   boot.kernelModules =
   [
     "acpi-cpufreq"
     "kvm-intel"
   ];
+
   boot.extraModulePackages = [ ];
 
   boot.initrd.kernelModules = 
@@ -40,6 +41,7 @@
   {
     hostName = "nixpad"; # Define your hostname.
     interfaceMonitor.enable = true; # Watch for plugged cable.
+    wicd.enable = true;
   };
       
 	# Use the GRUB 2 boot loader.
@@ -95,13 +97,24 @@
     enable = true;
     autorun = true;
     videoDrivers = [ "nvidia" "vesa" ];
+    exportConfiguration = true;
     layout = "us";
     synaptics =
     {
       enable = true;
+      dev = "/dev/input/event11";
       twoFingerScroll = true;
       tapButtons = false;
-
+      minSpeed = "1.0";
+      maxSpeed = "8.0";
+      accelFactor = "0.08";
+      additionalOptions = ''
+        Option "SHMConfig" "true"
+        Option "FingerHigh" "23"
+        Option "FingerLow" "18"
+        Option "protocol" "default"
+        Option "SendCoreEvents" "true"
+      '';
     };
   };
 
@@ -143,6 +156,7 @@
     pkgs.xclip
     pkgs.xdg_utils
     pkgs.rxvt_unicode
+    pkgs.xorg.xf86inputsynaptics
   ];
 
   environment.pathsToLink =
@@ -153,6 +167,12 @@
 
   environment.shellInit = ''
       export JAVA_HOME=${pkgs.jdk}
+      NIX_PATH=/root/nixos
+      NIX_PATH=$NIX_PATH:nixpkgs=/root/nixpkgs
+      NIX_PATH=$NIX_PATH:nixos=/root/nixos
+      NIX_PATH=$NIX_PATH:nixos-config=/root/nix_configs/nixpad_config.nix
+      NIX_PATH=$NIX_PATH:services=/etc/nixos/services
+      export NIX_PATH
   '';
 
   services.syslogd.extraConfig = ''
