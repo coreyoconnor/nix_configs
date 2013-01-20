@@ -33,7 +33,7 @@ with pkgs.lib;
               self.HTTP_4000_2_6
               self.HUnit_1_2_5_1
               self.mtl_2_1_2
-              self.network_2_4_0_1
+              self.network_2_4_1_0
               self.OpenGL_2_6_0_1
               self.parallel_3_2_0_3
               self.parsec_3_1_3

@@ -12,11 +12,16 @@
     ./haskell-dev.nix
     ./kde4.nix
     ./vm-host.nix
+    ./wine.nix
   ];
 
-  nix.maxJobs = 4;
+  nix.maxJobs = 10;
 
-  boot.kernelPackages = pkgs.linuxPackages_3_7;
+  boot.blacklistedKernelModules = [ "nouveau" ];
+  boot.extraKernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
+  boot.vesa = false;
+
+  # boot.kernelPackages = pkgs.linuxPackages_3_7;
 
   boot.kernelModules =
   [
@@ -30,8 +35,8 @@
   [
     "ext4" 
     "usb_storage"
-    "uhci_hcd"
     "ehci_hcd"
+    "uhci_hcd"
     "ata_piix"
     "firewire_ohci"
     "usbhid" 
@@ -41,6 +46,8 @@
   {
     hostName = "nixpad"; # Define your hostname.
     interfaceMonitor.enable = true; # Watch for plugged cable.
+    # Cannot use wicd and have useDHCP true
+    useDHCP = false;
     wicd.enable = true;
   };
       
@@ -80,6 +87,8 @@
   services.upower.enable = true;
   services.acpid.enable = true;
 
+  services.pulseaudio.enable = true;
+
   # Add an OpenSSH daemon.
   services.openssh.enable = true;
 
@@ -102,18 +111,21 @@
     synaptics =
     {
       enable = true;
-      dev = "/dev/input/event11";
+      identifier = "appletouch touchpad catchall";
       twoFingerScroll = true;
       tapButtons = false;
-      minSpeed = "1.0";
-      maxSpeed = "8.0";
-      accelFactor = "0.08";
+      minSpeed = "0.5";
+      maxSpeed = "1.2";
+      accelFactor = "0.1";
       additionalOptions = ''
+        Option "HorizHysteresis" "1"
+        Option "VertHysteresis" "1"
         Option "SHMConfig" "true"
-        Option "FingerHigh" "23"
-        Option "FingerLow" "18"
-        Option "protocol" "default"
+        Option "FingerHigh" "15"
+        Option "FingerLow" "2"
         Option "SendCoreEvents" "true"
+        Option "AccelerationProfile" "-1"
+        Option "AccelerationScheme" "none"
       '';
     };
   };
@@ -126,7 +138,7 @@
   environment.x11Packages = 
   [
     # pkgs.abiword
-    # pkgs.chromium
+    pkgs.chromium
     pkgs.desktop_file_utils
     pkgs.evince
     pkgs.firefoxWrapper
@@ -214,7 +226,6 @@
     pkgs.utillinuxCurses
     pkgs.gitSVN
     pkgs.acpi
-    pkgs.pulseaudio
     pkgs.ruby19
     pkgs.rubySqlite3
     pkgs.gcc
