@@ -139,6 +139,7 @@
   [
     # pkgs.abiword
     pkgs.chromium
+    pkgs.chromiumWrapper
     pkgs.desktop_file_utils
     pkgs.evince
     pkgs.firefoxWrapper
