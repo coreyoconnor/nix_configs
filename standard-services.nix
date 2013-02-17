@@ -1,35 +1,41 @@
 {config, pkgs, ...}:
 with pkgs.lib;
 {
-  config =
+  config.hardware =
   {
-    services.dbus.enable = true;
-    services.udisks.enable = true;
-    services.upower.enable = true;
-    services.acpid.enable = true;
+    pulseaudio.enable = true;
+  };
 
-    services.pulseaudio.enable = true;
+  config.services =
+  {
+    dbus.enable = true;
+    ntp.enable = true;
+    udisks.enable = true;
+    upower.enable = true;
+    acpid.enable = true;
+
+    pulseaudio.enable = true;
 
     # Add an OpenSSH daemon.
-    services.openssh.enable = true;
+    openssh.enable = true;
 
     # XXX: Disables both X11 forwarding for the client as well as server.
     # I only want to disable X11 forwarding for ssh client
-    services.openssh.forwardX11 = false;
+    openssh.forwardX11 = false;
 
     # Add the NixOS Manual on virtual console 8
-    services.nixosManual.showManual = true;
+    nixosManual.showManual = true;
 
-    services.dbus.packages =
+    dbus.packages =
     [
       pkgs.gnome.GConf
     ];
 
-    services.syslogd.extraConfig = ''
+    syslogd.extraConfig = ''
         user.* /var/log/user
     '';
 
-    services.xfs.enable = false;
+    xfs.enable = false;
   };
 }
 

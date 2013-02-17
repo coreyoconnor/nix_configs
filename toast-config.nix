@@ -7,6 +7,7 @@
         ./editorIsVim.nix
         ./java-dev.nix
         ./scala-dev.nix
+        ./standard-env.nix
         ./standard-packages.nix
         ./standard-services.nix
         ./haskell-dev.nix
@@ -15,8 +16,11 @@
     ];
 
     nix.maxJobs = 10;
-
-    boot.kernelModules = [ "acpi-cpufreq" "kvm-amd" ];
+  
+  boot.blacklistedKernelModules = [ "nouveau" ];
+  boot.extraKernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
+  boot.kernelModules = [ "acpi-cpufreq" "kvm-amd" ];
+  boot.vesa = false;
 
     boot.initrd.kernelModules = 
     [
@@ -49,9 +53,6 @@
 
     boot.resumeDevice = "8:2";
 
-    # I need to disable IPv6 because VirtualBox appears to have an issue with DHCP and IPv6. I have
-    # not traced down exactly what is up. I just observed disabling IPv6 avoids problems.
-    # XXX not anymore?
     networking = 
     {
         hostName = "toast"; # Define your hostname.
@@ -90,7 +91,16 @@
         exportConfiguration = true;
         videoDrivers = [ "nvidia" "vesa" ];
         layout = "us";
+        # https://bbs.archlinux.org/viewtopic.php?id=117102
+        deviceSection = ''
+        Option "UseEvents" "false"
+        '';
     };
+
+  environment.x11Packages = 
+  [
+    pkgs.e17.enlightenment
+  ];
 
   environment.shellInit = ''
       NIX_PATH=/etc/nixos/nixos

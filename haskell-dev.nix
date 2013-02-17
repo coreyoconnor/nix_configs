@@ -30,7 +30,7 @@ with pkgs.lib;
               self.GLUT_2_3_1_0
               self.haskellSrc_1_0_1_5
               self.html_1_0_1_2
-              self.HTTP_4000_2_6
+              self.HTTP_4000_2_8
               self.HUnit_1_2_5_1
               self.mtl_2_1_2
               self.network_2_4_1_0

@@ -11,6 +11,7 @@ with pkgs.lib;
             freetype = import (pkgs.path + "/pkgs/development/libraries/freetype") {
                 inherit (pkgs) stdenv fetchurl gnumake;
                 useEncumberedCode = true;
+                useInfinality = true;
             };
         };
 
