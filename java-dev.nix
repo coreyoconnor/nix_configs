@@ -8,7 +8,7 @@ with pkgs.lib;
         environment.systemPackages =
             [ pkgs.maven3
               pkgs.jdk
-              pkgs.eclipses.eclipse_sdk_42
+              # pkgs.eclipses.eclipse_sdk_42
             ];
     };
 }

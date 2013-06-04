@@ -72,16 +72,6 @@
                 pkgs.curl
             ];
         };
-
-        haskellDev = pkgs.myEnvFun
-        {
-            name = "haskell";
-            buildInputs =
-            [
-                pkgs.haskellPackages_ghc741.ghc
-                pkgs.haskellPackages_ghc741.Cabal
-            ];
-        };
     };
 }
 

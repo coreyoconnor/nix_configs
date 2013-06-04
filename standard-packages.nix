@@ -88,7 +88,7 @@ with pkgs.lib;
       pkgs.gnumake
       pkgs.gnupg
       pkgs.inconsolata
-      pkgs.isabelle
+      # pkgs.isabelle
       pkgs.maven3
       pkgs.jdk
       pkgs.jre

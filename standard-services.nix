@@ -14,8 +14,6 @@ with pkgs.lib;
     upower.enable = true;
     acpid.enable = true;
 
-    pulseaudio.enable = true;
-
     # Add an OpenSSH daemon.
     openssh.enable = true;
 
