@@ -16,7 +16,7 @@ with pkgs.lib;
       pkgs.flashplayer
       pkgs.gnome.GConf
       pkgs.gnome.gtk
-      pkgs.gnome.intltool
+      # pkgs.gnome.intltool
       pkgs.gnome.gtk_doc
       pkgs.gnome.gnomeicontheme
       pkgs.gnome.pango
@@ -95,6 +95,7 @@ with pkgs.lib;
       pkgs.nginx
       pkgs.ocaml
       pkgs.perlXMLParser
+      pkgs.pkgconfig
       pkgs.python
       pkgs.emacs23
       pkgs.qemu

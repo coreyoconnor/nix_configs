@@ -92,8 +92,20 @@
     {
       rpc-whitelist = "127.0.0.1,192.168.*.*";
       umask = 2;
+      download-dir = "/mnt/nomnom/media/Downloads";
     };
   };
+
+  systemd.mounts =
+  [
+    {
+      what = "//192.168.1.10/media";
+      where = "/mnt/nomnom/media";
+      type = "cifs";
+      options = "guest,noatime";
+      requiredBy = ["transmission.service"];
+    }
+  ];
 
   # X11 config
   # starts 
@@ -120,6 +132,22 @@
       NIX_PATH=$NIX_PATH:services=/etc/nixos/services
       export NIX_PATH
   '';
+
+  # /home/coconnor needs o+x
+  services.nginx =
+  {
+    enable = true;
+    httpSectionContent = ''
+      include    ${pkgs.nginx}/conf/mime.types;
+      default_type application/octet-stream;
+
+      server {
+        server_name toast;
+
+        root /;
+      }
+    '';
+  };
 
   # tests = [];
 }
