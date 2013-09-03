@@ -7,7 +7,7 @@ with pkgs.lib;
     {
         nixpkgs.config.packageOverrides = pkgs : 
         { 
-            kde4 = pkgs.kde410;
+            kde4 = pkgs.kde411;
             freetype = import (pkgs.path + "/pkgs/development/libraries/freetype") {
                 inherit (pkgs) stdenv fetchurl gnumake;
                 useInfinality = true;
