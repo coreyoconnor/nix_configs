@@ -102,7 +102,7 @@
       what = "//192.168.1.10/media";
       where = "/mnt/nomnom/media";
       type = "cifs";
-      options = "guest,noatime";
+      options = "guest";
       requiredBy = ["transmission.service"];
     }
   ];
