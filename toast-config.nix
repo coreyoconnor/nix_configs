@@ -18,8 +18,8 @@
   nix.maxJobs = 10;
   
   boot.blacklistedKernelModules = [ "nouveau" ];
-  boot.extraKernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
-  boot.kernelModules = [ "acpi-cpufreq" "kvm-amd" ];
+  boot.kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
+  boot.kernelModules = [ "acpi-cpufreq" "kvm-amd" "vhost_net" ];
   boot.vesa = false;
 
   boot.initrd.kernelModules = 
@@ -122,32 +122,49 @@
     '';
   };
 
+  services.cgminer =
+  {
+    enable = true;
+    pools = 
+    [
+      {
+        url = "stratum+tcp://stratum.mining.eligius.st:3334";
+        user = "17n5XxYfR8ucy9dc2ycVVSymrcwB9tCVo4";
+        pass = "";
+      }
+    ];
+    config =
+    {
+      auto-fan = true;
+      auto-gpu = true;
+    };
+  };
+
   services.xserver.desktopManager.e17.enable = true;
 
   environment.shellInit = ''
-      NIX_PATH=/etc/nixos/nixos
-      NIX_PATH=$NIX_PATH:nixpkgs=/etc/nixos/nixpkgs
-      NIX_PATH=$NIX_PATH:nixos=/etc/nixos/nixos
+      NIX_PATH=nixos=/etc/nixos/nixpkgs/nixos
       NIX_PATH=$NIX_PATH:nixos-config=/etc/nixos/configuration.nix
       NIX_PATH=$NIX_PATH:services=/etc/nixos/services
+      NIX_PATH=$NIX_PATH:nixpkgs=/etc/nixos/nixpkgs
       export NIX_PATH
   '';
 
   # /home/coconnor needs o+x
-  services.nginx =
-  {
-    enable = true;
-    httpSectionContent = ''
-      include    ${pkgs.nginx}/conf/mime.types;
-      default_type application/octet-stream;
-
-      server {
-        server_name toast;
-
-        root /;
-      }
-    '';
-  };
+  #services.nginx =
+  #{
+  #  enable = true;
+  #  httpSectionContent = ''
+  #    include    ${pkgs.nginx}/conf/mime.types;
+  #    default_type application/octet-stream;
+#
+#      server {
+#        server_name toast;
+#
+#        root /;
+#      }
+#    '';
+#  };
 
   # tests = [];
 }

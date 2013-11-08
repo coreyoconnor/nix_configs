@@ -5,42 +5,6 @@ with pkgs.lib;
   {
     nixpkgs.config.chromium.channel = "dev";
 
-    environment.x11Packages = 
-    [
-      # pkgs.abiword
-      pkgs.chromium
-      pkgs.chromiumWrapper
-      pkgs.desktop_file_utils
-      pkgs.evince
-      pkgs.firefoxWrapper
-      pkgs.flashplayer
-      pkgs.gnome.GConf
-      pkgs.gnome.gtk
-      # pkgs.gnome.intltool
-      pkgs.gnome.gtk_doc
-      pkgs.gnome.gnomeicontheme
-      pkgs.gnome.pango
-      pkgs.gnome.vte
-      pkgs.gtkLibs.gtk # To get GTK+'s themes.
-      pkgs.shared_mime_info
-      pkgs.shared_desktop_ontologies
-      # pkgs.swt
-      pkgs.xcompmgr
-      pkgs.xlibs.fontutil
-      pkgs.xlibs.kbproto
-      pkgs.xlibs.libICE
-      pkgs.xlibs.libXt
-      pkgs.xlibs.libXtst
-      pkgs.xlibs.libXaw
-      pkgs.xlibs.xproto
-      pkgs.xlibs.xinput
-      pkgs.fontconfig
-      pkgs.hicolor_icon_theme
-      pkgs.xclip
-      pkgs.xdg_utils
-      pkgs.rxvt_unicode
-    ];
-
     fonts =
     {
       enableFontDir = true;
@@ -102,6 +66,38 @@ with pkgs.lib;
       pkgs.vala
       pkgs.vpnc
       pkgs.xterm
+      # pkgs.abiword
+      pkgs.chromium
+      pkgs.chromiumWrapper
+      pkgs.desktop_file_utils
+      pkgs.evince
+      pkgs.firefoxWrapper
+      pkgs.flashplayer
+      pkgs.gnome.GConf
+      pkgs.gnome.gtk
+      # pkgs.gnome.intltool
+      pkgs.gnome.gtk_doc
+      pkgs.gnome.gnomeicontheme
+      pkgs.gnome.pango
+      pkgs.gnome.vte
+      pkgs.gtkLibs.gtk # To get GTK+'s themes.
+      pkgs.shared_mime_info
+      pkgs.shared_desktop_ontologies
+      # pkgs.swt
+      pkgs.xcompmgr
+      pkgs.xlibs.fontutil
+      pkgs.xlibs.kbproto
+      pkgs.xlibs.libICE
+      pkgs.xlibs.libXt
+      pkgs.xlibs.libXtst
+      pkgs.xlibs.libXaw
+      pkgs.xlibs.xproto
+      pkgs.xlibs.xinput
+      pkgs.fontconfig
+      pkgs.hicolor_icon_theme
+      pkgs.xclip
+      pkgs.xdg_utils
+      pkgs.rxvt_unicode
     ];
   };
 }

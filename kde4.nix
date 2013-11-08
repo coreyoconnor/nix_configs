@@ -14,7 +14,7 @@ with pkgs.lib;
             };
         };
 
-        environment.x11Packages = 
+        environment.systemPackages = 
         [ 
             # pkgs.kde4.calligra
             pkgs.kde4.kactivities # Required. Otherwise KDE Activities do not work.

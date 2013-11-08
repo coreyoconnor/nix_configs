@@ -21,7 +21,7 @@ with pkgs.lib;
     # I only want to disable X11 forwarding for ssh client
     openssh.forwardX11 = false;
 
-    # Add the NixOS Manual on virtual console 8
+    # add the NixOS Manual on virtual console 8
     nixosManual.showManual = true;
 
     dbus.packages =

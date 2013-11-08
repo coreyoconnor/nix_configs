@@ -10,7 +10,7 @@ with pkgs.lib;
         { 
             createHome = true;
             group = "users";
-            extraGroups = [ "wheel" "vboxusers" "transmission" ];
+            extraGroups = [ "wheel" "vboxusers" "transmission" "plugdev" ];
             home = "/home/coconnor";
             shell = pkgs.bashInteractive + "/bin/bash";
         };
