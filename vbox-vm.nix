@@ -2,7 +2,14 @@
 
 {
   imports =
-  [ <nixos/modules/installer/scan/not-detected.nix>
+  [
+    <nixos/modules/installer/scan/not-detected.nix>
+    ./editorIsVim.nix
+  ];
+
+  require =
+  [
+    ./user-coconnor.nix
   ];
 
   nix.maxJobs = 2;
@@ -54,8 +61,8 @@
 
   networking = 
   {
-    hostName = "nix-dev"; # Define your hostname.
-    interfaceMonitor.enable = true; # Watch for plugged cable.
+    hostName = "nix-dev";
+    interfaceMonitor.enable = false;
   };
   
   security.sudo.enable = true;
