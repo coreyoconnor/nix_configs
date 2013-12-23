@@ -5,6 +5,8 @@
   [
     ./user-coconnor.nix
     ./editorIsVim.nix
+    ./filesystem.nix
+    ./i18n.nix
     ./java-dev.nix
     ./scala-dev.nix
     ./standard-packages.nix
@@ -13,15 +15,10 @@
     ./kde4.nix
     ./vm-host.nix
     ./wine.nix
+    ./proprietary_nvidia_drivers.nix
   ];
 
   nix.maxJobs = 10;
-
-  boot.blacklistedKernelModules = [ "nouveau" ];
-  boot.extraKernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
-  boot.vesa = false;
-
-  # boot.kernelPackages = pkgs.linuxPackages_3_7;
 
   boot.kernelModules =
   [
@@ -56,29 +53,6 @@
 
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda";
-
-  # Add filesystem entries for each partition that you want to see
-  # mounted at boot time.  This should include at least the root
-  # filesystem.
-  fileSystems =
-  [ { mountPoint = "/";
-      device = "/dev/disk/by-label/root";
-    }
-  ];
-
-  # List swap partitions activated at boot time.
-  swapDevices =
-  [ { device = "/dev/disk/by-label/swap"; }
-  ];
-
-  # Select internationalisation properties.
-  i18n =
-  {
-    consoleFont = "lat9w-16";
-    consoleKeyMap = "emacs2";
-    defaultLocale = "en_US.UTF-8";
-  };
-
 
   # X11 config
   # starts 

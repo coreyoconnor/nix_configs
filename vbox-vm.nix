@@ -10,12 +10,12 @@
   require =
   [
     ./user-coconnor.nix
+    ./filesystem.nix
+    ./i18n.nix
+    ./haskell-dev.nix
   ];
 
   nix.maxJobs = 2;
-
-  boot.extraModulePackages = [ ];
-  boot.kernelModules = [ ];
 
   boot.loader.grub = 
   {
@@ -46,18 +46,6 @@
     pkgs.qemu
     pkgs.kvm
   ];
-
-  fileSystems."/" =
-  { device = "/dev/sda2";
-    fsType = "ext4";
-    options = "rw,data=ordered,relatime";
-  };
-
-  i18n = {
-    consoleFont = "lat9w-16";
-    consoleKeyMap = "us";
-    defaultLocale = "en_US.UTF-8";
-  };
 
   networking = 
   {
