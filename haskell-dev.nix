@@ -33,6 +33,7 @@ with pkgs.lib;
       self.stm_2_4_2
       self.syb_0_3_7
       self.text_0_11_2_3
+      self.terminfo
       self.transformers_0_3_0_0
       self.vector_0_10_0_1
       self.xhtml_3000_2_1
