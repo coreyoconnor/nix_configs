@@ -142,6 +142,8 @@
 
   services.xserver.desktopManager.e17.enable = true;
 
+  nix.trustedBinaryCaches = ["http://hydra.nixos.org"];
+
   environment.shellInit = ''
       NIX_PATH=nixos=/etc/nixos/nixpkgs/nixos
       NIX_PATH=$NIX_PATH:nixos-config=/etc/nixos/configuration.nix
