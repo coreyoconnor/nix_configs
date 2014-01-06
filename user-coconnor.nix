@@ -1,19 +1,23 @@
 {config, pkgs, ...}:
 with pkgs.lib;
 {
-    # make sure a vboxusers group exists
-    users.extraGroups = singleton { name = "vboxusers"; };
+  # make sure the required groups exist
+  users.extraGroups =
+  [
+    { name = "vboxusers"; }
+    { name = "transmission"; }
+    { name = "plugdev"; }
+  ];
 
-    users.extraUsers =
+  users.extraUsers =
+  { 
+    coconnor = 
     { 
-        coconnor = 
-        { 
-            createHome = true;
-            group = "users";
-            extraGroups = [ "wheel" "vboxusers" "transmission" "plugdev" ];
-            home = "/home/coconnor";
-            shell = pkgs.bashInteractive + "/bin/bash";
-        };
+      createHome = true;
+      group = "users";
+      extraGroups = [ "wheel" "vboxusers" "transmission" "plugdev" ];
+      home = "/home/coconnor";
+      shell = pkgs.bashInteractive + "/bin/bash";
     };
-
+  };
 }

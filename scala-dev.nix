@@ -1,10 +1,10 @@
 {config, pkgs, ...} :
 
 {
-    config =
-    {
-        environment.systemPackages =
-            [ pkgs.scala
-            ];
-    };
+  config =
+  {
+    environment.systemPackages =
+      [ pkgs.scala
+      ];
+  };
 }

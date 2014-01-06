@@ -5,22 +5,22 @@
   [
     ./user-coconnor.nix
     ./editorIsVim.nix
+    ./filesystem.nix
     ./java-dev.nix
     ./scala-dev.nix
     ./standard-env.nix
     ./standard-packages.nix
     ./standard-services.nix
     ./haskell-dev.nix
+    ./i18n.nix
     ./kde4.nix
     ./vm-host.nix
+    ./proprietary_nvidia_drivers.nix
   ];
 
   nix.maxJobs = 10;
   
-  boot.blacklistedKernelModules = [ "nouveau" ];
-  boot.kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
   boot.kernelModules = [ "acpi-cpufreq" "kvm-amd" "vhost_net" ];
-  boot.vesa = false;
 
   boot.initrd.kernelModules = 
   [
@@ -64,26 +64,10 @@
   
   fileSystems =
   [ 
-    { mountPoint = "/";
-      device = "/dev/disk/by-label/root";
-    }
     { mountPoint = "/home/";
       device = "/dev/sda4";
     }
   ];
-
-  swapDevices =
-  [ 
-    { device = "/dev/disk/by-label/swap"; }
-  ];
-
-  # Select internationalisation properties.
-  i18n = 
-  {
-    consoleFont = "lat9w-16";
-    consoleKeyMap = "emacs2";
-    defaultLocale = "en_US.UTF-8";
-  };
 
   services.transmission =
   {
