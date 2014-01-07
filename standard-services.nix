@@ -13,15 +13,8 @@ with pkgs.lib;
     udisks.enable = true;
     upower.enable = true;
     acpid.enable = true;
-
-    # Add an OpenSSH daemon.
     openssh.enable = true;
-
-    # XXX: Disables both X11 forwarding for the client as well as server.
-    # I only want to disable X11 forwarding for ssh client
-    openssh.forwardX11 = false;
-
-    # add the NixOS Manual on virtual console 8
+    openssh.forwardX11 = true;
     nixosManual.showManual = true;
 
     dbus.packages =
