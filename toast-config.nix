@@ -129,10 +129,10 @@
   nix.trustedBinaryCaches = ["http://hydra.nixos.org"];
 
   environment.shellInit = ''
-      NIX_PATH=nixos=/etc/nixos/nixpkgs/nixos
-      NIX_PATH=$NIX_PATH:nixos-config=/etc/nixos/configuration.nix
+      NIX_PATH=nixos=/home/coconnor/Development/nixpkgs/nixos
+      NIX_PATH=$NIX_PATH:nixos-config=/home/coconnor/Development/nix_configs/toast-config.nix
       NIX_PATH=$NIX_PATH:services=/etc/nixos/services
-      NIX_PATH=$NIX_PATH:nixpkgs=/etc/nixos/nixpkgs
+      NIX_PATH=$NIX_PATH:nixpkgs=/home/coconnor/Development/nixpkgs
       export NIX_PATH
   '';
 
