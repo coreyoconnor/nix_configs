@@ -11,7 +11,7 @@ with pkgs.lib;
       self.ghcPaths
       self.Cabal_1_16_0_3 
       self.async_2_0_1_4
-      self.cgi_3001_1_8_4
+      # self.cgi_3001_1_8_4
       self.fgl_5_4_2_4
       self.GLUT_2_3_1_0
       self.GLUT_2_3_1_0

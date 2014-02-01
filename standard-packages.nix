@@ -3,7 +3,7 @@ with pkgs.lib;
 {
   config =
   {
-    nixpkgs.config.chromium.channel = "dev";
+    # nixpkgs.config.chromium.channel = "dev";
 
     fonts =
     {
@@ -61,7 +61,7 @@ with pkgs.lib;
       pkgs.perlXMLParser
       pkgs.pkgconfig
       pkgs.python
-      pkgs.emacs23
+      pkgs.emacs
       pkgs.qemu
       pkgs.vala
       pkgs.vpnc

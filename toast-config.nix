@@ -65,7 +65,7 @@
   fileSystems =
   [ 
     { mountPoint = "/home/";
-      device = "/dev/sda4";
+      device = "/dev/disk/by-label/home";
     }
   ];
 
@@ -120,11 +120,11 @@
     config =
     {
       auto-fan = true;
-      auto-gpu = true;
+      auto-gpu = false;
     };
   };
 
-  services.xserver.desktopManager.e17.enable = true;
+  # services.xserver.desktopManager.e17.enable = true;
 
   nix.trustedBinaryCaches = ["http://hydra.nixos.org"];
 
