@@ -106,6 +106,13 @@
     '';
   };
 
+  systemd.services.cgminer = {
+    serviceConfig = {
+      Nice = 19;
+      IOSchedulingClass = "idle";
+    };
+  };
+
   services.cgminer =
   {
     enable = true;
@@ -121,6 +128,7 @@
     {
       auto-fan = true;
       auto-gpu = false;
+      device = "1";
     };
   };
 
