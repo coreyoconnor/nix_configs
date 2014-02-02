@@ -43,6 +43,8 @@ with pkgs.lib;
       # self.haddock_2_13_2
       self.happy_1_18_10
       self.primitive_0_5_0_1
+      self.X11
+      self.X11Xft
     ]);
   };
 
