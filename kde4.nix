@@ -26,7 +26,7 @@ with pkgs.lib;
     ];
 
     services.xserver.displayManager.kdm.enable = true;
-    services.xserver.desktopManager.kde4.enable = true;
+    # services.xserver.desktopManager.kde4.enable = true;
   };
 }
 

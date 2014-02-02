@@ -98,13 +98,17 @@
     enable = true;
     autorun = true;
     exportConfiguration = true;
-    videoDrivers = [ "nvidia" "vesa" ];
+    windowManager.xmonad.enable = true;
+    windowManager.default = "xmonad";
+    desktopManager.default = "none";
     layout = "us";
     # https://bbs.archlinux.org/viewtopic.php?id=117102
     deviceSection = ''
     Option "UseEvents" "false"
     '';
   };
+
+  services.mesa.videoDrivers = [ "nvidia" "vesa" ];
 
   systemd.services.cgminer = {
     serviceConfig = {
