@@ -45,6 +45,9 @@ with pkgs.lib;
       self.primitive_0_5_0_1
       self.X11
       self.X11Xft
+      self.xmonad
+      self.xmonadContrib
+      self.xmonadExtras
     ]);
   };
 
