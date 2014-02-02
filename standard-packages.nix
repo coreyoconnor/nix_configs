@@ -67,11 +67,11 @@ with pkgs.lib;
       pkgs.vpnc
       pkgs.xterm
       # pkgs.abiword
-      pkgs.chromium
-      pkgs.chromiumWrapper
+      #pkgs.chromium
+      #pkgs.chromiumWrapper
       pkgs.desktop_file_utils
       pkgs.evince
-      pkgs.firefoxWrapper
+      #pkgs.firefoxWrapper
       pkgs.flashplayer
       pkgs.gnome.GConf
       pkgs.gnome.gtk
