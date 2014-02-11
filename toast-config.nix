@@ -21,6 +21,7 @@
   nix.maxJobs = 10;
   
   boot.kernelModules = [ "acpi-cpufreq" "kvm-amd" "vhost_net" ];
+  boot.kernelPackages = pkgs.linuxPackages_3_12;
 
   boot.initrd.kernelModules = 
   [
@@ -86,7 +87,7 @@
       what = "//192.168.1.10/media";
       where = "/mnt/nomnom/media";
       type = "cifs";
-      options = "guest";
+      options = "guest,sec=ntlm";
       requiredBy = ["transmission.service"];
     }
   ];
@@ -99,6 +100,7 @@
     autorun = true;
     exportConfiguration = true;
     windowManager.xmonad.enable = true;
+    windowManager.xmonad.enableContribAndExtras = true;
     windowManager.default = "xmonad";
     desktopManager.default = "none";
     layout = "us";

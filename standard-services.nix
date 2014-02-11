@@ -1,9 +1,14 @@
 {config, pkgs, ...}:
 with pkgs.lib;
 {
-  config.hardware =
+  config =
   {
-    pulseaudio.enable = true;
+    boot.blacklistedKernelModules = [ "snd_pcsp" ];
+    boot.extraModprobeConfig = ''
+      options snd slots=snd-hda-intel
+    '';
+    sound.enable = true;
+    # pulseaudio.enable = true;
   };
 
   config.services =
