@@ -57,7 +57,6 @@
   networking = 
   {
     hostName = "toast"; # Define your hostname.
-    interfaceMonitor.enable = true; # Watch for plugged cable.
     extraHosts = ''
     127.0.0.1 toast
     '';
@@ -69,6 +68,8 @@
       device = "/dev/disk/by-label/home";
     }
   ];
+
+  services.jenkins.enable = true;
 
   services.transmission =
   {
