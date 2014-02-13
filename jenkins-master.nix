@@ -1,7 +1,11 @@
 {config, pkgs, ...}:
 with pkgs.lib;
 {
-  services.jenkins.enable = true;
+  services.jenkins =
+  {
+    enable = true;
+    packages = [ pkgs.bash pkgs.stdenv pkgs.git pkgs.jdk pkgs.openssh pkgs.nix pkgs.nixops ];
+  };
 
   services.openssh =
   {
@@ -12,7 +16,7 @@ with pkgs.lib;
         publicKeyFile = ./github.com.pub;
       }
       {
-        hostNames = [ "private" ];
+        hostNames = [ "50.18.248.193" "private" ];
         publicKeyFile = ./private.pub;
       }
     ];
