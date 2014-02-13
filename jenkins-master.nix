@@ -4,7 +4,14 @@ with pkgs.lib;
   services.jenkins =
   {
     enable = true;
-    packages = [ pkgs.bash pkgs.stdenv pkgs.git pkgs.jdk pkgs.openssh pkgs.nix pkgs.nixops ];
+    packages = [ pkgs.bash
+                 pkgs.stdenv
+                 pkgs.git
+                 pkgs.jdk
+                 pkgs.openssh
+                 pkgs.nix
+                 pkgs.nixops
+                 pkgs.gzip ];
   };
 
   services.openssh =
