@@ -7,6 +7,7 @@
     ./editorIsVim.nix
     ./filesystem.nix
     ./java-dev.nix
+    ./jenkins-master.nix
     ./scala-dev.nix
     ./standard-env.nix
     ./standard-packages.nix
@@ -68,8 +69,6 @@
       device = "/dev/disk/by-label/home";
     }
   ];
-
-  services.jenkins.enable = true;
 
   services.transmission =
   {

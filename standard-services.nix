@@ -18,8 +18,11 @@ with pkgs.lib;
     udisks.enable = true;
     upower.enable = true;
     acpid.enable = true;
-    openssh.enable = true;
-    openssh.forwardX11 = true;
+    openssh =
+    {
+      enable = true;
+      forwardX11 = true;
+    };
     nixosManual.showManual = true;
 
     dbus.packages =
