@@ -1,11 +1,10 @@
 {config, pkgs, ...}:
 
 {
-    require = [ <nixos/modules/programs/virtualbox.nix> ];
-
-    environment.systemPackages =
-    [
-        pkgs.kvm
-    ];
+  boot.kernelModules = [ "virtio" ];
+  environment.systemPackages =
+  [
+      pkgs.kvm
+  ];
 }
 

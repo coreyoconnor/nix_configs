@@ -1,5 +1,4 @@
 {config, pkgs, ...}:
-
 {
   require = 
   [
@@ -15,6 +14,7 @@
     ./haskell-dev.nix
     ./i18n.nix
     ./kde4.nix
+    ../corebotllc.com/etc/test-vm-network.nix
     ./vm-host.nix
     ./proprietary_nvidia_drivers.nix
   ];
