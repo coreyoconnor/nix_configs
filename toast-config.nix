@@ -59,6 +59,7 @@
     hostName = "toast"; # Define your hostname.
     extraHosts = ''
     127.0.0.1 toast
+    192.168.56.101 test_corebotllc
     '';
   };
   
