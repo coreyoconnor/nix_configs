@@ -4,11 +4,7 @@ with pkgs.lib;
   config =
   {
     boot.blacklistedKernelModules = [ "snd_pcsp" ];
-    boot.extraModprobeConfig = ''
-      options snd slots=snd-hda-intel
-    '';
     sound.enable = true;
-    # pulseaudio.enable = true;
   };
 
   config.services =

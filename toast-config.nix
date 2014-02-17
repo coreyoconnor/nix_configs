@@ -22,6 +22,9 @@
   
   boot.kernelModules = [ "acpi-cpufreq" "kvm-amd" "vhost_net" ];
   boot.kernelPackages = pkgs.linuxPackages_3_12;
+  boot.extraModprobeConfig = ''
+    options snd slots=snd-hda-intel
+  '';
 
   boot.initrd.kernelModules = 
   [

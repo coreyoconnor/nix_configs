@@ -24,7 +24,7 @@
       options = "rw,stripe=4,data=ordered,relatime";
     };
 
-  swapDevices =[ ];
+  swapDevices =[ { label = "swap"; } ];
 
   nix.maxJobs = 4;
 }

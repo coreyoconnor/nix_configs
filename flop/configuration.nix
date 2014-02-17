@@ -45,6 +45,13 @@
     '';
   };
 
+  system.activationScripts =
+  {
+    configureAlsa = ''
+      cp ${./asound.conf} /etc/asound.conf
+    '';
+  };
+
   environment.shellInit = ''
       NIX_PATH=nixos=/home/coconnor/Development/nix_configs/nixpkgs/nixos
       NIX_PATH=$NIX_PATH:nixos-config=/home/coconnor/Development/nix_configs/flop/configuration.nix
@@ -89,8 +96,6 @@
         Option "HorizResolution" "64"
         Option "HorizHysteresis" "1"
         Option "VertHysteresis" "1"
-      #   Option "AccelerationProfile" "-1"
-      #   Option "AccelerationScheme" "none"
       '';
     };
   };
