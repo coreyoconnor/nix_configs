@@ -58,6 +58,8 @@
 
   boot.resumeDevice = "8:2";
 
+  environment.systemConfigName = "toast-config.nix";
+
   networking = 
   {
     hostName = "toast"; # Define your hostname.
