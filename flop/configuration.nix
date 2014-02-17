@@ -8,9 +8,12 @@
   require = 
   [
     ../user-coconnor.nix
+    ../java-dev.nix
     ../editorIsVim.nix
     ../standard-env.nix
     ../standard-packages.nix
+    ../standard-services.nix
+    ../haskell-dev.nix
     ../i18n.nix
     ../kde4.nix
     ./hardware-configuration.nix
@@ -65,24 +68,30 @@
   {
     enable = true;
     layout = "us";
+
     synaptics =
     {
       enable = true;
       twoFingerScroll = true;
       tapButtons = false;
-      #minSpeed = "0.5";
-      #maxSpeed = "1.2";
-      #accelFactor = "0.1";
-      # additionalOptions = ''
-      #   Option "HorizHysteresis" "1"
-      #   Option "VertHysteresis" "1"
-      #   Option "SHMConfig" "true"
-      #   Option "FingerHigh" "15"
-      #   Option "FingerLow" "2"
-      #   Option "SendCoreEvents" "true"
+      buttonsMap = [1 3 2];
+      palmDetect = true;
+      minSpeed = "1.5";
+      maxSpeed = "100";
+      accelFactor = "0.34";
+      additionalOptions = ''
+        Option "SHMConfig" "true"
+        Option "FingerLow" "5"
+        Option "FingerHigh" "20"
+        Option "ConstantDeceleration" "20"
+        Option "AdaptiveDeceleration" "20"
+        Option "VertResolution" "62"
+        Option "HorizResolution" "64"
+        Option "HorizHysteresis" "1"
+        Option "VertHysteresis" "1"
       #   Option "AccelerationProfile" "-1"
       #   Option "AccelerationScheme" "none"
-      # '';
+      '';
     };
   };
   services.xserver.desktopManager.kde4.enable = true;
