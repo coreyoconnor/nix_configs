@@ -8,14 +8,17 @@
   require = 
   [
     ../user-coconnor.nix
+    ../coconnor-manages-nixos.nix
     ../java-dev.nix
     ../editorIsVim.nix
     ../standard-env.nix
     ../standard-packages.nix
     ../standard-services.nix
+    ../filesystem.nix
     ../haskell-dev.nix
     ../i18n.nix
     ../kde4.nix
+    ../vm-host.nix
     ./hardware-configuration.nix
   ];
 
@@ -51,24 +54,6 @@
       cp ${./asound.conf} /etc/asound.conf
     '';
   };
-
-  environment.shellInit = ''
-      NIX_PATH=nixos=/home/coconnor/Development/nix_configs/nixpkgs/nixos
-      NIX_PATH=$NIX_PATH:nixos-config=/home/coconnor/Development/nix_configs/flop/configuration.nix
-      NIX_PATH=$NIX_PATH:services=/etc/nixos/services
-      NIX_PATH=$NIX_PATH:nixpkgs=/home/coconnor/Development/nix_configs/nixpkgs
-      export NIX_PATH
-  '';
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  services.upower.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver =
