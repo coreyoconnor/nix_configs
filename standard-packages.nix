@@ -10,7 +10,6 @@ with pkgs.lib;
       enableFontDir = true;
       extraFonts = 
       [
-        pkgs.andagii
         pkgs.anonymousPro
         pkgs.arkpandora_ttf
         pkgs.bakoma_ttf
@@ -66,12 +65,8 @@ with pkgs.lib;
       pkgs.vala
       pkgs.vpnc
       pkgs.xterm
-      # pkgs.abiword
-      #pkgs.chromium
-      #pkgs.chromiumWrapper
       pkgs.desktop_file_utils
       pkgs.evince
-      #pkgs.firefoxWrapper
       pkgs.flashplayer
       pkgs.gnome.GConf
       pkgs.gnome.gtk

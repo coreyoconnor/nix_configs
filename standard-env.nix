@@ -10,7 +10,6 @@ with pkgs.lib;
     ];
 
     environment.shellInit = ''
-      export JAVA_HOME=${pkgs.jdk}
       export LC_ALL=${config.i18n.defaultLocale}
     '';
 

@@ -1,6 +1,19 @@
 { config, pkgs, ... } :
 with pkgs.lib;
 {
+  options =
+  {
+    environment.useInfinality = mkOption
+    {
+      default = true;
+      example = true;
+      type = with types; bool;
+      description = ''
+          Use infinality patches on freetyp
+      '';
+    };
+  };
+
   config =
   {
     nixpkgs.config.packageOverrides = pkgs : 
@@ -8,7 +21,7 @@ with pkgs.lib;
       kde4 = pkgs.kde411;
       freetype = import (pkgs.path + "/pkgs/development/libraries/freetype") {
           inherit (pkgs) stdenv fetchurl gnumake;
-          useInfinality = true;
+          useInfinality = config.environment.useInfinality;
       };
     };
 
@@ -26,7 +39,6 @@ with pkgs.lib;
     ];
 
     services.xserver.displayManager.kdm.enable = true;
-    # services.xserver.desktopManager.kde4.enable = true;
   };
 }
 
