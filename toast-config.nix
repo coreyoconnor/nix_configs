@@ -138,8 +138,6 @@
     };
   };
 
-  # services.xserver.desktopManager.e17.enable = true;
-
   nix.trustedBinaryCaches = ["http://hydra.nixos.org"];
 
   environment.shellInit = ''
@@ -149,23 +147,5 @@
       NIX_PATH=$NIX_PATH:nixpkgs=/home/coconnor/Development/nixpkgs
       export NIX_PATH
   '';
-
-  # /home/coconnor needs o+x
-  #services.nginx =
-  #{
-  #  enable = true;
-  #  httpSectionContent = ''
-  #    include    ${pkgs.nginx}/conf/mime.types;
-  #    default_type application/octet-stream;
-#
-#      server {
-#        server_name toast;
-#
-#        root /;
-#      }
-#    '';
-#  };
-
-  # tests = [];
 }
 
