@@ -1,14 +1,10 @@
 {config, pkgs, ...}:
 
 {
-  imports =
-  [
-    <nixos/modules/installer/scan/not-detected.nix>
-    ./editorIsVim.nix
-  ];
-
   require =
   [
+    <nixos/modules/installer/scan/not-detected.nix>
+    ../../editorIsVim.nix
     ../../users/coconnor.nix
     ../../filesystem.nix
     ../../i18n.nix

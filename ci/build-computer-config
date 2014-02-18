@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -ex
+source /etc/profile
 
 config_dir=$WORKSPACE/nix_configs
 
