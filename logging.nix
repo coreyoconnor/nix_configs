@@ -1,3 +1,4 @@
+# not required. upower logs power usage better. Just a small experiment in using timers.
 {config, pkgs, ...} :
 {
   systemd =
