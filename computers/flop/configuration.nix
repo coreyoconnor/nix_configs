@@ -3,19 +3,20 @@
 {
   require = 
   [
+    ./hardware-configuration.nix
     ../../users/coconnor.nix
-    ../../java-dev.nix
     ../../editorIsVim.nix
+    ../../filesystem.nix
+    ../../haskell-dev.nix
+    ../../i18n.nix
+    ../../java-dev.nix
+    ../../kde4.nix
+    ../../logging.nix
     ../../standard-env.nix
     ../../standard-packages.nix
     ../../standard-nixpath.nix
     ../../standard-services.nix
-    ../../filesystem.nix
-    ../../haskell-dev.nix
-    ../../i18n.nix
-    ../../kde4.nix
     ../../vm-host.nix
-    ./hardware-configuration.nix
   ];
 
   environment.computerName = "flop";
