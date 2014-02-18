@@ -9,10 +9,10 @@
 
   require =
   [
-    ./user-coconnor.nix
-    ./filesystem.nix
-    ./i18n.nix
-    ./haskell-dev.nix
+    ../../users/coconnor.nix
+    ../../filesystem.nix
+    ../../i18n.nix
+    ../../haskell-dev.nix
   ];
 
   nix.maxJobs = 2;

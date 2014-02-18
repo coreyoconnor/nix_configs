@@ -3,19 +3,19 @@
 {
   require = 
   [
-    ./user-coconnor.nix
-    ./editorIsVim.nix
-    ./filesystem.nix
-    ./i18n.nix
-    ./java-dev.nix
-    ./scala-dev.nix
-    ./standard-packages.nix
-    ./standard-services.nix
-    ./haskell-dev.nix
-    ./kde4.nix
-    ./vm-host.nix
-    ./wine.nix
-    ./proprietary_nvidia_drivers.nix
+    ../../users/coconnor.nix
+    ../../editorIsVim.nix
+    ../../filesystem.nix
+    ../../i18n.nix
+    ../../java-dev.nix
+    ../../scala-dev.nix
+    ../../standard-packages.nix
+    ../../standard-services.nix
+    ../../haskell-dev.nix
+    ../../kde4.nix
+    ../../vm-host.nix
+    ../../wine.nix
+    ../../proprietary_nvidia_drivers.nix
   ];
 
   nix.maxJobs = 10;

@@ -2,22 +2,24 @@
 {
   require = 
   [
-    ./user-coconnor.nix
-    ./coconnor-manages-nixos.nix
-    ./editorIsVim.nix
-    ./filesystem.nix
-    ./java-dev.nix
-    ./jenkins-master.nix
-    ./scala-dev.nix
-    ./standard-env.nix
-    ./standard-packages.nix
-    ./standard-services.nix
-    ./haskell-dev.nix
-    ./i18n.nix
-    ./kde4.nix
-    ./vm-host.nix
-    ./proprietary_nvidia_drivers.nix
+    ../../users/coconnor.nix
+    ../../editorIsVim.nix
+    ../../filesystem.nix
+    ../../java-dev.nix
+    ../../jenkins-master.nix
+    ../../scala-dev.nix
+    ../../standard-env.nix
+    ../../standard-packages.nix
+    ../../standard-nixpath.nix
+    ../../standard-services.nix
+    ../../haskell-dev.nix
+    ../../i18n.nix
+    ../../kde4.nix
+    ../../vm-host.nix
+    ../../proprietary_nvidia_drivers.nix
   ];
+
+  environment.computerName = "toast";
 
   nix.maxJobs = 10;
   
@@ -57,8 +59,6 @@
   };
 
   boot.resumeDevice = "8:2";
-
-  environment.systemConfigName = "toast-config.nix";
 
   networking = 
   {

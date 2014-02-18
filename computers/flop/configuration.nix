@@ -3,20 +3,22 @@
 {
   require = 
   [
-    ../user-coconnor.nix
-    ../coconnor-manages-nixos.nix
-    ../java-dev.nix
-    ../editorIsVim.nix
-    ../standard-env.nix
-    ../standard-packages.nix
-    ../standard-services.nix
-    ../filesystem.nix
-    ../haskell-dev.nix
-    ../i18n.nix
-    ../kde4.nix
-    ../vm-host.nix
+    ../../users/coconnor.nix
+    ../../java-dev.nix
+    ../../editorIsVim.nix
+    ../../standard-env.nix
+    ../../standard-packages.nix
+    ../../standard-nixpath.nix
+    ../../standard-services.nix
+    ../../filesystem.nix
+    ../../haskell-dev.nix
+    ../../i18n.nix
+    ../../kde4.nix
+    ../../vm-host.nix
     ./hardware-configuration.nix
   ];
+
+  environment.computerName = "flop";
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub =
@@ -83,7 +85,6 @@
   };
   services.xserver.desktopManager.kde4.enable = true;
 
-  environment.systemConfigName = "flop/configuration.nix";
   environment.systemPackages = 
   [
     pkgs.xorg.xf86inputsynaptics
