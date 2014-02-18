@@ -39,6 +39,7 @@
       userControlled.enable = true;
       interfaces = [ "wlp4s0" ];
     };
+    enableIPv6 = false;
     extraHosts = ''
       192.168.1.142 toast
     '';
