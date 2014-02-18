@@ -1,29 +1,31 @@
-# INSTALL
+# Configs I use
 
-1. Pick a config:
+* computers/toast/configuration.nix
 
-* toast-config.nix
-
-This is the config of my primary linux desktop. Characteristics:
-    * NVidia graphics card
+This is the config of my primary linux desktop. Specs:
+    * NVidia graphics card. Uses nvidia driver and not nouveau.
     * AMD CPU
     * single monitor
 
-    sudo ln -sf $PWD/toast-config.nix /etc/nixos/configuration.nix
-
-* vbox-vm.nix 
+* computer/vbox/configuration.nix
 
 This is the config of a VirtualBox VM I use for development when I have a non-Nix host.
 
-    sudo ln -sf $PWD/vbox-vm.nix /etc/nixos/configuration.nix
+* computers/nixpad/configuration.nix
 
+MacBook Pro SantaRosa system. 4,1?
 
-2. add the nix unstable channel
+* computers/flop/configuration.nix
+
+Acer Aspire V7 582PG
+
+  * Core i5
+  * synaptics touchpad
+  * bumblebee switch is used to select *only* the Intel integrated card.
+  * not in UEFI boot mode
+
+# Prep
+
+* add the nix unstable channel
 
     nix-channel --add http://nixos.org/channels/nixos-unstable nixos
-
-3. Go!
-
-    nixos-rebuild --upgrade switch
-
-4. reboot (optional)
