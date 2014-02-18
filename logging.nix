@@ -19,7 +19,7 @@
       timerConfig =
       {
         OnBootSec = "5min";
-        OnUnitActiveSec = "10min";
+        OnUnitActiveSec = "5min";
         Unit = "battery-logging.service";
       };
     };
