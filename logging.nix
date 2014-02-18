@@ -7,7 +7,7 @@
       description = "poll battery status";
       path = [ pkgs.acpi ];
       script = ''
-        acpi -b
+        echo "$(date -R) $(acpi -b)" >> /var/log/battery.log
       '';
       serviceConfig.Type = "oneshot";
     };

@@ -42,6 +42,10 @@
       userControlled.enable = true;
       interfaces = [ "wlp4s0" ];
     };
+    dhcpcd.extraConfig = ''
+    nolink
+    ipv4only
+    '';
     enableIPv6 = false;
     extraHosts = ''
       192.168.1.142 toast
