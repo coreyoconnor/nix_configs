@@ -11,7 +11,9 @@ with pkgs.lib;
                  pkgs.openssh
                  pkgs.nix
                  pkgs.nixops
-                 pkgs.gzip ];
+                 pkgs.gzip
+                 config.boot.kernelPackages.virtualbox ];
+    extraGroups = [ "vboxusers" ];
   };
 
   services.openssh =
