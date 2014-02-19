@@ -12,7 +12,8 @@ with pkgs.lib;
                  pkgs.nix
                  pkgs.nixops
                  pkgs.gzip
-                 config.boot.kernelPackages.virtualbox ];
+                 config.boot.kernelPackages.virtualbox 
+                 pkgs.curl ];
     extraGroups = [ "vboxusers" ];
   };
 
