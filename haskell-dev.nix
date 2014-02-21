@@ -7,11 +7,9 @@ with pkgs.lib;
   { 
     haskellPackages = in_pkgs.haskellPackages_ghc763;
     hsEnv = in_pkgs.haskellPackages.ghcWithPackages (self : [
-      # self.ghcPlain
       self.ghcPaths
       self.Cabal_1_16_0_3 
       self.async_2_0_1_4
-      # self.cgi_3001_1_8_4
       self.fgl_5_4_2_4
       self.GLUT_2_3_1_0
       self.GLUT_2_3_1_0
@@ -40,7 +38,6 @@ with pkgs.lib;
       self.zlib_0_5_4_0
       self.cabalInstall_1_18_0_2
       self.alex_3_0_5
-      # self.haddock_2_13_2
       self.happy_1_18_10
       self.primitive_0_5_0_1
       self.X11
