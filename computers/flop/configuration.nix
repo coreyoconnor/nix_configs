@@ -43,7 +43,6 @@
       interfaces = [ "wlp4s0" ];
     };
     dhcpcd.extraConfig = ''
-    nolink
     ipv4only
     '';
     enableIPv6 = false;
