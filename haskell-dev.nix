@@ -38,7 +38,7 @@ with pkgs.lib;
       self.vector_0_10_0_1
       self.xhtml_3000_2_1
       self.zlib_0_5_4_0
-      self.cabalInstall_1_16_0_2
+      self.cabalInstall_1_18_0_2
       self.alex_3_0_5
       # self.haddock_2_13_2
       self.happy_1_18_10
