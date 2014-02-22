@@ -1,6 +1,8 @@
 {config, pkgs, ...}:
 with pkgs.lib;
 {
+  require = [ ./jenkins-node.nix ];
+
   services.jenkins =
   {
     enable = true;
@@ -15,7 +17,6 @@ with pkgs.lib;
                  config.boot.kernelPackages.virtualbox 
                  pkgs.curl
                  pkgs.xorg.xorgserver ];
-    extraGroups = [ "vboxusers" ];
   };
 
   services.openssh =

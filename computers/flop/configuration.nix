@@ -10,6 +10,7 @@
     ../../haskell-dev.nix
     ../../i18n.nix
     ../../java-dev.nix
+    ../../jenkins-node.nix
     ../../kde4.nix
     ../../logging.nix
     ../../standard-env.nix
