@@ -29,7 +29,6 @@ with pkgs.lib;
       echo > ~/.vnc/xstartup
       chmod u+x ~/.vnc/xstartup
       vncserver $DISPLAY -geometry 1280x1024 -depth 24 -name jenkins -ac
-      # wait $(cat ~/.vnc/toast:10.pid)
       dwm
     '';
     preStop = ''
