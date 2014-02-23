@@ -23,6 +23,7 @@ with pkgs.lib;
     };
     script = ''
       set -ex
+      rm /tmp/.X10-lock
       mkdir -p ~/.vnc
       cp -f ${./jenkins-vnc-passwd} ~/.vnc/passwd
       chmod go-rwx ~/.vnc/passwd
