@@ -31,7 +31,7 @@
   };
 
   hardware.nvidiaOptimus.disable = true;
-  boot.kernelPackages = pkgs.linuxPackages_3_14;
+  boot.kernelPackages = pkgs.linuxPackages_3_12;
 
   # The Elan Touchscreen requires the MT_QUIRK_NOT_SEEN_MEANS_UP to be set.
   boot.kernelParams = ["usbhid.quirks=0x04f3:0x0125:0x1c11"];
