@@ -14,8 +14,7 @@ set -x
   cd nix_configs
   (
     cd nixpkgs
-    git checkout master
-    git reset --hard ${NIXPKGS_SHA}
+    git checkout ${NIXPKGS_SHA}
   )
   git commit nixpkgs -m "update nixpkgs to ${NIXPKGS_SHA}"
 )
