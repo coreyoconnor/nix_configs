@@ -24,5 +24,7 @@ with pkgs.lib;
       root        ALL=(ALL) SETENV: ALL
       %wheel      ALL=(ALL) NOPASSWD: SETENV: ALL
     '';
+
+    users.mutableUsers = false;
   };
 }

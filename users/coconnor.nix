@@ -4,9 +4,7 @@ with pkgs.lib;
   # make sure the required groups exist
   users.extraGroups =
   [
-    { name = "vboxusers"; }
-    { name = "transmission"; }
-    { name = "plugdev"; }
+    { name = "plugdev"; gid = 10001; }
   ];
 
   users.extraUsers =
@@ -14,6 +12,7 @@ with pkgs.lib;
     coconnor = 
     { 
       createHome = true;
+      uid = 10000;
       group = "users";
       extraGroups = [ "wheel" "vboxusers" "transmission" "plugdev" "audio" ];
       home = "/home/coconnor";
