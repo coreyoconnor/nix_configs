@@ -24,4 +24,5 @@ nixos-rebuild --show-trace build || (
   cd nix_configs
   git reset --hard HEAD~1
   git submodule update
-)
+  exit 1
+) || exit 2
