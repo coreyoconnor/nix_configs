@@ -19,7 +19,7 @@ set -x
   git commit nixpkgs -m "update nixpkgs to ${NIXPKGS_SHA}"
 )
 
-nixos-rebuild build || (
+nixos-rebuild --show-trace build || (
   cd nix_configs
   git reset --hard HEAD~1
   git submodule update
