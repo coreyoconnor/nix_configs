@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -e
+source /etc/profile
+
+config_dir=$WORKSPACE/nix_configs
+
+export NIX_PATH=nixpkgs=$config_dir/nixpkgs
+export NIX_PATH=$NIX_PATH:nixos=$config_dir/nixpkgs/nixos
+export NIX_PATH=$NIX_PATH:nixos-config=$config_dir/computers/toast/configuration.nix
+
+set -x
+
+(
+  cd nix_configs
+  (
+    cd nixpkgs
+    git checkout ${NIXPKGS_SHA}
+  )
+  git commit nixpkgs -m "update nixpkgs to ${NIXPKGS_SHA}"
+)
+
+nixos-rebuild build || (
+  cd nix_configs
+  git reset --hard HEAD~1
+  git submodule update
+)
