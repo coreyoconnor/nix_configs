@@ -34,6 +34,20 @@ with pkgs.lib;
     ];
   };
 
+  systemd.services.private-jenkins-notification =
+  {
+    description = "Notifications From Private To Jenkins On Commit";
+    wantedBy = [ "multi-user.target" ];
+    requires = [ "jenkins.service" ];
+    path = [ pkgs.openssh ];
+    script = ''
+      ssh -R 8081:localhost:8080 -N private
+    '';
+    serviceConfig = {
+      User = "jenkins";
+    };
+  };
+
   networking =
   {
     extraHosts = ''
