@@ -47,8 +47,8 @@ with pkgs.lib;
     requires = [ "jenkins-X11.service" ];
     path = [ pkgs.jre
              pkgs.chromedriver
-             pkgs.chromium
-             pkgs.firefox ];
+             pkgs.chromiumWrapper
+             pkgs.firefoxWrapper ];
     environment =
     {
       DISPLAY = ":10";
