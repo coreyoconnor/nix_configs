@@ -12,7 +12,7 @@ with pkgs.lib;
     coconnor = 
     { 
       createHome = true;
-      uid = 10000;
+      uid = 499;
       group = "users";
       extraGroups = [ "wheel" "vboxusers" "transmission" "plugdev" "audio" ];
       home = "/home/coconnor";

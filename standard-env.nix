@@ -25,6 +25,6 @@ with pkgs.lib;
       %wheel      ALL=(ALL) NOPASSWD: SETENV: ALL
     '';
 
-    users.mutableUsers = false;
+    users.mutableUsers = true;
   };
 }
