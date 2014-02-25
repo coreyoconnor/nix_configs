@@ -124,6 +124,13 @@
     };
   };
 
+  system.activationScripts =
+  {
+    removeGlobalAsoundConf = ''
+      rm -f /etc/asound.conf
+    '';
+  };
+
   services.cgminer =
   {
     enable = true;
