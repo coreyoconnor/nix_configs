@@ -54,7 +54,6 @@ with pkgs.lib;
       50.18.248.193 private
       50.18.248.193 data
       50.18.248.193 blog
-      192.168.56.101 test_corebotllc
     '';
   };
 }
