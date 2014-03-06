@@ -1,7 +1,7 @@
 {config, pkgs, ...}:
 with pkgs.lib;
 {
-  services.jenkins-slave.enable = true;
+  services.jenkinsSlave.enable = true;
   users.extraUsers.jenkins.extraGroups = [ "vboxusers" ];
 
   fonts.enableFontDir = true;
