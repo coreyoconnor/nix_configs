@@ -1,11 +1,7 @@
 {config, pkgs, ...}:
 with pkgs.lib;
 {
-  users.jenkins =
-  {
-    enable = true;
-    extraGroups = [ "vboxusers" ];
-  };
+  users.extraUsers.jenkins.extraGroups = [ "vboxusers" ];
 
   fonts.enableFontDir = true;
   services.xfs.enable = true;
