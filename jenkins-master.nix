@@ -45,6 +45,7 @@ with pkgs.lib;
     '';
     serviceConfig = {
       User = "jenkins";
+      Restart = "always";
     };
   };
 
