@@ -30,6 +30,7 @@ with pkgs.lib;
       pkgs.autoconf
       pkgs.automake
       pkgs.bashInteractive
+      pkgs.bitcoin
       pkgs.cairo
       pkgs.gdb
       pkgs.gdk_pixbuf

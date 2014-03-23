@@ -31,6 +31,9 @@ with pkgs.lib;
       pkgs.kde4.kactivities # Required. Otherwise KDE Activities do not work.
       pkgs.kde4.kdelibs
       pkgs.kde4.kde_runtime
+      pkgs.kde4.okular
+      pkgs.popplerQt4
+      pkgs.poppler_data
       pkgs.kde4.oxygen_icons
       # pkgs.kde4.kdeartwork.aurorae
       pkgs.kde4.kdeartwork.styles

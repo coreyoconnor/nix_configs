@@ -104,10 +104,11 @@
     enable = true;
     autorun = true;
     exportConfiguration = true;
-    windowManager.xmonad.enable = true;
-    windowManager.xmonad.enableContribAndExtras = true;
-    windowManager.default = "xmonad";
-    desktopManager.default = "none";
+    # windowManager.xmonad.enable = true;
+    # windowManager.xmonad.enableContribAndExtras = true;
+    # windowManager.default = "xmonad";
+    # desktopManager.default = "none";
+    desktopManager.kde4.enable = true;
     layout = "us";
     # https://bbs.archlinux.org/viewtopic.php?id=117102
     deviceSection = ''
