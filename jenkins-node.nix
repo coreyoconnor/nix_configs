@@ -51,7 +51,7 @@ with pkgs.lib;
       DISPLAY = ":10";
     };
     script = ''
-      java -jar ${pkgs.seleniumServer} -Dwebdriver.enable.native.events=1
+      java -jar ${pkgs.selenium-server-standalone} -Dwebdriver.enable.native.events=1
     '';
     serviceConfig = {
       User = "jenkins";
