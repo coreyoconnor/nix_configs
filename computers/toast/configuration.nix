@@ -117,7 +117,7 @@
     '';
   };
 
-  services.mesa.videoDrivers = [ "nvidia" "vesa" ];
+  hardware.opengl.videoDrivers = [ "nvidia" "vesa" ];
 
   systemd.services.cgminer = {
     serviceConfig = {
