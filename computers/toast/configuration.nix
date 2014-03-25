@@ -65,6 +65,7 @@
     hostName = "toast"; # Define your hostname.
     extraHosts = ''
     127.0.0.1 toast
+    192.168.1.95 ufo
     '';
   };
   

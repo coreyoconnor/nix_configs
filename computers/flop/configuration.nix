@@ -56,6 +56,7 @@
     enableIPv6 = false;
     extraHosts = ''
       192.168.1.142 toast
+      192.168.1.95 ufo
     '';
   };
 
