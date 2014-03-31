@@ -140,7 +140,7 @@
     [
       {
         url = "stratum+tcp://stratum.mining.eligius.st:3334";
-        user = "17n5XxYfR8ucy9dc2ycVVSymrcwB9tCVo4";
+        user = "1M5DoWSWRtGCNuJfwdC8294zRx1eK7FSGY";
         pass = "";
       }
     ];
