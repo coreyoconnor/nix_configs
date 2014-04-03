@@ -33,10 +33,7 @@
   hardware.nvidiaOptimus.disable = true;
   boot.kernelPackages = pkgs.linuxPackages_3_14;
 
-  # The Elan Touchscreen requires the MT_QUIRK_NOT_SEEN_MEANS_UP to be set.
-  boot.kernelParams = ["usbhid.quirks=0x04f3:0x0125:0x1c11"];
   boot.extraModprobeConfig = ''
-    options usbhid quirks=0x04f3:0x0125:0x1c11
     options snd-hda-intel index=1
   '';
 
