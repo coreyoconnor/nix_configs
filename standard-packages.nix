@@ -7,6 +7,7 @@ with pkgs.lib;
 
     fonts =
     {
+      enableFontConfig = true;
       enableFontDir = true;
       extraFonts = 
       [
@@ -21,6 +22,23 @@ with pkgs.lib;
         pkgs.vistafonts
       ];
     };
+
+    environment.etc."fonts/conf.d/80-no-bitmaps.conf".text =
+      ''
+        <?xml version="1.0"?>
+        <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+        <!-- /etc/fonts/conf.d/no-bitmaps.conf -->
+        <fontconfig>
+          <!-- Reject bitmap fonts -->
+          <selectfont>
+            <rejectfont>
+              <pattern>
+                <patelt name="scalable"><bool>false</bool></patelt>
+              </pattern>
+            </rejectfont>
+          </selectfont>
+        </fontconfig>
+      '';
 
     environment.systemPackages =
     [
