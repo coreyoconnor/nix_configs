@@ -57,4 +57,9 @@ with pkgs.lib;
       User = "jenkins";
     };
   };
+
+  environment.systemPackages =
+  [
+    pkgs.androidenv.androidsdk_4_1
+  ];
 }
