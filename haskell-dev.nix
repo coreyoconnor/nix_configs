@@ -11,7 +11,7 @@ with pkgs.lib;
       self.async_2_0_1_5
       self.attoparsec_0_11_2_1
       self.caseInsensitive_1_2_0_0
-      self.cgi_3001_1_8_5
+      # self.cgi_3001_1_8_5
       self.fgl_5_4_2_4
       self.GLUT_2_5_1_0
       self.GLURaw_1_4_0_0
@@ -47,9 +47,9 @@ with pkgs.lib;
       self.primitive_0_5_2_1
       self.X11
       self.X11Xft
-      self.xmonad
-      self.xmonadContrib
-      self.xmonadExtras
+      # self.xmonad
+      # self.xmonadContrib
+      # self.xmonadExtras
       self.pandoc
     ]);
   };
