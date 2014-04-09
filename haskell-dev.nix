@@ -5,41 +5,46 @@ with pkgs.lib;
 {
   nixpkgs.config.packageOverrides = in_pkgs : rec
   { 
-    haskellPackages = in_pkgs.haskellPackages_ghc763;
+    haskellPackages = in_pkgs.haskellPackages_ghc781;
     hsEnv = in_pkgs.haskellPackages.ghcWithPackages (self : [
       self.ghcPaths
-      self.Cabal_1_16_0_3 
-      self.async_2_0_1_4
+      self.async_2_0_1_5
+      self.attoparsec_0_11_2_1
+      self.caseInsensitive_1_2_0_0
+      self.cgi_3001_1_8_5
       self.fgl_5_4_2_4
-      self.GLUT_2_3_1_0
-      self.GLUT_2_3_1_0
+      self.GLUT_2_5_1_0
+      self.GLURaw_1_4_0_0
       self.haskellSrc_1_0_1_5
+      self.hashable_1_2_1_0
       self.html_1_0_1_2
-      self.HTTP_4000_2_8
-      self.HUnit_1_2_5_1
-      self.mtl_2_1_2
-      self.network_2_4_1_2
-      self.OpenGL_2_6_0_1
-      self.parallel_3_2_0_3
-      self.parsec_3_1_3
-      self.QuickCheck_2_5_1_1
+      self.HTTP_4000_2_11
+      self.HUnit_1_2_5_2
+      self.mtl_2_1_3_1
+      self.network_2_4_2_2
+      self.OpenGL_2_9_1_0
+      self.OpenGLRaw_1_4_0_0
+      self.parallel_3_2_0_4
+      self.parsec_3_1_5
+      self.QuickCheck_2_6
       self.random_1_0_1_1
       self.regexBase_0_93_2
       self.regexCompat_0_95_1
       self.regexPosix_0_95_2
-      self.split_0_2_1_1
-      self.stm_2_4_2
-      self.syb_0_3_7
-      self.text_0_11_2_3
-      self.terminfo
+      self.split_0_2_2
+      self.stm_2_4_3
+      self.syb_0_4_1
+      self.text_1_1_0_1
       self.transformers_0_3_0_0
-      self.vector_0_10_0_1
+      self.unorderedContainers_0_2_3_3
+      self.vector_0_10_9_1
       self.xhtml_3000_2_1
-      self.zlib_0_5_4_0
+      self.zlib_0_5_4_1
       self.cabalInstall_1_18_0_3
-      self.alex_3_0_5
-      self.happy_1_18_10
-      self.primitive_0_5_0_1
+      self.alex_3_1_3
+      self.haddock_2_14_1
+      self.happy_1_19_3
+      self.primitive_0_5_2_1
       self.X11
       self.X11Xft
       self.xmonad
