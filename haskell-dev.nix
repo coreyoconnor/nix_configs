@@ -6,7 +6,7 @@ with pkgs.lib;
   nixpkgs.config.packageOverrides = in_pkgs : rec
   { 
     haskellPackages = in_pkgs.haskellPackages_ghc781;
-    hsEnv = in_pkgs.haskellPackages.ghcWithPackages (self : [
+    hsEnv = in_pkgs.haskellPackages_ghc781.ghcWithPackages (self : [
       self.ghcPaths
       self.async_2_0_1_5
       self.attoparsec_0_11_2_1
