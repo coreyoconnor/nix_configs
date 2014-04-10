@@ -38,7 +38,7 @@ with pkgs.lib;
       self.transformers_0_3_0_0
       self.unorderedContainers_0_2_3_3
       self.vector_0_10_9_1
-      self.xhtml_3000_2_1
+      # self.xhtml_3000_2_1
       self.zlib_0_5_4_1
       self.cabalInstall_1_18_0_3
       self.alex_3_1_3
