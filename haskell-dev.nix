@@ -42,7 +42,7 @@ with pkgs.lib;
       self.zlib_0_5_4_1
       self.cabalInstall_1_18_0_3
       self.alex_3_1_3
-      self.haddock_2_14_1
+      # self.haddock_2_14_1
       self.happy_1_19_3
       self.primitive_0_5_2_1
       self.X11
@@ -50,7 +50,7 @@ with pkgs.lib;
       # self.xmonad
       # self.xmonadContrib
       # self.xmonadExtras
-      self.pandoc
+      # self.pandoc
     ]);
   };
 
