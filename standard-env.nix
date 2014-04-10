@@ -26,5 +26,6 @@ with pkgs.lib;
     '';
 
     users.mutableUsers = true;
+    nixpkgs.config.allowUnfree = true;
   };
 }
