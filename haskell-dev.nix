@@ -15,10 +15,10 @@ with pkgs.lib;
       self.fgl_5_4_2_4
       self.GLUT_2_5_1_0
       self.GLURaw_1_4_0_0
-      self.haskellSrc_1_0_1_5
+      self.haskellSrc_1_0_1_6
       self.hashable_1_2_1_0
       self.html_1_0_1_2
-      self.HTTP_4000_2_11
+      self.HTTP_4000_2_12
       self.HUnit_1_2_5_2
       self.mtl_2_1_3_1
       self.network_2_4_2_2
