@@ -67,7 +67,7 @@
     127.0.0.1 toast
     192.168.1.95 ufo
     '';
-    firewall.allowedTCPPorts = [ 8080 ];
+    firewall.allowedTCPPorts = [ 8080 9091 ];
   };
   
   fileSystems =
