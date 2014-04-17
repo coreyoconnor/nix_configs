@@ -46,6 +46,7 @@ with pkgs.lib;
       self.happy_1_19_3
       self.primitive_0_5_2_1
       self.terminfo_0_4_0_0
+      self.digest
       self.X11
       self.X11Xft
       # self.xmonad
