@@ -62,7 +62,7 @@ with pkgs.lib;
 
   environment.systemPackages =
   [
-    pkgs.androidenv.androidsdk_4_1
+    pkgs.androidenv.androidsdk_4_3
     pkgs.gradle
   ];
 }
