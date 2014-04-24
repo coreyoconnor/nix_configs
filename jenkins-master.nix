@@ -56,5 +56,7 @@ with pkgs.lib;
       50.18.248.193 data
       50.18.248.193 blog
     '';
+
+    firewall.allowedTCPPorts = [ 8080 53251 ];
   };
 }
