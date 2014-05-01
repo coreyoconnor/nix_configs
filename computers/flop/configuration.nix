@@ -22,20 +22,42 @@
 
   environment.computerName = "flop";
 
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub =
+  boot =
   {
-    enable = true;
-    version = 2;
-    device = "/dev/sda";
+    # Use the GRUB 2 boot loader.
+    loader.grub =
+    {
+      enable = true;
+      version = 2;
+      device = "/dev/sda";
+    };
+    
+    kernelPackages = pkgs.linuxPackages_3_14;
+
+    extraModprobeConfig = ''
+      options snd-hda-intel index=1
+    '';
+
+    postBootCommands = ''
+      echo 0 > /sys/bus/usb/devices/1-6/authorized
+    '';
   };
 
-  hardware.nvidiaOptimus.disable = true;
-  boot.kernelPackages = pkgs.linuxPackages_3_14;
+  powerManagement =
+  {
+    powerUpCommands = ''
+      echo 0 > /sys/bus/usb/devices/1-6/authorized
+    '';
 
-  boot.extraModprobeConfig = ''
-    options snd-hda-intel index=1
-  '';
+    resumeCommands = ''
+      echo 0 > /sys/bus/usb/devices/1-6/authorized
+    '';
+  };
+
+  hardware.bumblebee.enable = true;
+  hardware.opengl.enable = true;
+  hardware.opengl.driSupport32Bit = true;
+  #hardware.opengl.videoDrivers = [ "intel" "nvidia" "vesa" ];
 
   networking =
   {
