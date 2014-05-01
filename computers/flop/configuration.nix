@@ -22,6 +22,11 @@
 
   environment.computerName = "flop";
 
+  nixpkgs.config.packageOverrides = in_pkgs :
+  {
+    linuxPackages = in_pkgs.linuxPackages_3_14;
+  };
+
   boot =
   {
     # Use the GRUB 2 boot loader.
@@ -57,7 +62,6 @@
   hardware.bumblebee.enable = true;
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
-  #hardware.opengl.videoDrivers = [ "intel" "nvidia" "vesa" ];
 
   networking =
   {
