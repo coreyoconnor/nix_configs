@@ -18,9 +18,11 @@
     ../../standard-nixpath.nix
     ../../standard-services.nix
     ../../vm-host.nix
+    ./primus.nix
   ];
 
   environment.computerName = "flop";
+  hardware.enableAcerPrimus = true;
 
   nixpkgs.config.packageOverrides = in_pkgs :
   {
@@ -59,14 +61,13 @@
     '';
   };
 
-  hardware.bumblebee.enable = true;
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.videoDrivers = [ "intel" ];
 
   networking =
   {
     hostName = "flop"; # Define your hostname.
-    # networkmanager.enable = true;
     wireless =
     {
       enable = true;  # Enables wireless.
@@ -74,7 +75,8 @@
       interfaces = [ "wlp4s0" ];
     };
     dhcpcd.extraConfig = ''
-    ipv4only
+      ipv4only
+      nolink
     '';
     enableIPv6 = false;
     extraHosts = ''
@@ -94,6 +96,7 @@
   services.xserver =
   {
     enable = true;
+    exportConfiguration = true;
     layout = "us";
 
     synaptics =
@@ -118,6 +121,7 @@
         Option "VertHysteresis" "1"
       '';
     };
+
   };
   services.xserver.desktopManager.kde4.enable = true;
 

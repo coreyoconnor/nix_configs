@@ -14,7 +14,7 @@ with pkgs.lib;
       createHome = true;
       uid = 499;
       group = "users";
-      extraGroups = [ "wheel" "vboxusers" "transmission" "plugdev" "audio" ];
+      extraGroups = [ "wheel" "vboxusers" "transmission" "plugdev" "audio" "video" ];
       home = "/home/coconnor";
       shell = pkgs.bashInteractive + "/bin/bash";
     };
