@@ -9,7 +9,7 @@ with pkgs.lib;
     hsEnv = in_pkgs.haskellPackages_ghc783.ghcWithPackagesOld (self : [
       self.ghcPaths
       self.async_2_0_1_5
-      self.attoparsec_0_11_2_1
+      self.attoparsec_0_11_3_0
       self.caseInsensitive_1_2_0_0
       # self.cgi_3001_1_8_5
       self.fgl_5_4_2_4
@@ -18,10 +18,10 @@ with pkgs.lib;
       self.haskellSrc_1_0_1_6
       self.hashable_1_2_1_0
       self.html_1_0_1_2
-      self.HTTP_4000_2_12
+      self.HTTP_4000_2_13
       self.HUnit_1_2_5_2
       self.mtl_2_1_3_1
-      self.network_2_4_2_2
+      self.network_2_5_0_0
       self.OpenGL_2_9_1_0
       self.OpenGLRaw_1_4_0_0
       self.parallel_3_2_0_4
@@ -34,9 +34,9 @@ with pkgs.lib;
       self.split_0_2_2
       self.stm_2_4_3
       self.syb_0_4_1
-      self.text_1_1_0_1
+      self.text_1_1_1_1
       self.transformers_0_3_0_0
-      self.unorderedContainers_0_2_3_3
+      self.unorderedContainers_0_2_4_0
       self.vector_0_10_9_1
       self.xhtml_3000_2_1
       self.zlib_0_5_4_1
