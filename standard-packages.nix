@@ -58,6 +58,7 @@ with pkgs.lib;
       pkgs.gitSVN
       pkgs.acpi
       pkgs.ruby19
+      pkgs.rubygems
       pkgs.rubySqlite3
       pkgs.gcc
       pkgs.coq

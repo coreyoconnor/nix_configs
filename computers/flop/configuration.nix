@@ -76,7 +76,6 @@
     };
     dhcpcd.extraConfig = ''
       ipv4only
-      nolink
     '';
     enableIPv6 = false;
     extraHosts = ''
