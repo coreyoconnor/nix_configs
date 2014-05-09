@@ -63,7 +63,6 @@
 
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.videoDrivers = [ "intel" ];
 
   networking =
   {
@@ -95,6 +94,7 @@
   services.xserver =
   {
     enable = true;
+    videoDrivers = [ "intel" ];
     exportConfiguration = true;
     layout = "us";
 
