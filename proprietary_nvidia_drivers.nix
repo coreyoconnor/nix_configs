@@ -6,5 +6,5 @@
 
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.videoDrivers = [ "nvidia" "vesa" ];
+  services.xserver.videoDrivers = [ "nvidia" "vesa" ];
 }

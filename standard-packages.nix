@@ -9,7 +9,7 @@ with pkgs.lib;
     {
       enableFontConfig = true;
       enableFontDir = true;
-      extraFonts = 
+      fonts = 
       [
         pkgs.anonymousPro
         pkgs.arkpandora_ttf

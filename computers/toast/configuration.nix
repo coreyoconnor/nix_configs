@@ -118,8 +118,6 @@
     '';
   };
 
-  hardware.opengl.videoDrivers = [ "nvidia" "vesa" ];
-
   systemd.services.cgminer = {
     serviceConfig = {
       Nice = 19;
