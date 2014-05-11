@@ -15,6 +15,7 @@
     ../../haskell-dev.nix
     ../../i18n.nix
     ../../kde4.nix
+    ../../udev.nix
     ../../vm-host.nix
     ../../proprietary_nvidia_drivers.nix
   ];
@@ -145,9 +146,7 @@
     ];
     config =
     {
-      auto-fan = true;
-      auto-gpu = false;
-      device = "1";
+      usb = "0403:6014";
     };
   };
 
