@@ -122,7 +122,9 @@
     };
 
   };
+
   services.xserver.desktopManager.kde4.enable = true;
+  services.xserver.desktopManager.e17.enable = true;
 
   environment.systemPackages = 
   [

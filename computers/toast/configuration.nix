@@ -112,6 +112,7 @@
     # windowManager.default = "xmonad";
     # desktopManager.default = "none";
     desktopManager.kde4.enable = true;
+    desktopManager.e17.enable = true;
     layout = "us";
     # https://bbs.archlinux.org/viewtopic.php?id=117102
     deviceSection = ''
