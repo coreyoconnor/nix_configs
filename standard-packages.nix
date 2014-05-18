@@ -113,6 +113,17 @@ with pkgs.lib;
       pkgs.xclip
       pkgs.xdg_utils
       pkgs.rxvt_unicode
+      pkgs.wireshark
     ];
+
+    security.setuidOwners = [
+    {
+      program = "dumpcap";
+      owner = "root";
+      group = "wheel";
+      setuid = true;
+      setgid = false;
+      permissions = "u+rx,g+x";
+    }];
   };
 }
