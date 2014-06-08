@@ -20,8 +20,8 @@ with pkgs.lib;
     };
     script = ''
       set -ex
-      [ -f /tmp/.X10-lock ] && ( set +e ; chmod u+w /tmp/.X10-lock ; rm /tmp/.X10-lock )
-      [ -f /tmp/.X11-unix/X10 ] && ( set +e ; chmod u+w /tmp/.X11-unix/X10 ; rm /tmp/.X11-unix/X10 )
+      [ -e /tmp/.X10-lock ] && ( set +e ; chmod u+w /tmp/.X10-lock ; rm /tmp/.X10-lock )
+      [ -e /tmp/.X11-unix/X10 ] && ( set +e ; chmod u+w /tmp/.X11-unix/X10 ; rm /tmp/.X11-unix/X10 )
       mkdir -p ~/.vnc
       cp -f ${./jenkins-vnc-passwd} ~/.vnc/passwd
       chmod go-rwx ~/.vnc/passwd
