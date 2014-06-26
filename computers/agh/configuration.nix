@@ -16,4 +16,10 @@
     ../../users/coconnor.nix
     ../../users/admin.nix
   ];
+
+  services.xserver = 
+  {
+    enable = true;
+    autorun = true;
+  };
 }
