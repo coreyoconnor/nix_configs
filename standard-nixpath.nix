@@ -18,7 +18,7 @@ with pkgs.lib;
         in ''
         NIX_PATH=nixos=${dir}/nixpkgs/nixos
         NIX_PATH=$NIX_PATH:nixpkgs=${dir}/nixpkgs
-        NIX_PATH=$NIX_PATH:nixos-config=${dir}/computers/${comp}/configuration.nix
+        NIX_PATH=$NIX_PATH:nixos-config=${dir}/computers/${hostname}/configuration.nix
         NIX_PATH=$NIX_PATH:services=/etc/nixos/services
         export NIX_PATH
     '';
