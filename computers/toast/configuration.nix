@@ -20,8 +20,6 @@
     ../../proprietary_nvidia_drivers.nix
   ];
 
-  environment.computerName = "toast";
-
   nix.maxJobs = 10;
   
   boot.kernelModules = [ "acpi-cpufreq" "kvm-amd" "vhost_net" ];
@@ -63,7 +61,7 @@
 
   networking = 
   {
-    hostName = "toast"; # Define your hostname.
+    hostName = "toast"; # must be unique
     extraHosts = ''
     127.0.0.1 toast
     192.168.1.95 ufo

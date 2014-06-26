@@ -3,16 +3,9 @@ with pkgs.lib;
 {
   options =
   {
-    environment.computerName = mkOption
-    {
-      default = "";
-      example = "toast";
-      type = with types; string;
-    };
-
     environment.nixConfigsDir = mkOption
     {
-      default = "/home/coconnor/Development/nix_configs";
+      default = "/home/admin/nix_configs";
       type = with types; string;
     };
   };
@@ -21,7 +14,7 @@ with pkgs.lib;
   {
     environment.shellInit =
         let dir = config.environment.nixConfigsDir;
-            comp = config.environment.computerName;
+            hostname = config.networking.hostName;
         in ''
         NIX_PATH=nixos=${dir}/nixpkgs/nixos
         NIX_PATH=$NIX_PATH:nixpkgs=${dir}/nixpkgs
