@@ -17,6 +17,7 @@ with pkgs.lib;
       extraGroups = [ "wheel" "vboxusers" "transmission" "plugdev" "audio" "video" ];
       home = "/home/coconnor";
       shell = pkgs.bashInteractive + "/bin/bash";
+      openssh.authorizedKeys.keyFiles = [./ssh/coconnor.pub];
     };
   };
 }
