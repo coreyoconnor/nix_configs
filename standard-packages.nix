@@ -12,7 +12,6 @@ with pkgs.lib;
       fonts = 
       [
         pkgs.anonymousPro
-        pkgs.arkpandora_ttf
         pkgs.bakoma_ttf
         pkgs.corefonts
         pkgs.cm_unicode
