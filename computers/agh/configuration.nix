@@ -4,7 +4,7 @@
   [
     ./config-at-bootstrap.nix
     ../../editorIsVim.nix
-    ../../haskell-dev.nix
+    # ../../haskell-dev.nix
     ../../i18n.nix
     ../../jenkins-master.nix
     ../../scala-dev.nix
