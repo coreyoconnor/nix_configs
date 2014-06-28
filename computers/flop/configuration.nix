@@ -13,6 +13,7 @@
     ../../jenkins-node.nix
     ../../kde4.nix
     ../../logging.nix
+    ../../networks/home.nix
     ../../standard-env.nix
     ../../standard-packages.nix
     ../../standard-nixpath.nix
@@ -77,10 +78,6 @@
       ipv4only
     '';
     enableIPv6 = false;
-    extraHosts = ''
-      192.168.1.142 toast
-      192.168.1.95 ufo
-    '';
   };
 
   system.activationScripts =

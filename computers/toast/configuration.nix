@@ -7,6 +7,8 @@
     ../../filesystem.nix
     ../../java-dev.nix
     ../../jenkins-master.nix
+    ../../media-downloader.nix
+    ../../networks/home.nix
     ../../scala-dev.nix
     ../../standard-env.nix
     ../../standard-packages.nix
@@ -63,40 +65,10 @@
   {
     hostName = "toast"; # must be unique
     extraHosts = ''
-    127.0.0.1 toast
-    192.168.1.95 ufo
+      127.0.0.1 toast
     '';
     firewall.allowedTCPPorts = [ 8080 9091 ];
   };
-  
-  fileSystems =
-  [ 
-    { mountPoint = "/home/";
-      device = "/dev/disk/by-label/home";
-    }
-  ];
-
-  services.transmission =
-  {
-    enable = true;
-    settings =
-    {
-      rpc-whitelist = "127.0.0.1,192.168.*.*";
-      umask = 2;
-      download-dir = "/mnt/nomnom/media/Downloads";
-    };
-  };
-
-  systemd.mounts =
-  [
-    {
-      what = "//192.168.1.10/media";
-      where = "/mnt/nomnom/media";
-      type = "cifs";
-      options = "guest,sec=ntlm";
-      requiredBy = ["transmission.service"];
-    }
-  ];
 
   # X11 config
   # starts 

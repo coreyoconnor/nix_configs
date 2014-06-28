@@ -8,6 +8,7 @@
     ../../filesystem.nix
     ../../i18n.nix
     ../../java-dev.nix
+    ../../networks/home.nix
     ../../scala-dev.nix
     ../../standard-packages.nix
     ../../standard-services.nix

@@ -11,7 +11,7 @@ with pkgs.lib;
   { 
     coconnor = 
     { 
-      createHome = true;
+      createHome = false;
       uid = 499;
       group = "users";
       extraGroups = [ "wheel" "vboxusers" "transmission" "plugdev" "audio" "video" ];
