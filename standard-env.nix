@@ -16,13 +16,12 @@ with pkgs.lib;
     time.timeZone = "America/Los_Angeles";
 
     security.sudo.enable = true;
+    security.sudo.wheelNeedsPassword = false;
+
     security.sudo.configFile = ''
       Defaults:root,%wheel env_keep+=LOCALE_ARCHIVE
       Defaults:root,%wheel env_keep+=NIX_PATH
       Defaults:root,%wheel env_keep+=TERMINFO_DIRS
-
-      root        ALL=(ALL) SETENV: ALL
-      %wheel      ALL=(ALL) NOPASSWD: SETENV: ALL
     '';
 
     users.mutableUsers = true;
