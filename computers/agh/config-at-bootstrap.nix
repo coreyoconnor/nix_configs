@@ -15,12 +15,5 @@
   boot.loader.grub.version = 2;
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda";
-  boot.kernelPackages = pkgs.linuxPackages_3_14;
-
-  networking.hostName = "agh";
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  boot.kernelPackages = pkgs.linuxPackages_3_10;
 }

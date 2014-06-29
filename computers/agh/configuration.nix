@@ -20,6 +20,10 @@
     ../../users/admin.nix
   ];
 
+  boot.blacklistedKernelModules = [ "radeon" ];
+  boot.kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
+  boot.vesa = false;
+
   fileSystems =
   [ 
     { mountPoint = "/mnt/non-admin-home/";
@@ -30,13 +34,15 @@
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
 
+  networking.hostName = "agh"; # must be unique
+
   nix.trustedBinaryCaches = ["http://hydra.nixos.org"];
 
   services.xserver = 
   {
     enable = true;
     autorun = true;
-    videoDrivers = [ "ati" ];
+    videoDrivers = [ "ati_unfree" ];
   };
 
   system.activationScripts.non-admin-home = ''
