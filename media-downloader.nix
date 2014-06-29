@@ -8,8 +8,13 @@
       type = "cifs";
       options = "guest,sec=ntlm";
       requiredBy = ["transmission.service"];
+      after = ["network-online.target"];
+      restart = "always";
+      restartSec = "10s";
     }
   ];
+
+  networking.firewall.allowedTCPPorts = [ 9091 ];
 
   services.transmission =
   {
