@@ -11,7 +11,7 @@ with pkgs.lib;
   {
     dbus.enable = true;
     ntp.enable = true;
-    udisks.enable = true;
+    udisks2.enable = true;
     upower.enable = true;
     acpid.enable = true;
     openssh =
