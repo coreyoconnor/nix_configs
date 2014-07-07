@@ -6,11 +6,9 @@
       what = "//192.168.1.10/media";
       where = "/mnt/nomnom/media";
       type = "cifs";
-      options = "guest,sec=ntlm";
+      options = "guest,sec=ntlm,noatime";
       requiredBy = ["transmission.service"];
-      after = ["network-online.target"];
-      restart = "always";
-      restartSec = "10s";
+      wants = ["network-online.target"];
     }
   ];
 
