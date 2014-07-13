@@ -22,12 +22,11 @@
     ./primus.nix
   ];
 
-  environment.computerName = "flop";
   hardware.enableAcerPrimus = true;
 
   nixpkgs.config.packageOverrides = in_pkgs :
   {
-    linuxPackages = in_pkgs.linuxPackages_3_14;
+    linuxPackages = in_pkgs.linuxPackages_3_15;
   };
 
   boot =
@@ -40,7 +39,7 @@
       device = "/dev/sda";
     };
     
-    kernelPackages = pkgs.linuxPackages_3_14;
+    kernelPackages = pkgs.linuxPackages_3_15;
 
     extraModprobeConfig = ''
       options snd-hda-intel index=1

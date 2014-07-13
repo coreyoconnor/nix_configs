@@ -60,7 +60,7 @@
 '';
 
   services.dbus.enable = true;
-  services.udisks.enable = true;
+  services.udisks2.enable = true;
   services.upower.enable = true;
   services.acpid.enable = true;
   # Add the NixOS Manual on virtual console 8
