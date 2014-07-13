@@ -10,6 +10,7 @@
     ../../media-downloader.nix
     ../../media-presenter.nix
     ../../networks/home.nix
+    ../../vm-host.nix
     ../../scala-dev.nix
     ../../standard-env.nix
     ../../standard-packages.nix
