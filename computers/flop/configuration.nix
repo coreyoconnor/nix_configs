@@ -4,7 +4,6 @@
   require = 
   [
     ./hardware-configuration.nix
-    ../../users/coconnor.nix
     ../../editorIsVim.nix
     ../../filesystem.nix
     ../../haskell-dev.nix
@@ -19,6 +18,8 @@
     ../../standard-nixpath.nix
     ../../standard-services.nix
     ../../vm-host.nix
+    ../../users/admin.nix
+    ../../users/coconnor.nix
     ./primus.nix
   ];
 
