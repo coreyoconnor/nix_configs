@@ -45,7 +45,6 @@ with pkgs.lib;
       # self.haddock_2_14_1
       self.happy
       self.primitive
-      self.terminfo
       self.digest
       self.X11
       self.X11Xft
