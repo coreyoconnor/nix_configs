@@ -17,6 +17,7 @@
     ../../standard-packages.nix
     ../../standard-nixpath.nix
     ../../standard-services.nix
+    ../../tobert-config.nix
     ../../vm-host.nix
     ../../users/admin.nix
     ../../users/coconnor.nix
