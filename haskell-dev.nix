@@ -35,6 +35,7 @@ with pkgs.lib;
       self.stm
       self.syb
       self.text
+      self.terminfo
       self.transformers
       self.unorderedContainers
       self.vector
