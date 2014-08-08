@@ -20,7 +20,7 @@ with pkgs.lib;
     { 
       kde4 = pkgs.kde412;
       freetype = import (pkgs.path + "/pkgs/development/libraries/freetype") {
-          inherit (pkgs) stdenv fetchurl gnumake;
+          inherit (pkgs) stdenv fetchurl gnumake fetchpatch;
           useInfinality = config.environment.useInfinality;
       };
     };
