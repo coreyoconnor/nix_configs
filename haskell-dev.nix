@@ -47,8 +47,8 @@ with pkgs.lib;
       self.happy
       self.primitive
       self.digest
-      self.X11
-      self.X11Xft
+      # self.X11
+      # self.X11Xft
       # self.xmonad
       # self.xmonadContrib
       # self.xmonadExtras
