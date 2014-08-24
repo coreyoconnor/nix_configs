@@ -1,3 +1,30 @@
+# Using
+
+## Manual Bootstrap
+
+1. clone this repo
+2. `git submodule update --init --recursive`
+3. create or select a config under `computers`
+    * this name of the directory containing the config should match the hostname
+4. `export NIX_PATH=computers/$HOSTNAME/configuration.nix`
+5. `./bin/build`
+6. `./bin/switch
+
+## Auto Bootstrap
+
+This part is in development. Not usable at this time.
+
+Create a user equivalent to:
+    * https://github.com/coreyoconnor/nix_configs/blob/master/users/admin.nix
+
+bootstrap using nix-configs-bootstrap:
+
+    git clone git@github.com:coreyoconnor/nix-configs-bootstrap.git
+    cd nix-configs-bootstrap
+    git submodule update --init --recursive
+    nix-build .
+    ./result/bin/nix-configs-bootstrap
+
 # Configs I use
 
 * computers/toast/configuration.nix
