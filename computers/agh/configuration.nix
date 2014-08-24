@@ -8,7 +8,6 @@
     ../../i18n.nix
     ../../jenkins-master.nix
     ../../media-downloader.nix
-    ../../media-presenter.nix
     ../../networks/home.nix
     ../../vm-host.nix
     ../../scala-dev.nix
