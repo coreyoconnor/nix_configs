@@ -16,6 +16,7 @@
     ../../standard-packages.nix
     ../../standard-nixpath.nix
     ../../standard-services.nix
+    ../../tobert-config.nix
     ../../udev.nix
     ../../users/coconnor.nix
     ../../users/admin.nix
