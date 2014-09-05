@@ -35,7 +35,13 @@
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
 
-  networking.hostName = "agh"; # must be unique
+  networking =
+  {
+    hostName = "agh"; # must be unique
+    interfaces.enp1s0.ipAddress = "192.168.1.2";
+    defaultGateway = "192.168.1.1";
+    nameservers = [ "8.8.8.8" "8.8.4.4" ];
+  };
 
   nix.trustedBinaryCaches = ["http://hydra.nixos.org"];
 
