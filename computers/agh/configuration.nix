@@ -38,7 +38,13 @@
   networking =
   {
     hostName = "agh"; # must be unique
-    interfaces.enp1s0.ipAddress = "192.168.1.2";
+    useDHCP = false;
+    interfaces.enp1s0 =
+    {
+      ipAddress = "192.168.1.2";
+      prefixLength = 24;
+      subnetMask = "255.255.255.0";
+    };
     defaultGateway = "192.168.1.1";
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
   };
