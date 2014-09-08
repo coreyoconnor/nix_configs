@@ -51,6 +51,10 @@
 
   nix.trustedBinaryCaches = ["http://hydra.nixos.org"];
 
+  services.openssh.extraConfig = ''
+    UseDNS no
+  '';
+
   services.xserver = 
   {
     enable = true;
