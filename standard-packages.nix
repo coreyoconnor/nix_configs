@@ -3,7 +3,11 @@ with pkgs.lib;
 {
   config =
   {
-    # nixpkgs.config.chromium.channel = "dev";
+    nixpkgs.config.chromium =
+    {
+      enablePepperFlash = true;
+      enablePepperPDF = true;
+    };
 
     fonts =
     {
