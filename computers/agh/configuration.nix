@@ -43,7 +43,7 @@
     {
       ipAddress = "192.168.1.2";
       prefixLength = 24;
-      subnetMask = "255.255.255.0";
+      # subnetMask = "255.255.255.0";
     };
     defaultGateway = "192.168.1.1";
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
