@@ -42,11 +42,18 @@ with pkgs.lib;
     wants = ["network-online.target"];
     path = [ pkgs.openssh ];
     script = ''
-      ssh -R 8081:localhost:8080 -N private
+      while [ -z "$(ip addr show enp1s0 | grep inet | awk '{print $2}' | head -1)" ]
+      do
+        sleep 5
+      done
+
+      ssh -NTC -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes \
+          -R 8081:localhost:8080 private
     '';
     serviceConfig = {
       User = "jenkins";
       Restart = "always";
+      RestartSec = 3;
     };
   };
 
