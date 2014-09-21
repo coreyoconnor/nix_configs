@@ -28,7 +28,7 @@
 
   nixpkgs.config.packageOverrides = in_pkgs :
   {
-    linuxPackages = in_pkgs.linuxPackages_3_15;
+    linuxPackages = in_pkgs.linuxPackages_3_16;
   };
 
   boot =
@@ -41,7 +41,7 @@
       device = "/dev/sda";
     };
     
-    kernelPackages = pkgs.linuxPackages_3_15;
+    kernelPackages = pkgs.linuxPackages_3_16;
 
     extraModprobeConfig = ''
       options snd-hda-intel index=1
@@ -122,7 +122,7 @@
   };
 
   services.xserver.desktopManager.kde4.enable = true;
-  services.xserver.desktopManager.e17.enable = true;
+  services.xserver.desktopManager.e18.enable = true;
 
   environment.systemPackages = 
   [
