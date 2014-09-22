@@ -40,7 +40,7 @@ with pkgs.lib;
     wantedBy = ["multi-user.target"];
     requires = ["jenkins.service"];
     wants = ["network-online.target"];
-    path = [ pkgs.openssh ];
+    path = [ pkgs.openssh pkgs.gawk pkgs.iproute ];
     script = ''
       while [ -z "$(ip addr show enp1s0 | grep inet | awk '{print $2}' | head -1)" ]
       do

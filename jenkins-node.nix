@@ -7,6 +7,8 @@ with pkgs.lib;
   fonts.enableFontDir = true;
   services.xfs.enable = true;
 
+  networking.firewall.allowedTCPPorts = [ 5910 ];
+
   # control password: control
   # view only password: viewonly
   systemd.services.jenkins-X11 =
