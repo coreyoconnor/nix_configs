@@ -6,7 +6,7 @@ config_dir=$WORKSPACE/nix_configs
 
 export NIX_PATH=nixpkgs=$config_dir/nixpkgs
 export NIX_PATH=$NIX_PATH:nixos=$config_dir/nixpkgs/nixos
-export NIX_PATH=$NIX_PATH:nixos-config=$config_dir/computers/toast/configuration.nix
+export NIX_PATH=$NIX_PATH:nixos-config=$config_dir/computers/agh/configuration.nix
 
 set -x
 
