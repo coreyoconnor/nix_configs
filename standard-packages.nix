@@ -53,6 +53,7 @@ with pkgs.lib;
       pkgs.bashInteractive
       pkgs.bitcoin
       pkgs.cairo
+      pkgs.chromium
       pkgs.gdb
       pkgs.gdk_pixbuf
       pkgs.glibcLocales
