@@ -90,35 +90,11 @@
     '';
   };
 
-  systemd.services.cgminer = {
-    serviceConfig = {
-      Nice = 19;
-      IOSchedulingClass = "idle";
-    };
-  };
-
   system.activationScripts =
   {
     removeGlobalAsoundConf = ''
       rm -f /etc/asound.conf
     '';
-  };
-
-  services.cgminer =
-  {
-    enable = true;
-    pools = 
-    [
-      {
-        url = "stratum+tcp://stratum.mining.eligius.st:3334";
-        user = "1M5DoWSWRtGCNuJfwdC8294zRx1eK7FSGY";
-        pass = "";
-      }
-    ];
-    config =
-    {
-      usb = "0403:6014";
-    };
   };
 
   nix.trustedBinaryCaches = ["http://hydra.nixos.org"];

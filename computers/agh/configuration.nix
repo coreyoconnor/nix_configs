@@ -3,6 +3,7 @@
   require =
   [
     ./config-at-bootstrap.nix
+    ../../cgminer.nix
     ../../editorIsVim.nix
     ../../haskell-dev.nix
     ../../i18n.nix
