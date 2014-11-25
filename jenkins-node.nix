@@ -45,17 +45,14 @@ with pkgs.lib;
     description = "selenium-server";
     wantedBy = [ "multi-user.target" ];
     requires = [ "jenkins-X11.service" ];
-    path = [ pkgs.jre
-             pkgs.chromedriver
-             pkgs.chromium
+    path = [ pkgs.chromium
              pkgs.firefoxWrapper ];
     environment =
     {
       DISPLAY = ":10";
     };
     script = ''
-      java -jar ${pkgs.selenium-server-standalone}/share/java/selenium-server-standalone.jar \
-           -Dwebdriver.enable.native.events=1
+      ${pkgs.selenium-server-standalone}/bin/selenium-server -Dwebdriver.enable.native.events=1
     '';
     serviceConfig = {
       User = "jenkins";
