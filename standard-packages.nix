@@ -118,6 +118,7 @@ with pkgs.lib;
       pkgs.xdg_utils
       pkgs.rxvt_unicode
       pkgs.wireshark
+      pkgs.wineUnstable
     ];
 
     security.setuidOwners = [
