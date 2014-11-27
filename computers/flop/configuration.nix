@@ -28,7 +28,7 @@
 
   nixpkgs.config.packageOverrides = in_pkgs :
   {
-    linuxPackages = in_pkgs.linuxPackages_3_16;
+    linuxPackages = in_pkgs.linuxPackages_3_17;
   };
 
   boot =
@@ -41,7 +41,7 @@
       device = "/dev/sda";
     };
     
-    kernelPackages = pkgs.linuxPackages_3_16;
+    kernelPackages = pkgs.linuxPackages_3_17;
 
     extraModprobeConfig = ''
       options snd-hda-intel index=1
