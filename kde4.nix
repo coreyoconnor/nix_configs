@@ -12,18 +12,17 @@ with pkgs.lib;
 
   environment.systemPackages = 
   [ 
-    # pkgs.kde4.calligra
     pkgs.kde4.kactivities # Required. Otherwise KDE Activities do not work.
-    pkgs.kde4.kdelibs
-    pkgs.kde4.kde_runtime
     pkgs.kde4.okular
     pkgs.popplerQt4
     pkgs.poppler_data
-    pkgs.kde4.oxygen_icons
-    # pkgs.kde4.kdeartwork.aurorae
     pkgs.kde4.kdeartwork.styles
     pkgs.kde4.kdeartwork.kwin_styles
     pkgs.oxygen_gtk # So GTK apps look like Oxygen. TODO: Using gtk-kde4 would be better.
+    pkgs.kde4.kdebindings.pykde4
+    pkgs.kde4.kdebindings.smokekde
+    pkgs.kde4.kdebindings.qtruby
+    pkgs.kde4.kdeplasma_addons
   ];
 
   services.xserver.displayManager.kdm.enable = true;
