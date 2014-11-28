@@ -9,14 +9,11 @@
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_hcd" "ahci" "ohci_pci" "ehci_pci" "usbhid" "usb_storage" ];
-  boot.extraModulePackages = [ ];
 
   fileSystems."/" =
     { device = "/dev/sda2";
       fsType = "ext4";
     };
-
-  swapDevices =[ ];
 
   nix.maxJobs = 4;
   nix.extraOptions = ''
