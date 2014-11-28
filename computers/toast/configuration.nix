@@ -24,7 +24,7 @@
 
   nix.maxJobs = 10;
   
-  boot.kernelModules = [ "acpi-cpufreq" "kvm-amd" "vhost_net" ];
+  boot.kernelModules = [ "acpi-cpufreq" "vhost_net" ];
   boot.kernelPackages = pkgs.linuxPackages_3_12;
   boot.extraModprobeConfig = ''
     options snd slots=snd-hda-intel
@@ -82,7 +82,6 @@
     # windowManager.default = "xmonad";
     # desktopManager.default = "none";
     desktopManager.kde4.enable = true;
-    desktopManager.e17.enable = true;
     layout = "us";
     # https://bbs.archlinux.org/viewtopic.php?id=117102
     deviceSection = ''
