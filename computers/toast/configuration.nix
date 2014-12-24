@@ -59,8 +59,6 @@
     '';
   };
 
-  boot.resumeDevice = "8:2";
-
   networking = 
   {
     hostName = "toast"; # must be unique
