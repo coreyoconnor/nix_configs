@@ -16,7 +16,7 @@
   ];
 
   fonts = {
-    enableFontConfig = false;
+    fontconfig.enable = false;
     enableGhostscriptFonts = false;
     enableFontDir = false;
     enableCoreFonts = false;

@@ -11,7 +11,7 @@ with pkgs.lib;
 
     fonts =
     {
-      enableFontConfig = true;
+      fontconfig.enable = true;
       enableFontDir = true;
       fonts = 
       [
