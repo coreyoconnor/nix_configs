@@ -51,7 +51,7 @@ with pkgs.lib;
       pkgs.autoconf
       pkgs.automake
       pkgs.bashInteractive
-      pkgs.bitcoin
+      # pkgs.bitcoin
       pkgs.cairo
       pkgs.chromium
       pkgs.gdb
