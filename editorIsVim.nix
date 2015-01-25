@@ -21,7 +21,7 @@ with pkgs.lib;
     environment.shellInit = ''
         export EDITOR=vim
     '';
-    environment.systemPackages = [ pkgs.vimHugeX ];
+    environment.systemPackages = [ pkgs.vim ];
   };
 }
 

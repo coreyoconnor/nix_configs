@@ -61,7 +61,7 @@ with pkgs.lib;
       pkgs.utillinuxCurses
       pkgs.gitSVN
       pkgs.acpi
-      pkgs.ruby_2_1
+      # pkgs.ruby_2_1
       # pkgs.rubygems
       # pkgs.rubySqlite3
       pkgs.gcc
