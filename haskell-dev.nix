@@ -17,7 +17,7 @@ with pkgs.lib;
       self.GLURaw
       self.haskellSrc
       self.hashable
-      self.html
+      # self.html
       self.HTTP
       self.HUnit
       self.mtl
