@@ -1,8 +1,6 @@
 {config, pkgs, ...}:
 
 {
-  imports = [ <nixos/modules/programs/virtualbox.nix> ];
-
   nixpkgs.config.virtualbox.enableExtensionPack = true;
 
   boot.kernelModules = [ "virtio" ];
@@ -11,6 +9,8 @@
   # software that assumes KVM exists.  This actually works out fine and for my usage (testing) the
   # performance is perfectly acceptable.
   boot.blacklistedKernelModules = [ "kvm" "kvm_amd" "kvm_intel" ];
+
+  services.virtualboxHost.enable = true;
 
   environment.systemPackages =
   [
