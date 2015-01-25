@@ -39,7 +39,7 @@ with pkgs.lib;
       self.transformers
       self.unorderedContainers
       self.vector
-      self.xhtml
+      # self.xhtml
       self.zlib
       self.cabalInstall
       self.alex
