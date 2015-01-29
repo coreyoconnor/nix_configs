@@ -10,7 +10,7 @@
     ../../i18n.nix
     ../../java-dev.nix
     ../../jenkins-node.nix
-    ../../kde4.nix
+    ../../kde5.nix
     ../../logging.nix
     ../../networks/home.nix
     ../../standard-env.nix
@@ -120,8 +120,6 @@
     };
 
   };
-
-  services.xserver.desktopManager.kde4.enable = true;
 
   environment.systemPackages = 
   [
