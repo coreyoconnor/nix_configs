@@ -76,8 +76,6 @@ with pkgs.lib;
       pkgs.gnupg
       pkgs.inconsolata
       # pkgs.isabelle
-      pkgs.maven3
-      pkgs.jdk
       pkgs.jre
       pkgs.nginx
       pkgs.ocaml

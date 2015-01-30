@@ -14,7 +14,7 @@
 
   environment.systemPackages =
   [
-      pkgs.kvm
+      pkgs.qemu
   ];
 }
 
