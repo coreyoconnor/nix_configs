@@ -28,7 +28,7 @@
 
   nixpkgs.config.packageOverrides = in_pkgs :
   {
-    linuxPackages = in_pkgs.linuxPackages_3_17;
+    linuxPackages = in_pkgs.linuxPackages_3_18;
   };
 
   boot =
