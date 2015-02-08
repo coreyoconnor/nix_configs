@@ -41,7 +41,7 @@
       device = "/dev/sda";
     };
     
-    kernelPackages = pkgs.linuxPackages_3_17;
+    kernelPackages = pkgs.linuxPackages_3_18;
 
     extraModprobeConfig = ''
       options snd-hda-intel index=1
