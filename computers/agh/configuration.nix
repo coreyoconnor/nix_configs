@@ -25,10 +25,6 @@
     ../../users/admin.nix
   ];
 
-  boot.blacklistedKernelModules = [ "radeon" ];
-  boot.kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
-  boot.vesa = false;
-
   fileSystems =
   [ 
     { mountPoint = "/mnt/non-admin-home/";
@@ -62,8 +58,7 @@
   services.xserver = 
   {
     enable = true;
-    autorun = true;
-    videoDrivers = [ "ati_unfree" ];
+    autorun = false;
   };
 
   system.activationScripts.non-admin-home = ''
