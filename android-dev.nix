@@ -6,12 +6,12 @@ with pkgs.lib;
   config =
   {
     environment.shellInit = ''
-      export JAVA_HOME=${pkgs.jdk}
+      export ANDROID_HOME=${pkgs.androidsdk_4_4}
     '';
 
     environment.systemPackages =
-      [ pkgs.maven3
-        pkgs.jdk
+      [ pkgs.jdk
+        pkgs.androidsdk_4_4
       ];
   };
 }

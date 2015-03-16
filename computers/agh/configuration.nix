@@ -3,10 +3,13 @@
   require =
   [
     ./config-at-bootstrap.nix
+
+    ../../android-dev.nix
     ../../cgminer.nix
     ../../editorIsVim.nix
     ../../haskell-dev.nix
     ../../i18n.nix
+    ../../java-dev.nix
     ../../jenkins-master.nix
     ../../media-downloader.nix
     ../../networks/home.nix
