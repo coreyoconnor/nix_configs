@@ -3,8 +3,6 @@
   require =
   [
     ./config-at-bootstrap.nix
-
-    ../../android-dev.nix
     ../../cgminer.nix
     ../../editorIsVim.nix
     ../../haskell-dev.nix
