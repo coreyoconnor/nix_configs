@@ -1,7 +1,5 @@
 { config, pkgs, ... } :
 
-with pkgs.lib;
-
 {
   config =
   {

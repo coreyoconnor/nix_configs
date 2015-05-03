@@ -1,5 +1,5 @@
-{config, pkgs, ...}:
-with pkgs.lib;
+{config, pkgs, lib, ...}:
+with lib;
 {
   require = [ ./jenkins-node.nix ];
 

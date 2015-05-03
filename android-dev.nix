@@ -1,6 +1,5 @@
-{ config, pkgs, ... } :
-with pkgs.lib;
-let androiddsk = pkgs.androidenv.androidsdk_5_0_1_extras; in
+{ config, pkgs, lib, ... } :
+let androidsdk = pkgs.androidenv.androidsdk_5_0_1_extras; in
 {
   config =
   {

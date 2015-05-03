@@ -1,7 +1,7 @@
 # from: http://tobert.github.io/post/2014-06-24-linux-defaults.html
 # comments are quotes from the post.
-{config, pkgs, ...}:
-with pkgs.lib;
+{config, pkgs, lib, ...}:
+with lib;
 {
   boot.kernel.sysctl =
   {

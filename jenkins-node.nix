@@ -1,5 +1,5 @@
-{config, pkgs, ...}:
-with pkgs.lib;
+{config, pkgs, lib, ...}:
+with lib;
 {
   services.jenkinsSlave.enable = true;
   users.extraUsers.jenkins.extraGroups = [ "vboxusers" ];

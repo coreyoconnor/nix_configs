@@ -1,5 +1,5 @@
-{ config, pkgs, ... } :
-with pkgs.lib;
+{ config, pkgs, lib, ... } :
+with lib;
 
 let hsPkgs = self : [
   self.ghcPaths
