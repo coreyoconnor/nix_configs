@@ -16,7 +16,7 @@
     ../../standard-services.nix
     ../../haskell-dev.nix
     ../../i18n.nix
-    ../../kde4.nix
+    ../../kde5.nix
     ../../udev.nix
     ../../vm-host.nix
     ../../proprietary_nvidia_drivers.nix
