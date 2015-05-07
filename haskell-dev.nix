@@ -1,47 +1,47 @@
 { config, pkgs, lib, ... } :
 with lib;
 
-let hsPkgs = self : [
-  self.ghcPaths
-  self.async
-  self.attoparsec
-  self.caseInsensitive
+let hsPkgs = self : with self; [
+  ghc-paths
+  async
+  attoparsec
+  case-insensitive
   # self.cgi
-  self.fgl
-  self.GLUT
-  self.GLURaw
-  self.haskellSrc
-  self.hashable
+  fgl
+  GLUT
+  GLURaw
+  haskell-src
+  hashable
   # self.html
-  self.HTTP
-  self.HUnit
-  self.mtl
-  self.network
-  self.OpenGL
-  self.OpenGLRaw
-  self.parallel
-  self.parsec
-  self.QuickCheck
-  self.random
-  self.regexBase
-  self.regexCompat
-  self.regexPosix
-  self.split
-  self.stm
-  self.syb
-  self.text
+  HTTP
+  HUnit
+  mtl
+  network
+  OpenGL
+  OpenGLRaw
+  parallel
+  parsec
+  QuickCheck
+  random
+  regex-base
+  regex-compat
+  regex-posix
+  split
+  stm
+  syb
+  text
   # self.terminfo
-  self.transformers
-  self.unorderedContainers
-  self.vector
+  transformers
+  unordered-containers
+  vector
   # self.xhtml
-  self.zlib
-  self.cabalInstall
-  self.alex
+  zlib
+  cabal-install
+  alex
   # self.haddock_2_14_1
-  self.happy
-  self.primitive
-  self.digest
+  happy
+  primitive
+  digest
   # self.X11
   # self.X11Xft
   # self.xmonad
@@ -51,10 +51,16 @@ let hsPkgs = self : [
 ];
 
 in {
-  nixpkgs.config.packageOverrides = in_pkgs : rec
-  { 
-    haskellPackages = in_pkgs.haskellPackages_ghc784_profiling;
-    hsEnv = in_pkgs.haskellPackages_ghc784_profiling.ghcWithPackages hsPkgs;
+  nixpkgs.config =
+  {
+    haskellPackageOverrides = self: super: {
+      mkDerivation = expr: super.mkDerivation (expr // { enableLibraryProfiling = true; });
+    };
+
+    packageOverrides = super: let self = super.pkgs; in
+    {
+      hsEnv = self.haskellPackages.ghcWithPackages hsPkgs;
+    };
   };
 
   nixpkgs.config.cabal.libraryProfiling = true;
