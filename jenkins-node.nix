@@ -2,7 +2,7 @@
 with lib;
 {
   services.jenkinsSlave.enable = true;
-  users.extraUsers.jenkins.extraGroups = [ "vboxusers" ];
+  users.extraUsers.jenkins.extraGroups = [ "vboxusers" "plugdev" ];
 
   fonts.enableFontDir = true;
   services.xfs.enable = true;
@@ -61,7 +61,6 @@ with lib;
 
   environment.systemPackages =
   [
-    pkgs.androidenv.androidsdk_4_3
     pkgs.gradle
   ];
 }
