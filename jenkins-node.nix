@@ -5,7 +5,6 @@ with lib;
   users.extraUsers.jenkins.extraGroups = [ "vboxusers" "plugdev" ];
 
   fonts.enableFontDir = true;
-  services.xfs.enable = true;
 
   networking.firewall.allowedTCPPorts = [ 5910 ];
 
