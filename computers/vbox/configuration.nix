@@ -33,7 +33,6 @@
     pkgs.utillinuxCurses
     pkgs.gitSVN
     pkgs.acpi
-    pkgs.pulseaudio
     pkgs.gcc
     pkgs.gettext
     pkgs.glib
