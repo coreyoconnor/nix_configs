@@ -95,6 +95,10 @@
     videoDrivers = [ "intel" ];
     exportConfiguration = true;
     layout = "us";
+    # see: http://tinyurl.com/qxzud5l
+    deviceSection = ''
+      Option "AccelMethod" "uxa"
+    '';
 
     synaptics =
     {
