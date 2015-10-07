@@ -4,7 +4,7 @@ with lib;
   services.xserver.desktopManager.kde5 =
   {
     enable = true;
-    phononBackends = [ "vlc" ];
+    phononBackends = [ "gstreamer" ];
   };
   services.xserver.displayManager.slim.enable = true;
   nixpkgs.config.packageOverrides = in_pkgs : rec
@@ -13,4 +13,3 @@ with lib;
       qt4 = in_pkgs.qt48;
   };
 }
-
