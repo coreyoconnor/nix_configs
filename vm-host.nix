@@ -10,11 +10,12 @@
   # performance is perfectly acceptable.
   boot.blacklistedKernelModules = [ "kvm" "kvm_amd" "kvm_intel" ];
 
-  services.virtualboxHost.enable = true;
+  virtualisation.virtualbox.host.enable = true;
 
   environment.systemPackages =
   [
       pkgs.qemu
   ];
-}
 
+  networking.firewall.allowedTCPPorts = [ 3389 3390 3391 3392 ];
+}
