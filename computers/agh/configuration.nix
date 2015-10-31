@@ -3,7 +3,6 @@
   require =
   [
     ./config-at-bootstrap.nix
-    ../../cgminer.nix
     ../../editorIsVim.nix
     ../../haskell-dev.nix
     ../../i18n.nix
@@ -23,8 +22,14 @@
     ../../users/admin.nix
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_3_18;
+  nixpkgs.config.packageOverrides = in_pkgs :
+  {
+    linuxPackages = in_pkgs.linuxPackages_3_18;
+  };
+
   fileSystems =
-  [ 
+  [
     { mountPoint = "/mnt/non-admin-home/";
       device = "/dev/disk/by-label/home";
     }
@@ -53,11 +58,13 @@
     UseDNS no
   '';
 
-  services.xserver = 
+  services.xserver =
   {
     enable = true;
     autorun = false;
   };
+
+  services.journald.console = "/dev/tty12";
 
   system.activationScripts.non-admin-home = ''
     [ -L /home/coconnor ] || ln -s /mnt/non-admin-home/coconnor /home/coconnor
