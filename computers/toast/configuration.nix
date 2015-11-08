@@ -1,6 +1,6 @@
 {config, pkgs, ...}:
 {
-  require = 
+  require =
   [
     ../../users/coconnor.nix
     ../../editorIsVim.nix
@@ -23,16 +23,16 @@
   ];
 
   nix.maxJobs = 10;
-  
+
   boot.kernelModules = [ "acpi-cpufreq" "vhost_net" ];
   boot.kernelPackages = pkgs.linuxPackages_3_12;
   boot.extraModprobeConfig = ''
     options snd slots=snd-hda-intel
   '';
 
-  boot.initrd.kernelModules = 
+  boot.initrd.kernelModules =
   [
-    "ext4" 
+    "ext4"
     "ata_piix"
     "mptspi"
     "ehci_hcd"
@@ -42,7 +42,7 @@
     "usbhid"
   ];
 
-  boot.loader.grub = 
+  boot.loader.grub =
   {
     # Use grub 2 as boot loader.
     enable = true;
@@ -59,7 +59,7 @@
     '';
   };
 
-  networking = 
+  networking =
   {
     hostName = "toast"; # must be unique
     extraHosts = ''
@@ -69,8 +69,8 @@
   };
 
   # X11 config
-  # starts 
-  services.xserver = 
+  # starts
+  services.xserver =
   {
     enable = true;
     autorun = true;
@@ -79,7 +79,6 @@
     # windowManager.xmonad.enableContribAndExtras = true;
     # windowManager.default = "xmonad";
     # desktopManager.default = "none";
-    desktopManager.kde4.enable = true;
     layout = "us";
     # https://bbs.archlinux.org/viewtopic.php?id=117102
     deviceSection = ''
@@ -96,4 +95,3 @@
 
   nix.trustedBinaryCaches = ["http://hydra.nixos.org"];
 }
-
