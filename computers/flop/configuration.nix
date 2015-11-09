@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  require = 
+  require =
   [
     ./hardware-configuration.nix
     ../../editorIsVim.nix
@@ -28,7 +28,7 @@
 
   nixpkgs.config.packageOverrides = in_pkgs :
   {
-    linuxPackages = in_pkgs.linuxPackages_3_18;
+    linuxPackages = in_pkgs.linuxPackages_4_1;
   };
 
   boot =
@@ -40,8 +40,8 @@
       version = 2;
       device = "/dev/sda";
     };
-    
-    kernelPackages = pkgs.linuxPackages_3_18;
+
+    kernelPackages = pkgs.linuxPackages_4_1;
 
     extraModprobeConfig = ''
       options snd-hda-intel index=1
@@ -125,7 +125,7 @@
 
   };
 
-  environment.systemPackages = 
+  environment.systemPackages =
   [
     pkgs.xorg.xf86inputsynaptics
   ];
