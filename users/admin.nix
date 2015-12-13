@@ -2,13 +2,15 @@
 with pkgs.lib;
 {
   users.extraUsers =
-  { 
-    admin = 
-    { 
+  {
+    admin =
+    {
       createHome = true;
       uid = 1000;
       group = "users";
-      extraGroups = [ "wheel" "vboxusers" ];
+      extraGroups = [ "wheel"
+                      "libvirtd"
+                      "vboxusers" ];
       home = "/home/admin";
       shell = pkgs.bashInteractive + "/bin/bash";
       openssh.authorizedKeys.keyFiles = [./ssh/coconnor.pub];

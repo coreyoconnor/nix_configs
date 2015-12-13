@@ -2,7 +2,7 @@
 with lib;
 {
   services.jenkinsSlave.enable = true;
-  users.extraUsers.jenkins.extraGroups = [ "vboxusers" "plugdev" ];
+  users.extraUsers.jenkins.extraGroups = [ "libvirtd" "vboxusers" "plugdev" ];
 
   fonts.enableFontDir = true;
 

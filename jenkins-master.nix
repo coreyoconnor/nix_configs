@@ -14,7 +14,7 @@ with lib;
                  pkgs.nix
                  pkgs.nixops
                  pkgs.gzip
-                 config.boot.kernelPackages.virtualbox 
+                 config.boot.kernelPackages.virtualbox
                  pkgs.curl
                  pkgs.xorg.xorgserver ];
   };

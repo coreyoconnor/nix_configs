@@ -8,13 +8,19 @@ with pkgs.lib;
   ];
 
   users.extraUsers =
-  { 
-    coconnor = 
-    { 
+  {
+    coconnor =
+    {
       createHome = false;
       uid = 499;
       group = "users";
-      extraGroups = [ "wheel" "vboxusers" "transmission" "plugdev" "audio" "video" ];
+      extraGroups = [ "wheel"
+                      "vboxusers"
+                      "libvirtd"
+                      "transmission"
+                      "plugdev"
+                      "audio"
+                      "video" ];
       home = "/home/coconnor";
       shell = pkgs.bashInteractive + "/bin/bash";
       openssh.authorizedKeys.keyFiles = [./ssh/coconnor.pub];
