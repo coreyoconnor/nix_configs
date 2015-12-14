@@ -29,16 +29,35 @@ let
     # duplicated here for explicitness
     environment.systemPackages = [ pkgs.qemu_kvm ];
   };
+  shareInit =
+  {
+    system.activationScripts.libvirtShareDir = ''
+      mkdir -p ${cfg.shareDir}
+      chown root:libvirtd ${cfg.shareDir}
+      chmod 774 ${cfg.shareDir}
+    '';
+  };
 in {
-  options = {
-    vmhost.type = mkOption {
-      type = types.string;
-      default = "virtualbox";
-      description = ''
-        Virtualization platform to use.
-      '';
+  options =
+  {
+    vmhost =
+    {
+      type = mkOption
+      {
+        type = types.string;
+        default = "virtualbox";
+        description = ''
+          Virtualization platform to use.
+        '';
+      };
+
+      shareDir = mkOption
+      {
+        type = types.string;
+        default = "/var/lib/libvirt/images";
+      };
     };
   };
 
-  config = mkMerge [commonConfig vboxHost kvmHost];
+  config = mkMerge [commonConfig vboxHost kvmHost shareInit];
 }
