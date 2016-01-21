@@ -12,9 +12,7 @@ with lib;
                  pkgs.jdk
                  pkgs.openssh
                  pkgs.nix
-                 pkgs.nixops
                  pkgs.gzip
-                 config.boot.kernelPackages.virtualbox
                  pkgs.curl
                  pkgs.xorg.xorgserver ];
   };
