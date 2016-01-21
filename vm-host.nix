@@ -7,6 +7,7 @@ let
     boot.kernelModules = [ "virtio" ];
     networking.firewall.allowedTCPPorts = [ 3389 3390 3391 3392 ];
     virtualisation.libvirtd.enable = true;
+    networking.firewall.checkReversePath = false;
   };
   vboxHost = mkIf (cfg.type == "virtualbox")
   {
@@ -25,6 +26,7 @@ let
   kvmHost = mkIf (cfg.type == "libvirtd")
   {
     virtualisation.libvirtd.enableKVM = true;
+    virtualisation.virtualbox.host.enable = false;
 
     # duplicated here for explicitness
     environment.systemPackages = [ pkgs.qemu_kvm ];
@@ -34,7 +36,7 @@ let
     system.activationScripts.libvirtShareDir = ''
       mkdir -p ${cfg.shareDir}
       chown root:libvirtd ${cfg.shareDir}
-      chmod 774 ${cfg.shareDir}
+      chmod 770 ${cfg.shareDir}
     '';
   };
 in {
