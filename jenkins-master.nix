@@ -14,7 +14,9 @@ with lib;
                  pkgs.nix
                  pkgs.gzip
                  pkgs.curl
-                 pkgs.xorg.xorgserver ];
+                 pkgs.xorg.xorgserver
+                 pkgs.qemu_kvm # required by nixops
+               ];
   };
 
   services.openssh =
