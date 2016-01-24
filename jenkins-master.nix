@@ -10,6 +10,7 @@ with lib;
                  pkgs.stdenv
                  pkgs.git
                  pkgs.jdk
+                 pkgs.libvirt # required by nixops
                  pkgs.openssh
                  pkgs.nix
                  pkgs.gzip
