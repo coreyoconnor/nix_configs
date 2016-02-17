@@ -34,7 +34,7 @@
   {
     hostName = "alter"; # must be unique
     useDHCP = false;
-    interfaces.enp1s0 =
+    interfaces.enp0s3 =
     {
       ipAddress = "192.168.1.6";
       prefixLength = 24;

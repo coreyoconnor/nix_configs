@@ -11,7 +11,7 @@
   boot.initrd.availableKernelModules = [ "xhci_hcd" "ahci" "ohci_pci" "ehci_pci" "usbhid" "usb_storage" ];
 
   fileSystems."/" =
-    { device = "/dev/sda2";
+    { device = "/dev/sda1";
       fsType = "ext4";
     };
 
