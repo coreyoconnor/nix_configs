@@ -27,7 +27,6 @@
 
   hardware.enableAcerPrimus = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_4_1;
   nixpkgs.config.packageOverrides = in_pkgs :
   {
     linuxPackages = in_pkgs.linuxPackages_4_1;
