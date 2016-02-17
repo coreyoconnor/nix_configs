@@ -13,6 +13,7 @@
     ../../kde5.nix
     ../../logging.nix
     ../../networks/home.nix
+    ../../scala-dev.nix
     ../../standard-env.nix
     ../../standard-packages.nix
     ../../standard-nixpath.nix
@@ -26,6 +27,7 @@
 
   hardware.enableAcerPrimus = true;
 
+  boot.kernelPackages = pkgs.linuxPackages_4_1;
   nixpkgs.config.packageOverrides = in_pkgs :
   {
     linuxPackages = in_pkgs.linuxPackages_4_1;
@@ -45,21 +47,6 @@
 
     extraModprobeConfig = ''
       options snd-hda-intel index=1
-    '';
-
-    postBootCommands = ''
-      echo 0 > /sys/bus/usb/devices/1-6/authorized
-    '';
-  };
-
-  powerManagement =
-  {
-    powerUpCommands = ''
-      echo 0 > /sys/bus/usb/devices/1-6/authorized
-    '';
-
-    resumeCommands = ''
-      echo 0 > /sys/bus/usb/devices/1-6/authorized
     '';
   };
 
