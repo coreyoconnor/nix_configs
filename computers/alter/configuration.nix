@@ -17,8 +17,9 @@
     ../../standard-services.nix
     ../../tobert-config.nix
     ../../vm-host.nix
-    ../../users/coconnor.nix
     ../../users/admin.nix
+    ../../users/coconnor.nix
+    ../../users/jenkins.nix
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_4_1;
