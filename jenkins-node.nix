@@ -61,5 +61,6 @@ with lib;
   environment.systemPackages =
   [
     pkgs.gradle
+    pkgs.sbt
   ];
 }
