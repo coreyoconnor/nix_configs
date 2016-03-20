@@ -22,16 +22,23 @@
     ../../users/admin.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_3_18;
+  boot.kernelPackages = pkgs.linuxPackages_4_4;
   nixpkgs.config.packageOverrides = in_pkgs :
   {
-    linuxPackages = in_pkgs.linuxPackages_3_18;
+    linuxPackages = in_pkgs.linuxPackages_4_4;
   };
+
+  environment.systemPackages = [
+    pkgs.btrfs-progs
+  ];
 
   fileSystems =
   [
     { mountPoint = "/mnt/non-admin-home/";
       device = "/dev/disk/by-label/home";
+    }
+    { mountPoint = "/mnt/storage";
+      device = "/dev/disk/by-label/storage";
     }
   ];
 
