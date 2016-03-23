@@ -57,6 +57,10 @@
     };
     defaultGateway = "192.168.1.1";
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
+    firewall =
+    {
+      allowedTCPPorts = [ 445 ];
+    };
   };
 
   nix.trustedBinaryCaches = ["http://hydra.nixos.org"];
@@ -81,4 +85,28 @@
   '';
 
   vmhost.type = "libvirtd";
+
+  services.samba =
+  {
+    enable = true;
+    securityType = "auto";
+    extraConfig = ''
+      create mask = 0664
+      directory mask = 0775
+      server role = standalone
+      guest account = media
+      map to guest = bad user
+    '';
+    shares =
+    {
+      media =
+      {
+        path = "/mnt/storage/media";
+        comment = "Public media";
+        "writeable" = true;
+        "guest ok" = true;
+        "guest only" = true;
+      };
+    };
+  };
 }
