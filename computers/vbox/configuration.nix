@@ -13,7 +13,7 @@
 
   nix.maxJobs = 2;
 
-  boot.loader.grub = 
+  boot.loader.grub =
   {
     enable = true;
     version = 2;
@@ -42,12 +42,11 @@
     pkgs.kvm
   ];
 
-  networking = 
+  networking =
   {
-    hostName = "nix-dev";
-    interfaceMonitor.enable = false;
+    hostName = "nixos-vbox";
   };
-  
+
   security.sudo.enable = true;
   security.sudo.configFile = ''
     Defaults:root,%wheel env_keep+=LOCALE_ARCHIVE
@@ -69,4 +68,3 @@
   services.openssh.forwardX11 = false;
   services.virtualbox.enable = true;
 }
-
