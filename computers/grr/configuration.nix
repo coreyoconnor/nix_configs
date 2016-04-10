@@ -11,6 +11,7 @@
     ./hardware-configuration.nix
     ../../editorIsVim.nix
     ../../i18n.nix
+    ../../networks/home.nix
     ../../standard-env.nix
     ../../standard-nixpath.nix
     ../../standard-services.nix
