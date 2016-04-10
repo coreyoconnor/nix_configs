@@ -25,7 +25,7 @@
     enable = true;
     version = 2;
     devices = [ "/dev/sdf" "/dev/sdg" "/dev/sdh" "/dev/sdi" ];
-  }
+  };
 
   networking =
   {
