@@ -17,7 +17,6 @@ with lib;
     openssh =
     {
       enable = true;
-      forwardX11 = true;
     };
     nixosManual.showManual = true;
 
@@ -33,4 +32,3 @@ with lib;
     xfs.enable = false;
   };
 }
-
