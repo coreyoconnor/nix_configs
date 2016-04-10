@@ -29,7 +29,7 @@ let
     virtualisation.virtualbox.host.enable = false;
 
     # duplicated here for explicitness
-    environment.systemPackages = [ pkgs.qemu_kvm ];
+    environment.systemPackages = [ pkgs.libvirt pkgs.qemu_kvm ];
   };
   shareInit =
   {

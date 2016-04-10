@@ -19,6 +19,9 @@
     ../../vm-host.nix
   ];
 
+  boot.kernelParams = [ "loglevel=7" "nomodeset" ];
+  boot.blacklistedKernelModules = [ "nouveau" ];
+
   # grub bootloader installed to all devices in the boot raid1 array
   boot.loader.grub =
   {
