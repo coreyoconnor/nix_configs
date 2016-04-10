@@ -12,6 +12,7 @@
     ../../editorIsVim.nix
     ../../i18n.nix
     ../../standard-env.nix
+    ../../standard-nixpath.nix
     ../../standard-services.nix
     ../../tobert-config.nix
     ../../users/coconnor.nix
