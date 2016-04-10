@@ -34,9 +34,9 @@
   {
     hostName = "grr"; # must be unique
     useDHCP = false;
-    interfaces.enp1s0 =
+    interfaces.enp10s0 =
     {
-      ipAddress = "192.168.1.2";
+      ipAddress = "192.168.1.7";
       prefixLength = 24;
     };
     defaultGateway = "192.168.1.1";
