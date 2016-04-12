@@ -13,13 +13,18 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/b24b2a17-873a-4580-8078-8567f1494825";
-      fsType = "ext4";
+    { device = "rpool/root/grr-1";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home" =
+    { device = "rpool/home";
+      fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/79da3fec-58dc-4665-8e4a-908920ac941e";
-      fsType = "ext3";
+    { device = "/dev/disk/by-uuid/bea4ca24-f511-45eb-b979-3d9d7137079e";
+      fsType = "ext4";
     };
 
   swapDevices = [ ];

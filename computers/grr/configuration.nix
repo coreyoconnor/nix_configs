@@ -30,10 +30,12 @@
     enable = true;
     version = 2;
     devices = [ "/dev/sdf" "/dev/sdg" "/dev/sdh" "/dev/sdi" ];
+    zfsSupport = true;
   };
 
   networking =
   {
+    hostId = "34343134";
     hostName = "grr"; # must be unique
     useDHCP = false;
     interfaces.enp10s0 =
