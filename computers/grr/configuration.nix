@@ -21,7 +21,33 @@
     ../../vm-host.nix
   ];
 
-  boot.kernelParams = [ "loglevel=7" "nomodeset" ];
+  boot.kernelModules =
+  [
+    "vfio"
+    "vfio_pci"
+    "vfio_iommu_type1"
+    "vfio_virqfd"
+    "pci_stub"
+  ];
+
+  boot.kernelParams =
+  [
+    "loglevel=7"
+    "nomodeset"
+    "intel_iommu=on"
+    # intel USB controller, intel audio, intel USB controller, nvidia GPU, nvidia audio,
+    # Oxygen HD Audio, ASMedia USB controller
+    # "vfio_pci.ids=8086:1d2d,8086:1d20,8086:1d26,10de:06cd,10de:0be5,13f6:8788,1b21:1042"
+    # nvidia GPU, nvidia audio, Oxygen HD Audio
+    "vfio_pci.ids=10de:06cd,10de:0be5,13f6:8788"
+    # "vfio_iommu_type1.allow_unsafe_interrupts=1"
+    # "kvm.allow_unsafe_assigned_interrupts=1"
+    "kvm.emulate_invalid_guest_state=1"
+    "kvm.ignore_msrs=1"
+    # disable USB entirely - this is forwarded to the windows gues
+    # "usbcore.nousb"
+    # nevermind. use usbdevice. Qemu freezes otherwise.
+  ];
   boot.blacklistedKernelModules = [ "nouveau" ];
 
   # grub bootloader installed to all devices in the boot raid1 array
@@ -29,7 +55,13 @@
   {
     enable = true;
     version = 2;
-    devices = [ "/dev/sdf" "/dev/sdg" "/dev/sdh" "/dev/sdi" ];
+    devices =
+    [
+      "/dev/disk/by-id/ata-ADATA_SP550_2G0420001801"
+      "/dev/disk/by-id/ata-ADATA_SP550_2G0420002543"
+      "/dev/disk/by-id/ata-ADATA_SP550_2G0420003186"
+      "/dev/disk/by-id/ata-ADATA_SP550_2G0420001635"
+    ];
     zfsSupport = true;
   };
 
@@ -52,6 +84,12 @@
   services.openssh.extraConfig = ''
     UseDNS no
   '';
+
+  services.xserver =
+  {
+    enable = true;
+    autorun = false;
+  };
 
   services.journald.console = "/dev/tty12";
 

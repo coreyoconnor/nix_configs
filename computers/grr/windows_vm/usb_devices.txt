@@ -1,0 +1,17 @@
+Bus 003 Device 007: ID 045e:028e Microsoft Corp. Xbox360 Controller
+Bus 003 Device 006: ID 054c:05c4 Sony Corp. DualShock 4
+Bus 003 Device 005: ID 047d:2041 Kensington SlimBlade Trackball
+Bus 003 Device 004: ID 045e:000b Microsoft Corp. Natural Keyboard Elite
+Bus 003 Device 003: ID 1a40:0101 Terminus Technology Inc. Hub
+Bus 003 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 002 Device 002: ID 046d:0994 Logitech, Inc. QuickCam Orbit/Sphere AF
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 001 Device 007: ID 046b:ff31 American Megatrends, Inc. 
+Bus 001 Device 006: ID 046b:ff40 American Megatrends, Inc. 
+Bus 001 Device 005: ID 046b:ff20 American Megatrends, Inc. 
+Bus 001 Device 004: ID 046b:ff10 American Megatrends, Inc. Virtual Keyboard and Mouse
+Bus 001 Device 003: ID 046b:ff01 American Megatrends, Inc. 
+Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub

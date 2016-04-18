@@ -1,0 +1,17 @@
+00:1d.0 0c03: 8086:1d26 (rev 06)
+00:1d.0 USB controller: Intel Corporation C600/X79 series chipset USB2 Enhanced Host Controller #1 (rev 06)
+
+04:00.0 0300: 10de:06cd (rev a3)
+04:00.0 VGA compatible controller: NVIDIA Corporation GF100 [GeForce GTX 470] (rev a3)
+
+04:00.1 0403: 10de:0be5 (rev a1)
+04:00.1 Audio device: NVIDIA Corporation GF100 High Definition Audio Controller (rev a1)
+
+06:04.0 0401: 13f6:8788
+06:04.0 Multimedia audio controller: C-Media Electronics Inc CMI8788 [Oxygen HD Audio]
+
+09:00.0 0200: 8086:10d3
+09:00.0 Ethernet controller: Intel Corporation 82574L Gigabit Network Connection
+
+0b:00.0 0c03: 1b21:1042
+0b:00.0 USB controller: ASMedia Technology Inc. ASM1042 SuperSpeed USB Host Controller
