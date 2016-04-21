@@ -38,8 +38,11 @@
     # intel USB controller, intel audio, intel USB controller, nvidia GPU, nvidia audio,
     # Oxygen HD Audio, ASMedia USB controller
     # "vfio_pci.ids=8086:1d2d,8086:1d20,8086:1d26,10de:06cd,10de:0be5,13f6:8788,1b21:1042"
-    # nvidia GPU, nvidia audio, Oxygen HD Audio
-    "vfio_pci.ids=10de:06cd,10de:0be5,13f6:8788"
+    # nvidia GTX 470 GPU, nvidia audio, Oxygen HD Audio
+    # "vfio_pci.ids=10de:06cd,10de:0be5,13f6:8788"
+    # nvidia GTX 980 ti GPU, nvidia audio, Oxygen HD Audio
+    "vfio_pci.ids=10de:17c8,10de:0fb0,13f6:8788"
+    # "pci-stub.ids=10de:17c8,10de:0fb0,13f6:8788"
     # "vfio_iommu_type1.allow_unsafe_interrupts=1"
     # "kvm.allow_unsafe_assigned_interrupts=1"
     "kvm.emulate_invalid_guest_state=1"
@@ -70,7 +73,7 @@
     hostId = "34343134";
     hostName = "grr"; # must be unique
     useDHCP = false;
-    interfaces.enp10s0 =
+    interfaces.enp9s0 =
     {
       ipAddress = "192.168.1.7";
       prefixLength = 24;
