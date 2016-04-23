@@ -4,7 +4,10 @@ let
   cfg = config.vmhost;
   commonConfig =
   {
-    boot.kernelModules = [ "virtio" ];
+    boot =
+    {
+      kernelModules = [ "virtio" ];
+    };
     networking.firewall.allowedTCPPorts = [ 3389 3390 3391 3392 ];
     virtualisation.libvirtd.enable = true;
     networking.firewall.checkReversePath = false;

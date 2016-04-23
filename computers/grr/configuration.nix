@@ -19,39 +19,21 @@
     ../../users/coconnor.nix
     ../../users/admin.nix
     ../../vm-host.nix
+    ../../vfio.nix
   ];
 
-  boot.kernelModules =
-  [
-    "vfio"
-    "vfio_pci"
-    "vfio_iommu_type1"
-    "vfio_virqfd"
-    "pci_stub"
-  ];
-
-  boot.kernelParams =
-  [
-    "loglevel=7"
-    "nomodeset"
-    "intel_iommu=on"
-    # intel USB controller, intel audio, intel USB controller, nvidia GPU, nvidia audio,
-    # Oxygen HD Audio, ASMedia USB controller
-    # "vfio_pci.ids=8086:1d2d,8086:1d20,8086:1d26,10de:06cd,10de:0be5,13f6:8788,1b21:1042"
-    # nvidia GTX 470 GPU, nvidia audio, Oxygen HD Audio
-    # "vfio_pci.ids=10de:06cd,10de:0be5,13f6:8788"
-    # nvidia GTX 980 ti GPU, nvidia audio, Oxygen HD Audio
-    "vfio_pci.ids=10de:17c8,10de:0fb0,13f6:8788"
-    # "pci-stub.ids=10de:17c8,10de:0fb0,13f6:8788"
-    # "vfio_iommu_type1.allow_unsafe_interrupts=1"
-    # "kvm.allow_unsafe_assigned_interrupts=1"
-    "kvm.emulate_invalid_guest_state=1"
-    "kvm.ignore_msrs=1"
-    # disable USB entirely - this is forwarded to the windows gues
-    # "usbcore.nousb"
-    # nevermind. use usbdevice. Qemu freezes otherwise.
-  ];
-  boot.blacklistedKernelModules = [ "nouveau" ];
+  vmhost =
+  {
+    type = "libvirtd";
+    vfio =
+    {
+      enable = true;
+      iommu = "intel";
+      nvidiaBinds = [ "10de:17c8" "10de:0fb0" ];
+      forceBinds = [ "0000:08:00.0" ];
+      bootBinds = [ "13f6:8788" ];
+    };
+  };
 
   # grub bootloader installed to all devices in the boot raid1 array
   boot.loader.grub =
@@ -95,8 +77,6 @@
   };
 
   services.journald.console = "/dev/tty12";
-
-  vmhost.type = "libvirtd";
 
   system.stateVersion = "16.03";
 }
