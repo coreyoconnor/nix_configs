@@ -19,7 +19,6 @@
     ../../users/coconnor.nix
     ../../users/admin.nix
     ../../vm-host.nix
-    ../../vfio.nix
   ];
 
   vmhost =

@@ -43,6 +43,11 @@ let
     '';
   };
 in {
+  imports =
+  [
+    ./vm-host/vfio.nix
+  ];
+
   options =
   {
     vmhost =
