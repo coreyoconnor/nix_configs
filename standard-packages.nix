@@ -13,7 +13,7 @@ with lib;
     {
       fontconfig.enable = true;
       enableFontDir = true;
-      fonts = 
+      fonts =
       [
         pkgs.anonymousPro
         pkgs.bakoma_ttf
@@ -76,7 +76,6 @@ with lib;
       pkgs.gnupg
       pkgs.inconsolata
       # pkgs.isabelle
-      pkgs.jre
       pkgs.nginx
       pkgs.ocaml
       pkgs.perlXMLParser
