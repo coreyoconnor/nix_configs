@@ -18,8 +18,6 @@
     ../../standard-services.nix
     ../../tobert-config.nix
     ../../udev.nix
-    ../../users/coconnor.nix
-    ../../users/admin.nix
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_4_4;

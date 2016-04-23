@@ -1,9 +1,8 @@
 {config, pkgs, ...}:
 
 {
-  require = 
+  require =
   [
-    ../../users/coconnor.nix
     ../../editorIsVim.nix
     ../../filesystem.nix
     ../../i18n.nix
@@ -27,18 +26,18 @@
     "kvm-intel"
   ];
 
-  boot.initrd.kernelModules = 
+  boot.initrd.kernelModules =
   [
-    "ext4" 
+    "ext4"
     "usb_storage"
     "ehci_hcd"
     "uhci_hcd"
     "ata_piix"
     "firewire_ohci"
-    "usbhid" 
+    "usbhid"
   ];
 
-  networking = 
+  networking =
   {
     hostName = "nixpad"; # Define your hostname.
     interfaceMonitor.enable = true; # Watch for plugged cable.
@@ -46,7 +45,7 @@
     useDHCP = false;
     wicd.enable = true;
   };
-      
+
 	# Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
@@ -56,8 +55,8 @@
   boot.loader.grub.device = "/dev/sda";
 
   # X11 config
-  # starts 
-  services.xserver = 
+  # starts
+  services.xserver =
   {
     enable = true;
     autorun = true;
@@ -86,7 +85,7 @@
     };
   };
 
-  environment.x11Packages = 
+  environment.x11Packages =
   [
     pkgs.xorg.xf86inputsynaptics
   ];
@@ -100,4 +99,3 @@
       export NIX_PATH
   '';
 }
-

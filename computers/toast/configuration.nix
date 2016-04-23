@@ -2,7 +2,6 @@
 {
   require =
   [
-    ../../users/coconnor.nix
     ../../editorIsVim.nix
     ../../filesystem.nix
     ../../java-dev.nix

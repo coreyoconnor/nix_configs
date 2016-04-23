@@ -20,8 +20,6 @@
     ../../standard-services.nix
     ../../tobert-config.nix
     ../../vm-host.nix
-    ../../users/admin.nix
-    ../../users/coconnor.nix
     ./primus.nix
   ];
 
