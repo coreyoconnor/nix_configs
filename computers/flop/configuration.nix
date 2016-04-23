@@ -115,4 +115,6 @@
   [
     pkgs.xorg.xf86inputsynaptics
   ];
+
+  system.stateVersion = "16.03";
 }

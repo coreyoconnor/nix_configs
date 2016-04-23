@@ -14,7 +14,7 @@
   {
     device = "/dev/sda1";
     fsType = "ext4";
-    options = "rw,stripe=4,data=ordered,relatime";
+    options = [ "rw" "stripe=4" "data=ordered" "relatime" ];
   };
 
   nix.maxJobs = 4;
