@@ -3,6 +3,17 @@
 with lib;
 let
   cfg = config.vmhost.vfio;
+  forceBindScript = ''
+    set -ex
+    for dev in ${concatStringsSep " " cfg.forceBinds}; do
+      vendor=$(cat /sys/bus/pci/devices/$dev/vendor)
+      device=$(cat /sys/bus/pci/devices/$dev/device)
+      if [ -e /sys/bus/pci/devices/$dev/driver ]; then
+        echo $dev > /sys/bus/pci/devices/$dev/driver/unbind
+      fi
+      echo $vendor $device > /sys/bus/pci/drivers/vfio-pci/new_id
+    done
+  '';
   commonParams = [ "kvm.emulate_invalid_guest_state=1" "kvm.ignore_msrs=1" ];
   iommuParamsFor =
   {
@@ -83,17 +94,7 @@ in {
       {
         Type = "oneshot";
       };
-      script = ''
-        set -ex
-        for dev in ${concatStringsSep " " cfg.forceBinds}; do
-          vendor=$(cat /sys/bus/pci/devices/$dev/vendor)
-          device=$(cat /sys/bus/pci/devices/$dev/device)
-          if [ -e /sys/bus/pci/devices/$dev/driver ]; then
-            echo $dev > /sys/bus/pci/devices/$dev/driver/unbind
-          fi
-          echo $vendor $device > /sys/bus/pci/drivers/vfio-pci/new_id
-        done
-      '';
+      script = forceBindScript;
     };
   };
 }
