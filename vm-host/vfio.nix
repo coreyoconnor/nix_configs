@@ -10,8 +10,8 @@ let
       device=$(cat /sys/bus/pci/devices/$dev/device)
       if [ -e /sys/bus/pci/devices/$dev/driver ]; then
         echo $dev > /sys/bus/pci/devices/$dev/driver/unbind
+        echo $vendor $device > /sys/bus/pci/drivers/vfio-pci/new_id
       fi
-      echo $vendor $device > /sys/bus/pci/drivers/vfio-pci/new_id
     done
   '';
   commonParams = [ "kvm.emulate_invalid_guest_state=1" "kvm.ignore_msrs=1" ];
@@ -88,8 +88,10 @@ in {
     {
       description = "Forcefully unbinds the given PCI devices then binds to VFIO";
       before = [ "libvirtd.service" ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = [ "libvirtd.service" ];
       after = [ "systemd-udev-settle.service" ];
+
+      path = [ pkgs.pciutils ];
       serviceConfig =
       {
         Type = "oneshot";
