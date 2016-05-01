@@ -76,4 +76,36 @@
   services.journald.console = "/dev/tty12";
 
   system.stateVersion = "16.03";
+
+  systemd.services.windows-vm =
+  {
+    description = "starts windows desktop.";
+    after = [ "vfio-force-binds.service" ];
+    wantedBy = [ "multi-user.target" ];
+    restartIfChanged = false;
+    serviceConfig =
+    {
+      Type = "simple";
+    };
+    script = ''
+    ${pkgs.numactl}/bin/numactl -N 0 \
+      ${pkgs.qemu_kvm}/bin/qemu-kvm -m 24G -mem-path /dev/hugepages -M q35 \
+        -cpu host,kvm=off,hv_time,hv_relaxed,hv_vapic,hv_spinlocks=0x1fff,hv_vendor_id=none \
+        -smp 16,sockets=1,cores=8,threads=2 \
+        -rtc base=localtime \
+        -drive file=/dev/zvol/rpool/root/waffle-1,format=raw \
+        -drive file=/dev/sdb,format=raw \
+        -device ioh3420,bus=pcie.0,addr=1c.0,multifunction=on,port=1,chassis=1,id=root.1 \
+        -device vfio-pci,multifunction=on,x-vga=on,host=05:00.0,bus=root.1,addr=00.0 \
+        -device vfio-pci,host=05:00.1,bus=root.1,addr=00.1 \
+        -device vfio-pci,host=08:00.0 -net none \
+        -device vfio-pci,host=04:04.0 \
+        -usbdevice host:045e:028e \
+        -usbdevice host:047d:2041 \
+        -usbdevice host:045e:000b \
+        -usbdevice host:046d:0994 \
+        -usbdevice host:054c:05c4 \
+        -vga none -nographic
+    '';
+  };
 }

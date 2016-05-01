@@ -1,0 +1,17 @@
+/run/current-system/sw/bin/qemu-kvm -m 24576 -M q35 \
+         -smp 16,sockets=1,cores=8,threads=2 \
+         -rtc base=localtime \
+         -drive file=/dev/zvol/rpool/root/waffle-1,format=raw,index=0 \
+         -drive file=/dev/sdb,format=raw,index=1 \
+         -device ioh3420,bus=pcie.0,addr=1c.0,multifunction=on,port=1,chassis=1,id=root.1 \
+         -device vfio-pci,multifunction=on,x-vga=on,host=05:00.0,bus=root.1,addr=00.0 \
+         -device vfio-pci,host=05:00.1,bus=root.1,addr=00.1 \
+         -device vfio-pci,host=08:00.0 -net none \
+         -device vfio-pci,host=04:04.0 \
+         -usbdevice host:045e:028e \
+         -usbdevice host:047d:2041 \
+         -usbdevice host:045e:000b \
+         -usbdevice host:046d:0994 \
+         -usbdevice host:054c:05c4 \
+         -vga none -nographic \
+         "$@"
