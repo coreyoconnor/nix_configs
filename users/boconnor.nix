@@ -5,6 +5,7 @@ with pkgs.lib;
   {
     boconnor =
     {
+      uid = 1101;
       createHome = true;
       group = "users";
       home = "/home/boconnor";
