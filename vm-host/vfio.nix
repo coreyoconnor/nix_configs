@@ -91,6 +91,8 @@ in {
       wantedBy = [ "libvirtd.service" ];
       after = [ "systemd-udev-settle.service" ];
 
+      restartIfChanged = false;
+
       path = [ pkgs.pciutils ];
       serviceConfig =
       {
