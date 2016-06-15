@@ -10,6 +10,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../editorIsVim.nix
+    ../../java-dev.nix
     ../../i18n.nix
     ../../networks/home.nix
     ../../standard-env.nix
@@ -33,18 +34,23 @@
   };
 
   # grub bootloader installed to all devices in the boot raid1 array
-  boot.loader.grub =
+  boot =
   {
-    enable = true;
-    version = 2;
-    devices =
-    [
-      "/dev/disk/by-id/ata-ADATA_SP550_2G0420001801"
-      "/dev/disk/by-id/ata-ADATA_SP550_2G0420002543"
-      "/dev/disk/by-id/ata-ADATA_SP550_2G0420003186"
-      "/dev/disk/by-id/ata-ADATA_SP550_2G0420001635"
-    ];
-    zfsSupport = true;
+    loader.grub =
+    {
+      enable = true;
+      version = 2;
+      devices =
+      [
+        "/dev/disk/by-id/ata-ADATA_SP550_2G0420001801"
+        "/dev/disk/by-id/ata-ADATA_SP550_2G0420002543"
+        "/dev/disk/by-id/ata-ADATA_SP550_2G0420003186"
+        "/dev/disk/by-id/ata-ADATA_SP550_2G0420001635"
+      ];
+      zfsSupport = true;
+    };
+
+    kernelParams = [ "kvm-intel.nested=1" ];
   };
 
   networking =
@@ -66,12 +72,6 @@
   services.openssh.extraConfig = ''
     UseDNS no
   '';
-
-  services.xserver =
-  {
-    enable = true;
-    autorun = false;
-  };
 
   services.journald.console = "/dev/tty12";
 
@@ -105,7 +105,19 @@
         -usbdevice host:045e:000b \
         -usbdevice host:046d:0994 \
         -usbdevice host:054c:05c4 \
+        -usbdevice host:1a40:0101 \
+        -usbdevice host:04b9:0300 \
+        -usbdevice host:058f:9410 \
         -vga none -nographic
     '';
+  };
+
+  services.xserver.enable = true;
+
+  services.xspice =
+  {
+    enable = true;
+    layout = "us";
+    resolutions = [ { x = 2560; y = 1080; } ];
   };
 }

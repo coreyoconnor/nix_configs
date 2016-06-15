@@ -72,12 +72,12 @@
     '';
   };
 
-  # Enable the X11 windowing system.
+  # configure X11
   services.xserver =
   {
-    enable = true;
+    autorun = true;
+
     videoDrivers = [ "intel" ];
-    exportConfiguration = true;
     layout = "us";
     # see: http://tinyurl.com/qxzud5l
     deviceSection = ''
