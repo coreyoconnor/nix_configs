@@ -96,7 +96,6 @@ with lib;
       pkgs.gnome.gnomeicontheme
       pkgs.gnome.pango
       pkgs.gnome.vte
-      pkgs.gtkLibs.gtk # To get GTK+'s themes.
       pkgs.shared_mime_info
       pkgs.shared_desktop_ontologies
       # pkgs.swt
