@@ -96,6 +96,7 @@ with lib;
       pkgs.gnome.gnomeicontheme
       pkgs.gnome.pango
       pkgs.gnome.vte
+      pkgs.irssi
       pkgs.shared_mime_info
       pkgs.shared_desktop_ontologies
       # pkgs.swt
