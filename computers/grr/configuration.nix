@@ -11,6 +11,7 @@
     ./hardware-configuration.nix
     ../../editorIsVim.nix
     ../../java-dev.nix
+    ../../jenkins-node.nix
     ../../i18n.nix
     ../../networks/home.nix
     ../../standard-env.nix
@@ -108,6 +109,8 @@
         -usbdevice host:1a40:0101 \
         -usbdevice host:04b9:0300 \
         -usbdevice host:058f:9410 \
+        -usbdevice host:05f3:0007 \
+        -usbdevice host:05f3:0081 \
         -vga none -nographic
     '';
   };
