@@ -2,3 +2,7 @@
 	path = nixpkgs
 	url = git@github.com:coreyoconnor/nixpkgs.git
   branch = master
+[submodule "nix-org"]
+	path = nix-org
+	url = git@github.com:coreyoconnor/nix-org.git
+	branch = master
