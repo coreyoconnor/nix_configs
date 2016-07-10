@@ -10,4 +10,6 @@ export NIX_PATH=$NIX_PATH:nixos-config=$config_dir/computers/$1/configuration.ni
 
 set -x
 
-nixos-rebuild build --show-trace
+# nixos-rebuild build --show-trace
+nix="$(nix-build --no-build-output '<nixpkgs/nixos>' -A config.nix.package.out)"
+$nix/bin/nix-build --show-trace '<nixpkgs/nixos>' -A system
