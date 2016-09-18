@@ -111,6 +111,7 @@
         -usbdevice host:058f:9410 \
         -usbdevice host:05f3:0007 \
         -usbdevice host:05f3:0081 \
+        -usbdevice host:5332:1300 \
         -vga none -nographic
     '';
   };
