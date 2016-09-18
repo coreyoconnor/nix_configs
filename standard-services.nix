@@ -20,11 +20,6 @@ with lib;
     };
     nixosManual.showManual = true;
 
-    dbus.packages =
-    [
-      pkgs.gnome.GConf
-    ];
-
     syslogd.extraConfig = ''
         user.* /var/log/user
     '';
