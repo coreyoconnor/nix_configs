@@ -83,7 +83,6 @@ with lib;
       pkgs.python
       pkgs.emacs
       pkgs.qemu
-      pkgs.vala
       pkgs.vpnc
       pkgs.xterm
       pkgs.desktop_file_utils
