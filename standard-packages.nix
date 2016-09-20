@@ -88,13 +88,13 @@ with lib;
       pkgs.desktop_file_utils
       pkgs.evince
       pkgs.flashplayer
-      pkgs.gnome.GConf
-      pkgs.gnome.gtk
+      pkgs.gnome3.gconf
+      pkgs.gtk3
       # pkgs.gnome.intltool
-      pkgs.gnome.gtk_doc
-      pkgs.gnome.gnomeicontheme
-      pkgs.gnome.pango
-      pkgs.gnome.vte
+      pkgs.gtk_doc
+      pkgs.gnome3.defaultIconTheme
+      pkgs.pango
+      pkgs.gnome3.vte
       pkgs.irssi
       pkgs.shared_mime_info
       pkgs.shared_desktop_ontologies
