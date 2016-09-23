@@ -29,8 +29,8 @@
 
   swapDevices = [ ];
 
-  nix.maxJobs = 32;
+  nix.maxJobs = 12;
   nix.extraOptions = ''
-    build-cores = 16
+    build-cores = 6
   '';
 }
