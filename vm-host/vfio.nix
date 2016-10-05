@@ -97,6 +97,8 @@ in {
       serviceConfig =
       {
         Type = "oneshot";
+        Restart = "no";
+        User = "root";
       };
       script = forceBindScript;
     };
