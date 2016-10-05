@@ -21,6 +21,11 @@
     ../../vm-host.nix
   ];
 
+  nixpkgs.config.packageOverrides = in_pkgs :
+  {
+    linuxPackages = in_pkgs.linuxPackages_4_8;
+  };
+
   vmhost =
   {
     type = "libvirtd";
@@ -52,6 +57,7 @@
     };
 
     kernelParams = [ "kvm-intel.nested=1" ];
+    kernelPackages = pkgs.linuxPackages_4_8;
   };
 
   networking =
@@ -77,6 +83,11 @@
   services.journald.console = "/dev/tty12";
 
   system.stateVersion = "16.03";
+
+  boot.kernel.sysctl =
+  {
+    "vm.nr_hugepages" = 16384;
+  };
 
   systemd.services.windows-vm =
   {
