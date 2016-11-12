@@ -8,6 +8,7 @@ let
     for dev in ${concatStringsSep " " cfg.forceBinds}; do
       vendor=$(cat /sys/bus/pci/devices/$dev/vendor)
       device=$(cat /sys/bus/pci/devices/$dev/device)
+      sleep 10
       if [ -d /sys/bus/pci/devices/$dev/driver ]; then
         echo $dev > /sys/bus/pci/devices/$dev/driver/unbind
         echo $vendor $device > /sys/bus/pci/drivers/vfio-pci/new_id

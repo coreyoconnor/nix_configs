@@ -52,6 +52,8 @@
         "/dev/disk/by-id/ata-ADATA_SP550_2G0420002543"
         "/dev/disk/by-id/ata-ADATA_SP550_2G0420003186"
         "/dev/disk/by-id/ata-ADATA_SP550_2G0420001635"
+        # "/dev/disk/by-id/ata-ADATA_SP550_2G3220055024"
+        # "/dev/disk/by-id/ata-ADATA_SP550_2G3220055124"
       ];
       zfsSupport = true;
     };
@@ -123,6 +125,7 @@
         -usbdevice host:05f3:0007 \
         -usbdevice host:05f3:0081 \
         -usbdevice host:5332:1300 \
+        -usbdevice host:2b24:0001 \
         -vga none -nographic
     '';
   };
