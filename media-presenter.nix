@@ -18,5 +18,5 @@
     autoLogin = true;
   };
 
-  services.xserver.desktopManager.xbmc.enable = true;
+  services.xserver.desktopManager.kodi.enable = true;
 }
