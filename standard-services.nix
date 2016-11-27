@@ -5,25 +5,37 @@ with lib;
   {
     boot.blacklistedKernelModules = [ "snd_pcsp" ];
     sound.enable = true;
-  };
 
-  config.services =
-  {
-    dbus.enable = true;
-    ntp.enable = true;
-    udisks2.enable = true;
-    upower.enable = true;
-    acpid.enable = true;
-    openssh =
+    services =
     {
-      enable = true;
+      dbus.enable = true;
+      ntp.enable = true;
+      udisks2.enable = true;
+      upower.enable = true;
+      acpid.enable = true;
+      openssh =
+      {
+        enable = true;
+      };
+      nixosManual.showManual = true;
+
+      syslogd.extraConfig = ''
+          user.* /var/log/user
+      '';
+
+      xfs.enable = false;
+
     };
-    nixosManual.showManual = true;
 
-    syslogd.extraConfig = ''
-        user.* /var/log/user
-    '';
+    nix =
+    {
+      gc =
+      {
+        automatic = true;
+        options = "--delete-older-than 30d";
+      };
 
-    xfs.enable = false;
+      optimise.automatic = true;
+    };
   };
 }
