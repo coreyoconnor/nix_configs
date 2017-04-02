@@ -11,11 +11,14 @@ with lib;
 
     fonts =
     {
-      fontconfig.enable = true;
-      fontconfig.ultimate =
+      fontconfig =
       {
         enable = true;
         allowBitmaps = false;
+        ultimate =
+        {
+          enable = true;
+        };
       };
       enableFontDir = true;
       fonts =
@@ -104,15 +107,5 @@ with lib;
       pkgs.wireshark
       pkgs.wineUnstable
     ];
-
-    security.setuidOwners = [
-    {
-      program = "dumpcap";
-      owner = "root";
-      group = "wheel";
-      setuid = true;
-      setgid = false;
-      permissions = "u+rx,g+x";
-    }];
   };
 }
