@@ -130,12 +130,21 @@
     '';
   };
 
-  services.xserver.enable = true;
-
-  services.xspice =
+  #services.xserver =
+  #{
+  #  enable = true;
+  #  resolutions = [ { x = 2560; y = 1080; } ];
+  #};
+  services.xserver.displayManager.xpra.enable = true;
+  networking.firewall =
   {
-    enable = true;
-    layout = "us";
-    resolutions = [ { x = 2560; y = 1080; } ];
+    allowedTCPPorts = [ 10000 ];
   };
+
+  #services.xspice =
+  #{
+  #  enable = true;
+  #  layout = "us";
+  #  resolutions = [ { x = 2560; y = 1080; } ];
+  #};
 }
