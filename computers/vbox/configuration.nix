@@ -10,7 +10,7 @@
     ../../haskell-dev.nix
   ];
 
-  nix.maxJobs = 2;
+  boot.initrd.availableKernelModules = [ "ata_piix" "ohci_hcd" "ehci_hcd" ];
 
   boot.loader.grub =
   {
@@ -18,8 +18,6 @@
     version = 2;
     device = "/dev/sda";
   };
-
-  boot.initrd.availableKernelModules = [ "ata_piix" "ohci_hcd" "ehci_hcd" ];
 
   environment.systemPackages =
   [
@@ -45,6 +43,9 @@
   {
     hostName = "nixos-vbox";
   };
+
+  nix.maxJobs = 2;
+  nixpkgs.config.allowUnfree = true;
 
   security.sudo.enable = true;
   security.sudo.configFile = ''
