@@ -65,5 +65,5 @@
   services.openssh.enable = true;
   # TODO: I only want to disable X11 forwarding for ssh client
   services.openssh.forwardX11 = false;
-  services.virtualbox.enable = true;
+  virtualisation.virtualbox.guest.enable = true;
 }
