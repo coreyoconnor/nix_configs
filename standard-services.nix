@@ -4,7 +4,19 @@ with lib;
   config =
   {
     boot.blacklistedKernelModules = [ "snd_pcsp" ];
-    sound.enable = true;
+
+    nix =
+    {
+      gc =
+      {
+        automatic = true;
+        options = "--delete-older-than 30d";
+      };
+
+      optimise.automatic = true;
+    };
+
+    programs.mosh.enable = true;
 
     services =
     {
@@ -27,15 +39,6 @@ with lib;
 
     };
 
-    nix =
-    {
-      gc =
-      {
-        automatic = true;
-        options = "--delete-older-than 30d";
-      };
-
-      optimise.automatic = true;
-    };
+    sound.enable = true;
   };
 }
