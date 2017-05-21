@@ -23,7 +23,7 @@
 
   nixpkgs.config.packageOverrides = in_pkgs :
   {
-    linuxPackages = in_pkgs.linuxPackages_4_9;
+    linuxPackages = in_pkgs.linuxPackages_4_10;
   };
 
   vmhost =
@@ -52,14 +52,14 @@
         "/dev/disk/by-id/ata-ADATA_SP550_2G0420002543"
         "/dev/disk/by-id/ata-ADATA_SP550_2G0420003186"
         "/dev/disk/by-id/ata-ADATA_SP550_2G0420001635"
-        # "/dev/disk/by-id/ata-ADATA_SP550_2G3220055024"
-        # "/dev/disk/by-id/ata-ADATA_SP550_2G3220055124"
+        "/dev/disk/by-id/ata-ADATA_SP550_2G3220055024"
+        "/dev/disk/by-id/ata-ADATA_SP550_2G3220055124"
       ];
       zfsSupport = true;
     };
 
     kernelParams = [ "kvm-intel.nested=1" ];
-    kernelPackages = pkgs.linuxPackages_4_9;
+    kernelPackages = pkgs.linuxPackages_4_10;
   };
 
   networking =
@@ -101,6 +101,8 @@
     {
       Type = "simple";
     };
+    # -drive file=/dev/zvol/rpool/root/waffle-1,format=raw,cache=writeback,aio=native,cache.direct=on \
+
     script = ''
     ${pkgs.numactl}/bin/numactl -N 0 \
       ${pkgs.qemu_kvm}/bin/qemu-kvm -m 24G -mem-path /dev/hugepages -M q35 \
@@ -108,7 +110,6 @@
         -smp 16,sockets=1,cores=8,threads=2 \
         -rtc base=localtime \
         -drive file=/dev/zvol/rpool/root/waffle-1,format=raw \
-        -drive file=/dev/sdb,format=raw \
         -device ioh3420,bus=pcie.0,addr=1c.0,multifunction=on,port=1,chassis=1,id=root.1 \
         -device vfio-pci,multifunction=on,x-vga=on,host=05:00.0,bus=root.1,addr=00.0 \
         -device vfio-pci,host=05:00.1,bus=root.1,addr=00.1 \
