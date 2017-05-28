@@ -23,7 +23,7 @@
 
   nixpkgs.config.packageOverrides = in_pkgs :
   {
-    linuxPackages = in_pkgs.linuxPackages_4_10;
+    linuxPackages = in_pkgs.linuxPackages_4_9;
   };
 
   vmhost =
@@ -59,7 +59,7 @@
     };
 
     kernelParams = [ "kvm-intel.nested=1" ];
-    kernelPackages = pkgs.linuxPackages_4_10;
+    kernelPackages = pkgs.linuxPackages_4_9;
   };
 
   networking =
