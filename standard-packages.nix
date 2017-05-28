@@ -89,6 +89,7 @@ with lib;
       pkgs.irssi
       pkgs.shared_mime_info
       pkgs.shared_desktop_ontologies
+      pkgs.taskwarrior
       # pkgs.swt
       pkgs.xcompmgr
       pkgs.xlibs.fontutil
