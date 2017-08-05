@@ -23,7 +23,7 @@
 
   nixpkgs.config.packageOverrides = in_pkgs :
   {
-    linuxPackages = in_pkgs.linuxPackages_4_9;
+    linuxPackages = in_pkgs.linuxPackages_4_12;
   };
 
   vmhost =
@@ -59,7 +59,7 @@
     };
 
     kernelParams = [ "kvm-intel.nested=1" ];
-    kernelPackages = pkgs.linuxPackages_4_9;
+    kernelPackages = pkgs.linuxPackages_4_12;
   };
 
   networking =
@@ -106,7 +106,8 @@
     script = ''
     ${pkgs.numactl}/bin/numactl -N 0 \
       ${pkgs.qemu_kvm}/bin/qemu-kvm -m 24G -mem-path /dev/hugepages -M q35 \
-        -cpu host,kvm=off,hv_time,hv_relaxed,hv_vapic,hv_spinlocks=0x1fff,hv_vendor_id=none \
+        -machine kernel_irqchip=on \
+        -cpu max,kvm=off,hv_time,hv_relaxed,hv_vapic,hv_spinlocks=0x1fff,hv_vendor_id=none \
         -smp 16,sockets=1,cores=8,threads=2 \
         -rtc base=localtime \
         -drive file=/dev/zvol/rpool/root/waffle-1,format=raw \
@@ -120,6 +121,7 @@
         -usbdevice host:045e:000b \
         -usbdevice host:046d:0994 \
         -usbdevice host:054c:05c4 \
+        -usbdevice host:054c:09cc \
         -usbdevice host:1a40:0101 \
         -usbdevice host:04b9:0300 \
         -usbdevice host:058f:9410 \
