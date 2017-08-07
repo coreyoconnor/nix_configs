@@ -42,7 +42,6 @@ with lib;
       pkgs.autoconf
       pkgs.automake
       pkgs.bashInteractive
-      # pkgs.bitcoin
       pkgs.cairo
       pkgs.chromium
       pkgs.gdb
@@ -53,8 +52,6 @@ with lib;
       pkgs.gitSVN
       pkgs.acpi
       pkgs.ruby_2_1
-      # pkgs.rubygems
-      # pkgs.rubySqlite3
       pkgs.gcc
       pkgs.coq
       pkgs.oprofile
@@ -66,7 +63,6 @@ with lib;
       pkgs.gnumake
       pkgs.gnupg
       pkgs.inconsolata
-      # pkgs.isabelle
       pkgs.nginx
       pkgs.ocaml
       pkgs.perlXMLParser
@@ -81,7 +77,6 @@ with lib;
       pkgs.flashplayer
       pkgs.gnome3.gconf
       pkgs.gtk3
-      # pkgs.gnome.intltool
       pkgs.gtk_doc
       pkgs.gnome3.defaultIconTheme
       pkgs.pango
@@ -90,7 +85,6 @@ with lib;
       pkgs.shared_mime_info
       pkgs.shared_desktop_ontologies
       pkgs.taskwarrior
-      # pkgs.swt
       pkgs.xcompmgr
       pkgs.xlibs.fontutil
       pkgs.xlibs.kbproto
@@ -105,8 +99,6 @@ with lib;
       pkgs.xclip
       pkgs.xdg_utils
       pkgs.rxvt_unicode
-      pkgs.wireshark
-      pkgs.wineUnstable
     ];
   };
 }
