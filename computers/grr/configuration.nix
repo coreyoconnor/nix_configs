@@ -17,6 +17,7 @@
     ../../standard-env.nix
     ../../standard-nixpath.nix
     ../../standard-services.nix
+    ../../status-tty.nix
     ../../tobert-config.nix
     ../../vm-host.nix
   ];
@@ -91,11 +92,13 @@
     "vm.nr_hugepages" = 16384;
   };
 
-  systemd.services.windows-vm =
+  systemd.defaultUnit = "graphical.target";
+
+  systemd.services."display-manager" =
   {
     description = "starts windows desktop.";
-    after = [ "vfio-force-binds.service" ];
-    wantedBy = [ "multi-user.target" ];
+    after = [ "vfio-force-binds.service" "systemd-udev-settle.service" "local-fs.target" "acpid.service" "systemd-logind.service" ];
+    wants = [ "systemd-udev-settle.service" ];
     restartIfChanged = false;
     serviceConfig =
     {
@@ -133,21 +136,36 @@
     '';
   };
 
-  #services.xserver =
-  #{
-  #  enable = true;
-  #  resolutions = [ { x = 2560; y = 1080; } ];
-  #};
   services.xserver.displayManager.xpra.enable = true;
   networking.firewall =
   {
     allowedTCPPorts = [ 10000 ];
   };
 
-  #services.xspice =
-  #{
-  #  enable = true;
-  #  layout = "us";
-  #  resolutions = [ { x = 2560; y = 1080; } ];
-  #};
+  systemd.services.update-freemyip =
+  {
+    description = "Updates FreeMyIP";
+
+    path = [ pkgs.curl ];
+
+    serviceConfig =
+    {
+      Type = "oneshot";
+      User = "nobody";
+    };
+    script = ''
+      set -ex
+      curl https://freemyip.com/update?token=588f227086d6557b1589553c&domain=grr.freemyip.com
+    '';
+  };
+
+  systemd.timers.update-freemyip =
+  {
+    wantedBy = [ "timers.target" ];
+    timerConfig =
+    {
+      OnCalendar = "*:0/30";
+      Persistent = "yes";
+    };
+  };
 }
