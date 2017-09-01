@@ -24,7 +24,20 @@
 
   nixpkgs.config.packageOverrides = in_pkgs :
   {
-    linuxPackages = in_pkgs.linuxPackages_4_12;
+    linuxPackages = in_pkgs.linuxPackages_4_12.extend (selfLinux: superLinux:
+    {
+      zfs = pkgs.lib.overrideDerivation superLinux.zfs (oldAttrs:
+      {
+        patches = [ ./zfs.patch ];
+        src = pkgs.fetchFromGitHub
+        {
+          owner = "zfsonlinux";
+          repo = "zfs";
+          rev = "74ea6092d0693b6e1c6daaee0fdc79491697996c";
+          sha256 = "194nq81wiwa6h07rq0h1p3mgpanlp6sy8knnsapw8606m2c7z84k";
+        };
+      });
+    });
   };
 
   vmhost =
@@ -60,7 +73,7 @@
     };
 
     kernelParams = [ "kvm-intel.nested=1" ];
-    kernelPackages = pkgs.linuxPackages_4_12;
+    kernelPackages = pkgs.linuxPackages;
   };
 
   networking =
@@ -68,7 +81,8 @@
     hostId = "34343134";
     hostName = "grr"; # must be unique
     useDHCP = false;
-    interfaces.enp9s0 =
+    bridges.br0.interfaces = [ "enp9s0" ];
+    interfaces.br0 =
     {
       ipAddress = "192.168.1.7";
       prefixLength = 24;
