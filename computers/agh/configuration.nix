@@ -21,10 +21,10 @@
     ../../udev.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_4_4;
+  boot.kernelPackages = pkgs.linuxPackages_4_12;
   nixpkgs.config.packageOverrides = in_pkgs :
   {
-    linuxPackages = in_pkgs.linuxPackages_4_4;
+    linuxPackages = in_pkgs.linuxPackages_4_12;
   };
 
   environment.systemPackages = [
