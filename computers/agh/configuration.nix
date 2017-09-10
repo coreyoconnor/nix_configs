@@ -22,9 +22,16 @@
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_4_12;
-  nixpkgs.config.packageOverrides = in_pkgs :
+  nixpkgs.config =
   {
-    linuxPackages = in_pkgs.linuxPackages_4_12;
+    packageOverrides = in_pkgs :
+    {
+      linuxPackages = in_pkgs.linuxPackages_4_12;
+    };
+    kodi =
+    {
+      enableSteamLauncher = true;
+    };
   };
 
   environment.systemPackages = [
@@ -76,6 +83,16 @@
   {
     enable = true;
     autorun = false;
+    xrandrHeads =
+    [
+      {
+        output = "HDMI-0";
+        primary = true;
+        monitorConfig = ''
+          Option "PreferredMode" "1920x1080"
+        '';
+      }
+    ];
   };
 
   services.journald.console = "/dev/tty12";
