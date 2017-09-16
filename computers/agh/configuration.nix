@@ -27,6 +27,7 @@
     packageOverrides = in_pkgs :
     {
       linuxPackages = in_pkgs.linuxPackages_4_12;
+      steam = in_pkgs.steam.override { newStdcpp = true; };
     };
     kodi =
     {
@@ -50,6 +51,14 @@
 
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
+  hardware.pulseaudio =
+  {
+    enable = true;
+    support32Bit = true;
+    extraConfig = ''
+      set-default-sink alsa_output.pci-0000_00_01.1.hdmi-stereo
+    '';
+  };
 
   networking =
   {
@@ -65,7 +74,8 @@
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
     firewall =
     {
-      allowedTCPPorts = [ 445 ];
+      allowedTCPPorts = [ 445 27036 27037];
+      allowedUDPPorts = [ 27031 27036 ];
     };
   };
 
@@ -82,17 +92,18 @@
   services.xserver =
   {
     enable = true;
-    autorun = false;
+    autorun = true;
     xrandrHeads =
     [
       {
-        output = "HDMI-0";
+        output = "HDMI-A-0";
         primary = true;
         monitorConfig = ''
           Option "PreferredMode" "1920x1080"
         '';
       }
     ];
+    videoDrivers = [ "amdgpu" ];
   };
 
   services.journald.console = "/dev/tty12";
