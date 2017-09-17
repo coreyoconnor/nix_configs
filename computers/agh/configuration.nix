@@ -58,19 +58,50 @@
     extraClientConf = ''
       autospawn = no
     '';
-    extraConfig = ''
-      set-default-sink alsa_output.pci-0000_00_01.1.hdmi-stereo
+    configFile = pkgs.writeText "custom.pa" ''
+      load-module module-native-protocol-unix
+      load-module module-device-restore
+      load-module module-stream-restore
+      load-module module-card-restore
+      load-module module-augment-properties
+      load-module module-switch-on-port-available
+
+      load-module module-alsa-card device_id=0 tsched=1
+      load-module module-alsa-sink device="default" tsched=1
+
+      #set-default-sink alsa_output.pci-0000_00_01.1.hdmi-stereo
+      #set-port-latency-offset alsa_card.pci-0000_00_01.1 hdmi-output-0 100000
+
+      load-module module-always-sink
+      load-module module-intended-roles
+
+      .ifexists module-console-kit.so
+      load-module module-console-kit
+      .endif
+      .ifexists module-systemd-login.so
+      load-module module-systemd-login
+      .endif
+
+      load-module module-position-event-sounds
+      load-module module-role-cork
+      load-module module-filter-heuristics
+      load-module module-filter-apply
+
+      ### load-module module-udev-detect
     '';
     daemon =
     {
       config =
       {
-        default-sample-rate = "44100";
-        default-fragments = "5";
-        default-fragment-size-msec = "2";
+        default-sample-rate = "48000";
+        default-fragments = "2";
+        default-fragment-size-msec = "24";
         high-priority = "yes";
         realtime-scheduling = "yes";
+        realtime-priority = "9";
         log-level = "debug";
+        avoid-resampling = "yes";
+        flat-volumes = "yes";
       };
     };
   };
