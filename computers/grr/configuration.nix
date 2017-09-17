@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -16,28 +12,32 @@
     ../../networks/home.nix
     ../../standard-env.nix
     ../../standard-nixpath.nix
+    ../../standard-packages.nix
     ../../standard-services.nix
     ../../status-tty.nix
     ../../tobert-config.nix
     ../../vm-host.nix
   ];
 
-  nixpkgs.config.packageOverrides = in_pkgs :
+  nixpkgs.config =
   {
-    linuxPackages = in_pkgs.linuxPackages_4_12.extend (selfLinux: superLinux:
+    packageOverrides = in_pkgs :
     {
-      zfs = pkgs.lib.overrideDerivation superLinux.zfs (oldAttrs:
+      linuxPackages = in_pkgs.linuxPackages_4_12.extend (selfLinux: superLinux:
       {
-        patches = [ ./zfs.patch ];
-        src = pkgs.fetchFromGitHub
+        zfs = pkgs.lib.overrideDerivation superLinux.zfs (oldAttrs:
         {
-          owner = "zfsonlinux";
-          repo = "zfs";
-          rev = "74ea6092d0693b6e1c6daaee0fdc79491697996c";
-          sha256 = "194nq81wiwa6h07rq0h1p3mgpanlp6sy8knnsapw8606m2c7z84k";
-        };
+          patches = [ ./zfs.patch ];
+          src = pkgs.fetchFromGitHub
+          {
+            owner = "zfsonlinux";
+            repo = "zfs";
+            rev = "74ea6092d0693b6e1c6daaee0fdc79491697996c";
+            sha256 = "194nq81wiwa6h07rq0h1p3mgpanlp6sy8knnsapw8606m2c7z84k";
+          };
+        });
       });
-    });
+    };
   };
 
   vmhost =
