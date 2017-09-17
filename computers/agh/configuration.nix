@@ -27,7 +27,7 @@
     packageOverrides = in_pkgs :
     {
       linuxPackages = in_pkgs.linuxPackages_4_12;
-      steam = in_pkgs.steam.override { newStdcpp = true; };
+      # steam = in_pkgs.steam.override { newStdcpp = true; };
     };
     kodi =
     {
@@ -55,9 +55,24 @@
   {
     enable = true;
     support32Bit = true;
+    extraClientConf = ''
+      autospawn = no
+    '';
     extraConfig = ''
       set-default-sink alsa_output.pci-0000_00_01.1.hdmi-stereo
     '';
+    daemon =
+    {
+      config =
+      {
+        default-sample-rate = "44100";
+        default-fragments = "5";
+        default-fragment-size-msec = "2";
+        high-priority = "yes";
+        realtime-scheduling = "yes";
+        log-level = "debug";
+      };
+    };
   };
 
   networking =
