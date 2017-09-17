@@ -39,6 +39,7 @@ with lib;
     };
   };
 
+  /*
   systemd.services.selenium-server =
   {
     description = "selenium-server";
@@ -57,6 +58,7 @@ with lib;
       User = "jenkins";
     };
   };
+  */
 
   environment.systemPackages =
   [

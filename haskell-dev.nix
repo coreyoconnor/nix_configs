@@ -7,9 +7,9 @@ let hsPkgs = self : with self; [
   attoparsec
   case-insensitive
   # self.cgi
-  fgl
-  GLUT
-  GLURaw
+  # fgl
+  # GLUT
+  # GLURaw
   haskell-src
   hashable
   # self.html
@@ -17,8 +17,8 @@ let hsPkgs = self : with self; [
   HUnit
   mtl
   network
-  OpenGL
-  OpenGLRaw
+  # OpenGL
+  # OpenGLRaw
   parallel
   parsec
   QuickCheck
@@ -67,4 +67,3 @@ in {
 
   environment.systemPackages = [ pkgs.hsEnv ];
 }
-

@@ -20,7 +20,11 @@ with lib;
 
     services =
     {
-      dbus.enable = true;
+      dbus =
+      {
+        enable = true;
+        socketActivated = true;
+      };
       ntp.enable = true;
       udisks2.enable = true;
       upower.enable = true;
@@ -36,7 +40,6 @@ with lib;
       '';
 
       xfs.enable = false;
-
     };
 
     sound.enable = true;
