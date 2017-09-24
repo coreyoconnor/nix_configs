@@ -53,7 +53,7 @@
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio =
   {
-    enable = true;
+    enable = false;
     support32Bit = true;
     extraClientConf = ''
       autospawn = no
