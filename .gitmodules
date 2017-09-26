@@ -6,3 +6,7 @@
 	path = nix-org
 	url = git@github.com:coreyoconnor/nix-org.git
 	branch = master
+[submodule "musnix"]
+	path = musnix
+	url = git@github.com:coreyoconnor/musnix.git
+	branch = master

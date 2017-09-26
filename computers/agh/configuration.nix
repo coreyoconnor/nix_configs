@@ -21,12 +21,12 @@
     ../../udev.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_4_12;
+  boot.kernelPackages = pkgs.linuxPackages_4_9;
   nixpkgs.config =
   {
     packageOverrides = in_pkgs :
     {
-      linuxPackages = in_pkgs.linuxPackages_4_12;
+      linuxPackages = in_pkgs.linuxPackages_4_9;
       # steam = in_pkgs.steam.override { newStdcpp = true; };
     };
     kodi =
@@ -53,42 +53,39 @@
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio =
   {
-    enable = false;
+    enable = true;
     support32Bit = true;
-    extraClientConf = ''
-      autospawn = no
-    '';
-    configFile = pkgs.writeText "custom.pa" ''
-      load-module module-native-protocol-unix
-      load-module module-device-restore
-      load-module module-stream-restore
-      load-module module-card-restore
-      load-module module-augment-properties
-      load-module module-switch-on-port-available
-
-      load-module module-alsa-card device_id=0 tsched=1
-      load-module module-alsa-sink device="default" tsched=1
-
-      #set-default-sink alsa_output.pci-0000_00_01.1.hdmi-stereo
-      #set-port-latency-offset alsa_card.pci-0000_00_01.1 hdmi-output-0 100000
-
-      load-module module-always-sink
-      load-module module-intended-roles
-
-      .ifexists module-console-kit.so
-      load-module module-console-kit
-      .endif
-      .ifexists module-systemd-login.so
-      load-module module-systemd-login
-      .endif
-
-      load-module module-position-event-sounds
-      load-module module-role-cork
-      load-module module-filter-heuristics
-      load-module module-filter-apply
-
-      ### load-module module-udev-detect
-    '';
+    #configFile = pkgs.writeText "custom.pa" ''
+    #  load-module module-native-protocol-unix
+    #  load-module module-device-restore
+    #  load-module module-stream-restore
+    #  load-module module-card-restore
+    #  load-module module-augment-properties
+    #  load-module module-switch-on-port-available
+#
+#      load-module module-alsa-card device_id=0 tsched=1
+#      load-module module-alsa-sink device="default" tsched=1
+#
+#      #set-default-sink alsa_output.pci-0000_00_01.1.hdmi-stereo
+#      #set-port-latency-offset alsa_card.pci-0000_00_01.1 hdmi-output-0 100000
+#
+#      load-module module-always-sink
+#      load-module module-intended-roles
+#
+#      .ifexists module-console-kit.so
+#      load-module module-console-kit
+#      .endif
+#      .ifexists module-systemd-login.so
+#      load-module module-systemd-login
+#      .endif
+#
+#      load-module module-position-event-sounds
+#      load-module module-role-cork
+#      load-module module-filter-heuristics
+#      load-module module-filter-apply
+#
+#      ### load-module module-udev-detect
+#    '';
     daemon =
     {
       config =

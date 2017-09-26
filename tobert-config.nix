@@ -5,8 +5,6 @@ with lib;
 {
   boot.kernel.sysctl =
   {
-    # tell the kernel to only swap if it really needs it
-    "vm.swappiness" = 1;
     # increase the number of allowed mmapped files
     "vm.max_map_count" = 1048576;
 
