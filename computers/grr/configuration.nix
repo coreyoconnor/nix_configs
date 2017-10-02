@@ -23,7 +23,7 @@
   {
     packageOverrides = in_pkgs :
     {
-      linuxPackages = in_pkgs.linuxPackages_4_12.extend (selfLinux: superLinux:
+      linuxPackages = in_pkgs.linuxPackages_4_13.extend (selfLinux: superLinux:
       {
         zfs = pkgs.lib.overrideDerivation superLinux.zfs (oldAttrs:
         {
