@@ -8,7 +8,7 @@
 
   musnix =
   {
-    enable = true;
+    enable = false;
     kernel =
     {
       latencytop = true;
@@ -32,8 +32,15 @@
     autoLogin = true;
   };
 
-  services.xserver.desktopManager.kodi.enable = true;
-  services.xserver.desktopManager.default = "kodi";
+  services.xserver.desktopManager.default = "retroarch";
+
+  services.xserver.desktopManager.session = [{
+    name = "retroarch";
+    start = ''
+      ${pkgs.retroarch}/bin/retroarch &
+      waitPID=$!
+    '';
+  }];
   services.xserver.windowManager.pekwm.enable = true;
   services.xserver.windowManager.default = "pekwm";
 }

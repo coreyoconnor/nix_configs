@@ -21,22 +21,40 @@
     ../../udev.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_4_9;
+  boot =
+  {
+    kernelPackages = pkgs.linuxPackages_4_13;
+    # kernelParams = ["nomodeset"];
+    kernelParams = ["amdgpu.cik_support=1" "amdgpu.si_support=1"];
+  };
   nixpkgs.config =
   {
     packageOverrides = in_pkgs :
     {
-      linuxPackages = in_pkgs.linuxPackages_4_9;
+      linuxPackages = in_pkgs.linuxPackages_4_13;
       # steam = in_pkgs.steam.override { newStdcpp = true; };
     };
     kodi =
     {
       enableSteamLauncher = true;
+      enableAdvancedLauncher = true;
+      enableAdvancedEmulatorLauncher = true;
+      enableControllers = true;
+    };
+    retroarch =
+    {
+      enableMBGA = true;
+      enableNestopia = true;
+      enableSnes9x = true;
+      enableSnes9xNext = true;
+      enableVbaM = true;
     };
   };
 
   environment.systemPackages = [
     pkgs.btrfs-progs
+    pkgs.retroarch
+    pkgs.kodi-retroarch-advanced-launchers
   ];
 
   fileSystems =
@@ -91,8 +109,8 @@
       config =
       {
         default-sample-rate = "48000";
-        default-fragments = "2";
-        default-fragment-size-msec = "24";
+        #default-fragments = "2";
+        #default-fragment-size-msec = "24";
         high-priority = "yes";
         realtime-scheduling = "yes";
         realtime-priority = "9";
@@ -139,14 +157,25 @@
     xrandrHeads =
     [
       {
+        output = "HDMI-0";
+        monitorConfig = ''
+          Option "PreferredMode" "1920x1080"
+        '';
+      }
+      {
+        output = "HDMI-1";
+        monitorConfig = ''
+          Option "PreferredMode" "1920x1080"
+        '';
+      }
+      {
         output = "HDMI-A-0";
-        primary = true;
         monitorConfig = ''
           Option "PreferredMode" "1920x1080"
         '';
       }
     ];
-    videoDrivers = [ "amdgpu" ];
+    videoDrivers = [ "amdgpu" "modesetting" ];
   };
 
   services.journald.console = "/dev/tty12";
