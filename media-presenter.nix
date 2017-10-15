@@ -32,6 +32,8 @@
     autoLogin = true;
   };
 
+  #services.xserver.desktopManager.kodi.enable = true;
+  #services.xserver.desktopManager.default = "kodi";
   services.xserver.desktopManager.default = "retroarch";
 
   services.xserver.desktopManager.session = [{
