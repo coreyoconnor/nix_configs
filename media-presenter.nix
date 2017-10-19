@@ -2,9 +2,16 @@
 {
   require =
   [
+    ./dependencies/retronix
     ./users/media.nix
     ./musnix
   ];
+
+  retronix =
+  {
+    enable = true;
+    user = "media";
+  };
 
   musnix =
   {

@@ -10,3 +10,7 @@
 	path = musnix
 	url = git@github.com:coreyoconnor/musnix.git
 	branch = master
+[submodule "dependencies/retronix"]
+	path = dependencies/retronix
+	url = git@github.com:coreyoconnor/retronix.git
+	branch = master
