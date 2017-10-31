@@ -41,14 +41,6 @@
       enableAdvancedEmulatorLauncher = true;
       enableControllers = true;
     };
-    retroarch =
-    {
-      enableMBGA = true;
-      enableNestopia = true;
-      enableSnes9x = true;
-      enableSnes9xNext = true;
-      enableVbaM = true;
-    };
   };
 
   environment.systemPackages = [
