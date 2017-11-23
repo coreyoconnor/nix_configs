@@ -52,7 +52,15 @@
     };
 
     kernelParams = [ "kvm-intel.nested=1" ];
-    kernelPackages = pkgs.linuxPackages;
+    kernelPackages = pkgs.linuxPackages_4_14;
+  };
+
+  nixpkgs.config =
+  {
+    packageOverrides = in_pkgs :
+    {
+      linuxPackages = in_pkgs.linuxPackages_4_14;
+    };
   };
 
   networking =
