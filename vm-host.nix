@@ -14,7 +14,6 @@ let
   };
   vboxHost = mkIf (cfg.type == "virtualbox")
   {
-    virtualisation.libvirtd.enableKVM = false;
     virtualisation.virtualbox.host.enable = true;
 
     nixpkgs.config.virtualbox.enableExtensionPack = true;
@@ -28,11 +27,10 @@ let
   };
   kvmHost = mkIf (cfg.type == "libvirtd")
   {
-    virtualisation.libvirtd.enableKVM = true;
     virtualisation.virtualbox.host.enable = false;
 
     # duplicated here for explicitness
-    environment.systemPackages = [ pkgs.libvirt pkgs.qemu_kvm ];
+    environment.systemPackages = [ pkgs.libvirt pkgs.qemu ];
   };
   shareInit =
   {
