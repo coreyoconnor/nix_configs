@@ -8,10 +8,7 @@ with lib;
     {
       enable = true;
       exportConfiguration = true;
-      displayManager.slim =
-      {
-        enable = true;
-      };
+      displayManager.slim.enable = true;
     };
   };
 }
