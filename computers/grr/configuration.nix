@@ -137,7 +137,7 @@
       default = "plasma5";
       plasma5.enable = true;
     };
-    videoDrivers = [ "modesetting" ];
+    videoDrivers = [ "nvidia" ];
     deviceSection = ''
       BusID "PCI:05:00:00"
     '';
@@ -151,5 +151,14 @@
         primary = true;
       }
     ];
+  };
+  hardware.pulseaudio =
+  {
+    enable = true;
+    support32Bit = true;
+  };
+  services.kbfs =
+  {
+    enable = true;
   };
 }

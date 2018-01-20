@@ -20,7 +20,8 @@ with pkgs.lib;
                       "transmission"
                       "plugdev"
                       "audio"
-                      "video" ];
+                      "video"
+                      "systemd-journal" ];
       home = "/home/coconnor";
       shell = pkgs.bashInteractive + "/bin/bash";
       openssh.authorizedKeys.keyFiles = [./ssh/coconnor.pub];
