@@ -31,6 +31,6 @@
 
   nix.maxJobs = 12;
   nix.extraOptions = ''
-    build-cores = 6
+    build-cores = 10
   '';
 }

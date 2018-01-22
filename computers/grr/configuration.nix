@@ -155,10 +155,18 @@
   hardware.pulseaudio =
   {
     enable = true;
+    configFile = ./pulse-audio-config.pa;
     support32Bit = true;
   };
   services.kbfs =
   {
     enable = true;
   };
+  services.ipfs.enable = true;
+  users.users.coconnor.packages =
+  [
+    pkgs.okular
+    pkgs.steam
+    pkgs.winePackages.full
+  ];
 }
