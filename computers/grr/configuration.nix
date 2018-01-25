@@ -55,7 +55,8 @@
     {
       linuxPackages = in_pkgs.linuxPackages_4_14;
     };
-    nixpkgs.config.permittedInsecurePackages = ["linux-4.13.16"];
+    permittedInsecurePackages = ["linux-4.13.16"];
+    wine.build = "wineWow";
   };
 
   networking =
@@ -93,43 +94,25 @@
     allowedTCPPorts = [ 10000 ];
   };
 
-  systemd.services.update-freemyip =
-  {
-    description = "Updates FreeMyIP";
-
-    path = [ pkgs.curl ];
-
-    serviceConfig =
-    {
-      Type = "oneshot";
-      User = "nobody";
-    };
-    script = ''
-      set -ex
-      curl https://freemyip.com/update?token=588f227086d6557b1589553c&domain=grr.freemyip.com
-    '';
-  };
-
-  systemd.timers.update-freemyip =
-  {
-    wantedBy = [ "timers.target" ];
-    timerConfig =
-    {
-      OnCalendar = "*:0/30";
-      Persistent = "yes";
-    };
-  };
-
   hardware =
   {
     enableAllFirmware = true;
     enableRedistributableFirmware = true;
+
     opengl =
     {
       enable = true;
       driSupport32Bit = true;
     };
+
+    pulseaudio =
+    {
+      enable = true;
+      configFile = ./pulse-audio-config.pa;
+      support32Bit = true;
+    };
   };
+
   services.xserver =
   {
     desktopManager =
@@ -152,21 +135,18 @@
       }
     ];
   };
-  hardware.pulseaudio =
-  {
-    enable = true;
-    configFile = ./pulse-audio-config.pa;
-    support32Bit = true;
-  };
+
   services.kbfs =
   {
     enable = true;
   };
+
   services.ipfs.enable = true;
+
   users.users.coconnor.packages =
   [
     pkgs.okular
     pkgs.steam
-    pkgs.winePackages.full
+    (pkgs.winePackages.full.override { wineRelease = "stable"; })
   ];
 }
