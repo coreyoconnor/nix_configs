@@ -102,6 +102,7 @@ with lib;
       pkgs.xclip
       pkgs.xdg_utils
       pkgs.rxvt_unicode
+      pkgs.gnome3.dconf
     ];
   };
 }
