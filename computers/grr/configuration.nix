@@ -82,8 +82,6 @@
 
   services.journald.console = "/dev/tty12";
 
-  system.stateVersion = "16.03";
-
   boot.kernel.sysctl =
   {
     "vm.nr_hugepages" = 16384;

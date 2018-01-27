@@ -31,6 +31,16 @@
 
   nix.maxJobs = 12;
   nix.extraOptions = ''
-    build-cores = 32
+    build-cores = 10
   '';
+
+  security.pam.loginLimits =
+  [
+    {
+      domain = "*";
+      type = "soft";
+      item = "nproc";
+      value = "unlimited";
+    }
+  ];
 }
