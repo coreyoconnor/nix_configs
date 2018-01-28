@@ -101,6 +101,7 @@
     {
       enable = true;
       driSupport32Bit = true;
+      useGLVND = true;
     };
 
     pulseaudio =
@@ -118,7 +119,7 @@
       default = "plasma5";
       plasma5.enable = true;
     };
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "nvidiaBeta" ];
     deviceSection = ''
       BusID "PCI:05:00:00"
     '';
