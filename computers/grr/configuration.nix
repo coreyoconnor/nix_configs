@@ -54,6 +54,7 @@
     packageOverrides = in_pkgs :
     {
       linuxPackages = in_pkgs.linuxPackages_4_14;
+      wine = in_pkgs.winePackages.full.override { wineRelease = "stable"; };
     };
     permittedInsecurePackages = ["linux-4.13.16"];
     wine.build = "wineWow";
@@ -146,6 +147,7 @@
   [
     pkgs.okular
     pkgs.steam
-    (pkgs.winePackages.full.override { wineRelease = "stable"; })
+    pkgs.wine
+    pkgs.winetricks
   ];
 }
