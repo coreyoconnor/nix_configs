@@ -120,7 +120,7 @@
       default = "plasma5";
       plasma5.enable = true;
     };
-    videoDrivers = [ "nvidiaBeta" ];
+    videoDrivers = [ "nvidia" ];
     deviceSection = ''
       BusID "PCI:05:00:00"
     '';
