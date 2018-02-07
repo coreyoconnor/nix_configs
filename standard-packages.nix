@@ -27,6 +27,7 @@ with lib;
         };
       };
       enableFontDir = true;
+      enableDefaultFonts = true;
       fonts =
       [
         pkgs.anonymousPro

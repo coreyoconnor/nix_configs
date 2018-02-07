@@ -45,7 +45,7 @@
       zfsSupport = true;
     };
 
-    kernelParams = [ "kvm-intel.nested=1" ];
+    # kernelParams = [ "kvm-intel.nested=1" ];
     kernelPackages = pkgs.linuxPackages_4_14;
   };
 
@@ -150,4 +150,24 @@
     pkgs.wine
     pkgs.winetricks
   ];
+
+  fileSystems =
+  {
+    "/mnt/storage/media" =
+    {
+      fsType = "cifs";
+      device = "//agh/media";
+      options =
+      [
+        "guest"
+        "uid=media"
+        "gid=users"
+        "rw"
+        "setuids"
+        "file_mode=0664"
+        "dir_mode=0775"
+        "vers=3.0"
+      ];
+    };
+  };
 }
