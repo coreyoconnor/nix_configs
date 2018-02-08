@@ -65,8 +65,9 @@
     hostId = "34343134";
     hostName = "grr";
     useDHCP = false;
-    bridges.br0.interfaces = [ "enp9s0" ];
-    interfaces.br0 =
+    #bridges.br0.interfaces = [ "enp9s0" ];
+    #interfaces.br0 =
+    interfaces.enp9s0 =
     {
       ipv4.addresses = [ { address = "192.168.1.7"; prefixLength = 24; } ];
     };
