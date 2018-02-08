@@ -6,13 +6,6 @@ with lib;
     nixpkgs.config =
     {
       allowBroken = true;
-      /*
-      chromium =
-      {
-        enablePepperFlash = true;
-        enablePepperPDF = true;
-      };
-      */
     };
 
     fonts =
