@@ -57,7 +57,7 @@ with lib;
       pkgs.utillinuxCurses
       pkgs.git
       pkgs.acpi
-      pkgs.ruby_2_1
+      pkgs.ruby
       pkgs.gcc
       pkgs.coq
       pkgs.oprofile
