@@ -68,8 +68,7 @@
     bridges.br0.interfaces = [ "enp9s0" ];
     interfaces.br0 =
     {
-      ipAddress = "192.168.1.7";
-      prefixLength = 24;
+      ipv4.addresses = [ { address = "192.168.1.7"; prefixLength = 24; } ];
     };
     defaultGateway = "192.168.1.1";
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
