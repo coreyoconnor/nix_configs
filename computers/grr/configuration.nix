@@ -89,7 +89,7 @@
 
   networking.firewall =
   {
-    allowedTCPPorts = [ 10000 ];
+    allowedTCPPorts = [ 5000 10000 ];
   };
 
   hardware =
@@ -180,5 +180,10 @@
         "vers=3.0"
       ];
     };
+  };
+
+  services.nix-serve =
+  {
+    enable = true;
   };
 }

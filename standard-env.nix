@@ -4,7 +4,7 @@ with lib;
   config =
   {
     environment.pathsToLink =
-    [ 
+    [
       "/share"
       "/etc/gconf"
     ];
@@ -26,5 +26,11 @@ with lib;
 
     users.mutableUsers = true;
     nixpkgs.config.allowUnfree = true;
+
+    nix =
+    {
+      trustedBinaryCaches = [ http://agh:5000 ];
+      trustedUsers = [ "@wheel" ];
+    };
   };
 }

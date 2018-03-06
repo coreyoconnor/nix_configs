@@ -125,7 +125,7 @@
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
     firewall =
     {
-      allowedTCPPorts = [ 445 27036 27037];
+      allowedTCPPorts = [ 445 5000 27036 27037];
       allowedUDPPorts = [ 27031 27036 ];
     };
   };
@@ -201,5 +201,10 @@
         "guest only" = true;
       };
     };
+  };
+
+  services.nix-serve =
+  {
+    enable = true;
   };
 }
