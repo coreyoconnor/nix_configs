@@ -74,8 +74,6 @@
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
   };
 
-  nix.trustedBinaryCaches = ["http://hydra.nixos.org"];
-
   services.openssh.extraConfig = ''
     UseDNS no
   '';

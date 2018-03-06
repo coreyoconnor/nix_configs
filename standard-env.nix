@@ -29,7 +29,7 @@ with lib;
 
     nix =
     {
-      trustedBinaryCaches = [ http://agh:5000 ];
+      trustedBinaryCaches = [ http://hydra.nixos.org http://agh:5000 ];
       trustedUsers = [ "@wheel" ];
     };
   };

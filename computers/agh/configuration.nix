@@ -130,8 +130,6 @@
     };
   };
 
-  nix.trustedBinaryCaches = ["http://hydra.nixos.org"];
-
   services.openssh =
   {
     extraConfig = ''
