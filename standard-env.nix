@@ -36,9 +36,7 @@ with lib;
         "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="
         "agh-1:qqgKseTFXMiOYrm+5LyWz/bKCXahP5KjW1RU6Fph674="
       ];
-      extraOptions = ''
-        secret-key-files = /etc/nix/agh-1.pem
-      '';
+
       trustedUsers = [ "@wheel" ];
     };
   };
