@@ -31,7 +31,7 @@ with lib;
     {
       autoOptimiseStore = true;
 
-      trustedBinaryCaches = [ http://hydra.nixos.org http://agh:5000 ];
+      binaryCaches = [ http://hydra.nixos.org http://agh:5000 ];
       binaryCachePublicKeys = [
         "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="
         "agh-1:qqgKseTFXMiOYrm+5LyWz/bKCXahP5KjW1RU6Fph674="
