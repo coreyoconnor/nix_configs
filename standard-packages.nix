@@ -3,9 +3,13 @@ with lib;
 {
   config =
   {
-    nixpkgs.config =
+    nixpkgs =
     {
-      allowBroken = true;
+      overlays = [ (import ./standard-overlay.nix) ];
+      config =
+      {
+        allowBroken = true;
+      };
     };
 
     fonts =
