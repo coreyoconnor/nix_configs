@@ -11,4 +11,18 @@ self: super:
       sha256 = "1dgp2741lh9iib8qs8xmy8d0jdb9990iif1n3ql9rj3g8yv00kin";
     };
   });
+
+  nixUnstable = super.nixUnstable.overrideAttrs (oldAttrs: rec
+  {
+    rev = "48662d151bdf4a38670897beacea9d1bd750376a";
+
+    src = self.fetchgit
+    {
+      rev = "48662d151bdf4a38670897beacea9d1bd750376a";
+      url = "https://github.com/NixOS/nix.git";
+      sha256 = "0avrdd5k138s2zlrwabxd60dz8jzhil0z29sdqs1g1cm5yxx83cp";
+    };
+  });
+
+  wine = super.winePackages.full.override { wineRelease = "unstable"; };
 }
