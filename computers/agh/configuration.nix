@@ -171,6 +171,7 @@
   services.nix-serve =
   {
     enable = true;
+    secretKeyFile = "/etc/nix/agh-1.pem";
   };
 
   nix.extraOptions = ''
