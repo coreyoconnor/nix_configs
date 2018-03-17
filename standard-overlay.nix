@@ -27,5 +27,5 @@ self: super:
 #    nativeBuildInputs = with self; [ autoreconfHook autoconf-archive bison flex libxml2 libxslt docbook5 docbook5_xsl pkgconfig boost ];
 #  });
 
-  wine = super.winePackages.full.override { wineRelease = "stable"; };
+  wine = super.winePackages.full.override { wineRelease = "unstable"; };
 }
