@@ -24,16 +24,6 @@ self: super:
     };
 
     nativeBuildInputs = with self; [ autoreconfHook autoconf-archive bison flex libxml2 libxslt docbook5 docbook5_xsl pkgconfig boost ];
-
-    #preAutoreconf = ''
-    #  set -x
-    #  PATH=$PATH:${with self; stdenv.lib.makeBinPath [ autoconf automake gettext libtool ]}
-    #  export PATH=${self.autoconf}/bin:${self.automake}$PATH
-    #  (cd perl ; autoreconf --install --force --verbose)
-    #  echo done bootstrap
-    #  set +x
-    #  export VARTEXFONTS=$TMPDIR/texfonts
-    #'';
   });
 
   wine = super.winePackages.full.override { wineRelease = "unstable"; };
