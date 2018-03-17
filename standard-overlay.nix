@@ -12,19 +12,20 @@ self: super:
     };
   });
 
-  nixUnstable = super.nixUnstable.overrideAttrs (oldAttrs: rec
-  {
-    rev = "48662d151bdf4a38670897beacea9d1bd750376a";
+  # disabled to avoid recompilation. I don't need this version yet.
+  #nixUnstable = super.nixUnstable.overrideAttrs (oldAttrs: rec
+  #{
+  #  rev = "48662d151bdf4a38670897beacea9d1bd750376a";
+#
+#    src = self.fetchgit
+#    {
+#      rev = "48662d151bdf4a38670897beacea9d1bd750376a";
+#      url = "https://github.com/NixOS/nix.git";
+#      sha256 = "0avrdd5k138s2zlrwabxd60dz8jzhil0z29sdqs1g1cm5yxx83cp";
+#    };
+#
+#    nativeBuildInputs = with self; [ autoreconfHook autoconf-archive bison flex libxml2 libxslt docbook5 docbook5_xsl pkgconfig boost ];
+#  });
 
-    src = self.fetchgit
-    {
-      rev = "48662d151bdf4a38670897beacea9d1bd750376a";
-      url = "https://github.com/NixOS/nix.git";
-      sha256 = "0avrdd5k138s2zlrwabxd60dz8jzhil0z29sdqs1g1cm5yxx83cp";
-    };
-
-    nativeBuildInputs = with self; [ autoreconfHook autoconf-archive bison flex libxml2 libxslt docbook5 docbook5_xsl pkgconfig boost ];
-  });
-
-  wine = super.winePackages.full.override { wineRelease = "unstable"; };
+  wine = super.winePackages.full.override { wineRelease = "stable"; };
 }
