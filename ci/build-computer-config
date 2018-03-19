@@ -3,13 +3,13 @@ set -e
 source /etc/profile
 
 config_dir=$WORKSPACE/nix_configs
+computer_name=$1
 
 export NIX_PATH=nixpkgs=$config_dir/nixpkgs
 export NIX_PATH=$NIX_PATH:nixos=$config_dir/nixpkgs/nixos
-export NIX_PATH=$NIX_PATH:nixos-config=$config_dir/computers/$1/configuration.nix
+export NIX_PATH=$NIX_PATH:nixos-config=$config_dir/computers/$computer_name/configuration.nix
 
 set -x
 
-# nixos-rebuild build --show-trace
 nix="$(nix-build --no-build-output '<nixpkgs/nixos>' -A config.nix.package.out)"
-$nix/bin/nix-build --show-trace '<nixpkgs/nixos>' -A system
+$nix/bin/nix-build --show-trace '<nixpkgs/nixos>' -o $WORKSPACE/${computer_name}-system -A system
