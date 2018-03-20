@@ -10,4 +10,4 @@ export NIX_PATH=$NIX_PATH:nixos-config=$project_dir/computers/$computer_name/con
 
 nix="$(nixos-build-cache-result-path config.nix.package.out)"
 system="$(nixos-build-cache-result-path system)"
-ln -s "${system}" $project_dir/../latest
+ln -fTs "${system}" $project_dir/../latest
