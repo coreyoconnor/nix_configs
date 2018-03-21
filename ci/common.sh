@@ -26,7 +26,7 @@ function nixos-build-cache-result-path() {
     (
     if [ ! -z "${BUILD_TAG}" ] ; then
         for build_dep in $(nix-store -qR $(nix-store -qd $store_path)) ; do
-            ${nix_bin}nix-store --add-root "${cache_dir}/build-dep${basename}" --indirect -r $build_dep
+            ${nix_bin}nix-store --add-root "${cache_dir}/build-dep-$(basename $build_dep)" --indirect -r $build_dep
         done
     fi
     ) > /dev/null
