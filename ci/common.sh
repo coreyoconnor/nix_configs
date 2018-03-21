@@ -23,11 +23,13 @@ function nixos-build-cache-result-path() {
 
     store_path=$(${nix_bin}nix-build --show-trace '<nixpkgs/nixos>' -o "${results_path}" -A "${name}")
 
+    (
     if [ ! -z "${BUILD_TAG}" ] ; then
         for build_dep in $(nix-store -qR $(nix-store -qd $store_path)) ; do
             ${nix_bin}nix-store --add-root "${cache_dir}/build-dep${basename}" --indirect -r $build_dep
         done
     fi
+    ) > /dev/null
 
     echo $store_path
 }
