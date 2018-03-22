@@ -1,4 +1,15 @@
 {config, pkgs, ...}:
+let
+  grrBuildMachine =
+  {
+    hostName = "grr";
+    sshUser = "nix";
+    sshKey = "/root/.ssh/id_rsa";
+    system = "x86_64-linux";
+    maxJobs = 8;
+    speedFactor = 2;
+  };
+in
 {
   require =
   [
@@ -175,7 +186,12 @@
     extraParams = "-E development";
   };
 
-  nix.extraOptions = ''
-    secret-key-files = /etc/nix/agh-1.pem
-  '';
+  nix =
+  {
+    distributedBuilds = true;
+    buildMachines = [ grrBuildMachine ];
+    extraOptions = ''
+      secret-key-files = /etc/nix/agh-1.pem
+    '';
+  };
 }
