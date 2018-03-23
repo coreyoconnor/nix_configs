@@ -3,16 +3,13 @@ with lib;
 {
   config =
   {
-    nixpkgs.config =
+    nixpkgs =
     {
-      allowBroken = true;
-      /*
-      chromium =
+      overlays = [ (import ./standard-overlay.nix) ];
+      config =
       {
-        enablePepperFlash = true;
-        enablePepperPDF = true;
+        allowBroken = true;
       };
-      */
     };
 
     fonts =

@@ -8,6 +8,7 @@
     ../users/coconnor.nix
     ../users/jenkins.nix
     ../users/media.nix
+    ../users/nix.nix
   ];
 
   config =

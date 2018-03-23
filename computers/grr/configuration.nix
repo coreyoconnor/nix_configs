@@ -54,7 +54,6 @@
     packageOverrides = in_pkgs :
     {
       linuxPackages = in_pkgs.linuxPackages_4_14;
-      wine = in_pkgs.winePackages.full.override { wineRelease = "stable"; };
     };
     permittedInsecurePackages = ["linux-4.13.16"];
     wine.build = "wineWow";
@@ -65,8 +64,9 @@
     hostId = "34343134";
     hostName = "grr";
     useDHCP = false;
-    bridges.br0.interfaces = [ "enp9s0" ];
-    interfaces.br0 =
+    #bridges.br0.interfaces = [ "enp9s0" ];
+    #interfaces.br0 =
+    interfaces.enp9s0 =
     {
       ipv4.addresses = [ { address = "192.168.1.7"; prefixLength = 24; } ];
     };
@@ -92,6 +92,7 @@
 
   hardware =
   {
+    bluetooth.enable = true;
     enableAllFirmware = true;
     enableRedistributableFirmware = true;
 
@@ -192,4 +193,18 @@
   {
     enable = true;
   };
+
+  services.udev.extraRules = ''
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2581", ATTRS{idProduct}=="1b7c", MODE="0660", GROUP="plugdev"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2581", ATTRS{idProduct}=="2b7c", MODE="0660", GROUP="plugdev"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2581", ATTRS{idProduct}=="3b7c", MODE="0660", GROUP="plugdev"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2581", ATTRS{idProduct}=="4b7c", MODE="0660", GROUP="plugdev"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2581", ATTRS{idProduct}=="1807", MODE="0660", GROUP="plugdev"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2581", ATTRS{idProduct}=="1808", MODE="0660", GROUP="plugdev"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2c97", ATTRS{idProduct}=="0000", MODE="0660", GROUP="plugdev"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2c97", ATTRS{idProduct}=="0001", MODE="0660", GROUP="plugdev"
+
+    SUBSYSTEM=="usb", ATTR{idVendor}=="2b24", ATTR{idProduct}=="0001", MODE="0666", GROUP="plugdev", SYMLINK+="keepkey%n"
+    KERNEL=="hidraw*", ATTRS{idVendor}=="2b24", ATTRS{idProduct}=="0001",  MODE="0666", GROUP="plugdev"
+  '';
 }
