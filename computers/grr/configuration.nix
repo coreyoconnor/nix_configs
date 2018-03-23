@@ -108,6 +108,13 @@
       enable = true;
       configFile = ./pulse-audio-config.pa;
       support32Bit = true;
+      daemon.config =
+      {
+        default-sample-rate = 96000;
+        default-sample-format = "s24le";
+        avoid-resampling = true;
+        lock-memory = true;
+      };
     };
   };
 
@@ -155,6 +162,7 @@
 
   users.users.coconnor.packages =
   [
+    pkgs.firefox-devedition-bin
     pkgs.okular
     pkgs.steam
     pkgs.wine
