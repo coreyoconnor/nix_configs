@@ -192,6 +192,7 @@ in
     buildMachines = [ grrBuildMachine ];
     extraOptions = ''
       secret-key-files = /etc/nix/agh-1.pem
+      keep-outputs = true
     '';
   };
 }
