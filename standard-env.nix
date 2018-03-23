@@ -36,7 +36,11 @@ with lib;
         "agh-1:qqgKseTFXMiOYrm+5LyWz/bKCXahP5KjW1RU6Fph674="
       ];
 
-      trustedUsers = [ "@wheel" ];
+      trustedUsers = [ "nix" "@wheel" ];
+
+      extraOptions = ''
+        keep-outputs = true
+      '';
     };
   };
 }

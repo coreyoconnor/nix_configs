@@ -5,7 +5,7 @@ with pkgs.lib;
   {
     nix =
     {
-      isSystemUser = true;
+      isNormalUser = true;
       openssh.authorizedKeys.keyFiles = [./ssh/nix.pub];
     };
   };
