@@ -10,6 +10,7 @@
     ../../jenkins-node.nix
     ../../i18n.nix
     ../../networks/home.nix
+    ../../postgis-server.nix
     ../../standard-env.nix
     ../../standard-nixpath.nix
     ../../standard-packages.nix
