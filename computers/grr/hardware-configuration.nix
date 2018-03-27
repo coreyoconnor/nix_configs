@@ -27,11 +27,14 @@
       fsType = "ext4";
     };
 
-  swapDevices = [ ];
+  swapDevices =
+  [
+    #{ device = "/dev/zvol/rpool/swap"; }
+  ];
 
-  nix.maxJobs = 12;
+  nix.maxJobs = 3;
   nix.extraOptions = ''
-    build-cores = 10
+    build-cores = 5
   '';
 
   security.pam.loginLimits =

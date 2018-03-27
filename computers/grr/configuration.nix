@@ -165,6 +165,7 @@
   [
     pkgs.firefox-devedition-bin
     pkgs.okular
+    pkgs.qgis
     pkgs.steam
     pkgs.wine
     pkgs.winetricks
