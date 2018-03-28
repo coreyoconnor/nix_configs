@@ -209,4 +209,12 @@
     SUBSYSTEM=="usb", ATTR{idVendor}=="2b24", ATTR{idProduct}=="0001", MODE="0666", GROUP="plugdev", SYMLINK+="keepkey%n"
     KERNEL=="hidraw*", ATTRS{idVendor}=="2b24", ATTRS{idProduct}=="0001",  MODE="0666", GROUP="plugdev"
   '';
+
+  nix =
+  {
+    extraOptions = ''
+      secret-key-files = /etc/nix/grr-1.sec
+      keep-outputs = true
+    '';
+  };
 }
