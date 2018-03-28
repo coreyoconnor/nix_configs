@@ -2,13 +2,13 @@ self: super:
 {
   qgis-unwrapped = super.qgis-unwrapped.overrideAttrs (oldAttrs: rec
   {
-    rev = "9de5362bc55b385541506c87c1d4aa08ee8f308f";
+    rev = "240278e490f6d5bb065a9faebe199702e5b5b3a0";
 
     src = self.fetchgit
     {
       inherit rev;
       url = "https://github.com/coreyoconnor/QGIS.git";
-      sha256 = "1rd85cnsklxkq2rlml548mjiijilv297fglpgckfvzrp5n1l48wn";
+      sha256 = "0qwijz34j76sv4g1y98qsz96p79zy49xh3w0hhb3jp5s96dhvq2z";
     };
   });
 
