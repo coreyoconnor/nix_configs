@@ -12,6 +12,7 @@ in {
       max_connections = 400
       listen_addresses = '*'
       work_mem = 4096
+      log_min_duration_statement = 100
     '';
     authentication = ''
       host all all 192.168.1.1/24 trust
