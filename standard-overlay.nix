@@ -1,6 +1,6 @@
 self: super:
 {
-  qgis3-unwrapped = super.qgis-unwrapped.overrideAttrs (oldAttrs: rec
+  qgis3-unwrapped = super.qgis3-unwrapped.overrideAttrs (oldAttrs: rec
   {
     rev = "240278e490f6d5bb065a9faebe199702e5b5b3a0";
 
