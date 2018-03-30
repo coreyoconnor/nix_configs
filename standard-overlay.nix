@@ -12,7 +12,7 @@ self: super:
     };
   });
 
-  qgis = qgis3;
+  qgis = super.qgis3;
 
   nix-serve = super.nix-serve.overrideAttrs (oldAttrs: rec
   {
