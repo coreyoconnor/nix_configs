@@ -1,6 +1,6 @@
 self: super:
 {
-  qgis-unwrapped = super.qgis-unwrapped.overrideAttrs (oldAttrs: rec
+  qgis3-unwrapped = super.qgis-unwrapped.overrideAttrs (oldAttrs: rec
   {
     rev = "240278e490f6d5bb065a9faebe199702e5b5b3a0";
 
@@ -11,6 +11,8 @@ self: super:
       sha256 = "0qwijz34j76sv4g1y98qsz96p79zy49xh3w0hhb3jp5s96dhvq2z";
     };
   });
+
+  qgis = qgis3;
 
   nix-serve = super.nix-serve.overrideAttrs (oldAttrs: rec
   {
