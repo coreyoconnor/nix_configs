@@ -100,7 +100,7 @@ in
       ipv4.addresses = [ { address = "192.168.1.2"; prefixLength = 24; } ];
     };
     defaultGateway = "192.168.1.1";
-    nameservers = [ "8.8.8.8" "8.8.4.4" ];
+    nameservers = [ "1.1.1.1" "8.8.8.8" ];
     firewall =
     {
       allowedTCPPorts = [ 445 5000 27036 27037];
