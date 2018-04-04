@@ -5,7 +5,7 @@ with lib;
   {
     nixpkgs =
     {
-      overlays = [ (import ./standard-overlay.nix) ];
+      overlays = [ (import ./overlays/standard.nix) ];
       config =
       {
         allowBroken = true;
