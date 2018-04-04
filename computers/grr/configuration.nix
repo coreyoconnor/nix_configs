@@ -164,6 +164,7 @@
   users.users.coconnor.packages =
   [
     pkgs.firefox-devedition-bin
+    pkgs.godot
     pkgs.okular
     pkgs.qgis
     pkgs.steam
