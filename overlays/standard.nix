@@ -1,5 +1,19 @@
 self: super:
 {
+  godot = super.godot.overrideAttrs (oldAttrs: rec
+  {
+    name = "godot-${version}";
+    version = "3.1.0";
+    rev = "d87307d850186d27d2c27c5916ec8c4744c14979";
+
+    src = self.fetchgit
+    {
+      inherit rev;
+      url = "https://github.com/coreyoconnor/godot.git";
+      sha256 = "1jlg4pyfqidy29ymhma0vi03640qbs3ybd741pwfs2hl184f7mwd";
+    };
+  });
+
   qgis3-unwrapped = super.qgis3-unwrapped.overrideAttrs (oldAttrs: rec
   {
     rev = "240278e490f6d5bb065a9faebe199702e5b5b3a0";
