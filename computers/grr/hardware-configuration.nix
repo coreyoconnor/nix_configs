@@ -32,7 +32,7 @@
     #{ device = "/dev/zvol/rpool/swap"; }
   ];
 
-  nix.maxJobs = 3;
+  nix.maxJobs = 2;
   nix.extraOptions = ''
     build-cores = 5
   '';
