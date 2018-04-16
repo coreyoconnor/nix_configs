@@ -29,7 +29,7 @@
 
     script = ''
     ${pkgs.numactl}/bin/numactl -N 0 \
-      ${pkgs.qemu_kvm}/bin/qemu-kvm -m 24G -mem-path /dev/hugepages -M q35 \
+      ${pkgs.qemu_kvm}/bin/qemu-kvm -m 32G -mem-path /dev/hugepages -M q35 \
         -machine kernel_irqchip=on \
         -cpu max,kvm=off,hv_time,hv_relaxed,hv_vapic,hv_spinlocks=0x1fff,hv_vendor_id=none \
         -smp 16,sockets=1,cores=8,threads=2 \
@@ -52,10 +52,9 @@
         -usbdevice host:05f3:0007 \
         -usbdevice host:05f3:0081 \
         -usbdevice host:5332:1300 \
+        -usbdevice host:5332:1400 \
         -usbdevice host:2b24:0001 \
         -vga none -nographic
     '';
   };
-
-  services.xserver.displayManager.xpra.enable = true;
 }
