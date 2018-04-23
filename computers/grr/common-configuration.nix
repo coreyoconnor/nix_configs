@@ -75,9 +75,12 @@
     nameservers = [ "1.1.1.1" "8.8.8.8" ];
   };
 
-  services.openssh.extraConfig = ''
-    UseDNS no
-  '';
+  services.openssh = {
+    extraConfig = ''
+        UseDNS no
+    '';
+    forwardX11 = true;
+  };
 
   services.journald.console = "/dev/tty12";
 

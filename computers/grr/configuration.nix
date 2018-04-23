@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs_i686, ... }:
 
 {
   require =
@@ -13,6 +13,8 @@
     {
       enable = true;
       driSupport32Bit = true;
+      extraPackages = [ pkgs.mesa_drivers ];
+      extraPackages32 = [ pkgs_i686.mesa_drivers ];
       useGLVND = true;
     };
   };
