@@ -56,7 +56,7 @@
     {
       linuxPackages = in_pkgs.linuxPackages_4_14;
     };
-    permittedInsecurePackages = ["linux-4.13.16"];
+    permittedInsecurePackages = ["linux-4.13.16" "mono-4.0.4.1" ];
     wine.build = "wineWow";
   };
 
