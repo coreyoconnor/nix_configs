@@ -54,6 +54,8 @@
         -usbdevice host:5332:1300 \
         -usbdevice host:5332:1400 \
         -usbdevice host:2b24:0001 \
+        -usbdevice host:056e:010c \
+        -usbdevice host:0d8c:0012 \
         -vga none -nographic
     '';
   };
