@@ -1,6 +1,6 @@
 self: super:
 {
-  emacs = super.emacs.overrideAttrs (oldAttrs : {
+  emacs = super.emacs.overrideAttrs (oldAttrs : rec {
     version = "26.1RC1";
     name = "emacs-${version}";
     src = self.fetchurl {
