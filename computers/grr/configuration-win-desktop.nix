@@ -11,7 +11,9 @@
   {
     opengl =
     {
-      enable = false;
+      enable = true;
+      driSupport32Bit = true;
+      useGLVND = true;
     };
   };
 
