@@ -67,5 +67,8 @@ self: super:
     inherit (super.nixStable) perl-bindings;
   });
 
-  wine = super.winePackages.full.override { wineRelease = "staging"; };
+  wine = super.winePackages.full.override {
+    wineRelease = "staging";
+    wineBuild = "wineWow";
+  };
 }
