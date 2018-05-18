@@ -22,7 +22,7 @@
       optimize = true;
       realtime = true;
       # must match computer linuxPackages version
-      packages = pkgs.linuxPackages_4_9_rt;
+      packages = pkgs.linuxPackages_4_16_rt;
     };
   };
 
@@ -40,7 +40,7 @@
   };
 
   #services.xserver.desktopManager.kodi.enable = true;
-  #services.xserver.desktopManager.default = "kodi";
+  #services.xserver.desktopManager.default = "xterm";
   services.xserver.desktopManager.default = "retronix";
 
   services.xserver.windowManager.pekwm.enable = true;
