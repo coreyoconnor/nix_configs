@@ -12,6 +12,8 @@ let
     virtualisation.libvirtd.enable = true;
     networking.firewall.checkReversePath = false;
     virtualisation.docker.enable = true;
+
+    environment.systemPackages = [ pkgs.openshift ];
   };
   vboxHost = mkIf (cfg.type == "virtualbox")
   {
