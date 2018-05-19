@@ -9,6 +9,7 @@
     ../../java-dev.nix
     ../../jenkins-node.nix
     ../../i18n.nix
+    ../../musnix
     ../../networks/home.nix
     ../../postgis-server.nix
     ../../standard-env.nix
@@ -111,6 +112,19 @@
         avoid-resampling = true;
         lock-memory = true;
       };
+    };
+  };
+
+  musnix =
+  {
+    enable = false;
+    kernel =
+    {
+      latencytop = true;
+      optimize = true;
+      realtime = true;
+      # must match computer linuxPackages version
+      packages = pkgs.linuxPackages_4_14_rt;
     };
   };
 
