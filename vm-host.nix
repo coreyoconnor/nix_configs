@@ -11,6 +11,7 @@ let
     networking.firewall.allowedTCPPorts = [ 3389 3390 3391 3392 ];
     virtualisation.libvirtd.enable = true;
     networking.firewall.checkReversePath = false;
+    virtualisation.docker.enable = true;
   };
   vboxHost = mkIf (cfg.type == "virtualbox")
   {
