@@ -28,7 +28,8 @@
     # -drive file=/dev/zvol/rpool/root/waffle-1,format=raw,cache=writeback,aio=native,cache.direct=on \
 
     script = ''
-    ${pkgs.numactl}/bin/numactl -N 0 \
+    ${pkgs.numactl}/bin/numactl --cpunodebind=1 \
+      ${pkgs.utillinux}/bin/chrt --rr 60 \
       ${pkgs.qemu_kvm}/bin/qemu-kvm -m 32G -mem-path /dev/hugepages -M q35 \
         -machine kernel_irqchip=on,usb=on \
         -cpu max,kvm=off,hv_time,hv_relaxed,hv_vapic,hv_spinlocks=0x1fff,hv_vendor_id=none \
