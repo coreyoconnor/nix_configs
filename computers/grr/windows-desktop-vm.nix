@@ -30,7 +30,7 @@
     script = ''
     ${pkgs.numactl}/bin/numactl -N 0 \
       ${pkgs.qemu_kvm}/bin/qemu-kvm -m 32G -mem-path /dev/hugepages -M q35 \
-        -machine kernel_irqchip=on \
+        -machine kernel_irqchip=on,usb=on \
         -cpu max,kvm=off,hv_time,hv_relaxed,hv_vapic,hv_spinlocks=0x1fff,hv_vendor_id=none \
         -smp 16,sockets=1,cores=8,threads=2 \
         -rtc base=localtime \
@@ -40,22 +40,22 @@
         -device vfio-pci,host=05:00.1,bus=root.1,addr=00.1 \
         -device vfio-pci,host=08:00.0 -net none \
         -device vfio-pci,host=04:04.0 \
-        -usbdevice host:045e:028e \
-        -usbdevice host:047d:2041 \
-        -usbdevice host:045e:000b \
-        -usbdevice host:046d:0994 \
-        -usbdevice host:054c:05c4 \
-        -usbdevice host:054c:09cc \
-        -usbdevice host:1a40:0101 \
-        -usbdevice host:04b9:0300 \
-        -usbdevice host:058f:9410 \
-        -usbdevice host:05f3:0007 \
-        -usbdevice host:05f3:0081 \
-        -usbdevice host:5332:1300 \
-        -usbdevice host:5332:1400 \
-        -usbdevice host:2b24:0001 \
-        -usbdevice host:056e:010c \
-        -usbdevice host:0d8c:0012 \
+        -device usb-host,vendorid=0x045e,productid=0x028e \
+        -device usb-host,vendorid=0x047d,productid=0x2041 \
+        -device usb-host,vendorid=0x045e,productid=0x000b \
+        -device usb-host,vendorid=0x046d,productid=0x0994 \
+        -device usb-host,vendorid=0x054c,productid=0x05c4 \
+        -device usb-host,vendorid=0x054c,productid=0x09cc \
+        -device usb-host,vendorid=0x1a40,productid=0x0101 \
+        -device usb-host,vendorid=0x04b9,productid=0x0300 \
+        -device usb-host,vendorid=0x058f,productid=0x9410 \
+        -device usb-host,vendorid=0x05f3,productid=0x0007 \
+        -device usb-host,vendorid=0x05f3,productid=0x0081 \
+        -device usb-host,vendorid=0x5332,productid=0x1300 \
+        -device usb-host,vendorid=0x5332,productid=0x1400 \
+        -device usb-host,vendorid=0x2b24,productid=0x0001 \
+        -device usb-host,vendorid=0x056e,productid=0x010c \
+        -device usb-host,vendorid=0x0d8c,productid=0x0012 \
         -vga none -nographic
     '';
   };

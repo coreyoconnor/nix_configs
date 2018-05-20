@@ -86,7 +86,7 @@
 
   boot.kernel.sysctl =
   {
-    "vm.nr_hugepages" = 16384;
+    "vm.nr_hugepages" = 16484;
   };
 
   networking.firewall =
