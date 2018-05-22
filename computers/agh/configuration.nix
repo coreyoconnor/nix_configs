@@ -103,7 +103,7 @@ in
     nameservers = [ "1.1.1.1" "8.8.8.8" ];
     firewall =
     {
-      allowedTCPPorts = [ 445 5000 27036 27037];
+      allowedTCPPorts = [ 445 4999 27036 27037];
       allowedUDPPorts = [ 27031 27036 ];
     };
   };

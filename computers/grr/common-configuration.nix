@@ -91,7 +91,7 @@
 
   networking.firewall =
   {
-    allowedTCPPorts = [ 5000 10000 ];
+    allowedTCPPorts = [ 4999 10000 ];
   };
 
   hardware =
