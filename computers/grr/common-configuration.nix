@@ -170,6 +170,7 @@
   services.nix-serve =
   {
     enable = true;
+    port = 4999;
   };
 
   services.udev.extraRules = ''

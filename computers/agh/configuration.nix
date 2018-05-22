@@ -182,6 +182,7 @@ in
   services.nix-serve =
   {
     enable = true;
+    port = 4999;
     secretKeyFile = "/etc/nix/agh-nix-serve-1.sec";
     extraParams = "-E development";
   };

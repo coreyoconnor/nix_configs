@@ -21,7 +21,8 @@ with pkgs.lib;
                       "plugdev"
                       "audio"
                       "video"
-                      "systemd-journal" ];
+                      "systemd-journal"
+                      "docker" ];
       home = "/home/coconnor";
       shell = pkgs.bashInteractive + "/bin/bash";
       openssh.authorizedKeys.keyFiles = [./ssh/coconnor.pub];

@@ -9,9 +9,13 @@ let
       kernelModules = [ "virtio" ];
     };
     networking.firewall.allowedTCPPorts = [ 3389 3390 3391 3392 ];
-    virtualisation.libvirtd.enable = true;
+    # virtualisation.libvirtd.enable = true;
     networking.firewall.checkReversePath = false;
-    virtualisation.docker.enable = true;
+    virtualisation.docker =
+    {
+      enable = true;
+      extraOptions = "--insecure-registry 172.30.0.0/16";
+    };
 
     environment.systemPackages = [ pkgs.openshift ];
   };
