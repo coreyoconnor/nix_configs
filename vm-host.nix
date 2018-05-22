@@ -10,6 +10,7 @@ let
     };
     networking.firewall.allowedTCPPorts = [ 3389 3390 3391 3392 ];
     # virtualisation.libvirtd.enable = true;
+    users.extraGroups.libvirtd.gid = config.ids.gids.libvirtd;
     networking.firewall.checkReversePath = false;
     virtualisation.docker =
     {
