@@ -133,7 +133,11 @@
     enable = true;
   };
 
-  services.ipfs.enable = true;
+  services.ipfs =
+  {
+    enable = false;
+    # TODO: change port to not conflict with openshift
+  };
 
   users.users.coconnor.packages =
   [
