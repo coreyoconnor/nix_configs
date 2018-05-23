@@ -134,12 +134,6 @@ in {
     enable = true;
   };
 
-  services.ipfs =
-  {
-    enable = false;
-    # TODO: change port to not conflict with openshift
-  };
-
   users.users.coconnor.packages =
   [
     pkgs.firefox-devedition-bin
@@ -172,12 +166,6 @@ in {
     };
   };
 
-  services.nix-serve =
-  {
-    enable = true;
-    port = 4999;
-  };
-
   services.udev.extraRules = ''
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="2581", ATTRS{idProduct}=="1b7c", MODE="0660", GROUP="plugdev"
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="2581", ATTRS{idProduct}=="2b7c", MODE="0660", GROUP="plugdev"
@@ -191,6 +179,12 @@ in {
     SUBSYSTEM=="usb", ATTR{idVendor}=="2b24", ATTR{idProduct}=="0001", MODE="0666", GROUP="plugdev", SYMLINK+="keepkey%n"
     KERNEL=="hidraw*", ATTRS{idVendor}=="2b24", ATTRS{idProduct}=="0001",  MODE="0666", GROUP="plugdev"
   '';
+
+  services.nix-serve =
+  {
+    enable = true;
+    port = 4999;
+  };
 
   nix =
   {

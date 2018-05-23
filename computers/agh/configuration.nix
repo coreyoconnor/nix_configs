@@ -9,6 +9,7 @@ let
     maxJobs = 8;
     speedFactor = 2;
   };
+  localIp = "192.168.1.2";
 in
 {
   require =
@@ -97,16 +98,17 @@ in
     useDHCP = false;
     interfaces.enp1s0 =
     {
-      ipv4.addresses = [ { address = "192.168.1.2"; prefixLength = 24; } ];
+      ipv4.addresses = [ { address = localIp; prefixLength = 24; } ];
     };
     defaultGateway = "192.168.1.1";
-    nameservers = [ "1.1.1.1" "8.8.8.8" ];
     firewall =
     {
       allowedTCPPorts = [ 445 4999 27036 27037];
       allowedUDPPorts = [ 27031 27036 ];
     };
   };
+
+  services.dnsmasq.localNameserver = localIp;
 
   services.openssh =
   {
