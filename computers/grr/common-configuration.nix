@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
-
-{
+let
+  localIp = "192.168.1.7";
+in {
   require =
   [
     # Include the results of the hardware scan.
@@ -69,11 +70,16 @@
     #interfaces.br0 =
     interfaces.enp9s0 =
     {
-      ipv4.addresses = [ { address = "192.168.1.7"; prefixLength = 24; } ];
+      ipv4.addresses = [ { address = localIp; prefixLength = 24; } ];
     };
     defaultGateway = "192.168.1.1";
-    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    firewall =
+    {
+        allowedTCPPorts = [ 4999 10000 ];
+    };
   };
+
+  services.dnsmasq.localNameserver = localIp;
 
   services.openssh = {
     extraConfig = ''
@@ -87,11 +93,6 @@
   boot.kernel.sysctl =
   {
     "vm.nr_hugepages" = 16484;
-  };
-
-  networking.firewall =
-  {
-    allowedTCPPorts = [ 4999 10000 ];
   };
 
   hardware =
@@ -198,4 +199,5 @@
       keep-outputs = true
     '';
   };
+  virtualisation.docker.storageDriver = "zfs";
 }

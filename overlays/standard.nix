@@ -1,5 +1,11 @@
 self: super:
 {
+  docker = self.docker_18_03;
+
+  docker_18_03 = super.docker_18_03.overrideAttrs (oldAttrs : rec {
+    extraPath = super.lib.makeBinPath [ self.zfs ] + ":" + oldAttrs.extraPath;
+  });
+
   emacs = super.emacs.overrideAttrs (oldAttrs : rec {
     version = "26.1RC1";
     name = "emacs-${version}";

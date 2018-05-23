@@ -8,16 +8,32 @@ let
     {
       kernelModules = [ "virtio" ];
     };
-    networking.firewall.allowedTCPPorts = [ 3389 3390 3391 3392 ];
-    # virtualisation.libvirtd.enable = true;
-    users.extraGroups.libvirtd.gid = config.ids.gids.libvirtd;
-    networking.firewall.checkReversePath = false;
+
+    networking =
+    {
+      firewall =
+      {
+        allowedTCPPorts = [ 53 8053 8443 3389 3390 3391 3392 ];
+        checkReversePath = false;
+      };
+      search = [ "cluster.local" ];
+    };
     virtualisation.docker =
     {
       enable = true;
-      extraOptions = "--insecure-registry 172.30.0.0/16";
+      extraOptions = "--insecure-registry 172.30.0.0/16 --exec-opt native.cgroupdriver=systemd";
     };
-
+    services.dnsmasq =
+    {
+      enable = true;
+      resolveLocalQueries = true;
+      servers = [ "1.1.1.1" "8.8.8.8" "/in-addr.arpa/127.0.0.1#8053" "/local/127.0.0.1#8053" ];
+      extraConfig = ''
+        no-resolv
+        domain-needed
+        bogus-priv
+      '';
+    };
     environment.systemPackages = [ pkgs.openshift ];
   };
   vboxHost = mkIf (cfg.type == "virtualbox")
@@ -36,6 +52,8 @@ let
   kvmHost = mkIf (cfg.type == "libvirtd")
   {
     virtualisation.virtualbox.host.enable = false;
+    users.extraGroups.libvirtd.gid = config.ids.gids.libvirtd;
+    # virtualisation.libvirtd.enable = true;
 
     # duplicated here for explicitness
     environment.systemPackages = [ pkgs.libvirt pkgs.qemu ];
