@@ -9,13 +9,13 @@ let
       vendor=$(cat /sys/bus/pci/devices/$dev/vendor)
       device=$(cat /sys/bus/pci/devices/$dev/device)
       sleep 10
-      if [ -d /sys/bus/pci/devices/$dev/driver ]; then
+      if [ $(readlink /sys/bus/pci/devices/$dev/driver) != "../../../../bus/pci/drivers/vfio-pci" ]; then
         echo $dev > /sys/bus/pci/devices/$dev/driver/unbind
         echo $vendor $device > /sys/bus/pci/drivers/vfio-pci/new_id
       fi
     done
   '';
-  commonParams = [ "kvm.emulate_invalid_guest_state=1" "kvm.ignore_msrs=1" ];
+  commonParams = [ "iommu=1" "kvm.emulate_invalid_guest_state=1" "kvm.ignore_msrs=1" ];
   iommuParamsFor =
   {
     intel = [ "intel_iommu=on" ];

@@ -19,7 +19,7 @@
   {
     description = "starts windows desktop.";
     after = [ "vfio-force-binds.service" "systemd-udev-settle.service" "local-fs.target" "acpid.service" "systemd-logind.service" ];
-    wants = [ "systemd-udev-settle.service" ];
+    wants = [ "vfio-force-binds.service" "systemd-udev-settle.service" ];
     restartIfChanged = false;
     serviceConfig =
     {
