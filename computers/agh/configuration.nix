@@ -144,6 +144,15 @@ in
       }
     ];
     videoDrivers = [ "amdgpu" "modesetting" ];
+    libinput.enable = true;
+    #inputClassSections = [ ''
+    #  Identifier "joystick catchall"
+    #  MatchIsJoystick "on"
+    #  MatchDevicePath "/dev/input/event*"
+    #  Driver "joystick"
+    #  Option "StartKeysEnabled" "False"       #Disable mouse
+    #  Option "StartMouseEnabled" "False"      #support
+    #'' ];
   };
 
   services.journald.console = "/dev/tty12";
