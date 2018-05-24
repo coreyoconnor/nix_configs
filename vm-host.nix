@@ -34,6 +34,7 @@ let
         bogus-priv
       '';
     };
+    services.haveged.enable = true;
     environment.systemPackages = [ pkgs.openshift ];
   };
   vboxHost = mkIf (cfg.type == "virtualbox")
