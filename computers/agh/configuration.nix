@@ -96,9 +96,13 @@ in
   {
     hostName = "agh"; # must be unique
     useDHCP = false;
-    interfaces.enp1s0 =
-    {
-      ipv4.addresses = [ { address = localIp; prefixLength = 24; } ];
+    interfaces.enp1s0 = {
+      ipv4 = {
+        addresses = [ { address = localIp; prefixLength = 24; } ];
+      };
+      ipv6 = {
+        addresses = [ { address = "2601:602:9700:f0fc::2"; prefixLength = 64; } ];
+      };
     };
     defaultGateway = "192.168.1.1";
     firewall =
@@ -106,9 +110,12 @@ in
       allowedTCPPorts = [ 445 4999 27036 27037];
       allowedUDPPorts = [ 27031 27036 ];
     };
+    localCommands = ''
+      ${pkgs.iproute}/bin/ip route add local 192.168.100.0/24 dev lo
+    '';
   };
 
-  services.dnsmasq.localNameserver = localIp;
+  services.dnsmasq.enable = true;
 
   services.openssh =
   {

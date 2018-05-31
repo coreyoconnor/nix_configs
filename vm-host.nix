@@ -13,29 +13,37 @@ let
     {
       firewall =
       {
-        allowedTCPPorts = [ 53 8053 8443 3389 3390 3391 3392 ];
+        allowedTCPPorts = [ 53 80 443 4789 8053 8443 10250 ];
+        allowedUDPPorts = [ 53 4789 8053 8443 10250 ];
         checkReversePath = false;
       };
-      search = [ "cluster.local" ];
     };
     virtualisation.docker =
     {
       enable = true;
-      extraOptions = "--insecure-registry 172.30.0.0/16 --exec-opt native.cgroupdriver=systemd";
+      extraOptions = "--insecure-registry 172.30.0.0/16";
     };
     services.dnsmasq =
     {
-      enable = true;
       resolveLocalQueries = true;
-      servers = [ "1.1.1.1" "8.8.8.8" "/in-addr.arpa/127.0.0.1#8053" "/local/127.0.0.1#8053" ];
+      servers = [
+        "/.30.172.in-addr.arpa/192.168.1.2#8053"
+        "/.cluster.local/192.168.1.2#8053"
+        "1.1.1.1"
+        "2606:4700:4700::1111"
+        "8.8.8.8"
+        "2001:4860:4860::8888"
+      ];
       extraConfig = ''
         no-resolv
         domain-needed
         bogus-priv
+        cache-size=1000
+        address=/.agh.dev/192.168.1.2
       '';
     };
     services.haveged.enable = true;
-    environment.systemPackages = [ pkgs.openshift ];
+    environment.systemPackages = [ pkgs.openshift pkgs.docker ];
   };
   vboxHost = mkIf (cfg.type == "virtualbox")
   {
@@ -54,10 +62,10 @@ let
   {
     virtualisation.virtualbox.host.enable = false;
     users.extraGroups.libvirtd.gid = config.ids.gids.libvirtd;
-    # virtualisation.libvirtd.enable = true;
+    #virtualisation.libvirtd.enable = true;
 
     # duplicated here for explicitness
-    environment.systemPackages = [ pkgs.libvirt pkgs.qemu ];
+    environment.systemPackages = [ pkgs.libvirt pkgs.qemu  pkgs.docker-machine-kvm ];
   };
   shareInit =
   {
