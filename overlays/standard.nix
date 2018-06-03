@@ -1,8 +1,8 @@
 self: super:
 {
-  docker = self.docker_18_03;
+  docker = self.docker_18_05;
 
-  docker_18_03 = super.docker_18_03.overrideAttrs (oldAttrs : rec {
+  docker_18_05 = super.docker_18_05.overrideAttrs (oldAttrs : rec {
     extraPath = super.lib.makeBinPath [ self.zfs ] + ":" + oldAttrs.extraPath;
   });
 
@@ -71,6 +71,52 @@ self: super:
     nativeBuildInputs = with self; [ autoreconfHook autoconf-archive bison flex libxml2 libxslt docbook5 docbook5_xsl pkgconfig boost ];
 
     inherit (super.nixStable) perl-bindings;
+  });
+
+  openshift-dev = self.openshift.overrideAttrs (oldAttrs: rec {
+    version = "3.10.0";
+    name = "openshift-origin-${version}";
+
+    src = self.fetchFromGitHub {
+        owner = "openshift";
+        repo = "origin";
+        rev = "8705cafdd5dcb8331aed889179616306297e6b2f";
+        sha256 = "0017xk59carvp8kh2xfvkdlk0487437w14iychx8r5shssq3hs3q";
+    };
+
+    k8sversion = "v1.10.2";
+    k8sgitcommit = "a0ce2bc657";
+    versionMajor = "3";
+    versionMinor = "10";
+    versionPatch = "0";
+    gitCommit = "44a7ea441";
+
+    buildPhase = ''
+      echo "KUBE_GIT_MAJOR=1" >> os-version-defs
+      echo "KUBE_GIT_MINOR=10" >> os-version-defs
+    '' + oldAttrs.buildPhase;
+
+    patches = [ ./openshift-assume-nsenter.patch ];
+
+    postPatch = ''
+        patchShebangs ./hack
+
+        substituteInPlace pkg/oc/clusterup/docker/host/host.go  \
+            --replace 'nsenter --mount=/rootfs/proc/1/ns/mnt findmnt' \
+                      'nsenter --mount=/rootfs/proc/1/ns/mnt ${self.utillinux}/bin/findmnt'
+
+        substituteInPlace pkg/oc/clusterup/docker/host/host.go  \
+            --replace 'nsenter --mount=/rootfs/proc/1/ns/mnt mount' \
+                      'nsenter --mount=/rootfs/proc/1/ns/mnt ${self.utillinux}/bin/mount'
+
+        substituteInPlace pkg/oc/clusterup/docker/host/host.go  \
+            --replace 'nsenter --mount=/rootfs/proc/1/ns/mnt mkdir' \
+                      'nsenter --mount=/rootfs/proc/1/ns/mnt ${self.utillinux}/bin/mount'
+    '';
+  });
+
+  openshift = super.openshift.overrideAttrs (oldAttrs: rec {
+    patches = [ ./openshift-assume-version.patch ];
   });
 
   systemd = super.systemd.overrideAttrs (oldAttrs: rec {

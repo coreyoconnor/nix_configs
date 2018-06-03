@@ -4,7 +4,7 @@
 	branch = master
 [submodule "nix-org"]
 	path = nix-org
-	url = git@github.com:coreyoconnor/nix-org.git
+	url = git@gitlab.com:glngn/nix-org.git
 	branch = master
 [submodule "musnix"]
 	path = musnix
