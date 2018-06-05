@@ -30,5 +30,7 @@
         34.233.199.132 data
       '';
     };
+
+    security.pki.certificateFiles = [ ./agh-0.crt ];
   };
 }
