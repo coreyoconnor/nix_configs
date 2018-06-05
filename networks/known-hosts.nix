@@ -20,6 +20,7 @@ let knownHosts =
       {
         hostNames = [ "gitlab.com" ];
         publicKeyFile = ./known-hosts/gitlab.com.pub;
+      }
     ];
 in {
   config =
