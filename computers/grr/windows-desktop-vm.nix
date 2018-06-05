@@ -57,6 +57,7 @@
         -device usb-host,vendorid=0x2b24,productid=0x0001 \
         -device usb-host,vendorid=0x056e,productid=0x010c \
         -device usb-host,vendorid=0x0d8c,productid=0x0012 \
+        -device usb-host,vendorid=0x1532,productid=0x0064 \
         -vga none -nographic
     '';
   };

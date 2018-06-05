@@ -66,20 +66,17 @@ in {
     hostId = "34343134";
     hostName = "grr";
     useDHCP = false;
-    #bridges.br0.interfaces = [ "enp9s0" ];
-    #interfaces.br0 =
     interfaces.enp9s0 =
     {
       ipv4.addresses = [ { address = localIp; prefixLength = 24; } ];
     };
+    nameservers = [ "192.168.1.2" "1.1.1.1" ];
     defaultGateway = "192.168.1.1";
     firewall =
     {
         allowedTCPPorts = [ 4999 10000 ];
     };
   };
-
-  services.dnsmasq.localNameserver = localIp;
 
   services.openssh = {
     extraConfig = ''
