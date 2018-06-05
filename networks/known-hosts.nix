@@ -18,7 +18,7 @@ let knownHosts =
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILUlJcqRuWcYIam0Vyq7GDLa8eLnkEfOc954cMqT18td root@grr";
       }
       {
-        hostNames = [ "gitlab.com" ];
+        hostNames = [ "gitlab.com" "52.167.219.168" ];
         publicKeyFile = ./known-hosts/gitlab.com.pub;
       }
     ];
