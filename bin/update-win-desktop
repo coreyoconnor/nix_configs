@@ -11,4 +11,4 @@ NIX_PATH="${NIX_PATH}:nixos-config=${PROJECT_DIR}/${CURRENT_CONFIG}"
 export NIX_PATH="${NIX_PATH}:services=/etc/nixos/services"
 echo "using NIX_PATH=${NIX_PATH}"
 
-sudo nixos-rebuild switch -p windows "$@"
+sudo nixos-rebuild boot -p windows "$@"
