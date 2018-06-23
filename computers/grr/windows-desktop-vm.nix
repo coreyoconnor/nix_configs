@@ -32,11 +32,14 @@
       ${pkgs.utillinux}/bin/chrt --rr 60 \
       ${pkgs.qemu_kvm}/bin/qemu-kvm -m 32G -mem-path /dev/hugepages -M q35 \
         -machine kernel_irqchip=on,usb=on \
-        -cpu max,kvm=off,hv_time,hv_relaxed,hv_vapic,hv_spinlocks=0x1fff,hv_vendor_id=none \
+        -cpu host,kvm=off,hv_time,hv_relaxed,hv_vapic,hv_crash,hv_reset,hv_vpindex,hv_runtime,hv_synic,hv_stimer,hv_spinlocks=0x1fff,hv_vendor_id=none \
+        -realtime mlock=off \
         -smp 16,sockets=1,cores=8,threads=2 \
-        -rtc base=localtime \
-        -drive file=/dev/zvol/rpool/root/waffle-1,format=raw \
-        -device ioh3420,bus=pcie.0,addr=1c.0,multifunction=on,port=1,chassis=1,id=root.1 \
+        -rtc base=localtime,clock=host \
+        -boot menu=off,strict=on \
+        -drive file=/dev/zvol/rpool/root/waffle-1,format=raw,if=virtio \
+        -drive file=/mnt/storage/transfer.qcow2,if=virtio \
+        -device ioh3420,multifunction=on,bus=pcie.0,id=root.1 \
         -device vfio-pci,multifunction=on,x-vga=on,host=05:00.0,bus=root.1,addr=00.0 \
         -device vfio-pci,host=05:00.1,bus=root.1,addr=00.1 \
         -device vfio-pci,host=08:00.0 -net none \
