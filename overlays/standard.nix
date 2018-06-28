@@ -6,15 +6,15 @@ self: super:
     extraPath = super.lib.makeBinPath [ self.zfs ] + ":" + oldAttrs.extraPath;
   });
 
-  emacs = super.emacs.overrideAttrs (oldAttrs : rec {
-    version = "26.1RC1";
-    name = "emacs-${version}";
-    src = self.fetchurl {
-        url = "ftp://alpha.gnu.org/gnu/emacs/pretest/emacs-26.1-rc1.tar.xz";
-        sha256 = "6594e668de00b96e73ad4f168c897fe4bca7c55a4caf19ee20eac54b62a05758";
-    };
-    patches = [];
-  });
+  #emacs = super.emacs.overrideAttrs (oldAttrs : rec {
+  #  version = "26.1RC1";
+  #  name = "emacs-${version}";
+  #  src = self.fetchurl {
+  #      url = "ftp://alpha.gnu.org/gnu/emacs/pretest/emacs-26.1-rc1.tar.xz";
+  #      sha256 = "6594e668de00b96e73ad4f168c897fe4bca7c55a4caf19ee20eac54b62a05758";
+  #  };
+  #  patches = [];
+  #});
 
   godot = super.godot.overrideAttrs (oldAttrs: rec
   {
@@ -30,17 +30,17 @@ self: super:
     };
   });
 
-  qgis3-unwrapped = super.qgis3-unwrapped.overrideAttrs (oldAttrs: rec
-  {
-    rev = "240278e490f6d5bb065a9faebe199702e5b5b3a0";
-
-    src = self.fetchgit
-    {
-      inherit rev;
-      url = "https://github.com/coreyoconnor/QGIS.git";
-      sha256 = "0qwijz34j76sv4g1y98qsz96p79zy49xh3w0hhb3jp5s96dhvq2z";
-    };
-  });
+  #qgis3-unwrapped = super.qgis3-unwrapped.overrideAttrs (oldAttrs: rec
+  #{
+  #  rev = "240278e490f6d5bb065a9faebe199702e5b5b3a0";
+#
+#    src = self.fetchgit
+#    {
+#      inherit rev;
+#      url = "https://github.com/coreyoconnor/QGIS.git";
+#      sha256 = "0qwijz34j76sv4g1y98qsz96p79zy49xh3w0hhb3jp5s96dhvq2z";
+#    };
+#  });
 
   qgis = super.qgis3;
 
