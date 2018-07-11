@@ -22,7 +22,7 @@
       optimize = true;
       realtime = true;
       # must match computer linuxPackages version
-      packages = pkgs.linuxPackages_4_16_rt;
+      # packages = pkgs.linuxPackages_4_17_rt;
     };
   };
 

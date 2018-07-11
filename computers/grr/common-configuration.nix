@@ -49,14 +49,14 @@ in {
     };
 
     kernelParams = [ "kvm-intel.nested=1" ];
-    kernelPackages = pkgs.linuxPackages_4_14;
+    kernelPackages = pkgs.linuxPackages_4_17;
   };
 
   nixpkgs.config =
   {
     packageOverrides = in_pkgs :
     {
-      linuxPackages = in_pkgs.linuxPackages_4_14;
+      linuxPackages = in_pkgs.linuxPackages_4_17;
     };
     permittedInsecurePackages = ["linux-4.13.16" "mono-4.0.4.1" ];
   };

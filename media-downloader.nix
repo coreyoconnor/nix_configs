@@ -8,6 +8,7 @@
     settings =
     {
       rpc-whitelist = "127.0.0.1,192.168.*.*";
+      rpc-host-whitelist-enabled = false;
       download-dir = "/mnt/storage/media/Downloads";
       incomplete-dir = "/mnt/storage/media/Incomplete";
       incomplete-dir-enabled = true;
