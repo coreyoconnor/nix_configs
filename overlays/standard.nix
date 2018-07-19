@@ -131,4 +131,10 @@ self: super:
     wineRelease = "staging";
     wineBuild = "wineWow";
   };
+
+  steamPackages = super.steamPackages // {
+    steam-chrootenv = super.steamPackages.steam-chrootenv.override {
+      extraPkgs = [ self.kde-cli-tools ];
+    };
+  };
 }
