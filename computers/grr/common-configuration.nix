@@ -100,20 +100,6 @@ in {
     bluetooth.enable = true;
     enableAllFirmware = true;
     enableRedistributableFirmware = true;
-
-    pulseaudio =
-    {
-      enable = true;
-      configFile = ./pulse-audio-config.pa;
-      support32Bit = true;
-      daemon.config =
-      {
-        default-sample-rate = 96000;
-        default-sample-format = "s24le";
-        avoid-resampling = true;
-        lock-memory = true;
-      };
-    };
   };
 
   musnix =

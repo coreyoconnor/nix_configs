@@ -17,6 +17,21 @@
       extraPackages32 = [ pkgs_i686.mesa_drivers ];
       useGLVND = true;
     };
+
+    pulseaudio =
+    {
+      enable = true;
+      configFile = ./pulse-audio-config.pa;
+      support32Bit = true;
+      daemon.config =
+      {
+        default-sample-rate = 96000;
+        default-sample-format = "s24le";
+        avoid-resampling = true;
+        lock-memory = true;
+      };
+      package = pkgs.pulseaudioFull;
+    };
   };
 
   services.xserver =
@@ -53,4 +68,6 @@
       Option "metamodes" "nvidia-auto-select +0+0 { ForceCompositionPipeline = On }"
     '';
   };
+
+  sound.enable = true;
 }
