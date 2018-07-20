@@ -2,7 +2,7 @@
 let
   localIp = "192.168.1.7";
 in {
-  system.stateVersion = "18.09";
+  system.nixos.stateVersion = "18.09";
 
   require =
   [
