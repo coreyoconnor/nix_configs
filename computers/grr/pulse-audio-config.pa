@@ -21,9 +21,9 @@
 .fail
 
 ### Automatically restore the volume of streams and devices
-load-module module-device-restore
-load-module module-stream-restore
-load-module module-card-restore
+#load-module module-device-restore
+#load-module module-stream-restore
+#load-module module-card-restore
 
 ### Automatically augment property information from .desktop files
 ### stored in /usr/share/application
@@ -87,7 +87,7 @@ load-module module-gconf
 ### during runtime
 ### NOTE: This should be loaded as early as possible so that subsequent modules
 ### that look up the default sink/source get the right value
-load-module module-default-device-restore
+#load-module module-default-device-restore
 
 ### Automatically move streams to the default sink if the sink they are
 ### connected to dies, similar for sources
