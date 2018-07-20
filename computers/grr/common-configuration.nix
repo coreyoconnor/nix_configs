@@ -2,6 +2,8 @@
 let
   localIp = "192.168.1.7";
 in {
+  system.stateVersion = "18.09";
+
   require =
   [
     # Include the results of the hardware scan.
@@ -94,6 +96,9 @@ in {
   {
     "vm.nr_hugepages" = 16484;
   };
+
+
+  sound.enable = true;
 
   hardware =
   {

@@ -12,6 +12,8 @@ let
   localIp = "192.168.1.2";
 in
 {
+  system.stateVersion = "18.09";
+
   require =
   [
     ./config-at-bootstrap.nix

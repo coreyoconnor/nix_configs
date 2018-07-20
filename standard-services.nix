@@ -41,7 +41,5 @@ with lib;
 
       xfs.enable = false;
     };
-
-    sound.enable = true;
   };
 }
