@@ -1,8 +1,8 @@
 self: super:
 {
-  docker = self.docker_18_05;
+  docker = self.docker_18_06;
 
-  docker_18_05 = super.docker_18_05.overrideAttrs (oldAttrs : rec {
+  docker_18_06 = super.docker_18_06.overrideAttrs (oldAttrs : rec {
     extraPath = super.lib.makeBinPath [ self.zfs ] + ":" + oldAttrs.extraPath;
   });
 
