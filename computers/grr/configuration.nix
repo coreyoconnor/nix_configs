@@ -34,6 +34,9 @@
     };
   };
 
+  environment.variables.QT_PLUGIN_PATH = [ "${pkgs.plasma-desktop}/lib/qt-5.9/plugins/kcms" ];
+
+
   services.xserver =
   {
     desktopManager =
