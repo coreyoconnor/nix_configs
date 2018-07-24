@@ -25,7 +25,7 @@ in
     ../../media-downloader.nix
     ../../media-presenter.nix
     ../../networks/home.nix
-    ../../vm-host.nix
+    ../../openshift-host.nix
     ../../scala-dev.nix
     ../../standard-env.nix
     ../../standard-packages.nix
@@ -206,6 +206,8 @@ in
     secretKeyFile = "/etc/nix/agh-nix-serve-1.sec";
     extraParams = "-E development";
   };
+
+  openshift-host.enable = true;
 
   nix =
   {

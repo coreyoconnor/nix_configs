@@ -21,13 +21,10 @@ in {
     ../../standard-services.nix
     ../../status-tty.nix
     ../../tobert-config.nix
-    ../../vm-host.nix
+    ../../libvirt-host.nix
   ];
 
-  vmhost =
-  {
-    type = "libvirtd";
-  };
+  libvirt-host.enable = true;
 
   # grub bootloader installed to all devices in the boot raid1 array
   boot =
