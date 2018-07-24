@@ -173,8 +173,6 @@ in
     # [ -L /workspace/coconnor] || ln -s /workspace/coconnor /home/coconnor/Development
   '';
 
-  vmhost.type = "libvirtd";
-
   services.samba =
   {
     enable = true;
