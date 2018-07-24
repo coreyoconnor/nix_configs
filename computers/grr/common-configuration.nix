@@ -129,6 +129,7 @@ in {
     pkgs.okular
     pkgs.qgis
     pkgs.steam
+    pkgs.virtmanager
     pkgs.virtmanager-qt
     pkgs.wine
     pkgs.winetricks
