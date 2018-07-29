@@ -1,76 +1,73 @@
-{ config, pkgs, pkgs_i686, ... }:
+{ config, lib, pkgs, pkgs_i686, ... }:
 
 {
-  require =
+  imports =
   [
     ./common-configuration.nix
     ../../desktop.nix
   ];
 
-  hardware =
+  config =
   {
-    opengl =
+    hardware =
     {
-      enable = true;
-      driSupport32Bit = true;
-      extraPackages = [ pkgs.mesa_drivers ];
-      extraPackages32 = [ pkgs_i686.mesa_drivers ];
-      useGLVND = true;
-    };
-
-    pulseaudio =
-    {
-      enable = true;
-      configFile = ./pulse-audio-config.pa;
-      support32Bit = true;
-      daemon.config =
+      opengl =
       {
-        default-sample-rate = 96000;
-        default-sample-format = "s24le";
-        avoid-resampling = true;
-        lock-memory = true;
+        extraPackages = [ pkgs.mesa_drivers ];
+        extraPackages32 = [ pkgs_i686.mesa_drivers ];
       };
-      package = pkgs.pulseaudioFull;
-    };
-  };
 
-  environment.variables.QT_PLUGIN_PATH = [ "${pkgs.plasma-desktop}/lib/qt-5.9/plugins/kcms" ];
-
-
-  services.xserver =
-  {
-    desktopManager =
-    {
-      default = "plasma5";
-      plasma5.enable = true;
-    };
-    videoDrivers = [ "nvidia" ];
-    deviceSection = ''
-      BusID "PCI:05:00:00"
-    '';
-    xrandrHeads =
-    [
+      pulseaudio =
       {
-        output = "DVI-I-1-1";
-        monitorConfig = ''
-          Option "PreferredMode" "2560x1080"
-        '';
-        primary = true;
-      }
-    ];
-    inputClassSections =
-    [ ''
-      Identifier "joystick catchall"
-      MatchIsJoystick "on"
-      MatchDevicePath "/dev/input/event*"
-      Driver "joystick"
-      Option "StartKeysEnabled" "False"
-      Option "StartMouseEnabled" "False"
-    '' ];
-    screenSection = ''
-      Option "metamodes" "nvidia-auto-select +0+0 { ForceCompositionPipeline = On }"
-    '';
-  };
+        configFile = ./pulse-audio-config.pa;
+        daemon.config =
+        {
+          default-sample-rate = 96000;
+          default-sample-format = "s24le";
+          avoid-resampling = true;
+          lock-memory = true;
+        };
+      };
+    };
 
-  sound.enable = true;
+    services.xserver =
+    {
+      desktopManager =
+      {
+        default = "plasma5";
+        plasma5.enable = true;
+      };
+
+      videoDrivers = [ "nvidia" ];
+
+      deviceSection = ''
+        BusID "PCI:05:00:00"
+      '';
+
+      xrandrHeads =
+      [
+        {
+            output = "DVI-I-1-1";
+            monitorConfig = ''
+            Option "PreferredMode" "2560x1080"
+            '';
+            primary = true;
+        }
+      ];
+
+      inputClassSections =
+      [ ''
+        Identifier "joystick catchall"
+        MatchIsJoystick "on"
+        MatchDevicePath "/dev/input/event*"
+        Driver "joystick"
+        Option "StartKeysEnabled" "False"
+        Option "StartMouseEnabled" "False"
+      '' ];
+
+      screenSection = ''
+        Option "metamodes" "nvidia-auto-select +0+0 { ForceCompositionPipeline = On }"
+      '';
+    };
+  };
 }
