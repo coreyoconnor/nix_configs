@@ -32,6 +32,7 @@
 
     services.xserver =
     {
+      enable = true;
       desktopManager =
       {
         default = "plasma5";
