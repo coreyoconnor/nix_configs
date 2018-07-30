@@ -61,7 +61,8 @@ with lib;
 
     services =
     {
-      flatpak.enable = true;
+      # build broken?
+      # flatpak.enable = true;
       xserver =
       {
         exportConfiguration = true;
