@@ -11,7 +11,6 @@ with lib;
 
     environment.shellInit = ''
       export LC_ALL=${config.i18n.defaultLocale}
-      export SAL_USE_VCLPLUGIN=gen
     '';
 
     time.timeZone = "America/Los_Angeles";
