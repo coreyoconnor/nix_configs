@@ -62,6 +62,11 @@ with lib;
         enable = true;
         package = pkgs.pulseaudioFull;
         support32Bit = true;
+        daemon.config =
+        {
+          flat-volumes = false;
+          lock-memory = true;
+        };
       };
     };
 
