@@ -25,7 +25,6 @@
           default-sample-rate = 96000;
           default-sample-format = "s24le";
           avoid-resampling = true;
-          lock-memory = true;
         };
       };
     };

@@ -15,7 +15,7 @@ let
     };
 
     services.haveged.enable = true;
-    environment.systemPackages = [ pkgs.docker ];
+    environment.systemPackages = [ pkgs.openshift pkgs.docker ];
   };
   openshiftHost =
   {

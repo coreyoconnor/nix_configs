@@ -12,7 +12,7 @@ let
   localIp = "192.168.1.2";
 in
 {
-  system.nixos.stateVersion = "18.09";
+  system.stateVersion = "18.09";
 
   require =
   [
@@ -41,6 +41,7 @@ in
     # kernelParams = ["nomodeset"];
     kernelParams = ["amdgpu.cik_support=1" "amdgpu.si_support=1"];
   };
+
   nixpkgs.config =
   {
     packageOverrides = in_pkgs :

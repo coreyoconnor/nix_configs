@@ -20,7 +20,6 @@ let
     };
 
     services.haveged.enable = true;
-    environment.systemPackages = [ pkgs.openshift pkgs.docker ];
   };
   libvirtHost =
   {
