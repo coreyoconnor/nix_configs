@@ -119,13 +119,13 @@ self: super:
     patches = [ ./openshift-assume-version.patch ];
   });
 
-  systemd = super.systemd.overrideAttrs (oldAttrs: rec {
-    src = self.fetchgit {
-      url = "https://github.com/coreyoconnor/systemd.git";
-      sha256 = "1f991f3n6drcy6cjs4f199c7xrr3jc36l52chb68jg16i1hl92n6";
-      rev = "3264ddaadd09de1849177aeba8bf24ddfae88822";
-    };
-  });
+  #systemd = super.systemd.overrideAttrs (oldAttrs: rec {
+  #  src = self.fetchgit {
+  #    url = "https://github.com/coreyoconnor/systemd.git";
+  #    sha256 = "1f991f3n6drcy6cjs4f199c7xrr3jc36l52chb68jg16i1hl92n6";
+  #    rev = "3264ddaadd09de1849177aeba8bf24ddfae88822";
+  #  };
+  #});
 
   wine = super.winePackages.full.override {
     wineRelease = "staging";

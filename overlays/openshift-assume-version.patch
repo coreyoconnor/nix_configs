@@ -4,7 +4,7 @@ index b6ff2b5599..b87a3b4482 100644
 +++ b/pkg/oc/bootstrap/docker/openshift/helper.go
 @@ -647,30 +647,7 @@ func (h *Helper) ServerVersion() (semver.Version, error) {
  }
- 
+
  func (h *Helper) ServerPrereleaseVersion() (semver.Version, error) {
 -	if h.prereleaseVersion != nil {
 -		return *h.prereleaseVersion, nil
@@ -30,7 +30,7 @@ index b6ff2b5599..b87a3b4482 100644
 -		return semver.Version{}, fmt.Errorf("did not find version in command output: %s", versionText)
 -	}
 -	return parseOpenshiftVersion(versionStr)
-+	return semver.Parse("3.9.0")
++	return semver.Parse("3.10.0")
  }
- 
+
  func parseOpenshiftVersion(versionStr string) (semver.Version, error) {
