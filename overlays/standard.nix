@@ -115,9 +115,9 @@ self: super:
     '';
   });
 
-  openshift = super.openshift.overrideAttrs (oldAttrs: rec {
-    patches = [ ./openshift-assume-version.patch ];
-  });
+  #openshift = super.openshift.overrideAttrs (oldAttrs: rec {
+  #  patches = [ ./openshift-assume-version.patch ];
+  #});
 
   #systemd = super.systemd.overrideAttrs (oldAttrs: rec {
   #  src = self.fetchgit {
