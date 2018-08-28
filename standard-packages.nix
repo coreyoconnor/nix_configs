@@ -40,6 +40,8 @@ with lib;
 
     environment.systemPackages = with pkgs;
     [
+      openshift
+      docker
       stdenv
       atk
       autoconf
