@@ -198,6 +198,11 @@ in
     };
   };
 
+  services.kbfs =
+  {
+    enable = true;
+  };
+
   services.nix-serve =
   {
     enable = true;

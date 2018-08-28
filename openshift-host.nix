@@ -22,13 +22,13 @@ let
     virtualisation.docker =
     {
       enable = true;
-      extraOptions = "--insecure-registry 172.30.0.0/16";
+      # extraOptions = "--insecure-registry 172.30.0.0/16";
     };
 
-    services.kubernetes =
-    {
-      roles = ["master" "node"];
-    };
+    # services.kubernetes =
+    # {
+    #   roles = ["master" "node"];
+    # };
 
     services.dnsmasq =
     {
