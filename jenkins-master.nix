@@ -24,6 +24,7 @@ in {
   services.jenkins =
   {
     enable = true;
+    extraJavaOptions = [ "-Dhudson.slaves.WorkspaceList=-" "-Djava.awt.headless=true" ];
     packages = [ builderPackages ];
   };
 
