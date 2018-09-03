@@ -56,22 +56,22 @@ self: super:
     };
   });
 
-  nix = super.nixStable.overrideAttrs (oldAttrs: rec
-  {
-    rev = "ac198373c3e0e9520fa067e6a6761797f39d5b60";
-
-    src = self.fetchgit
-    {
-      inherit rev;
-      url = "https://github.com/coreyoconnor/nix.git";
-      sha256 = "1xxhl1cl81fkj47hygqlgr0jzfqlkn6272iwr53rylz80naslvxb";
-    };
-    fromGit = true;
-
-    nativeBuildInputs = with self; [ autoreconfHook autoconf-archive bison flex libxml2 libxslt docbook5 docbook5_xsl pkgconfig boost ];
-
-    inherit (super.nixStable) perl-bindings;
-  });
+  #nix = super.nixStable.overrideAttrs (oldAttrs: rec
+  #{
+  #  rev = "ac198373c3e0e9520fa067e6a6761797f39d5b60";
+#
+#    src = self.fetchgit
+#    {
+#      inherit rev;
+#      url = "https://github.com/coreyoconnor/nix.git";
+#      sha256 = "1xxhl1cl81fkj47hygqlgr0jzfqlkn6272iwr53rylz80naslvxb";
+#    };
+#    fromGit = true;
+#
+#    nativeBuildInputs = with self; [ autoreconfHook autoconf-archive bison flex libxml2 libxslt docbook5 docbook5_xsl pkgconfig boost ];
+#
+#    inherit (super.nixStable) perl-bindings;
+#  });
 
   openshift-dev = self.openshift.overrideAttrs (oldAttrs: rec {
     version = "3.10.0";
