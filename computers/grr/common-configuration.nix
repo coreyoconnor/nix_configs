@@ -125,6 +125,7 @@ in {
   [
     pkgs.firefox-devedition-bin
     pkgs.godot
+    pkgs.mono
     pkgs.okular
     pkgs.qgis
     pkgs.steam
