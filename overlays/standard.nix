@@ -129,7 +129,7 @@ self: super:
 
   wine = super.winePackages.full.override {
     wineRelease = "staging";
-    wineBuild = "wineWow";
+    wineBuild = "wine32";
   };
 
   steamPackages = super.steamPackages // {
