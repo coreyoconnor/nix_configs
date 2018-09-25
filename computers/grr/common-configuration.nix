@@ -123,7 +123,6 @@ in {
 
   users.users.coconnor.packages =
   [
-    pkgs.firefox-devedition-bin
     pkgs.godot
     pkgs.mono
     pkgs.okular
@@ -131,8 +130,6 @@ in {
     pkgs.steam
     pkgs.virtmanager
     pkgs.virt-viewer
-    pkgs.wine
-    pkgs.winetricks
   ];
 
   fileSystems =
