@@ -22,6 +22,7 @@ with lib;
       xclip
       xdg_utils
       rxvt_unicode
+      spectacle
       gnome3.dconf
       wine
       winetricks
