@@ -20,14 +20,28 @@ self: super:
   {
     name = "godot-${version}";
     version = "3.1.0";
-    rev = "d87307d850186d27d2c27c5916ec8c4744c14979";
+    rev = "8068d0217a5e74c25f83fe93fa6e077b8d0b3bf5";
 
     src = self.fetchgit
     {
       inherit rev;
       url = "https://github.com/coreyoconnor/godot.git";
-      sha256 = "1jlg4pyfqidy29ymhma0vi03640qbs3ybd741pwfs2hl184f7mwd";
+      sha256 = "1jlg4pyfqidy29ymhma0vi03640qbs3ybd841pwfs2hl184f7mwd";
     };
+  });
+
+  kdenlive = super.kdenlive.overrideAttrs (oldAttrs: rec {
+    name = "kdenlive-${version}";
+    version = "18.9.0";
+    rev = "5a6fa5126fc1b5aadc6e5b98baa43de5b876b4ed";
+
+    src = self.fetchgit {
+      inherit rev;
+      url = "git://anongit.kde.org/kdenlive.git";
+      sha256 = "13xi04zx3xf80k5d06pd5wgnzvyvhjpl622rb7qyznzj1m6h0qgy";
+    };
+
+    buildInputs = oldAttrs.buildInputs ++ [ self.libsForQt5.kdeclarative self.libsForQt5.kpurpose ];
   });
 
   #qgis3-unwrapped = super.qgis3-unwrapped.overrideAttrs (oldAttrs: rec
