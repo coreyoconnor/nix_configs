@@ -30,7 +30,7 @@ self: super:
     };
 
     patches = [
-      ./nixpkgs/pkgs/development/tools/godot/pkg_config_additions.patch
+      ./../nixpkgs/pkgs/development/tools/godot/pkg_config_additions.patch
       ./godot-3-1-sconstruct.patch
     ];
   });
