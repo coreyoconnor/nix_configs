@@ -1,4 +1,4 @@
-+++ SConstruct
++++ b/SConstruct
 @@ -69,10 +69,10 @@
          custom_tools = ['mingw']
 
