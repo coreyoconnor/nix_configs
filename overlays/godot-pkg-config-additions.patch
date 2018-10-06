@@ -1,0 +1,22 @@
++++ b/platform/x11/detect.py
+@@ -156,6 +156,10 @@
+     env.ParseConfig('pkg-config xinerama --cflags --libs')
+     env.ParseConfig('pkg-config xrandr --cflags --libs')
+     env.ParseConfig('pkg-config xrender --cflags --libs')
++    env.ParseConfig('pkg-config xext --cflags --libs')
++    env.ParseConfig('pkg-config xfixes --cflags --libs')
++    env.ParseConfig('pkg-config glu --cflags --libs')
++    env.ParseConfig('pkg-config zlib --cflags --libs')
+
+     if (env['touch']):
+         x11_error = os.system("pkg-config xi --modversion > /dev/null ")
+--- a/platform/x11/detect.py
++++ b/platform/x11/detect.py
+@@ -251,7 +251,7 @@
+         print("Enabling ALSA")
+         env.Append(CPPFLAGS=["-DALSA_ENABLED", "-DALSAMIDI_ENABLED"])
+ 	# Don't parse --cflags, we don't need to add /usr/include/alsa to include path
+-        env.ParseConfig('pkg-config alsa --libs')
++        env.ParseConfig('pkg-config --cflags --libs alsa')
+     else:
+         print("ALSA libraries not found, disabling driver")
