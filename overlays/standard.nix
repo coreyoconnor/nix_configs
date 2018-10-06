@@ -26,7 +26,7 @@ self: super:
     {
       inherit rev;
       url = "https://github.com/coreyoconnor/godot.git";
-      sha256 = "1jlg4pyfqidy29ymhma0vi03640qbs3ybd841pwfs2hl184f7mwd";
+      sha256 = "1g1k2j7cwm47k13gk9v0x1kxrvs3c36dkqxrnpcb13y11s4mbk47";
     };
   });
 
