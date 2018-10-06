@@ -28,6 +28,11 @@ self: super:
       url = "https://github.com/coreyoconnor/godot.git";
       sha256 = "1g1k2j7cwm47k13gk9v0x1kxrvs3c36dkqxrnpcb13y11s4mbk47";
     };
+
+    patches = [
+      ./nixpkgs/pkgs/development/tools/godot/pkg_config_additions.patch
+      ./godot-3-1-sconstruct.patch
+    ];
   });
 
   kdenlive = super.kdenlive.overrideAttrs (oldAttrs: rec {
