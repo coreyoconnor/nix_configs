@@ -76,17 +76,24 @@ with lib;
 
     services =
     {
-      # build broken?
-      # flatpak.enable = true;
+      flatpak =
+      {
+        enable = true;
+        extraPortals = [ pkgs.xdg-desktop-portal-kde ];
+      };
       xserver =
       {
         desktopManager.plasma5.enableQt4Support = true;
-        exportConfiguration = true;
         displayManager.slim.enable = true;
+        exportConfiguration = true;
+        libinput.enable = true;
         updateDbusEnvironment = true;
       };
+
+      udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
     };
 
+    programs.dconf.enable = true;
     sound.enable = true;
   };
 }

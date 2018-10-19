@@ -55,13 +55,13 @@ self: super:
 
   kdenlive = super.kdenlive.overrideAttrs (oldAttrs: rec {
     name = "kdenlive-${version}";
-    version = "18.9.0";
-    rev = "5a6fa5126fc1b5aadc6e5b98baa43de5b876b4ed";
+    version = "18.18.0";
+    rev = "77bdbfd5589b5be07456dce0c24df4a5f5a34e59";
 
     src = self.fetchgit {
       inherit rev;
       url = "git://anongit.kde.org/kdenlive.git";
-      sha256 = "13xi04zx3xf80k5d06pd5wgnzvyvhjpl622rb7qyznzj1m6h0qgy";
+      sha256 = "1y5fj4vcwlmz8np89ymwzy1divdz89cq6i3s584pbxayl1k3j3hx";
     };
 
     buildInputs = oldAttrs.buildInputs ++ [ self.libsForQt5.kdeclarative self.libsForQt5.kpurpose ];
