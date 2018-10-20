@@ -34,7 +34,8 @@
       enable = true;
       desktopManager =
       {
-        default = "plasma5";
+        default = "gnome3";
+        gnome3.enable = true;
         plasma5.enable = true;
       };
 
