@@ -9,6 +9,7 @@ with lib;
       desktop_file_utils
       gnome3.defaultIconTheme
       firefox-devedition-bin
+      glib.dev
       hicolor-icon-theme
       xcompmgr
       xlibs.fontutil
