@@ -41,5 +41,7 @@ with lib;
 
       xfs.enable = false;
     };
+
+    systemd.tmpfiles.rules = [ "R /tmp/nix* - - - 60d" ];
   };
 }
