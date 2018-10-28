@@ -26,27 +26,8 @@ in {
 
   libvirt-host.enable = true;
 
-  # grub bootloader installed to all devices in the boot raid1 array
   boot =
   {
-    loader.grub =
-    {
-      devices =
-      [
-        "/dev/disk/by-id/ata-ADATA_SP550_2G0420001801"
-        "/dev/disk/by-id/ata-ADATA_SP550_2G0420002543"
-        "/dev/disk/by-id/ata-ADATA_SP550_2G0420003186"
-        "/dev/disk/by-id/ata-ADATA_SP550_2G0420001635"
-        "/dev/disk/by-id/ata-ADATA_SP550_2G3220055024"
-        "/dev/disk/by-id/ata-ADATA_SP550_2G3220055124"
-      ];
-      enable = true;
-      fontSize = 24;
-      font = "${pkgs.corefonts}/share/fonts/truetype/cour.ttf";
-      zfsSupport = true;
-      version = 2;
-    };
-
     kernelParams = [ "kvm-intel.nested=1" ];
     kernelPackages = pkgs.linuxPackages_4_18;
   };
