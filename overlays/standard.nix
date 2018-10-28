@@ -174,4 +174,13 @@ self: super:
       extraPkgs = pkgs: [ pkgs.kde-cli-tools ];
     };
   };
+
+  qemu = super.qemu.overrideAttrs (oldAttrs: rec {
+    patches = [
+    (self.fetchpatch {
+      url = "https://gist.githubusercontent.com/gnif/e4c001b608347b0b86118a2647103378/raw/dd18eb6fe60f33c0609c7122d0635b666d7018b8/qemu-pcie-nasty.patch";
+      sha256 = "0p7f8qmx66gky6c1nbv05ns6533pn2pbm9sgazymkhjfqb12z95l";
+    })
+    ] ++ oldAttrs.patches;
+  });
 }
