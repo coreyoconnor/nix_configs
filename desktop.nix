@@ -29,6 +29,12 @@ with lib;
       winetricks
     ];
 
+    nixpkgs.config.firefox =
+    {
+      enableGnomeExtensions = true;
+      enablePlasmaBrowserIntegration = true;
+    };
+
     environment.variables =
     {
       GIO_EXTRA_MODULES =
@@ -77,15 +83,19 @@ with lib;
 
     services =
     {
+      gnome3.chrome-gnome-shell.enable = true;
+
       flatpak =
       {
         enable = true;
         extraPortals = [ pkgs.xdg-desktop-portal-kde ];
       };
+
       xserver =
       {
         desktopManager.plasma5.enableQt4Support = true;
-        displayManager.slim.enable = true;
+        # gnome desktop does not work properly without gdm
+        displayManager.gdm.enable = true;
         exportConfiguration = true;
         libinput.enable = true;
         updateDbusEnvironment = true;

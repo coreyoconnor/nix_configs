@@ -10,7 +10,7 @@
   boot.extraModulePackages = [ ];
   boot.kernelModules = [ ];
 
-  boot.loader.grub = 
+  boot.loader.grub =
   {
     enable = true;
     version = 2;
@@ -19,7 +19,7 @@
 
   boot.initrd.availableKernelModules = [ "ata_piix" "ohci_hcd" "ehci_hcd" ];
 
-  boot.loader.grub = 
+  boot.loader.grub =
   {
     # Use grub 2 as boot loader.
     enable = true;
@@ -41,12 +41,12 @@
     defaultLocale = "en_US.UTF-8";
   };
 
-  networking = 
+  networking =
   {
     hostName = "nix-dev"; # Define your hostname.
     interfaceMonitor.enable = true; # Watch for plugged cable.
   };
-  
+
   security.sudo.enable = true;
   security.sudo.configFile = ''
       Defaults:root,%wheel env_keep+=LOCALE_ARCHIVE
@@ -68,7 +68,7 @@
   # TODO: I only want to disable X11 forwarding for ssh client
   services.openssh.forwardX11 = false;
   services.virtualbox.enable = true;
-  services.xserver = 
+  services.xserver =
   {
     enable = true;
     autorun = true;
@@ -77,10 +77,10 @@
 
     displayManager.slim.defaultUser = "coconnor";
 
-    desktopManager = 
+    desktopManager =
     {
-      session = 
-      [ 
+      session =
+      [
         {
           name = "bind-desktop";
           start = ''
@@ -101,7 +101,7 @@
               xfce4-session
           '';
           bgSupport = false;
-        } 
+        }
       ];
     };
 
@@ -132,15 +132,13 @@
     pkgs.gnome.GConf
   ];
 
-  environment.x11Packages = 
+  environment.x11Packages =
   [
       # pkgs.abiword
       pkgs.chrome
       pkgs.desktop_file_utils
-      pkgs.eclipses.eclipse_sdk_37
       pkgs.evince
-      pkgs.firefox
-      pkgs.flashplayer
+      pkgs.firefox-devedition
       pkgs.gnome.GConf
       pkgs.gnome.gtk
       pkgs.gnome.intltool
@@ -194,7 +192,7 @@
   ];
 
   environment.pathsToLink =
-  [ 
+  [
       "/share"
       "/etc/gconf"
   ];
@@ -212,7 +210,7 @@
   fonts =
   {
       enableFontDir = true;
-      extraFonts = 
+      extraFonts =
       [
           pkgs.andagii
           pkgs.anonymousPro
@@ -275,4 +273,3 @@
 
 
 }
-
