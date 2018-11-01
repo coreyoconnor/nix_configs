@@ -1,6 +1,6 @@
 {config, pkgs, lib, ...}:
 with lib;
-let postgresql = pkgs.postgresql100;
+let postgresql = pkgs.postgresql_10;
 in {
   services.postgresql =
   {
