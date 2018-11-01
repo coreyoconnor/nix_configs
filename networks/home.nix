@@ -4,7 +4,7 @@
   [
     ./known-hosts.nix
     ../users/admin.nix
-    ../users/boconnor.nix
+    ../users/bretto.nix
     ../users/coconnor.nix
     ../users/jenkins.nix
     ../users/media.nix

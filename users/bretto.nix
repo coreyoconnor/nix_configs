@@ -3,12 +3,12 @@ with pkgs.lib;
 {
   users.extraUsers =
   {
-    boconnor =
+    bretto =
     {
-      uid = 1101;
       createHome = true;
       group = "users";
-      home = "/home/boconnor";
+      extraGroups = [ "libvirtd"
+                      "transmission" ];
       shell = pkgs.bashInteractive + "/bin/bash";
       openssh.authorizedKeys.keyFiles = [./ssh/brett.pub];
     };
