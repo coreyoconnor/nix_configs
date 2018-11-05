@@ -95,7 +95,11 @@ with lib;
       {
         desktopManager.plasma5.enableQt4Support = true;
         # gnome desktop does not work properly without gdm
-        displayManager.gdm.enable = true;
+        displayManager.gdm =
+        {
+          enable = true;
+          wayland = false;
+        };
         exportConfiguration = true;
         libinput.enable = true;
         updateDbusEnvironment = true;
