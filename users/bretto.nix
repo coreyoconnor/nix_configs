@@ -5,8 +5,7 @@ with pkgs.lib;
   {
     bretto =
     {
-      createHome = true;
-      group = "users";
+      isNormalUser = true;
       extraGroups = [ "libvirtd"
                       "transmission" ];
       shell = pkgs.bashInteractive + "/bin/bash";
