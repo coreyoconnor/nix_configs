@@ -12,7 +12,7 @@ in {
     ../../java-dev.nix
     ../../jenkins-node.nix
     ../../i18n.nix
-    ../../musnix
+    # ../../musnix
     ../../networks/home.nix
     ../../postgis-server.nix
     ../../standard-env.nix
@@ -33,11 +33,13 @@ in {
 
   nixpkgs.config =
   {
-    packageOverrides = super:
+    packageOverrides = super: let self = super.pkgs; in
     {
-      linuxPackages = super.linuxPackages_4_18 // {
-        nvidia_x11 = super.linuxPackages_4_18.nvidiaPackages.stable_390;
-      };
+      linuxPackages = super.linuxPackages_4_18.extend (self: super: {
+        nvidiaPackages = super.nvidiaPackages // {
+          stable = self.nvidiaPackages.stable_390;
+        };
+      });
     };
     permittedInsecurePackages = ["linux-4.13.16" "mono-4.0.4.1" ];
   };
@@ -85,18 +87,18 @@ in {
     enableRedistributableFirmware = true;
   };
 
-  musnix =
-  {
-    enable = false;
-    kernel =
-    {
-      latencytop = true;
-      optimize = true;
-      realtime = true;
-      # must match computer linuxPackages version
-      packages = pkgs.linuxPackages_4_14_rt;
-    };
-  };
+  #musnix =
+  #{
+  #  enable = false;
+  #  kernel =
+  #  {
+  #    latencytop = true;
+  #    optimize = true;
+  #    realtime = true;
+  #    # must match computer linuxPackages version
+  #    # packages = pkgs.linuxPackages_4_14_rt;
+  #  };
+  #};
 
   services.kbfs =
   {
