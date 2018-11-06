@@ -108,6 +108,7 @@ in {
   users.users.coconnor.packages =
   [
     pkgs.godot
+    pkgs.kdenlive
     pkgs.mono
     pkgs.okular
     pkgs.qgis
