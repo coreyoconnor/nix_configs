@@ -29,14 +29,15 @@ in {
   boot =
   {
     kernelParams = [ "kvm-intel.nested=1" ];
-    kernelPackages = pkgs.linuxPackages_4_18;
   };
 
   nixpkgs.config =
   {
-    packageOverrides = in_pkgs :
+    packageOverrides = super:
     {
-      linuxPackages = in_pkgs.linuxPackages_4_18;
+      linuxPackages = super.linuxPackages_4_18 // {
+        nvidia_x11 = super.linuxPackages_4_18.nvidiaPackages.stable_390;
+      };
     };
     permittedInsecurePackages = ["linux-4.13.16" "mono-4.0.4.1" ];
   };
