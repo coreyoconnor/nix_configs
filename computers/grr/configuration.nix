@@ -54,11 +54,11 @@
       xrandrHeads =
       [
         {
-            output = "DVI-I-1-1";
-            monitorConfig = ''
+          output = "DVI-I-1-1";
+          monitorConfig = ''
             Option "PreferredMode" "2560x1080"
-            '';
-            primary = true;
+          '';
+          primary = true;
         }
       ];
 
