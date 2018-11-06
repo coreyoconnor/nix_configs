@@ -31,7 +31,7 @@
       nvidia =
       {
         modesetting.enable = true;
-        package = config.boot.kernelPackages.nvidiaPackages.stable_390;
+        # package = config.boot.kernelPackages.nvidiaPackages.stable_390;
       };
     };
 
@@ -54,11 +54,11 @@
       xrandrHeads =
       [
         {
-            output = "DVI-I-1-1";
-            monitorConfig = ''
+          output = "DVI-I-1-1";
+          monitorConfig = ''
             Option "PreferredMode" "2560x1080"
-            '';
-            primary = true;
+          '';
+          primary = true;
         }
       ];
 
