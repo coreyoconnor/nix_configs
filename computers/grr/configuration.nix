@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs_i686, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
@@ -14,7 +14,7 @@
       opengl =
       {
         extraPackages = [ pkgs.mesa_drivers ];
-        extraPackages32 = [ pkgs_i686.mesa_drivers ];
+        extraPackages32 = [ pkgs.pkgsi686Linux.mesa_drivers ];
       };
 
       pulseaudio =
