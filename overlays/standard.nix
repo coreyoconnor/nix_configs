@@ -56,15 +56,40 @@ self: super:
   kdenlive = super.kdenlive.overrideAttrs (oldAttrs: rec {
     name = "kdenlive-${version}";
     version = "18.18.0";
-    rev = "77bdbfd5589b5be07456dce0c24df4a5f5a34e59";
+    rev = "9f538006790de8aab79549af192c90f0bd9ef359";
 
     src = self.fetchgit {
       inherit rev;
       url = "git://anongit.kde.org/kdenlive.git";
-      sha256 = "1y5fj4vcwlmz8np89ymwzy1divdz89cq6i3s584pbxayl1k3j3hx";
+      sha256 = "1anm0fjqk0in1vwvyzbm5pqyr8cypspvakj1q61g03x06qg10vqd";
     };
 
     buildInputs = oldAttrs.buildInputs ++ [ self.libsForQt5.kdeclarative self.libsForQt5.kpurpose ];
+  });
+
+  mlt = super.mlt.overrideAttrs( oldAttrs: rec {
+    name = "mlt-${version}";
+    version = "6.11.0";
+    src = self.fetchFromGithub {
+      owner = "mltframework";
+      repo = "mlt";
+      rev = "5d17a5988a0a3e75153c356a78cc074a367e8598";
+      sha256 = "0ki86yslr5ywa6sz8pjrgd9a4rn2rr4mss2zkmqi7pq8prgsm2fr";
+    };
+  });
+
+  movit = super.movit.overrideAttrs( oldAttrs: rec {
+    name = "movit-${version}";
+    version = "1.6.2";
+
+    buildInputs = oldAttrs.buildInputs ++ [ self.SDL2 ];
+    doCheck = false;
+    GTEST_DIR = "${self.gtest.src}/googletest";
+
+    src = self.fetchurl {
+      url = "https://movit.sesse.net/${name}.tar.gz";
+      sha256 = "1q9h086v6h3da4b9qyflcjx73cgnqjhb92rv6g4j90m34dndaa3l";
+    };
   });
 
   #qgis3-unwrapped = super.qgis3-unwrapped.overrideAttrs (oldAttrs: rec
