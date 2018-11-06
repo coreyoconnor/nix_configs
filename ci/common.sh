@@ -40,4 +40,4 @@ function nixos-build-cache-result-path() {
 set -ex
 
 mkdir -p "${cache_dir}"
-find "${cache_dir}" -mindepth 1 -maxdepth 1 -mtime +30 -print -delete
+find "${cache_dir}" -mindepth 1 -maxdepth 1 -mtime +30 -print -delete || true
