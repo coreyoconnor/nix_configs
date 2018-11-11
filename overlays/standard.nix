@@ -1,8 +1,6 @@
 self: super:
 {
-  docker = self.docker_18_06;
-
-  docker_18_06 = super.docker_18_06.overrideAttrs (oldAttrs : rec {
+  docker = super.docker_18_09.overrideAttrs (oldAttrs : rec {
     extraPath = super.lib.makeBinPath [ self.zfs ] + ":" + oldAttrs.extraPath;
   });
 
@@ -56,12 +54,14 @@ self: super:
   kdenlive = super.kdenlive.overrideAttrs (oldAttrs: rec {
     name = "kdenlive-${version}";
     version = "18.18.0";
-    rev = "9f538006790de8aab79549af192c90f0bd9ef359";
+    # rev = "9f538006790de8aab79549af192c90f0bd9ef359";
+    rev = "08d749b51585ab73d5ac055a9f9d9fea65309d3e";
 
     src = self.fetchgit {
       inherit rev;
       url = "git://anongit.kde.org/kdenlive.git";
-      sha256 = "1anm0fjqk0in1vwvyzbm5pqyr8cypspvakj1q61g03x06qg10vqd";
+     #  sha256 = "1anm0fjqk0in1vwvyzbm5pqyr8cypspvakj1q61g03x06qg10vqd";
+      sha256 = "1qkarkijs07nj5sryq3s5w1lvfrqp4p7lmhbgdz2n803ssxm2j8q";
     };
 
     buildInputs = oldAttrs.buildInputs ++ [ self.libsForQt5.kdeclarative self.libsForQt5.kpurpose ];
