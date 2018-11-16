@@ -51,30 +51,32 @@ self: super:
     '';
   });
 
-  kdenlive = super.kdenlive.overrideAttrs (oldAttrs: rec {
+  kdenlive = (super.kdenlive.overrideAttrs (oldAttrs: rec {
     name = "kdenlive-${version}";
-    version = "18.18.0";
+    version = "18.09.0";
     # rev = "9f538006790de8aab79549af192c90f0bd9ef359";
-    rev = "08d749b51585ab73d5ac055a9f9d9fea65309d3e";
+    rev = "eb994a4fef7a081b52f58e599d5c35f0958051b7";
 
     src = self.fetchgit {
       inherit rev;
       url = "git://anongit.kde.org/kdenlive.git";
      #  sha256 = "1anm0fjqk0in1vwvyzbm5pqyr8cypspvakj1q61g03x06qg10vqd";
-      sha256 = "1qkarkijs07nj5sryq3s5w1lvfrqp4p7lmhbgdz2n803ssxm2j8q";
+      sha256 = "1b1d67yd4xfxv5paazclmn58cyban9g33zr9g9rxvw2rn0jiq0k4";
     };
 
     buildInputs = oldAttrs.buildInputs ++ [ self.libsForQt5.kdeclarative self.libsForQt5.kpurpose ];
-  });
+  })).override {
+    mlt = self.mlt;
+  };
 
   mlt = super.mlt.overrideAttrs( oldAttrs: rec {
     name = "mlt-${version}";
-    version = "6.11.0";
-    src = self.fetchFromGithub {
+    version = "6.11.1";
+    src = self.fetchFromGitHub {
       owner = "mltframework";
       repo = "mlt";
-      rev = "5d17a5988a0a3e75153c356a78cc074a367e8598";
-      sha256 = "0ki86yslr5ywa6sz8pjrgd9a4rn2rr4mss2zkmqi7pq8prgsm2fr";
+      rev = "7dd25b4a6098b6413c5ee1adbde550c9ee951053";
+      sha256 = "0sq1y2h7hp4rd4gci13imfiqnz52p7kpd0c7182z27iwhd0q9z8v";
     };
   });
 
@@ -201,11 +203,12 @@ self: super:
   };
 
   qemu = super.qemu.overrideAttrs (oldAttrs: rec {
-    patches = [
-    (self.fetchpatch {
-      url = "https://gist.githubusercontent.com/gnif/e4c001b608347b0b86118a2647103378/raw/dd18eb6fe60f33c0609c7122d0635b666d7018b8/qemu-pcie-nasty.patch";
-      sha256 = "0p7f8qmx66gky6c1nbv05ns6533pn2pbm9sgazymkhjfqb12z95l";
-    })
-    ] ++ oldAttrs.patches;
+    name = "qemu-${version}";
+    version = "3.1.0-rc1";
+    src = self.fetchurl {
+      url = "https://download.qemu.org/qemu-3.1.0-rc1.tar.xz";
+      sha256 = "1wsvbnbklb8fgfsx0n2h7n3y5zhavdkq3gybjqmzm0anp5yrcadg";
+    };
+    patches = [ ./link-speed.patch ] ++ oldAttrs.patches;
   });
 }

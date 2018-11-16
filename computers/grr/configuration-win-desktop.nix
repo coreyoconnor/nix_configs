@@ -5,17 +5,8 @@
   [
     ./common-configuration.nix
     ./windows-desktop-vm.nix
+    ../../desktop.nix
   ];
-
-  hardware =
-  {
-    opengl =
-    {
-      enable = true;
-      driSupport32Bit = true;
-      useGLVND = true;
-    };
-  };
 
   services.xserver.enable = false;
 }

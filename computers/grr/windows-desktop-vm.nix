@@ -27,6 +27,7 @@
     };
     # -drive file=/dev/zvol/rpool/root/waffle-1,format=raw,cache=writeback,aio=native,cache.direct=on \
     # ${pkgs.utillinux}/bin/chrt --rr 60 \
+    # -drive file=/mnt/storage/transfer.qcow2,if=virtio \
 
     script = ''
     ${pkgs.numactl}/bin/numactl --cpunodebind=0 \
@@ -38,10 +39,11 @@
         -rtc base=localtime,clock=host \
         -boot menu=off,strict=on \
         -drive file=/dev/zvol/rpool/root/waffle-1,format=raw,if=virtio \
-        -drive file=/mnt/storage/transfer.qcow2,if=virtio \
-        -device ioh3420,multifunction=on,bus=pcie.0,id=root.1 \
-        -device vfio-pci,multifunction=on,x-vga=on,host=05:00.0,bus=root.1,addr=00.0 \
-        -device vfio-pci,host=05:00.1,bus=root.1,addr=00.1 \
+        -device pcie-root-port,id=root,chassis=0,slot=0,bus=pcie.0 \
+        -set device.root.speed=8 \
+        -set device.root.width=16 \
+        -device vfio-pci,multifunction=on,x-vga=on,host=05:00.0,bus=root,addr=00.0 \
+        -device vfio-pci,host=05:00.1,bus=root,addr=00.1 \
         -device vfio-pci,host=08:00.0 -net none \
         -device vfio-pci,host=04:04.0 \
         -device usb-host,vendorid=0x045e,productid=0x028e \
