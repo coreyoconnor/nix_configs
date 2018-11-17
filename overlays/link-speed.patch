@@ -1,0 +1,1387 @@
+From patchwork Wed Nov 14 20:50:32 2018
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Alex Williamson <alex.williamson@redhat.com>
+X-Patchwork-Id: 10683047
+Return-Path: 
+ <qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>
+Received: from mail.wl.linuxfoundation.org (pdx-wl-mail.web.codeaurora.org
+ [172.30.200.125])
+	by pdx-korg-patchwork-2.web.codeaurora.org (Postfix) with ESMTP id 9F1C517F3
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:52:32 +0000 (UTC)
+Received: from mail.wl.linuxfoundation.org (localhost [127.0.0.1])
+	by mail.wl.linuxfoundation.org (Postfix) with ESMTP id 911382BF9A
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:52:32 +0000 (UTC)
+Received: by mail.wl.linuxfoundation.org (Postfix, from userid 486)
+	id 850A82BFA4; Wed, 14 Nov 2018 20:52:32 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	pdx-wl-mail.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-7.9 required=2.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+Received: from lists.gnu.org (lists.gnu.org [208.118.235.17])
+	(using TLSv1 with cipher AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mail.wl.linuxfoundation.org (Postfix) with ESMTPS id 2BD1C2BFA8
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:52:32 +0000 (UTC)
+Received: from localhost ([::1]:34168 helo=lists.gnu.org)
+	by lists.gnu.org with esmtp (Exim 4.71)
+	(envelope-from
+ <qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>)
+	id 1gN29H-0005Os-DX
+	for patchwork-qemu-devel@patchwork.kernel.org;
+ Wed, 14 Nov 2018 15:52:31 -0500
+Received: from eggs.gnu.org ([2001:4830:134:3::10]:33625)
+	by lists.gnu.org with esmtp (Exim 4.71)
+	(envelope-from <alex.williamson@redhat.com>) id 1gN27j-0004Hb-7p
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:50:55 -0500
+Received: from Debian-exim by eggs.gnu.org with spam-scanned (Exim 4.71)
+	(envelope-from <alex.williamson@redhat.com>) id 1gN27g-0004iW-Ed
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:50:55 -0500
+Received: from mx1.redhat.com ([209.132.183.28]:55716)
+	by eggs.gnu.org with esmtps (TLS1.0:DHE_RSA_AES_256_CBC_SHA1:32)
+	(Exim 4.71) (envelope-from <alex.williamson@redhat.com>)
+	id 1gN27c-0004Yi-Lk
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:50:50 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 70C2430C41A1;
+	Wed, 14 Nov 2018 20:50:39 +0000 (UTC)
+Received: from gimli.home (ovpn-116-133.phx2.redhat.com [10.3.116.133])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 027FC608C3;
+	Wed, 14 Nov 2018 20:50:32 +0000 (UTC)
+From: Alex Williamson <alex.williamson@redhat.com>
+To: qemu-devel@nongnu.org
+Date: Wed, 14 Nov 2018 13:50:32 -0700
+Message-ID: <154222863261.9288.1463975122102905065.stgit@gimli.home>
+In-Reply-To: <154222737752.9288.484557356059052047.stgit@gimli.home>
+References: <154222737752.9288.484557356059052047.stgit@gimli.home>
+User-Agent: StGit/0.18-136-gffd7-dirty
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.45]);
+	Wed, 14 Nov 2018 20:50:39 +0000 (UTC)
+X-detected-operating-system: by eggs.gnu.org: GNU/Linux 2.2.x-3.x [generic]
+X-Received-From: 209.132.183.28
+Subject: [Qemu-devel] [RFC for-3.2 PATCH 1/7] pcie: Create enums for link
+ speed and width
+X-BeenThere: qemu-devel@nongnu.org
+X-Mailman-Version: 2.1.21
+Precedence: list
+List-Id: <qemu-devel.nongnu.org>
+List-Unsubscribe: <https://lists.nongnu.org/mailman/options/qemu-devel>,
+	<mailto:qemu-devel-request@nongnu.org?subject=unsubscribe>
+List-Archive: <http://lists.nongnu.org/archive/html/qemu-devel/>
+List-Post: <mailto:qemu-devel@nongnu.org>
+List-Help: <mailto:qemu-devel-request@nongnu.org?subject=help>
+List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-devel>,
+	<mailto:qemu-devel-request@nongnu.org?subject=subscribe>
+Cc: geoff@hostfission.com, mst@redhat.com
+Errors-To: 
+ qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org
+Sender: "Qemu-devel"
+	<qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+In preparation for reporting higher virtual link speeds and widths,
+create enums and macros to help us manage them.
+
+Signed-off-by: Alex Williamson <alex.williamson@redhat.com>
+---
+ hw/pci/pcie.c              |    7 ++++---
+ hw/vfio/pci.c              |    3 ++-
+ include/hw/pci/pcie_regs.h |   23 +++++++++++++++++++++--
+ 3 files changed, 27 insertions(+), 6 deletions(-)
+
+diff --git a/hw/pci/pcie.c b/hw/pci/pcie.c
+index 6c91bd44a0a5..914a5261a79b 100644
+--- a/hw/pci/pcie.c
++++ b/hw/pci/pcie.c
+@@ -68,11 +68,12 @@ pcie_cap_v1_fill(PCIDevice *dev, uint8_t port, uint8_t type, uint8_t version)
+     pci_set_long(exp_cap + PCI_EXP_LNKCAP,
+                  (port << PCI_EXP_LNKCAP_PN_SHIFT) |
+                  PCI_EXP_LNKCAP_ASPMS_0S |
+-                 PCI_EXP_LNK_MLW_1 |
+-                 PCI_EXP_LNK_LS_25);
++                 QEMU_PCI_EXP_LNKCAP_MLW(QEMU_PCI_EXP_LNK_X1) |
++                 QEMU_PCI_EXP_LNKCAP_MLS(QEMU_PCI_EXP_LNK_2_5GT));
+ 
+     pci_set_word(exp_cap + PCI_EXP_LNKSTA,
+-                 PCI_EXP_LNK_MLW_1 | PCI_EXP_LNK_LS_25);
++                 QEMU_PCI_EXP_LNKSTA_NLW(QEMU_PCI_EXP_LNK_X1) |
++                 QEMU_PCI_EXP_LNKSTA_CLS(QEMU_PCI_EXP_LNK_2_5GT));
+ 
+     if (dev->cap_present & QEMU_PCIE_LNKSTA_DLLLA) {
+         pci_word_test_and_set_mask(exp_cap + PCI_EXP_LNKSTA,
+diff --git a/hw/vfio/pci.c b/hw/vfio/pci.c
+index 866f0deeb7eb..08aab328b442 100644
+--- a/hw/vfio/pci.c
++++ b/hw/vfio/pci.c
+@@ -1895,7 +1895,8 @@ static int vfio_setup_pcie_cap(VFIOPCIDevice *vdev, int pos, uint8_t size,
+                                    PCI_EXP_TYPE_ENDPOINT << 4,
+                                    PCI_EXP_FLAGS_TYPE);
+             vfio_add_emulated_long(vdev, pos + PCI_EXP_LNKCAP,
+-                                   PCI_EXP_LNK_MLW_1 | PCI_EXP_LNK_LS_25, ~0);
++                           QEMU_PCI_EXP_LNKCAP_MLW(QEMU_PCI_EXP_LNK_X1) |
++                           QEMU_PCI_EXP_LNKCAP_MLS(QEMU_PCI_EXP_LNK_2_5GT), ~0);
+             vfio_add_emulated_word(vdev, pos + PCI_EXP_LNKCTL, 0, ~0);
+         }
+ 
+diff --git a/include/hw/pci/pcie_regs.h b/include/hw/pci/pcie_regs.h
+index a95522a13b04..ad4e7808b8ac 100644
+--- a/include/hw/pci/pcie_regs.h
++++ b/include/hw/pci/pcie_regs.h
+@@ -34,10 +34,29 @@
+ 
+ /* PCI_EXP_LINK{CAP, STA} */
+ /* link speed */
+-#define PCI_EXP_LNK_LS_25               1
++typedef enum PCIExpLinkSpeed {
++    QEMU_PCI_EXP_LNK_2_5GT = 1,
++    QEMU_PCI_EXP_LNK_5GT,
++    QEMU_PCI_EXP_LNK_8GT,
++    QEMU_PCI_EXP_LNK_16GT,
++} PCIExpLinkSpeed;
++
++#define QEMU_PCI_EXP_LNKCAP_MLS(speed)  (speed)
++#define QEMU_PCI_EXP_LNKSTA_CLS         QEMU_PCI_EXP_LNKCAP_MLS
++
++typedef enum PCIExpLinkWidth {
++    QEMU_PCI_EXP_LNK_X1 = 1,
++    QEMU_PCI_EXP_LNK_X2 = 2,
++    QEMU_PCI_EXP_LNK_X4 = 4,
++    QEMU_PCI_EXP_LNK_X8 = 8,
++    QEMU_PCI_EXP_LNK_X12 = 12,
++    QEMU_PCI_EXP_LNK_X16 = 16,
++    QEMU_PCI_EXP_LNK_X32 = 32,
++} PCIExpLinkWidth;
+ 
+ #define PCI_EXP_LNK_MLW_SHIFT           ctz32(PCI_EXP_LNKCAP_MLW)
+-#define PCI_EXP_LNK_MLW_1               (1 << PCI_EXP_LNK_MLW_SHIFT)
++#define QEMU_PCI_EXP_LNKCAP_MLW(width)  (width << PCI_EXP_LNK_MLW_SHIFT)
++#define QEMU_PCI_EXP_LNKSTA_NLW         QEMU_PCI_EXP_LNKCAP_MLW
+ 
+ /* PCI_EXP_LINKCAP */
+ #define PCI_EXP_LNKCAP_ASPMS_SHIFT      ctz32(PCI_EXP_LNKCAP_ASPMS)
+
+From patchwork Wed Nov 14 20:50:44 2018
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Alex Williamson <alex.williamson@redhat.com>
+X-Patchwork-Id: 10683049
+Return-Path: 
+ <qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>
+Received: from mail.wl.linuxfoundation.org (pdx-wl-mail.web.codeaurora.org
+ [172.30.200.125])
+	by pdx-korg-patchwork-2.web.codeaurora.org (Postfix) with ESMTP id 4C57F13B5
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:54:13 +0000 (UTC)
+Received: from mail.wl.linuxfoundation.org (localhost [127.0.0.1])
+	by mail.wl.linuxfoundation.org (Postfix) with ESMTP id 3D5CB2BEBF
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:54:13 +0000 (UTC)
+Received: by mail.wl.linuxfoundation.org (Postfix, from userid 486)
+	id 2E5282BF1B; Wed, 14 Nov 2018 20:54:13 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	pdx-wl-mail.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-7.9 required=2.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+Received: from lists.gnu.org (lists.gnu.org [208.118.235.17])
+	(using TLSv1 with cipher AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mail.wl.linuxfoundation.org (Postfix) with ESMTPS id 984F72BEC0
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:54:12 +0000 (UTC)
+Received: from localhost ([::1]:34175 helo=lists.gnu.org)
+	by lists.gnu.org with esmtp (Exim 4.71)
+	(envelope-from
+ <qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>)
+	id 1gN2At-0006i9-Oz
+	for patchwork-qemu-devel@patchwork.kernel.org;
+ Wed, 14 Nov 2018 15:54:11 -0500
+Received: from eggs.gnu.org ([2001:4830:134:3::10]:33649)
+	by lists.gnu.org with esmtp (Exim 4.71)
+	(envelope-from <alex.williamson@redhat.com>) id 1gN27j-0004I3-RN
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:50:57 -0500
+Received: from Debian-exim by eggs.gnu.org with spam-scanned (Exim 4.71)
+	(envelope-from <alex.williamson@redhat.com>) id 1gN27i-0004ju-Ot
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:50:55 -0500
+Received: from mx1.redhat.com ([209.132.183.28]:52272)
+	by eggs.gnu.org with esmtps (TLS1.0:DHE_RSA_AES_256_CBC_SHA1:32)
+	(Exim 4.71) (envelope-from <alex.williamson@redhat.com>)
+	id 1gN27i-0004hT-FO
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:50:54 -0500
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id EF9DC307D982;
+	Wed, 14 Nov 2018 20:50:50 +0000 (UTC)
+Received: from gimli.home (ovpn-116-133.phx2.redhat.com [10.3.116.133])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DB8E3600D6;
+	Wed, 14 Nov 2018 20:50:44 +0000 (UTC)
+From: Alex Williamson <alex.williamson@redhat.com>
+To: qemu-devel@nongnu.org
+Date: Wed, 14 Nov 2018 13:50:44 -0700
+Message-ID: <154222864450.9288.9900860597764625262.stgit@gimli.home>
+In-Reply-To: <154222737752.9288.484557356059052047.stgit@gimli.home>
+References: <154222737752.9288.484557356059052047.stgit@gimli.home>
+User-Agent: StGit/0.18-136-gffd7-dirty
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.48]);
+	Wed, 14 Nov 2018 20:50:51 +0000 (UTC)
+X-detected-operating-system: by eggs.gnu.org: GNU/Linux 2.2.x-3.x [generic]
+X-Received-From: 209.132.183.28
+Subject: [Qemu-devel] [RFC for-3.2 PATCH 2/7] pci: Sync PCIe downstream port
+ LNKSTA on read
+X-BeenThere: qemu-devel@nongnu.org
+X-Mailman-Version: 2.1.21
+Precedence: list
+List-Id: <qemu-devel.nongnu.org>
+List-Unsubscribe: <https://lists.nongnu.org/mailman/options/qemu-devel>,
+	<mailto:qemu-devel-request@nongnu.org?subject=unsubscribe>
+List-Archive: <http://lists.nongnu.org/archive/html/qemu-devel/>
+List-Post: <mailto:qemu-devel@nongnu.org>
+List-Help: <mailto:qemu-devel-request@nongnu.org?subject=help>
+List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-devel>,
+	<mailto:qemu-devel-request@nongnu.org?subject=subscribe>
+Cc: geoff@hostfission.com, mst@redhat.com
+Errors-To: 
+ qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org
+Sender: "Qemu-devel"
+	<qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+The PCIe link speed and width between a downstream device and its
+upstream port is negotiated on real hardware and susceptible to
+dynamic changes due to signal issues and power management.  In the
+emulated device case there is no real hardware link, but we still
+might wish to have some consistency between endpoint and downstream
+port via a virtual negotiation.  There is of course a real link for
+assigned devices and this same virtual negotiation allows the
+downstream port to match the endpoint, synchronizing on every read
+to support underlying physical hardware dynamically adjusting the
+link.
+
+This negotiation is intentionally unidirectional for compatibility.
+If the endpoint exceeds the capabilities of the downstream port or
+there is no endpoint device, the downstream port reports negotiation
+to its maximum speed and width, matching the previous case where
+negotiation was absent.  De-tuning the endpoint to match a virtual
+link doesn't seem to benefit anyone and is a condition we've thus
+far reported without functional issues.
+
+Note that PCI_EXP_LNKSTA is already ignored for migration
+compatibility via pcie_cap_v1_fill().
+
+Signed-off-by: Alex Williamson <alex.williamson@redhat.com>
+---
+ hw/pci/pci.c          |    4 ++++
+ hw/pci/pcie.c         |   39 +++++++++++++++++++++++++++++++++++++++
+ include/hw/pci/pci.h  |   13 +++++++++++++
+ include/hw/pci/pcie.h |    1 +
+ 4 files changed, 57 insertions(+)
+
+diff --git a/hw/pci/pci.c b/hw/pci/pci.c
+index b937f0dc0af4..576c85f376b6 100644
+--- a/hw/pci/pci.c
++++ b/hw/pci/pci.c
+@@ -1353,6 +1353,10 @@ uint32_t pci_default_read_config(PCIDevice *d,
+ {
+     uint32_t val = 0;
+ 
++    if (pci_is_express_downstream_port(d) &&
++        ranges_overlap(address, len, d->exp.exp_cap + PCI_EXP_LNKSTA, 2)) {
++	pcie_sync_bridge_lnk(d);
++    }
+     memcpy(&val, d->config + address, len);
+     return le32_to_cpu(val);
+ }
+diff --git a/hw/pci/pcie.c b/hw/pci/pcie.c
+index 914a5261a79b..61b7b96c52cd 100644
+--- a/hw/pci/pcie.c
++++ b/hw/pci/pcie.c
+@@ -729,6 +729,45 @@ void pcie_add_capability(PCIDevice *dev,
+     memset(dev->cmask + offset, 0xFF, size);
+ }
+ 
++/*
++ * Sync the PCIe Link Status negotiated speed and width of a bridge with the
++ * downstream device.  If downstream device is not present, re-write with the
++ * Link Capability fields.  Limit width and speed to bridge capabilities for
++ * compatibility.  Use config_read to access the downstream device since it
++ * could be an assigned device with volatile link information.
++ */
++void pcie_sync_bridge_lnk(PCIDevice *bridge_dev)
++{
++    PCIBridge *br = PCI_BRIDGE(bridge_dev);
++    PCIBus *bus = pci_bridge_get_sec_bus(br);
++    PCIDevice *target = bus->devices[0];
++    uint8_t *exp_cap = bridge_dev->config + bridge_dev->exp.exp_cap;
++    uint16_t lnksta, lnkcap = pci_get_word(exp_cap + PCI_EXP_LNKCAP);
++
++    if (!target || !target->exp.exp_cap) {
++        lnksta = lnkcap;
++    } else {
++        lnksta = target->config_read(target,
++                                     target->exp.exp_cap + PCI_EXP_LNKSTA,
++                                     sizeof(lnksta));
++
++        if ((lnksta & PCI_EXP_LNKSTA_NLW) > (lnkcap & PCI_EXP_LNKCAP_MLW)) {
++            lnksta &= ~PCI_EXP_LNKSTA_NLW;
++            lnksta |= lnkcap & PCI_EXP_LNKCAP_MLW;
++        }
++
++        if ((lnksta & PCI_EXP_LNKSTA_CLS) > (lnkcap & PCI_EXP_LNKCAP_SLS)) {
++            lnksta &= ~PCI_EXP_LNKSTA_CLS;
++            lnksta |= lnkcap & PCI_EXP_LNKCAP_SLS;
++        }
++    }
++
++    pci_word_test_and_clear_mask(exp_cap + PCI_EXP_LNKSTA,
++                                 PCI_EXP_LNKSTA_CLS | PCI_EXP_LNKSTA_NLW);
++    pci_word_test_and_set_mask(exp_cap + PCI_EXP_LNKSTA, lnksta &
++                               (PCI_EXP_LNKSTA_CLS | PCI_EXP_LNKSTA_NLW));
++}
++
+ /**************************************************************************
+  * pci express extended capability helper functions
+  */
+diff --git a/include/hw/pci/pci.h b/include/hw/pci/pci.h
+index e6514bba23aa..eb12fa112ed2 100644
+--- a/include/hw/pci/pci.h
++++ b/include/hw/pci/pci.h
+@@ -737,6 +737,19 @@ static inline int pci_is_express(const PCIDevice *d)
+     return d->cap_present & QEMU_PCI_CAP_EXPRESS;
+ }
+ 
++static inline int pci_is_express_downstream_port(const PCIDevice *d)
++{
++    uint8_t type;
++
++    if (!pci_is_express(d) || !d->exp.exp_cap) {
++        return 0;
++    }
++
++    type = pcie_cap_get_type(d);
++
++    return type == PCI_EXP_TYPE_DOWNSTREAM || type == PCI_EXP_TYPE_ROOT_PORT;
++}
++
+ static inline uint32_t pci_config_size(const PCIDevice *d)
+ {
+     return pci_is_express(d) ? PCIE_CONFIG_SPACE_SIZE : PCI_CONFIG_SPACE_SIZE;
+diff --git a/include/hw/pci/pcie.h b/include/hw/pci/pcie.h
+index b71e36970345..1976909ab4c8 100644
+--- a/include/hw/pci/pcie.h
++++ b/include/hw/pci/pcie.h
+@@ -126,6 +126,7 @@ uint16_t pcie_find_capability(PCIDevice *dev, uint16_t cap_id);
+ void pcie_add_capability(PCIDevice *dev,
+                          uint16_t cap_id, uint8_t cap_ver,
+                          uint16_t offset, uint16_t size);
++void pcie_sync_bridge_lnk(PCIDevice *dev);
+ 
+ void pcie_ari_init(PCIDevice *dev, uint16_t offset, uint16_t nextfn);
+ void pcie_dev_ser_num_init(PCIDevice *dev, uint16_t offset, uint64_t ser_num);
+
+From patchwork Wed Nov 14 20:50:56 2018
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Alex Williamson <alex.williamson@redhat.com>
+X-Patchwork-Id: 10683053
+Return-Path: 
+ <qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>
+Received: from mail.wl.linuxfoundation.org (pdx-wl-mail.web.codeaurora.org
+ [172.30.200.125])
+	by pdx-korg-patchwork-2.web.codeaurora.org (Postfix) with ESMTP id 855E614E2
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:56:24 +0000 (UTC)
+Received: from mail.wl.linuxfoundation.org (localhost [127.0.0.1])
+	by mail.wl.linuxfoundation.org (Postfix) with ESMTP id 746552BEBF
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:56:24 +0000 (UTC)
+Received: by mail.wl.linuxfoundation.org (Postfix, from userid 486)
+	id 68D6F2BF26; Wed, 14 Nov 2018 20:56:24 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	pdx-wl-mail.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-7.9 required=2.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+Received: from lists.gnu.org (lists.gnu.org [208.118.235.17])
+	(using TLSv1 with cipher AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mail.wl.linuxfoundation.org (Postfix) with ESMTPS id C7DEC2BF12
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:56:23 +0000 (UTC)
+Received: from localhost ([::1]:34192 helo=lists.gnu.org)
+	by lists.gnu.org with esmtp (Exim 4.71)
+	(envelope-from
+ <qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>)
+	id 1gN2D1-0008Qz-6V
+	for patchwork-qemu-devel@patchwork.kernel.org;
+ Wed, 14 Nov 2018 15:56:23 -0500
+Received: from eggs.gnu.org ([2001:4830:134:3::10]:33761)
+	by lists.gnu.org with esmtp (Exim 4.71)
+	(envelope-from <alex.williamson@redhat.com>) id 1gN27s-0004OH-Cm
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:05 -0500
+Received: from Debian-exim by eggs.gnu.org with spam-scanned (Exim 4.71)
+	(envelope-from <alex.williamson@redhat.com>) id 1gN27p-0004qk-Lj
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:04 -0500
+Received: from mx1.redhat.com ([209.132.183.28]:54984)
+	by eggs.gnu.org with esmtps (TLS1.0:DHE_RSA_AES_256_CBC_SHA1:32)
+	(Exim 4.71) (envelope-from <alex.williamson@redhat.com>)
+	id 1gN27p-0004qU-E9
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:01 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id CA1C0308A95D;
+	Wed, 14 Nov 2018 20:51:00 +0000 (UTC)
+Received: from gimli.home (ovpn-116-133.phx2.redhat.com [10.3.116.133])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6A60460BF6;
+	Wed, 14 Nov 2018 20:50:56 +0000 (UTC)
+From: Alex Williamson <alex.williamson@redhat.com>
+To: qemu-devel@nongnu.org
+Date: Wed, 14 Nov 2018 13:50:56 -0700
+Message-ID: <154222865602.9288.10650902951226881923.stgit@gimli.home>
+In-Reply-To: <154222737752.9288.484557356059052047.stgit@gimli.home>
+References: <154222737752.9288.484557356059052047.stgit@gimli.home>
+User-Agent: StGit/0.18-136-gffd7-dirty
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.41]);
+	Wed, 14 Nov 2018 20:51:00 +0000 (UTC)
+X-detected-operating-system: by eggs.gnu.org: GNU/Linux 2.2.x-3.x [generic]
+X-Received-From: 209.132.183.28
+Subject: [Qemu-devel] [RFC for-3.2 PATCH 3/7] qapi: Define PCIe link speed
+ and width properties
+X-BeenThere: qemu-devel@nongnu.org
+X-Mailman-Version: 2.1.21
+Precedence: list
+List-Id: <qemu-devel.nongnu.org>
+List-Unsubscribe: <https://lists.nongnu.org/mailman/options/qemu-devel>,
+	<mailto:qemu-devel-request@nongnu.org?subject=unsubscribe>
+List-Archive: <http://lists.nongnu.org/archive/html/qemu-devel/>
+List-Post: <mailto:qemu-devel@nongnu.org>
+List-Help: <mailto:qemu-devel-request@nongnu.org?subject=help>
+List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-devel>,
+	<mailto:qemu-devel-request@nongnu.org?subject=subscribe>
+Cc: geoff@hostfission.com, mst@redhat.com
+Errors-To: 
+ qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org
+Sender: "Qemu-devel"
+	<qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+Create properties to be able to define speeds and widths for PCIe
+links.  The only tricky bit here is that our get and set callbacks
+translate from the fixed QAPI automagic enums to those we define
+in PCI code to represent the actual register segment value.
+
+Signed-off-by: Alex Williamson <alex.williamson@redhat.com>
+---
+ hw/core/qdev-properties.c    |  178 ++++++++++++++++++++++++++++++++++++++++++
+ include/hw/qdev-properties.h |    8 ++
+ qapi/common.json             |   42 ++++++++++
+ 3 files changed, 228 insertions(+)
+
+diff --git a/hw/core/qdev-properties.c b/hw/core/qdev-properties.c
+index 35072dec1ecf..f5ca5b821a79 100644
+--- a/hw/core/qdev-properties.c
++++ b/hw/core/qdev-properties.c
+@@ -1327,3 +1327,181 @@ const PropertyInfo qdev_prop_off_auto_pcibar = {
+     .set = set_enum,
+     .set_default_value = set_default_value_enum,
+ };
++
++/* --- PCIELinkSpeed 2_5/5/8/16 -- */
++
++static void get_prop_pcielinkspeed(Object *obj, Visitor *v, const char *name,
++                                   void *opaque, Error **errp)
++{
++    DeviceState *dev = DEVICE(obj);
++    Property *prop = opaque;
++    PCIExpLinkSpeed *p = qdev_get_prop_ptr(dev, prop);
++    PCIELinkSpeed speed;
++
++    switch (*p) {
++    case QEMU_PCI_EXP_LNK_2_5GT:
++        speed = PCIE_LINK_SPEED_2_5;
++        break;
++    case QEMU_PCI_EXP_LNK_5GT:
++        speed = PCIE_LINK_SPEED_5;
++        break;
++    case QEMU_PCI_EXP_LNK_8GT:
++        speed = PCIE_LINK_SPEED_8;
++        break;
++    case QEMU_PCI_EXP_LNK_16GT:
++        speed = PCIE_LINK_SPEED_16;
++        break;
++    default:
++        /* Unreachable */
++        abort();
++    }
++
++    visit_type_enum(v, prop->name, (int *)&speed, prop->info->enum_table, errp);
++}
++
++static void set_prop_pcielinkspeed(Object *obj, Visitor *v, const char *name,
++                                   void *opaque, Error **errp)
++{
++    DeviceState *dev = DEVICE(obj);
++    Property *prop = opaque;
++    PCIExpLinkSpeed *p = qdev_get_prop_ptr(dev, prop);
++    PCIELinkSpeed speed;
++    Error *local_err = NULL;
++
++    if (dev->realized) {
++        qdev_prop_set_after_realize(dev, name, errp);
++        return;
++    }
++
++    visit_type_enum(v, prop->name, (int *)&speed,
++                    prop->info->enum_table, &local_err);
++    if (local_err) {
++        error_propagate(errp, local_err);
++        return;
++    }
++
++    switch (speed) {
++    case PCIE_LINK_SPEED_2_5:
++        *p = QEMU_PCI_EXP_LNK_2_5GT;
++        break;
++    case PCIE_LINK_SPEED_5:
++        *p = QEMU_PCI_EXP_LNK_5GT;
++        break;
++    case PCIE_LINK_SPEED_8:
++        *p = QEMU_PCI_EXP_LNK_8GT;
++        break;
++    case PCIE_LINK_SPEED_16:
++        *p = QEMU_PCI_EXP_LNK_16GT;
++        break;
++    default:
++        /* Unreachable */
++        abort();
++    }
++}
++
++const PropertyInfo qdev_prop_pcie_link_speed = {
++    .name = "PCIELinkSpeed",
++    .description = "2_5/5/8/16",
++    .enum_table = &PCIELinkSpeed_lookup,
++    .get = get_prop_pcielinkspeed,
++    .set = set_prop_pcielinkspeed,
++    .set_default_value = set_default_value_enum,
++};
++
++/* --- PCIELinkWidth 1/2/4/8/12/16/32 -- */
++
++static void get_prop_pcielinkwidth(Object *obj, Visitor *v, const char *name,
++                                   void *opaque, Error **errp)
++{
++    DeviceState *dev = DEVICE(obj);
++    Property *prop = opaque;
++    PCIExpLinkWidth *p = qdev_get_prop_ptr(dev, prop);
++    PCIELinkWidth width;
++
++    switch (*p) {
++    case QEMU_PCI_EXP_LNK_X1:
++        width = PCIE_LINK_WIDTH_1;
++        break;
++    case QEMU_PCI_EXP_LNK_X2:
++        width = PCIE_LINK_WIDTH_2;
++        break;
++    case QEMU_PCI_EXP_LNK_X4:
++        width = PCIE_LINK_WIDTH_4;
++        break;
++    case QEMU_PCI_EXP_LNK_X8:
++        width = PCIE_LINK_WIDTH_8;
++        break;
++    case QEMU_PCI_EXP_LNK_X12:
++        width = PCIE_LINK_WIDTH_12;
++        break;
++    case QEMU_PCI_EXP_LNK_X16:
++        width = PCIE_LINK_WIDTH_16;
++        break;
++    case QEMU_PCI_EXP_LNK_X32:
++        width = PCIE_LINK_WIDTH_32;
++        break;
++    default:
++        /* Unreachable */
++        abort();
++    }
++
++    visit_type_enum(v, prop->name, (int *)&width, prop->info->enum_table, errp);
++}
++
++static void set_prop_pcielinkwidth(Object *obj, Visitor *v, const char *name,
++                                   void *opaque, Error **errp)
++{
++    DeviceState *dev = DEVICE(obj);
++    Property *prop = opaque;
++    PCIExpLinkWidth *p = qdev_get_prop_ptr(dev, prop);
++    PCIELinkWidth width;
++    Error *local_err = NULL;
++
++    if (dev->realized) {
++        qdev_prop_set_after_realize(dev, name, errp);
++        return;
++    }
++
++    visit_type_enum(v, prop->name, (int *)&width,
++                    prop->info->enum_table, &local_err);
++    if (local_err) {
++        error_propagate(errp, local_err);
++        return;
++    }
++
++    switch (width) {
++    case PCIE_LINK_WIDTH_1:
++        *p = QEMU_PCI_EXP_LNK_X1;
++        break;
++    case PCIE_LINK_WIDTH_2:
++        *p = QEMU_PCI_EXP_LNK_X2;
++        break;
++    case PCIE_LINK_WIDTH_4:
++        *p = QEMU_PCI_EXP_LNK_X4;
++        break;
++    case PCIE_LINK_WIDTH_8:
++        *p = QEMU_PCI_EXP_LNK_X8;
++        break;
++    case PCIE_LINK_WIDTH_12:
++        *p = QEMU_PCI_EXP_LNK_X12;
++        break;
++    case PCIE_LINK_WIDTH_16:
++        *p = QEMU_PCI_EXP_LNK_X16;
++        break;
++    case PCIE_LINK_WIDTH_32:
++        *p = QEMU_PCI_EXP_LNK_X32;
++        break;
++    default:
++        /* Unreachable */
++        abort();
++    }
++}
++
++const PropertyInfo qdev_prop_pcie_link_width = {
++    .name = "PCIELinkWidth",
++    .description = "1/2/4/8/12/16/32",
++    .enum_table = &PCIELinkWidth_lookup,
++    .get = get_prop_pcielinkwidth,
++    .set = set_prop_pcielinkwidth,
++    .set_default_value = set_default_value_enum,
++};
+diff --git a/include/hw/qdev-properties.h b/include/hw/qdev-properties.h
+index 4f60cc88f325..6a13a284c48c 100644
+--- a/include/hw/qdev-properties.h
++++ b/include/hw/qdev-properties.h
+@@ -36,6 +36,8 @@ extern const PropertyInfo qdev_prop_uuid;
+ extern const PropertyInfo qdev_prop_arraylen;
+ extern const PropertyInfo qdev_prop_link;
+ extern const PropertyInfo qdev_prop_off_auto_pcibar;
++extern const PropertyInfo qdev_prop_pcie_link_speed;
++extern const PropertyInfo qdev_prop_pcie_link_width;
+ 
+ #define DEFINE_PROP(_name, _state, _field, _prop, _type) { \
+         .name      = (_name),                                    \
+@@ -217,6 +219,12 @@ extern const PropertyInfo qdev_prop_off_auto_pcibar;
+ #define DEFINE_PROP_OFF_AUTO_PCIBAR(_n, _s, _f, _d) \
+     DEFINE_PROP_SIGNED(_n, _s, _f, _d, qdev_prop_off_auto_pcibar, \
+                         OffAutoPCIBAR)
++#define DEFINE_PROP_PCIE_LINK_SPEED(_n, _s, _f, _d) \
++    DEFINE_PROP_SIGNED(_n, _s, _f, _d, qdev_prop_pcie_link_speed, \
++                        PCIExpLinkSpeed)
++#define DEFINE_PROP_PCIE_LINK_WIDTH(_n, _s, _f, _d) \
++    DEFINE_PROP_SIGNED(_n, _s, _f, _d, qdev_prop_pcie_link_width, \
++                        PCIExpLinkWidth)
+ 
+ #define DEFINE_PROP_UUID(_name, _state, _field) {                  \
+         .name      = (_name),                                      \
+diff --git a/qapi/common.json b/qapi/common.json
+index 021174f04ea4..b6f3cca35c7e 100644
+--- a/qapi/common.json
++++ b/qapi/common.json
+@@ -127,6 +127,48 @@
+ { 'enum': 'OffAutoPCIBAR',
+   'data': [ 'off', 'auto', 'bar0', 'bar1', 'bar2', 'bar3', 'bar4', 'bar5' ] }
+ 
++##
++# @PCIELinkSpeed:
++#
++# An enumeration of PCIe link speeds in units of GT/s
++#
++# @2_5: 2.5GT/s
++#
++# @5: 5.0GT/s
++#
++# @8: 8.0GT/s
++#
++# @16: 16.0GT/s
++#
++# Since: 3.2
++##
++{ 'enum': 'PCIELinkSpeed',
++  'data': [ '2_5', '5', '8', '16' ] }
++
++##
++# @PCIELinkWidth:
++#
++# An enumeration of PCIe link width
++#
++# @1: x1
++#
++# @2: x2
++#
++# @4: x4
++#
++# @8: x8
++#
++# @12: x12
++#
++# @16: x16
++#
++# @32: x32
++#
++# Since: 3.2
++##
++{ 'enum': 'PCIELinkWidth',
++  'data': [ '1', '2', '4', '8', '12', '16', '32' ] }
++
+ ##
+ # @SysEmuTarget:
+ #
+
+From patchwork Wed Nov 14 20:51:05 2018
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Alex Williamson <alex.williamson@redhat.com>
+X-Patchwork-Id: 10683045
+Return-Path: 
+ <qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>
+Received: from mail.wl.linuxfoundation.org (pdx-wl-mail.web.codeaurora.org
+ [172.30.200.125])
+	by pdx-korg-patchwork-2.web.codeaurora.org (Postfix) with ESMTP id 0CBC913B5
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:52:30 +0000 (UTC)
+Received: from mail.wl.linuxfoundation.org (localhost [127.0.0.1])
+	by mail.wl.linuxfoundation.org (Postfix) with ESMTP id F365B2BF72
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:52:29 +0000 (UTC)
+Received: by mail.wl.linuxfoundation.org (Postfix, from userid 486)
+	id E77BA2BF9E; Wed, 14 Nov 2018 20:52:29 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	pdx-wl-mail.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-7.9 required=2.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+Received: from lists.gnu.org (lists.gnu.org [208.118.235.17])
+	(using TLSv1 with cipher AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mail.wl.linuxfoundation.org (Postfix) with ESMTPS id 8BE3F2BF72
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:52:29 +0000 (UTC)
+Received: from localhost ([::1]:34167 helo=lists.gnu.org)
+	by lists.gnu.org with esmtp (Exim 4.71)
+	(envelope-from
+ <qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>)
+	id 1gN29E-0005Mz-Nu
+	for patchwork-qemu-devel@patchwork.kernel.org;
+ Wed, 14 Nov 2018 15:52:28 -0500
+Received: from eggs.gnu.org ([2001:4830:134:3::10]:33855)
+	by lists.gnu.org with esmtp (Exim 4.71)
+	(envelope-from <alex.williamson@redhat.com>) id 1gN283-0004WJ-O0
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:18 -0500
+Received: from Debian-exim by eggs.gnu.org with spam-scanned (Exim 4.71)
+	(envelope-from <alex.williamson@redhat.com>) id 1gN281-0004zM-1z
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:15 -0500
+Received: from mx1.redhat.com ([209.132.183.28]:35156)
+	by eggs.gnu.org with esmtps (TLS1.0:DHE_RSA_AES_256_CBC_SHA1:32)
+	(Exim 4.71) (envelope-from <alex.williamson@redhat.com>)
+	id 1gN280-0004z8-SZ
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:13 -0500
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 259D35D697;
+	Wed, 14 Nov 2018 20:51:12 +0000 (UTC)
+Received: from gimli.home (ovpn-116-133.phx2.redhat.com [10.3.116.133])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4161D600D6;
+	Wed, 14 Nov 2018 20:51:06 +0000 (UTC)
+From: Alex Williamson <alex.williamson@redhat.com>
+To: qemu-devel@nongnu.org
+Date: Wed, 14 Nov 2018 13:51:05 -0700
+Message-ID: <154222866587.9288.1217475364900572268.stgit@gimli.home>
+In-Reply-To: <154222737752.9288.484557356059052047.stgit@gimli.home>
+References: <154222737752.9288.484557356059052047.stgit@gimli.home>
+User-Agent: StGit/0.18-136-gffd7-dirty
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.39]);
+	Wed, 14 Nov 2018 20:51:12 +0000 (UTC)
+X-detected-operating-system: by eggs.gnu.org: GNU/Linux 2.2.x-3.x [generic]
+X-Received-From: 209.132.183.28
+Subject: [Qemu-devel] [RFC for-3.2 PATCH 4/7] pcie: Add link speed and width
+ fields to PCIESlot
+X-BeenThere: qemu-devel@nongnu.org
+X-Mailman-Version: 2.1.21
+Precedence: list
+List-Id: <qemu-devel.nongnu.org>
+List-Unsubscribe: <https://lists.nongnu.org/mailman/options/qemu-devel>,
+	<mailto:qemu-devel-request@nongnu.org?subject=unsubscribe>
+List-Archive: <http://lists.nongnu.org/archive/html/qemu-devel/>
+List-Post: <mailto:qemu-devel@nongnu.org>
+List-Help: <mailto:qemu-devel-request@nongnu.org?subject=help>
+List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-devel>,
+	<mailto:qemu-devel-request@nongnu.org?subject=subscribe>
+Cc: geoff@hostfission.com, mst@redhat.com
+Errors-To: 
+ qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org
+Sender: "Qemu-devel"
+	<qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+Add fields allowing the PCIe link speed and width of a PCIESlot to
+be configured, with an instance_post_init callback on the root port
+parent class to set defaults.  This allows child classes to via
+properties, without requiring all implementions to support arbitrary
+user selected values, and also allows child class instance_init
+callbacks to set defaults, for example using a machine defined link
+default.
+
+Signed-off-by: Alex Williamson <alex.williamson@redhat.com>
+---
+ hw/pci-bridge/pcie_root_port.c |   14 ++++++++++++++
+ include/hw/pci/pcie_port.h     |    4 ++++
+ 2 files changed, 18 insertions(+)
+
+diff --git a/hw/pci-bridge/pcie_root_port.c b/hw/pci-bridge/pcie_root_port.c
+index 45f9e8cd4a36..34ad76743c44 100644
+--- a/hw/pci-bridge/pcie_root_port.c
++++ b/hw/pci-bridge/pcie_root_port.c
+@@ -140,6 +140,19 @@ static Property rp_props[] = {
+     DEFINE_PROP_END_OF_LIST()
+ };
+ 
++static void rp_instance_post_init(Object *obj)
++{
++    PCIESlot *s = PCIE_SLOT(obj);
++
++    if (!s->speed) {
++        s->speed = QEMU_PCI_EXP_LNK_2_5GT;
++    }
++
++    if (!s->width) {
++        s->width = QEMU_PCI_EXP_LNK_X1;
++    }
++}
++
+ static void rp_class_init(ObjectClass *klass, void *data)
+ {
+     DeviceClass *dc = DEVICE_CLASS(klass);
+@@ -157,6 +170,7 @@ static void rp_class_init(ObjectClass *klass, void *data)
+ static const TypeInfo rp_info = {
+     .name          = TYPE_PCIE_ROOT_PORT,
+     .parent        = TYPE_PCIE_SLOT,
++    .instance_post_init = rp_instance_post_init,
+     .class_init    = rp_class_init,
+     .abstract      = true,
+     .class_size = sizeof(PCIERootPortClass),
+diff --git a/include/hw/pci/pcie_port.h b/include/hw/pci/pcie_port.h
+index 0736014bfdb4..df242a0cafff 100644
+--- a/include/hw/pci/pcie_port.h
++++ b/include/hw/pci/pcie_port.h
+@@ -49,6 +49,10 @@ struct PCIESlot {
+     /* pci express switch port with slot */
+     uint8_t     chassis;
+     uint16_t    slot;
++
++    PCIExpLinkSpeed speed;
++    PCIExpLinkWidth width;
++
+     QLIST_ENTRY(PCIESlot) next;
+ };
+ 
+
+From patchwork Wed Nov 14 20:51:17 2018
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Alex Williamson <alex.williamson@redhat.com>
+X-Patchwork-Id: 10683051
+Return-Path: 
+ <qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>
+Received: from mail.wl.linuxfoundation.org (pdx-wl-mail.web.codeaurora.org
+ [172.30.200.125])
+	by pdx-korg-patchwork-2.web.codeaurora.org (Postfix) with ESMTP id 410ED14E2
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:54:55 +0000 (UTC)
+Received: from mail.wl.linuxfoundation.org (localhost [127.0.0.1])
+	by mail.wl.linuxfoundation.org (Postfix) with ESMTP id 315E32BEBF
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:54:55 +0000 (UTC)
+Received: by mail.wl.linuxfoundation.org (Postfix, from userid 486)
+	id 2447E2BF12; Wed, 14 Nov 2018 20:54:55 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	pdx-wl-mail.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-7.9 required=2.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+Received: from lists.gnu.org (lists.gnu.org [208.118.235.17])
+	(using TLSv1 with cipher AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mail.wl.linuxfoundation.org (Postfix) with ESMTPS id B24DF2BEBF
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:54:54 +0000 (UTC)
+Received: from localhost ([::1]:34178 helo=lists.gnu.org)
+	by lists.gnu.org with esmtp (Exim 4.71)
+	(envelope-from
+ <qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>)
+	id 1gN2Ba-0007Gc-2G
+	for patchwork-qemu-devel@patchwork.kernel.org;
+ Wed, 14 Nov 2018 15:54:54 -0500
+Received: from eggs.gnu.org ([2001:4830:134:3::10]:33915)
+	by lists.gnu.org with esmtp (Exim 4.71)
+	(envelope-from <alex.williamson@redhat.com>) id 1gN28M-0004g8-Rx
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:35 -0500
+Received: from Debian-exim by eggs.gnu.org with spam-scanned (Exim 4.71)
+	(envelope-from <alex.williamson@redhat.com>) id 1gN28J-0005A2-6d
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:34 -0500
+Received: from mx1.redhat.com ([209.132.183.28]:33632)
+	by eggs.gnu.org with esmtps (TLS1.0:DHE_RSA_AES_256_CBC_SHA1:32)
+	(Exim 4.71) (envelope-from <alex.williamson@redhat.com>)
+	id 1gN28G-00056U-B3
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:29 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 442FB80F8F;
+	Wed, 14 Nov 2018 20:51:24 +0000 (UTC)
+Received: from gimli.home (ovpn-116-133.phx2.redhat.com [10.3.116.133])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8CC3B608F3;
+	Wed, 14 Nov 2018 20:51:17 +0000 (UTC)
+From: Alex Williamson <alex.williamson@redhat.com>
+To: qemu-devel@nongnu.org
+Date: Wed, 14 Nov 2018 13:51:17 -0700
+Message-ID: <154222867719.9288.14483226231640122785.stgit@gimli.home>
+In-Reply-To: <154222737752.9288.484557356059052047.stgit@gimli.home>
+References: <154222737752.9288.484557356059052047.stgit@gimli.home>
+User-Agent: StGit/0.18-136-gffd7-dirty
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.27]);
+	Wed, 14 Nov 2018 20:51:24 +0000 (UTC)
+X-detected-operating-system: by eggs.gnu.org: GNU/Linux 2.2.x-3.x [generic]
+X-Received-From: 209.132.183.28
+Subject: [Qemu-devel] [RFC for-3.2 PATCH 5/7] pcie: Fill PCIESlot link
+ fields to support higher speeds and widths
+X-BeenThere: qemu-devel@nongnu.org
+X-Mailman-Version: 2.1.21
+Precedence: list
+List-Id: <qemu-devel.nongnu.org>
+List-Unsubscribe: <https://lists.nongnu.org/mailman/options/qemu-devel>,
+	<mailto:qemu-devel-request@nongnu.org?subject=unsubscribe>
+List-Archive: <http://lists.nongnu.org/archive/html/qemu-devel/>
+List-Post: <mailto:qemu-devel@nongnu.org>
+List-Help: <mailto:qemu-devel-request@nongnu.org?subject=help>
+List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-devel>,
+	<mailto:qemu-devel-request@nongnu.org?subject=subscribe>
+Cc: geoff@hostfission.com, mst@redhat.com
+Errors-To: 
+ qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org
+Sender: "Qemu-devel"
+	<qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+Make use of the PCIESlot speed and width fields to update link
+information beyond those configured in pcie_cap_v1_fill().  This is
+only called for devices supporting a version 2 capability and
+automatically skips any non-PCIESlot devices.  Only devices with
+increased link values generate any visible config space differences.
+
+Signed-off-by: Alex Williamson <alex.williamson@redhat.com>
+---
+ hw/pci/pcie.c |   72 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 72 insertions(+)
+
+diff --git a/hw/pci/pcie.c b/hw/pci/pcie.c
+index 61b7b96c52cd..556ec19925b9 100644
+--- a/hw/pci/pcie.c
++++ b/hw/pci/pcie.c
+@@ -27,6 +27,7 @@
+ #include "hw/pci/msi.h"
+ #include "hw/pci/pci_bus.h"
+ #include "hw/pci/pcie_regs.h"
++#include "hw/pci/pcie_port.h"
+ #include "qemu/range.h"
+ 
+ //#define DEBUG_PCIE
+@@ -87,6 +88,74 @@ pcie_cap_v1_fill(PCIDevice *dev, uint8_t port, uint8_t type, uint8_t version)
+     pci_set_word(cmask + PCI_EXP_LNKSTA, 0);
+ }
+ 
++static void pcie_cap_fill_slot_lnk(PCIDevice *dev)
++{
++    PCIESlot *s = (PCIESlot *)object_dynamic_cast(OBJECT(dev), TYPE_PCIE_SLOT);
++    uint8_t *exp_cap = dev->config + dev->exp.exp_cap;
++
++    /* Skip anything that isn't a PCIESlot */
++    if (!s) {
++        return;
++    }
++
++    /* Clear and fill LNKCAP from what was configured above */
++    pci_long_test_and_clear_mask(exp_cap + PCI_EXP_LNKCAP,
++                                 PCI_EXP_LNKCAP_MLW | PCI_EXP_LNKCAP_SLS);
++    pci_long_test_and_set_mask(exp_cap + PCI_EXP_LNKCAP,
++                               QEMU_PCI_EXP_LNKCAP_MLW(s->width) |
++                               QEMU_PCI_EXP_LNKCAP_MLS(s->speed));
++
++    /*
++     * Link bandwidth notification is required for all root ports and
++     * downstream ports supporting links wider than x1.
++     */
++    if (s->width > QEMU_PCI_EXP_LNK_X1) {
++        pci_long_test_and_set_mask(exp_cap + PCI_EXP_LNKCAP,
++                                   PCI_EXP_LNKCAP_LBNC);
++    }
++
++    if (s->speed > QEMU_PCI_EXP_LNK_2_5GT) {
++        /*
++         * Hot-plug capable downstream ports and downstream ports supporting
++         * link speeds greater than 5GT/s must hardwire PCI_EXP_LNKCAP_DLLLARC
++         * to 1b.  PCI_EXP_LNKCAP_DLLLARC implies PCI_EXP_LNKSTA_DLLLA, which
++         * we also hardwire to 1b here.  2.5GT/s hot-plug slots should also
++         * technically implement this, but it's not done here for compatibility.
++         */
++        pci_long_test_and_set_mask(exp_cap + PCI_EXP_LNKCAP,
++                                   PCI_EXP_LNKCAP_DLLLARC);
++        pci_word_test_and_set_mask(exp_cap + PCI_EXP_LNKSTA,
++                                   PCI_EXP_LNKSTA_DLLLA);
++
++        /*
++         * Target Link Speed defaults to the highest link speed supported by
++         * the component.  2.5GT/s devices are permitted to hardwire to zero.
++         */
++        pci_word_test_and_clear_mask(exp_cap + PCI_EXP_LNKCTL2,
++                                     PCI_EXP_LNKCTL2_TLS);
++        pci_word_test_and_set_mask(exp_cap + PCI_EXP_LNKCTL2,
++                                   QEMU_PCI_EXP_LNKCAP_MLS(s->speed) &
++                                   PCI_EXP_LNKCTL2_TLS);
++    }
++
++    /*
++     * 2.5 & 5.0GT/s can be fully described by LNKCAP, but 8.0GT/s is
++     * actually a reference to the highest bit supported in this register.
++     * We assume the device supports all link speeds.
++     */
++    if (s->speed > QEMU_PCI_EXP_LNK_5GT) {
++        pci_long_test_and_clear_mask(exp_cap + PCI_EXP_LNKCAP2, ~0U);
++        pci_long_test_and_set_mask(exp_cap + PCI_EXP_LNKCAP2,
++                                   PCI_EXP_LNKCAP2_SLS_2_5GB |
++                                   PCI_EXP_LNKCAP2_SLS_5_0GB |
++                                   PCI_EXP_LNKCAP2_SLS_8_0GB);
++        if (s->speed > QEMU_PCI_EXP_LNK_8GT) {
++            pci_long_test_and_set_mask(exp_cap + PCI_EXP_LNKCAP2,
++                                       PCI_EXP_LNKCAP2_SLS_16_0GB);
++        }
++    }
++}
++
+ int pcie_cap_init(PCIDevice *dev, uint8_t offset,
+                   uint8_t type, uint8_t port,
+                   Error **errp)
+@@ -108,6 +177,9 @@ int pcie_cap_init(PCIDevice *dev, uint8_t offset,
+     /* Filling values common with v1 */
+     pcie_cap_v1_fill(dev, port, type, PCI_EXP_FLAGS_VER2);
+ 
++    /* Fill link speed and width options */
++    pcie_cap_fill_slot_lnk(dev);
++
+     /* Filling v2 specific values */
+     pci_set_long(exp_cap + PCI_EXP_DEVCAP2,
+                  PCI_EXP_DEVCAP2_EFF | PCI_EXP_DEVCAP2_EETLPP);
+
+From patchwork Wed Nov 14 20:51:29 2018
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Alex Williamson <alex.williamson@redhat.com>
+X-Patchwork-Id: 10683055
+Return-Path: 
+ <qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>
+Received: from mail.wl.linuxfoundation.org (pdx-wl-mail.web.codeaurora.org
+ [172.30.200.125])
+	by pdx-korg-patchwork-2.web.codeaurora.org (Postfix) with ESMTP id 31E0B14E2
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:56:56 +0000 (UTC)
+Received: from mail.wl.linuxfoundation.org (localhost [127.0.0.1])
+	by mail.wl.linuxfoundation.org (Postfix) with ESMTP id 1F85C2BEBF
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:56:56 +0000 (UTC)
+Received: by mail.wl.linuxfoundation.org (Postfix, from userid 486)
+	id 0F8A12BF12; Wed, 14 Nov 2018 20:56:56 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	pdx-wl-mail.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-7.9 required=2.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+Received: from lists.gnu.org (lists.gnu.org [208.118.235.17])
+	(using TLSv1 with cipher AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mail.wl.linuxfoundation.org (Postfix) with ESMTPS id AE2592BEBF
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:56:55 +0000 (UTC)
+Received: from localhost ([::1]:34193 helo=lists.gnu.org)
+	by lists.gnu.org with esmtp (Exim 4.71)
+	(envelope-from
+ <qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>)
+	id 1gN2DW-0000Mx-Dc
+	for patchwork-qemu-devel@patchwork.kernel.org;
+ Wed, 14 Nov 2018 15:56:54 -0500
+Received: from eggs.gnu.org ([2001:4830:134:3::10]:33954)
+	by lists.gnu.org with esmtp (Exim 4.71)
+	(envelope-from <alex.williamson@redhat.com>) id 1gN28a-0004tG-4F
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:48 -0500
+Received: from Debian-exim by eggs.gnu.org with spam-scanned (Exim 4.71)
+	(envelope-from <alex.williamson@redhat.com>) id 1gN28W-0005Gz-G5
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:48 -0500
+Received: from mx1.redhat.com ([209.132.183.28]:35316)
+	by eggs.gnu.org with esmtps (TLS1.0:DHE_RSA_AES_256_CBC_SHA1:32)
+	(Exim 4.71) (envelope-from <alex.williamson@redhat.com>)
+	id 1gN28U-00059L-Bn
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:44 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 1379458E49;
+	Wed, 14 Nov 2018 20:51:30 +0000 (UTC)
+Received: from gimli.home (ovpn-116-133.phx2.redhat.com [10.3.116.133])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A559860851;
+	Wed, 14 Nov 2018 20:51:29 +0000 (UTC)
+From: Alex Williamson <alex.williamson@redhat.com>
+To: qemu-devel@nongnu.org
+Date: Wed, 14 Nov 2018 13:51:29 -0700
+Message-ID: <154222868930.9288.2011388158102939509.stgit@gimli.home>
+In-Reply-To: <154222737752.9288.484557356059052047.stgit@gimli.home>
+References: <154222737752.9288.484557356059052047.stgit@gimli.home>
+User-Agent: StGit/0.18-136-gffd7-dirty
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.39]);
+	Wed, 14 Nov 2018 20:51:30 +0000 (UTC)
+X-detected-operating-system: by eggs.gnu.org: GNU/Linux 2.2.x-3.x [generic]
+X-Received-From: 209.132.183.28
+Subject: [Qemu-devel] [RFC for-3.2 PATCH 6/7] pcie: Allow generic PCIe root
+ port to specify link speed and width
+X-BeenThere: qemu-devel@nongnu.org
+X-Mailman-Version: 2.1.21
+Precedence: list
+List-Id: <qemu-devel.nongnu.org>
+List-Unsubscribe: <https://lists.nongnu.org/mailman/options/qemu-devel>,
+	<mailto:qemu-devel-request@nongnu.org?subject=unsubscribe>
+List-Archive: <http://lists.nongnu.org/archive/html/qemu-devel/>
+List-Post: <mailto:qemu-devel@nongnu.org>
+List-Help: <mailto:qemu-devel-request@nongnu.org?subject=help>
+List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-devel>,
+	<mailto:qemu-devel-request@nongnu.org?subject=subscribe>
+Cc: geoff@hostfission.com, mst@redhat.com
+Errors-To: 
+ qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org
+Sender: "Qemu-devel"
+	<qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+Allow users to specify speed and width values for the generic PCIe
+root port.  Defaults remain at 2.5GT/s & x1 for compatiblity.  Machine
+based defaults to increase this, such as if we wanted a pc-q35-3.2
+machine to default to 16GT/s & x32, can be triggered by implementing
+an instance_init callback here.
+
+Note for libvirt testing that pcie-root-port controllers are given
+default names like "pci.7" which don't play well with using the
+"-set device.$name.$prop=$value" options accessible to us via
+<qemu:commandline> options.  The solution is to add an <alias> to the
+pcie-root-port <controller>, for example:
+
+    <controller type='pci' index='7' model='pcie-root-port'>
+      <model name='pcie-root-port'/>
+      <target chassis='7' port='0x15'/>
+      <alias name='ua-gfx0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x5'/>
+    </controller>
+
+The "ua-" here is a mandatory prefix.  We can then use:
+
+  <qemu:commandline>
+    <qemu:arg value='-set'/>
+    <qemu:arg value='device.ua-gfx0.speed=8'/>
+    <qemu:arg value='-set'/>
+    <qemu:arg value='device.ua-gfx0.width=16'/>
+    <qemu:arg value='-set'/>
+  </qemu:commandline>
+
+Signed-off-by: Alex Williamson <alex.williamson@redhat.com>
+---
+ hw/pci-bridge/gen_pcie_root_port.c |    2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/hw/pci-bridge/gen_pcie_root_port.c b/hw/pci-bridge/gen_pcie_root_port.c
+index 299de429ec1e..e3bba2ab68ef 100644
+--- a/hw/pci-bridge/gen_pcie_root_port.c
++++ b/hw/pci-bridge/gen_pcie_root_port.c
+@@ -124,6 +124,8 @@ static Property gen_rp_props[] = {
+                      res_reserve.mem_pref_32, -1),
+     DEFINE_PROP_SIZE("pref64-reserve", GenPCIERootPort,
+                      res_reserve.mem_pref_64, -1),
++    DEFINE_PROP_PCIE_LINK_SPEED("speed", PCIESlot, speed, PCIE_LINK_SPEED_2_5),
++    DEFINE_PROP_PCIE_LINK_WIDTH("width", PCIESlot, width, PCIE_LINK_WIDTH_1),
+     DEFINE_PROP_END_OF_LIST()
+ };
+ 
+
+From patchwork Wed Nov 14 20:51:35 2018
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Alex Williamson <alex.williamson@redhat.com>
+X-Patchwork-Id: 10683057
+Return-Path: 
+ <qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>
+Received: from mail.wl.linuxfoundation.org (pdx-wl-mail.web.codeaurora.org
+ [172.30.200.125])
+	by pdx-korg-patchwork-2.web.codeaurora.org (Postfix) with ESMTP id E3A25139B
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:58:15 +0000 (UTC)
+Received: from mail.wl.linuxfoundation.org (localhost [127.0.0.1])
+	by mail.wl.linuxfoundation.org (Postfix) with ESMTP id D52CD2BF12
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:58:15 +0000 (UTC)
+Received: by mail.wl.linuxfoundation.org (Postfix, from userid 486)
+	id C93A42BF6C; Wed, 14 Nov 2018 20:58:15 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	pdx-wl-mail.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-7.9 required=2.0 tests=BAYES_00,MAILING_LIST_MULTI,
+	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+Received: from lists.gnu.org (lists.gnu.org [208.118.235.17])
+	(using TLSv1 with cipher AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mail.wl.linuxfoundation.org (Postfix) with ESMTPS id 878912BF12
+	for <patchwork-qemu-devel@patchwork.kernel.org>;
+ Wed, 14 Nov 2018 20:58:15 +0000 (UTC)
+Received: from localhost ([::1]:34202 helo=lists.gnu.org)
+	by lists.gnu.org with esmtp (Exim 4.71)
+	(envelope-from
+ <qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>)
+	id 1gN2Eo-0001PL-U1
+	for patchwork-qemu-devel@patchwork.kernel.org;
+ Wed, 14 Nov 2018 15:58:14 -0500
+Received: from eggs.gnu.org ([2001:4830:134:3::10]:33984)
+	by lists.gnu.org with esmtp (Exim 4.71)
+	(envelope-from <alex.williamson@redhat.com>) id 1gN28b-0004uF-6R
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:49 -0500
+Received: from Debian-exim by eggs.gnu.org with spam-scanned (Exim 4.71)
+	(envelope-from <alex.williamson@redhat.com>) id 1gN28a-0005JO-Fw
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:49 -0500
+Received: from mx1.redhat.com ([209.132.183.28]:59210)
+	by eggs.gnu.org with esmtps (TLS1.0:DHE_RSA_AES_256_CBC_SHA1:32)
+	(Exim 4.71) (envelope-from <alex.williamson@redhat.com>)
+	id 1gN28a-0005Fk-98
+	for qemu-devel@nongnu.org; Wed, 14 Nov 2018 15:51:48 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 90FA630DDBA5;
+	Wed, 14 Nov 2018 20:51:41 +0000 (UTC)
+Received: from gimli.home (ovpn-116-133.phx2.redhat.com [10.3.116.133])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7A5B66147F;
+	Wed, 14 Nov 2018 20:51:35 +0000 (UTC)
+From: Alex Williamson <alex.williamson@redhat.com>
+To: qemu-devel@nongnu.org
+Date: Wed, 14 Nov 2018 13:51:35 -0700
+Message-ID: <154222869511.9288.17334254288748635551.stgit@gimli.home>
+In-Reply-To: <154222737752.9288.484557356059052047.stgit@gimli.home>
+References: <154222737752.9288.484557356059052047.stgit@gimli.home>
+User-Agent: StGit/0.18-136-gffd7-dirty
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.49]);
+	Wed, 14 Nov 2018 20:51:41 +0000 (UTC)
+X-detected-operating-system: by eggs.gnu.org: GNU/Linux 2.2.x-3.x [generic]
+X-Received-From: 209.132.183.28
+Subject: [Qemu-devel] [RFC for-3.2 PATCH 7/7] vfio/pci: Remove PCIe Link
+ Status emulation
+X-BeenThere: qemu-devel@nongnu.org
+X-Mailman-Version: 2.1.21
+Precedence: list
+List-Id: <qemu-devel.nongnu.org>
+List-Unsubscribe: <https://lists.nongnu.org/mailman/options/qemu-devel>,
+	<mailto:qemu-devel-request@nongnu.org?subject=unsubscribe>
+List-Archive: <http://lists.nongnu.org/archive/html/qemu-devel/>
+List-Post: <mailto:qemu-devel@nongnu.org>
+List-Help: <mailto:qemu-devel-request@nongnu.org?subject=help>
+List-Subscribe: <https://lists.nongnu.org/mailman/listinfo/qemu-devel>,
+	<mailto:qemu-devel-request@nongnu.org?subject=subscribe>
+Cc: geoff@hostfission.com, mst@redhat.com
+Errors-To: 
+ qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org
+Sender: "Qemu-devel"
+	<qemu-devel-bounces+patchwork-qemu-devel=patchwork.kernel.org@nongnu.org>
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+Now that the downstream port will virtually negotiate itself to the
+link status of the downstream devie, we can remove this emulation.
+It's not clear that it was every terribly useful anyway.
+
+Signed-off-by: Alex Williamson <alex.williamson@redhat.com>
+---
+ hw/vfio/pci.c |    6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/hw/vfio/pci.c b/hw/vfio/pci.c
+index 08aab328b442..0d1dd4666fd1 100644
+--- a/hw/vfio/pci.c
++++ b/hw/vfio/pci.c
+@@ -1899,12 +1899,6 @@ static int vfio_setup_pcie_cap(VFIOPCIDevice *vdev, int pos, uint8_t size,
+                            QEMU_PCI_EXP_LNKCAP_MLS(QEMU_PCI_EXP_LNK_2_5GT), ~0);
+             vfio_add_emulated_word(vdev, pos + PCI_EXP_LNKCTL, 0, ~0);
+         }
+-
+-        /* Mark the Link Status bits as emulated to allow virtual negotiation */
+-        vfio_add_emulated_word(vdev, pos + PCI_EXP_LNKSTA,
+-                               pci_get_word(vdev->pdev.config + pos +
+-                                            PCI_EXP_LNKSTA),
+-                               PCI_EXP_LNKCAP_MLW | PCI_EXP_LNKCAP_SLS);
+     }
+ 
+     /*
