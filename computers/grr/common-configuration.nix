@@ -109,6 +109,8 @@ in {
   [
     pkgs.godot
     pkgs.kdenlive
+    pkgs.keybase
+    pkgs.keybase-gui
     pkgs.mono
     pkgs.okular
     pkgs.qgis
