@@ -111,6 +111,7 @@ in {
     pkgs.kdenlive
     pkgs.keybase
     pkgs.keybase-gui
+    pkgs.metals
     pkgs.mono
     pkgs.okular
     pkgs.qgis
