@@ -1,26 +1,19 @@
 { config, pkgs, lib, ... } :
 with lib;
 {
-  options =
-  {
-    environment.nixConfigsDir = mkOption
-    {
-      default = "/home/admin/nix_configs";
-      type = with types; string;
-    };
+  options = {
   };
 
-  config =
-  {
+  config = {
     environment.shellInit =
-      let nix_configs_dir = config.environment.nixConfigsDir;
+      let nixConfigDir = cleanSource ./.;
           hostname = config.networking.hostName;
       in ''
-        NIX_PATH=nixos=${nix_configs_dir}/nixpkgs/nixos
-        NIX_PATH=$NIX_PATH:nixpkgs=${nix_configs_dir}/nixpkgs
-        NIX_PATH=$NIX_PATH:nixos-config=${nix_configs_dir}/computers/${hostname}/configuration.nix
+        NIX_PATH=nixos=${nixConfigDir}/nixpkgs/nixos
+        NIX_PATH=$NIX_PATH:nixpkgs=${nixConfigDir}/nixpkgs
+        NIX_PATH=$NIX_PATH:nixos-config=${nixConfigDir}/computers/${hostname}/configuration.nix
         NIX_PATH=$NIX_PATH:services=/etc/nixos/services
-        NIX_PATH=$NIX_PATH:nixpkgs-overlays=${nix_configs_dir}/overlays
+        NIX_PATH=$NIX_PATH:nixpkgs-overlays=${nixConfigDir}/overlays
         export NIX_PATH
     '';
   };
