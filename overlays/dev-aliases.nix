@@ -13,4 +13,8 @@ self: super: {
       org.scalameta:metals_2.12:0.2.0-SNAPSHOT \
       -M scala.meta.metals.Main
   '';
+
+  nix-dev = self.writeShellScriptBin "nix-dev" ''
+    exec nix-shell . -A env "$@"
+  '';
 }

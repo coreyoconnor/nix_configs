@@ -114,6 +114,7 @@ in {
     pkgs.keybase-gui
     pkgs.metals
     pkgs.mono
+    pkgs.nix-dev
     pkgs.okular
     pkgs.qgis
     pkgs.steam
