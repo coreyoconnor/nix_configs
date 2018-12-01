@@ -49,6 +49,7 @@ in {
     hostId = "34343134";
     hostName = "grr";
     useDHCP = false;
+    useNetworkd = true;
     interfaces.enp9s0 =
     {
       ipv4.addresses = [ { address = localIp; prefixLength = 24; } ];
