@@ -1,0 +1,1 @@
+../dependencies/kdenlive-dev/kdenlive-next.nix

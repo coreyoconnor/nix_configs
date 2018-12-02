@@ -14,3 +14,6 @@
 	path = dependencies/retronix
 	url = git@github.com:coreyoconnor/retronix.git
 	branch = master
+[submodule "dependencies/kdenlive-dev"]
+	path = dependencies/kdenlive-dev
+	url = git@github.com:coreyoconnor/kdenlive-dev.git
