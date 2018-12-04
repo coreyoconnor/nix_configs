@@ -2,7 +2,7 @@
 PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
 source "${PROJECT_DIR}/bin/.common.sh"
 
-CURRENT_CONFIG=`echo $NIX_PATH | sed -s 's#.*\(computers/\w*/configuration\).*#\1-win-desktop.nix#'`
+CURRENT_CONFIG=`readlink /etc/nixos/configuration.nix | sed -s 's#.*\(computers/\w*/configuration\).*#\1-win-desktop.nix#'`
 echo "building config ${CURRENT_CONFIG} in ${PROJECT_DIR}"
 
 NIX_PATH="nixos=${PROJECT_DIR}/nixpkgs/nixos"

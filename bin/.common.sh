@@ -1,5 +1,5 @@
 if [ -z "$CURRENT_CONFIG" ] ; then
-    CURRENT_CONFIG=`echo $NIX_PATH | sed -s 's#.*\(computers/\w*/configuration.nix\).*#\1#'`
+    CURRENT_CONFIG=`readlink /etc/nixos/configuration.nix | sed -s 's#.*\(computers/\w*/configuration.nix\).*#\1#'`
 fi
 echo "building config ${CURRENT_CONFIG} in ${PROJECT_DIR}"
 NIX_PATH="nixos=${PROJECT_DIR}/nixpkgs/nixos"
