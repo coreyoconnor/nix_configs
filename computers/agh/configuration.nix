@@ -37,7 +37,7 @@ in
 
   boot =
   {
-    kernelPackages = pkgs.linuxPackages_4_18;
+    kernelPackages = pkgs.linuxPackages_4_19;
     # kernelParams = ["nomodeset"];
     kernelParams = ["amdgpu.cik_support=1" "amdgpu.si_support=1"];
   };
@@ -46,7 +46,7 @@ in
   {
     packageOverrides = in_pkgs :
     {
-      linuxPackages = in_pkgs.linuxPackages_4_18;
+      linuxPackages = in_pkgs.linuxPackages_4_19;
       # steam = in_pkgs.steam.override { newStdcpp = true; };
     };
     kodi =

@@ -25,11 +25,6 @@
 
   hardware.enableAcerPrimus = true;
 
-  nixpkgs.config.packageOverrides = in_pkgs :
-  {
-    linuxPackages = in_pkgs.linuxPackages_4_1;
-  };
-
   boot =
   {
     # Use the GRUB 2 boot loader.
