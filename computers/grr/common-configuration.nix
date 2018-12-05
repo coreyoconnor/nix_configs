@@ -52,6 +52,7 @@ in {
     useNetworkd = true;
     interfaces.enp9s0 =
     {
+      useDHCP = false;
       ipv4.addresses = [ { address = localIp; prefixLength = 24; } ];
       ipv6 = {
         addresses = [ { address = "2601:602:9700:f0fc::7"; prefixLength = 64; } ];
