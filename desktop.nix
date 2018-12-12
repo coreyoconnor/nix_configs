@@ -1,32 +1,48 @@
 { config, pkgs, lib, ... } :
 with lib;
-{
+let
+  themes = with pkgs; [
+    albatross
+    adwaita-qt
+    clearlooks-phenix
+    elementary-gtk-theme
+    gnome3.defaultIconTheme
+    gnome-themes-extra
+    hicolor-icon-theme
+    materia-theme
+    material-icons
+    onestepback
+    nordic
+    nordic-polar
+    qtcurve
+    theme-obsidian2
+    theme-vertex
+  ];
+in {
   imports = [ ];
   config =
   {
     environment.systemPackages = with pkgs; gnome3.corePackages ++
     [
       desktop_file_utils
-      gnome3.defaultIconTheme
       firefox-devedition-bin
       glib.dev
-      hicolor-icon-theme
+      gnome3.dconf
+      rxvt_unicode
+      spectacle
+      wine
+      winetricks
+      xclip
       xcompmgr
+      xdg_utils
       xlibs.fontutil
       xlibs.kbproto
       xlibs.libICE
+      xlibs.libXaw
       xlibs.libXt
       xlibs.libXtst
-      xlibs.libXaw
-      xlibs.xproto
       xlibs.xinput
-      xclip
-      xdg_utils
-      rxvt_unicode
-      spectacle
-      gnome3.dconf
-      wine
-      winetricks
+      xlibs.xproto
     ];
 
     nixpkgs.config.firefox =
