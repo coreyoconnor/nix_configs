@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 let
   localIp = "192.168.1.7";
+  localIpAlt = "192.168.1.17";
 in {
   system.stateVersion = "18.09";
 
@@ -50,12 +51,23 @@ in {
     hostName = "grr";
     useDHCP = false;
     useNetworkd = true;
-    interfaces.enp9s0 =
+    interfaces =
     {
-      useDHCP = false;
-      ipv4.addresses = [ { address = localIp; prefixLength = 24; } ];
-      ipv6 = {
-        addresses = [ { address = "2601:602:9700:f0fc::7"; prefixLength = 64; } ];
+      enp8s0 =
+      {
+        useDHCP = false;
+        ipv4.addresses = [ { address = localIpAlt; prefixLength = 24; } ];
+        ipv6 = {
+          addresses = [ { address = "2601:602:9700:f0fc::17"; prefixLength = 64; } ];
+        };
+      };
+      enp9s0 =
+      {
+        useDHCP = false;
+        ipv4.addresses = [ { address = localIp; prefixLength = 24; } ];
+        ipv6 = {
+          addresses = [ { address = "2601:602:9700:f0fc::7"; prefixLength = 64; } ];
+        };
       };
     };
     nameservers = [ "192.168.1.2" "1.1.1.1" ];
