@@ -56,7 +56,7 @@ pipeline {
                                         disableSubmodules: false,
                                         parentCredentials: true,
                                         recursiveSubmodules: true,
-                                        reference: '$WORKSPACE/nixos-unstable',
+                                        reference: "${WORKSPACE}/nixos-unstable",
                                         timeout: 20,
                                         trackingSubmodules: false]],
                           submoduleCfg: [],
