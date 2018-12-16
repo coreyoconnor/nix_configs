@@ -73,7 +73,8 @@ pipeline {
                         [$class: 'PathRestriction',
                          excludedRegions: '',
                          includedRegions: """overlays/
-                                            |ci/""".stripMargin()],
+                                            |ci/
+                                            |nixpkgs-config.nix""".stripMargin()],
                         [$class: 'RelativeTargetDirectory',
                          relativeTargetDir: 'nix_configs']
                     ],
