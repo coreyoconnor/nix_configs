@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# build_with_overlays nixpkgs-path nixpkgs-derivation
+
+set -e
+source /etc/profile
+
+nix_configs_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
+source "${nix_configs_dir}/ci/lib.sh"
+
+nixpkgs_dir="$1"
+pkgs_path="$2"
+
+nixpkgs-build-cache-result-path "${nixpkgs_dir}" "${nix_configs_dir}/overlays" "${pkgs_path}"

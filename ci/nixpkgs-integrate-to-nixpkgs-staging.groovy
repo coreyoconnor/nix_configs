@@ -1,3 +1,11 @@
+def canaries = [
+    'hello',
+    'rustc',
+    'godot',
+    'kdenlive',
+    'qgis'
+]
+
 pipeline {
     agent any
 
@@ -28,7 +36,9 @@ pipeline {
                         [$class: 'CloneOption', depth: 0, noTags: true, reference: '', shallow: false, timeout: 20],
                         [$class: 'CleanCheckout'],
                         [$class: 'PreBuildMerge',
-                         options: [mergeRemote: 'origin', mergeTarget: 'staging']]
+                         options: [mergeRemote: 'origin', mergeTarget: 'staging']],
+                        [$class: 'RelativeTargetDirectory',
+                         relativeTargetDir: 'nixpkgs'],
                     ],
                     submoduleCfg: [],
                     userRemoteConfigs: [
@@ -38,6 +48,12 @@ pipeline {
                         [name: 'upstream', url: 'https://github.com/NixOS/nixpkgs-channels.git']
                     ]
                 ])
+            }
+        }
+
+        stage("build canary nixpkgs derivations") {
+            steps {
+                  sh "./nix_configs_ci/ci/build-with-overlays ${WORKSPACE}/nixpkgs hello"
             }
         }
     }
