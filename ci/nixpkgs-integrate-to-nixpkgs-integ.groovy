@@ -25,10 +25,10 @@ pipeline {
                 checkout([
                     $class: 'GitSCM',
                     branches: [
-                        [name: 'remotes/upstream/nixos-unstable'],
-                        [name: 'remotes/origin/master'],
-                        [name: 'remotes/origin/dev**'],
-                        [name: 'remotes/origin/integ']
+                        [name: 'refs/remotes/upstream/nixos-unstable'],
+                        [name: 'refs/remotes/origin/master'],
+                        [name: 'refs/remotes/origin/dev**'],
+                        [name: 'refs/remotes/origin/integ']
                     ],
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [
