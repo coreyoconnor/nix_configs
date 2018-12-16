@@ -110,7 +110,7 @@ pipeline {
 
         stage("push to integ") {
             steps {
-                dir('nix_configs') {
+                dir('nixpkgs') {
                     sh "git push origin HEAD:integ"
                 }
             }
