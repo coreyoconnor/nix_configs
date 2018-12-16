@@ -33,7 +33,12 @@ pipeline {
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [
                         [$class: 'CheckoutOption', timeout: 20],
-                        [$class: 'CloneOption', depth: 0, noTags: true, reference: '', shallow: false, timeout: 20],
+                        [$class: 'CloneOption',
+                         depth: 0,
+                         noTags: true,
+                         reference: '',
+                         shallow: false,
+                         timeout: 20],
                         [$class: 'CleanCheckout'],
                         [$class: 'PreBuildMerge',
                          options: [mergeRemote: 'origin', mergeTarget: 'integ']],
