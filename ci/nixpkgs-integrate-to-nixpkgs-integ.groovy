@@ -9,6 +9,17 @@ def canaries = [
     'rustc'
 ]
 
+def nixosTests = [
+    'simple',
+    'docker',
+    'gnome3',
+    'firefox',
+    'jenkins',
+    'transmission',
+    'plasma5',
+    'postgis'
+]
+
 def generateBuildStage(name) {
     return {
         stage("pkgs.${name}") {
@@ -19,6 +30,19 @@ def generateBuildStage(name) {
 
 def canaryBuildStages = canaries.collectEntries {
     ["${it}" : generateBuildStage(it) ]
+}
+
+
+def generateTestStage(name) {
+    return {
+        stage("nixos test ${name}") {
+            sh "./nix_configs/ci/test-with-overlays ${WORKSPACE}/nixpkgs/nixos ${name}"
+        }
+    }
+}
+
+def nixosTestStages = nixosTests.collectEntries {
+    ["${it}" : generateTestStage(it) ]
 }
 
 pipeline {
@@ -103,10 +127,18 @@ pipeline {
             }
         }
 
-        stage("build canary nixpkgs derivations") {
+        stage("nixpkgs tests") {
             steps {
                 script {
                     parallel canaryBuildStages
+                }
+            }
+        }
+
+        stage("nixos tests") {
+            steps {
+                script {
+                    parallel nixosTestStages
                 }
             }
         }
