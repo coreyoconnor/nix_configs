@@ -1,8 +1,12 @@
 def canaries = [
     'hello',
-    'rustc',
+    'ghc',
+    'go',
+    'nix',
+    'postgresql',
     'godot',
-    'qgis'
+    'qgis',
+    'rustc'
 ]
 
 def generateBuildStage(name) {
