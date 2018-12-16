@@ -11,10 +11,7 @@ in {
     nixpkgs =
     {
       inherit overlays;
-      config =
-      {
-        allowBroken = true;
-      };
+      config = import ./nixpkgs-config.nix;
     };
 
     fonts =
