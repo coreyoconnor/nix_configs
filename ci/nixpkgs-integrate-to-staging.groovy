@@ -22,7 +22,7 @@ pipeline {
                 dir('nix_configs') {
                     git(url: 'git@github.com:coreyoconnor/nix_configs.git',
                         branch: 'master',
-                        credentials: 'c3424ba9-afc5-4ed8-a707-2dce64c87a9a',
+                        credentialsId: 'c3424ba9-afc5-4ed8-a707-2dce64c87a9a',
                         poll: true)
                 }
             }
