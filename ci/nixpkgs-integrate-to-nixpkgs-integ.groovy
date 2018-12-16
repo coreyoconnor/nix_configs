@@ -2,7 +2,6 @@ def canaries = [
     'hello',
     'rustc',
     'godot',
-    'kdenlive',
     'qgis'
 ]
 
