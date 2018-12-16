@@ -43,3 +43,42 @@ function nixpkgs-build-cache-result-path() {
 
     echo $store_path
 }
+
+function nixos-test-cache-result-path() {
+    local nixos_dir=$1
+    local overlays_dir=$2
+    local name=$3
+
+    if [ -z "${BUILD_TAG}" ] ; then
+        timestamp=$(date '+%s')
+        basename="${name}-${timestamp}"
+    else
+        basename="${name}-${BUILD_TAG}"
+    fi
+    results_path="${cache_dir}/${basename}"
+
+    if [ -z $nix ] ; then
+        nix_bin=""
+    else
+        nix_bin="$nix/bin/"
+    fi
+
+    export NIX_PATH="nixpkgs-overlays=$overlays_dir"
+
+    store_path=$(${nix_bin}nix-build --show-trace "$nixos_dir"/release.nix \
+                           -o "${results_path}" \
+                           -A "tests.${name}.x84_64-linux")
+
+    (
+        if [ ! -z "${BUILD_TAG}" ] ; then
+            for build_dep in $(nix-store -qR $(nix-store -qd $store_path)) ; do
+                root="${cache_dir}/build-dep-$(basename $build_dep)"
+                if [ ! -e "$root" ] ; then
+                    ${nix_bin}nix-store --add-root "$root" --indirect -r $build_dep
+                fi
+            done
+        fi
+    ) > /dev/null
+
+    echo $store_path
+}
