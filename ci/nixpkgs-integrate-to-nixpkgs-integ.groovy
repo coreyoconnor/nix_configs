@@ -92,5 +92,11 @@ pipeline {
                   sh "./nix_configs/ci/build-with-overlays ${WORKSPACE}/nixpkgs hello"
             }
         }
+
+        stage("push to integ") {
+            dir('nix_configs') {
+                  sh "git push origin HEAD:integ"
+            }
+        }
     }
 }
