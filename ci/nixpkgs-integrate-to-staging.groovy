@@ -14,17 +14,54 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                dir('nixos-unstable') {
-                    git(url: 'https://github.com/NixOS/nixpkgs-channels.git',
-                        branch: 'nixos-unstable',
-                        poll: true)
-                }
-                dir('nix_configs') {
-                    git(url: 'git@github.com:coreyoconnor/nix_configs.git',
-                        branch: 'dev',
-                        credentialsId: 'c3424ba9-afc5-4ed8-a707-2dce64c87a9a',
-                        poll: true)
-                }
+                checkout([$class: 'GitSCM',
+                          branches: [[name: '*/nixos-unstable']],
+                          doGenerateSubmoduleConfigurations: false,
+                          extensions: [[$class: 'CheckoutOption',
+                                        timeout: 20],
+                                       [$class: 'CloneOption',
+                                        depth: 0,
+                                        noTags: true,
+                                        reference: '',
+                                        shallow: false,
+                                        timeout: 20],
+                                       [$class: 'RelativeTargetDirectory',
+                                        relativeTargetDir: 'nixos-unstable'],
+                                       [$class: 'CleanCheckout'],
+                                       [$class: 'SubmoduleOption',
+                                        disableSubmodules: false,
+                                        parentCredentials: true,
+                                        recursiveSubmodules: true,
+                                        reference: '',
+                                        timeout: 20,
+                                        trackingSubmodules: false]],
+                          submoduleCfg: [],
+                          userRemoteConfigs: [[url: 'https://github.com/NixOS/nixpkgs-channels.git']]])
+
+                checkout([$class: 'GitSCM',
+                          branches: [[name: '*/master']],
+                          doGenerateSubmoduleConfigurations: false,
+                          extensions: [[$class: 'CheckoutOption',
+                                        timeout: 20],
+                                       [$class: 'CloneOption',
+                                        depth: 0,
+                                        noTags: true,
+                                        reference: '',
+                                        shallow: false,
+                                        timeout: 20],
+                                       [$class: 'RelativeTargetDirectory',
+                                        relativeTargetDir: 'nix_configs'],
+                                       [$class: 'CleanCheckout'],
+                                       [$class: 'SubmoduleOption',
+                                        disableSubmodules: false,
+                                        parentCredentials: true,
+                                        recursiveSubmodules: true,
+                                        reference: '$WORKSPACE/nixos-unstable',
+                                        timeout: 20,
+                                        trackingSubmodules: false]],
+                          submoduleCfg: [],
+                          userRemoteConfigs: [[credentialsId: 'c3424ba9-afc5-4ed8-a707-2dce64c87a9a',
+                                               url: 'git@github.com:coreyoconnor/nix_configs.git']]])
             }
         }
     }
