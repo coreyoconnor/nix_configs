@@ -94,8 +94,10 @@ pipeline {
         }
 
         stage("push to integ") {
-            dir('nix_configs') {
-                  sh "git push origin HEAD:integ"
+            steps {
+                dir('nix_configs') {
+                    sh "git push origin HEAD:integ"
+                }
             }
         }
     }
