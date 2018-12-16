@@ -23,9 +23,10 @@ function nixpkgs-build-cache-result-path() {
         nix_bin="$nix/bin/"
     fi
 
+    export NIX_PATH="nixpkgs-overlays=$overlays_dir"
+
     store_path=$(${nix_bin}nix-build --show-trace "$nixpkgs_dir"/pkgs/top-level/impure.nix \
                            --arg config "{}" \
-                           --arg overlays "[ $overlays_dir ]" \
                            -o "${results_path}" \
                            -A "pkgs.${name}")
 
