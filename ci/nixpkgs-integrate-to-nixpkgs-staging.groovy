@@ -69,7 +69,7 @@ pipeline {
                          includedRegions: """overlays/
                                             |ci/""".stripMargin()],
                         [$class: 'RelativeTargetDirectory',
-                         relativeTargetDir: 'nixpkgs']
+                         relativeTargetDir: 'nix_configs']
                     ],
                     submoduleCfg: [],
                     userRemoteConfigs: [
