@@ -10,4 +10,5 @@ source "${nix_configs_dir}/ci/lib.sh"
 nixpkgs_dir="$1"
 pkgs_path="$2"
 
+set -ex
 nixpkgs-build-cache-result-path "${nixpkgs_dir}" "${nix_configs_dir}/overlays" "${pkgs_path}"
