@@ -20,7 +20,7 @@ pipeline {
     }
 
     stages {
-        stage('checkout') {
+        stage('checkout nixpkgs') {
             steps {
                 checkout([
                     $class: 'GitSCM',
@@ -50,10 +50,42 @@ pipeline {
                 ])
             }
         }
+        stage('checkout nix_configs') {
+            steps {
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/dev']],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [
+                        [$class: 'SubmoduleOption',
+                         disableSubmodules: false,
+                         parentCredentials: false,
+                         recursiveSubmodules: false,
+                         reference: "${WORKSPACE}/nixpkgs",
+                         trackingSubmodules: false],
+                        [$class: 'CleanCheckout'],
+                        [$class: 'PathRestriction',
+                         excludedRegions: '',
+                         includedRegions: ""
+overlays/
+ci/
+                            ""],
+                        [$class: 'RelativeTargetDirectory',
+                         relativeTargetDir: 'nixpkgs']
+                    ],
+                    submoduleCfg: [],
+                    userRemoteConfigs: [
+                        [credentialsId: 'c3424ba9-afc5-4ed8-a707-2dce64c87a9a',
+                         name: 'nix_configs-origin',
+                         url: 'git@github.com:coreyoconnor/nix_configs.git']
+                    ]
+                ])
+            }
+        }
 
         stage("build canary nixpkgs derivations") {
             steps {
-                  sh "./nix_configs_ci/ci/build-with-overlays ${WORKSPACE}/nixpkgs hello"
+                  sh "./nix_configs/ci/build-with-overlays ${WORKSPACE}/nixpkgs hello"
             }
         }
     }
