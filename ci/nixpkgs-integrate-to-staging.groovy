@@ -64,5 +64,8 @@ pipeline {
                                                url: 'git@github.com:coreyoconnor/nix_configs.git']]])
             }
         }
+        stage('merge unstable ba {
+
+        }
     }
 }
