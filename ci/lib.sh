@@ -67,7 +67,7 @@ function nixos-test-cache-result-path() {
 
     store_path=$(${nix_bin}nix-build --show-trace "$nixos_dir"/release.nix \
                            -o "${results_path}" \
-                           -A "tests.${name}.x84_64-linux")
+                           -A "tests.${name}.x86_64-linux")
 
     (
         if [ ! -z "${BUILD_TAG}" ] ; then

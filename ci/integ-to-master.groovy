@@ -1,3 +1,22 @@
+def configs = [
+    'agh',
+    'grr'
+]
+
+def generateBuildStage(name) {
+    return {
+        stage("computer config ${name}") {
+            sh "./nix_configs/ci/build-computer-config ${name}"
+        }
+    }
+}
+
+def configBuildStages = configs.collectEntries {
+    ["${it}" : generateBuildStage(it) ]
+}
+
+def nixpkgsMasterMerge = null
+
 pipeline {
     agent any
 
@@ -57,7 +76,7 @@ pipeline {
                         [$class: 'SubmoduleOption',
                          disableSubmodules: false,
                          parentCredentials: true,
-                         recursiveSubmodules: false,
+                         recursiveSubmodules: true,
                          reference: "${WORKSPACE}/nixpkgs",
                          trackingSubmodules: false],
                         [$class: 'CleanCheckout'],
@@ -73,6 +92,15 @@ pipeline {
                          url: 'git@github.com:coreyoconnor/nix_configs.git']
                     ]
                 ])
+            }
+        }
+        stage('move nix_configs/nixpkgs to nixpkgs master merge') {
+            steps {
+                dir('nixpkgs') {
+                    sh "git show-ref --head --dereference --hash --verify HEAD"
+                }
+                dir('nix_configs/nixpkgs') {
+                }
             }
         }
     }
