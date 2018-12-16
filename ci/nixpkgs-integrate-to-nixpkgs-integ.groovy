@@ -6,6 +6,18 @@ def canaries = [
     'qgis'
 ]
 
+def generateBuildStage(name) {
+    return {
+        stage("pkgs.${name}") {
+            sh "./nix_configs/ci/build-with-overlays ${WORKSPACE}/nixpkgs ${name}"
+        }
+    }
+}
+
+def canaryBuildStages = canaries.collectEntries {
+    ["${it}" : generateBuildStage(it) ]
+}
+
 pipeline {
     agent any
 
@@ -90,7 +102,9 @@ pipeline {
 
         stage("build canary nixpkgs derivations") {
             steps {
-                  sh "./nix_configs/ci/build-with-overlays ${WORKSPACE}/nixpkgs hello"
+                script {
+                    parallel canaryBuildStages
+                }
             }
         }
 
