@@ -28,7 +28,7 @@ pipeline {
                         [name: 'remotes/upstream/nixos-unstable'],
                         [name: 'remotes/origin/master'],
                         [name: 'remotes/origin/dev**'],
-                        [name: 'remotes/origin/staging']
+                        [name: 'remotes/origin/integ']
                     ],
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [
@@ -36,7 +36,7 @@ pipeline {
                         [$class: 'CloneOption', depth: 0, noTags: true, reference: '', shallow: false, timeout: 20],
                         [$class: 'CleanCheckout'],
                         [$class: 'PreBuildMerge',
-                         options: [mergeRemote: 'origin', mergeTarget: 'staging']],
+                         options: [mergeRemote: 'origin', mergeTarget: 'integ']],
                         [$class: 'RelativeTargetDirectory',
                          relativeTargetDir: 'nixpkgs'],
                     ],
@@ -45,7 +45,8 @@ pipeline {
                         [credentialsId: 'c3424ba9-afc5-4ed8-a707-2dce64c87a9a',
                          name: 'origin',
                          url: 'git@github.com:coreyoconnor/nixpkgs.git'],
-                        [name: 'upstream', url: 'https://github.com/NixOS/nixpkgs-channels.git']
+                        [name: 'upstream',
+                         url: 'https://github.com/NixOS/nixpkgs-channels.git']
                     ]
                 ])
             }
