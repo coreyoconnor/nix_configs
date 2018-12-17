@@ -122,7 +122,7 @@ pipeline {
         stage("push to master") {
             steps {
                 dir('nixpkgs') {
-                    sh "git commit && git push nixpgs HEAD:master"
+                    sh "git push nixpkgs HEAD:master"
                 }
                 dir('nix_configs') {
                     sh "git add nixpkgs"
