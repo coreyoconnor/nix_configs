@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+source /etc/profile
+
+nix_configs_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
+source "${nix_configs_dir}/ci/lib.sh"
+
+gc-cache-dir
