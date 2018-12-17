@@ -112,12 +112,6 @@ self: super: {
   };
 
   qemu = super.qemu.overrideAttrs (oldAttrs: rec {
-    name = "qemu-${version}";
-    version = "3.1.0-rc1";
-    src = self.fetchurl {
-      url = "https://download.qemu.org/qemu-3.1.0-rc1.tar.xz";
-      sha256 = "1wsvbnbklb8fgfsx0n2h7n3y5zhavdkq3gybjqmzm0anp5yrcadg";
-    };
     patches = [ ./link-speed.patch ] ++ oldAttrs.patches;
   });
 }
