@@ -132,5 +132,10 @@ pipeline {
                 }
             }
         }
+        stage("cleanup") {
+            steps {
+                sh "./nix_configs/ci/gc-cache-dir"
+            }
+        }
     }
 }

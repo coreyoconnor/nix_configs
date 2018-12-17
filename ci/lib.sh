@@ -2,6 +2,7 @@
 
 config_dir="$WORKSPACE/nix_configs"
 cache_dir="$HOME/.cache/nix/jenkins-cache"
+mkdir -p "${cache_dir}"
 
 # nixpkgs-path overlays-path nixpkgs-pkgs-path
 function nixpkgs-build-cache-result-path() {
@@ -81,4 +82,8 @@ function nixos-test-cache-result-path() {
     ) > /dev/null
 
     echo $store_path
+}
+
+function gc-cache-dir() {
+    find "${cache_dir}" -mindepth 1 -maxdepth 1 -mtime +30 -print -delete || true
 }
