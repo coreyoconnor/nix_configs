@@ -15,7 +15,7 @@ def configBuildStages = configs.collectEntries {
     ["${it}" : generateBuildStage(it) ]
 }
 
-def nixpkgsMasterMerge = null
+def NIXPKGS_SHA = null
 
 pipeline {
     agent any
@@ -97,12 +97,16 @@ pipeline {
         stage('move nix_configs/nixpkgs to nixpkgs master merge') {
             steps {
                 dir('nixpkgs') {
-                    nixpkgsMasterMerge = sh([
-                        script: "git show-ref --head --dereference --hash --verify HEAD",
-                        returnStdout: true
-                    ])
+                    script {
+                        NIXPKGS_SHA = sh([
+                            script: "git show-ref --head --dereference --hash --verify HEAD",
+                            returnStdout: true
+                        ]).trim()
+                    }
                 }
                 dir('nix_configs/nixpkgs') {
+                    sh "git fetch ../../nixpkgs"
+                    sh "git checkout ${NIXPKGS_SHA}"
                 }
             }
         }
