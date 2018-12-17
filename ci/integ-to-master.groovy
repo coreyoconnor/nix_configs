@@ -127,7 +127,8 @@ pipeline {
                 }
                 dir('nix_configs') {
                     sh "git add nixpkgs"
-                    sh "git commit nixpkgs -m 'integrate nixpkgs' && git push nix_configs HEAD:master"
+                    sh "git commit nixpkgs -m 'integrate nixpkgs' || true"
+                    sh "git push nix_configs HEAD:master"
                 }
             }
         }
