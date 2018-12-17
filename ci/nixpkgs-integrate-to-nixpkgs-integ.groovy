@@ -41,8 +41,8 @@ def generateTestStage(name) {
     }
 }
 
-def nixosTestStages = nixosTests.collectEntries {
-    ["${it}" : generateTestStage(it) ]
+def nixosTestStages = nixosTests.map {
+    generateTestStage(it)
 }
 
 pipeline {
@@ -136,7 +136,7 @@ pipeline {
         stage("nixos tests") {
             steps {
                 script {
-                    stages nixosTestStages
+                    nixosTestStages
                 }
             }
         }
