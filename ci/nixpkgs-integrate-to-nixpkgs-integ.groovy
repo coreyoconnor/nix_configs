@@ -9,7 +9,7 @@ def canaries = [
     'rustc'
 ]
 
-def nixosTests = [
+nixosTests = [
     'simple',
     'docker',
     'gnome3',
