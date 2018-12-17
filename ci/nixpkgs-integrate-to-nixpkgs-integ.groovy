@@ -80,7 +80,7 @@ pipeline {
                          timeout: 20],
                         [$class: 'CleanCheckout'],
                         [$class: 'PreBuildMerge',
-                         options: [mergeRemote: 'origin', mergeTarget: 'integ']],
+                         options: [mergeRemote: 'origin', mergeTarget: 'dev']],
                         [$class: 'RelativeTargetDirectory',
                          relativeTargetDir: 'nixpkgs'],
                     ],
@@ -99,7 +99,7 @@ pipeline {
             steps {
                 checkout([
                     $class: 'GitSCM',
-                    branches: [[name: '*/dev']],
+                    branches: [[name: '*/master']],
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [
                         [$class: 'SubmoduleOption',
@@ -138,7 +138,7 @@ pipeline {
         stage("nixos tests") {
             steps {
                 script {
-                    parallel nixosTestStages
+                    nixosTestStages
                 }
             }
         }
@@ -146,7 +146,8 @@ pipeline {
         stage("push to integ") {
             steps {
                 dir('nixpkgs') {
-                    sh "git push origin HEAD:integ"
+                    sh "git push origin HEAD:dev"
+                    sh "git push -f origin HEAD:integ"
                 }
             }
         }
