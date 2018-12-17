@@ -41,7 +41,7 @@ def generateTestStage(name) {
     }
 }
 
-def nixosTestStages = nixosTests.map {
+def nixosTestStages = nixosTests.collectEntries {
     generateTestStage(it)
 }
 
