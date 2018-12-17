@@ -33,16 +33,14 @@ def canaryBuildStages = canaries.collectEntries {
 }
 
 
-def generateTestStage(name) {
-    return {
-        stage("nixos test ${name}") {
-            sh "./nix_configs/ci/test-with-overlays ${WORKSPACE}/nixpkgs/nixos ${name}"
-        }
+def testStage(name) {
+    stage("nixos test ${name}") {
+        sh "./nix_configs/ci/test-with-overlays ${WORKSPACE}/nixpkgs/nixos ${name}"
     }
 }
 
-def nixosTestStages = nixosTests.collectEntries {
-  [generateTestStage(it)]
+def nixosTestStages = nixosTests.each {
+  testStage(it)
 }
 
 pipeline {
