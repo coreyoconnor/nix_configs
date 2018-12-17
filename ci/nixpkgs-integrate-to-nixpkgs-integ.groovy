@@ -42,7 +42,7 @@ def generateTestStage(name) {
 }
 
 def nixosTestStages = nixosTests.collectEntries {
-    generateTestStage(it)
+  [generateTestStage(it)]
 }
 
 pipeline {
