@@ -97,7 +97,10 @@ pipeline {
         stage('move nix_configs/nixpkgs to nixpkgs master merge') {
             steps {
                 dir('nixpkgs') {
-                    sh "git show-ref --head --dereference --hash --verify HEAD"
+                    nixpkgsMasterMerge = sh([
+                        script: "git show-ref --head --dereference --hash --verify HEAD",
+                        returnStdout: true
+                    ])
                 }
                 dir('nix_configs/nixpkgs') {
                 }
