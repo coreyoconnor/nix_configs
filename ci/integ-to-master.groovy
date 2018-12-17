@@ -94,7 +94,7 @@ pipeline {
                 ])
             }
         }
-        stage('move nix_configs/nixpkgs to nixpkgs master merge') {
+        stage('nix_configs/nixpkgs to nixpkgs master merge') {
             steps {
                 dir('nixpkgs') {
                     script {
@@ -107,6 +107,26 @@ pipeline {
                 dir('nix_configs/nixpkgs') {
                     sh "git fetch ../../nixpkgs"
                     sh "git checkout ${NIXPKGS_SHA}"
+                }
+            }
+        }
+
+        stage("nixos builds") {
+            steps {
+                script {
+                    parallel configBuildStages
+                }
+            }
+        }
+
+        stage("push to master") {
+            steps {
+                dir('nixpkgs') {
+                    sh "git commit && git push nixpgs HEAD:master"
+                }
+                dir('nix_configs') {
+                    sh "git add nixpkgs"
+                    sh "git commit nixpkgs -m 'integrate nixpkgs' && git push nix_configs HEAD:master"
                 }
             }
         }
