@@ -64,8 +64,7 @@ pipeline {
                 checkout([
                     $class: 'GitSCM',
                     branches: [
-                        [name: 'upstream/nixos-unstable'],
-                        [name: 'origin/dev**']
+                        [name: 'origin/master']
                     ],
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [
@@ -78,7 +77,7 @@ pipeline {
                          timeout: 20],
                         [$class: 'CleanCheckout'],
                         [$class: 'PreBuildMerge',
-                         options: [mergeRemote: 'origin', mergeTarget: 'integ']],
+                         options: [mergeRemote: 'origin', mergeTarget: 'dev']],
                         [$class: 'RelativeTargetDirectory',
                          relativeTargetDir: 'nixpkgs'],
                     ],
@@ -86,9 +85,7 @@ pipeline {
                     userRemoteConfigs: [
                         [credentialsId: 'c3424ba9-afc5-4ed8-a707-2dce64c87a9a',
                          name: 'origin',
-                         url: 'git@github.com:coreyoconnor/nixpkgs.git'],
-                        [name: 'upstream',
-                         url: 'https://github.com/NixOS/nixpkgs-channels.git']
+                         url: 'git@github.com:coreyoconnor/nixpkgs.git']
                     ]
                 ])
             }
@@ -144,7 +141,7 @@ pipeline {
         stage("push to integ") {
             steps {
                 dir('nixpkgs') {
-                    sh "git push -f origin HEAD:integ"
+                    sh "git push origin HEAD:dev"
                 }
             }
         }

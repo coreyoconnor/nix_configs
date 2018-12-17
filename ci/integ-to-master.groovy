@@ -36,8 +36,7 @@ pipeline {
                 checkout([
                     $class: 'GitSCM',
                     branches: [
-                        [name: 'nixpkgs/integ'],
-                        [name: 'nixpkgs/master']
+                        [name: 'nixpkgs/integ']
                     ],
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [
@@ -129,7 +128,6 @@ pipeline {
                     sh "git add nixpkgs"
                     sh "git commit nixpkgs -m 'integrate nixpkgs' || true"
                     sh "git push nix_configs HEAD:master"
-                    sh "git push nix_configs HEAD:dev || true"
                 }
             }
         }
