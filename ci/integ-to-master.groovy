@@ -111,7 +111,7 @@ pipeline {
             }
         }
 
-        stage("nixos builds") {
+        stage("nixos config builds") {
             steps {
                 script {
                     parallel configBuildStages

@@ -136,7 +136,7 @@ pipeline {
         stage("nixos tests") {
             steps {
                 script {
-                    nixosTestStages
+                    stages nixosTestStages
                 }
             }
         }
