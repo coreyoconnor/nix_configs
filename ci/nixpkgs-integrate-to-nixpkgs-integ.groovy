@@ -39,7 +39,7 @@ def testStage(name) {
     }
 }
 
-def nixosTestStages = nixosTests.each {
+def nixosTestStages() = nixosTests.each {
   testStage(it)
 }
 
@@ -134,7 +134,7 @@ pipeline {
         stage("nixos tests") {
             steps {
                 script {
-                    nixosTestStages
+                    nixosTestStages()
                 }
             }
         }
