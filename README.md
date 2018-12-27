@@ -1,5 +1,7 @@
-# Using
+This is my jumble of NixOS configurations and jenkins CI pipelines.
 
-This expects the `NIX_PATH` env variable to be configured appropriately and infers config from
-`HOSTNAME`. See `bin/.common.sh` for reference.
+Slowly, I'm moving everything to
 
+    * https://gitlab.com/glngn/nix-org
+
+that is not specific to my home systems.
