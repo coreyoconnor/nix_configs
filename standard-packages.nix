@@ -27,60 +27,58 @@ in {
       };
       enableFontDir = true;
       enableDefaultFonts = true;
-      fonts =
+      fonts = with pkgs;
       [
-        pkgs.anonymousPro
-        pkgs.bakoma_ttf
-        pkgs.corefonts
-        pkgs.cm_unicode
-        pkgs.junicode
-        pkgs.ucsFonts
-        pkgs.unifont
-        pkgs.vistafonts
+        anonymousPro
+        bakoma_ttf
+        cm_unicode
+        corefonts
+        inconsolata
+        junicode
+        ucsFonts
+        unifont
+        vistafonts
       ];
     };
 
     environment.systemPackages = with pkgs;
     [
-      openshift
-      docker
-      stdenv
+      acpi
       atk
       autoconf
       automake
       bashInteractive
-      gdb
-      glibcLocales
-      screen
-      utillinuxCurses
-      git
-      acpi
-      ruby
-      gcc
       coq
-      oprofile
+      docker
+      emacs
       ffmpeg
+      fontconfig
       freetype
       fuse
+      gcc
+      gdb
       gettext
+      git
       glib
+      glibcLocales
       gnumake
       gnupg
-      inconsolata
+      irssi
       nginx
+      nix-index
       ocaml
-      perlXMLParser
+      openshift
+      oprofile
       pkgconfig
       python
-      emacs
-      vpnc
-      xterm
-      irssi
-      shared_mime_info
-      taskwarrior
+      ruby
+      screen
       # TODO: move to desktop.nix without breaking existing configs in $HOME
       shared_desktop_ontologies
-      fontconfig
+      shared_mime_info
+      stdenv
+      utillinuxCurses
+      xterm
     ];
   };
 }
