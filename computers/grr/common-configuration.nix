@@ -38,7 +38,7 @@ in {
     {
       linuxPackages = super.linuxPackages_4_19.extend (self: super: {
         nvidiaPackages = super.nvidiaPackages // {
-          stable = self.nvidiaPackages.stable_390;
+          stable = self.nvidiaPackages.legacy_390;
         };
       });
     };
