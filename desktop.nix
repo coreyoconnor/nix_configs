@@ -33,16 +33,7 @@ in {
       wine
       winetricks
       xclip
-      xcompmgr
       xdg_utils
-      xlibs.fontutil
-      xlibs.kbproto
-      xlibs.libICE
-      xlibs.libXaw
-      xlibs.libXt
-      xlibs.libXtst
-      xlibs.xinput
-      xlibs.xproto
     ];
 
     nixpkgs.config.firefox =
