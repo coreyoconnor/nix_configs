@@ -13,7 +13,6 @@ in {
     ../../java-dev.nix
     ../../jenkins-node.nix
     ../../i18n.nix
-    # ../../musnix
     ../../networks/home.nix
     ../../postgis-server.nix
     ../../standard-env.nix
@@ -51,6 +50,7 @@ in {
     hostName = "grr";
     useDHCP = false;
     useNetworkd = true;
+    networkmanager.enable = false;
     interfaces =
     {
       enp8s0 =
