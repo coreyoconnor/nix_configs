@@ -90,6 +90,8 @@ in {
 
     services =
     {
+      fwupd.enable = true;
+
       gnome3.chrome-gnome-shell.enable = true;
 
       flatpak =
