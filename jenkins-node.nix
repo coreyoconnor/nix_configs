@@ -6,6 +6,7 @@ with lib;
 
   fonts.enableFontDir = true;
 
+  /*
   networking.firewall.allowedTCPPorts = [ 5910 ];
 
   # control password: control
@@ -39,7 +40,6 @@ with lib;
     };
   };
 
-  /*
   systemd.services.selenium-server =
   {
     description = "selenium-server";

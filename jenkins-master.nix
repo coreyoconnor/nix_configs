@@ -24,7 +24,11 @@ in {
   services.jenkins =
   {
     enable = true;
-    extraJavaOptions = [ "-Dhudson.slaves.WorkspaceList=-" "-Djava.awt.headless=true" ];
+    extraJavaOptions = [
+      "-Dhudson.slaves.WorkspaceList=-"
+      "-Djava.awt.headless=true"
+      "-Dhudson.model.DirectoryBrowserSupport.CSP=\"default-src 'self'; script-src 'self' 'unsafe-inline';\""
+    ];
     packages = [ builderPackages ];
   };
 
