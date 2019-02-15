@@ -100,6 +100,8 @@ in {
         extraPortals = [ pkgs.xdg-desktop-portal-kde ];
       };
 
+      packagekit.enable = true;
+
       xserver =
       {
         desktopManager.plasma5.enableQt4Support = true;
