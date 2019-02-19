@@ -24,6 +24,7 @@ in {
   {
     environment.systemPackages = with pkgs; gnome3.corePackages ++
     [
+      appimage-run
       desktop_file_utils
       firefox-devedition-bin
       glib.dev
