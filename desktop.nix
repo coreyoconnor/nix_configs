@@ -19,7 +19,9 @@ let
     theme-vertex
   ];
 in {
-  imports = [ ];
+  imports = [
+    ./disable-gdm-auto-suspend.nix
+  ];
   config =
   {
     environment.systemPackages = with pkgs; gnome3.corePackages ++
