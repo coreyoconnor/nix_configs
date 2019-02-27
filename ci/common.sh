@@ -6,6 +6,7 @@ config_dir="$WORKSPACE/nix_configs"
 cache_dir="$HOME/.cache/nix/jenkins-cache"
 
 function nixos-build-cache-result-path() {
+    set +e
     name=$1
     if [ -z "${BUILD_TAG}" ] ; then
         timestamp=$(date '+%s')
@@ -21,7 +22,9 @@ function nixos-build-cache-result-path() {
         nix_bin="$nix/bin/"
     fi
 
+    set -x
     store_path=$(${nix_bin}nix-build --show-trace '<nixpkgs/nixos>' -o "${results_path}" -A "${name}")
+    set +x
 
     (
     if [ ! -z "${BUILD_TAG}" ] ; then
@@ -37,7 +40,7 @@ function nixos-build-cache-result-path() {
     echo $store_path
 }
 
-set -ex
+set -e
 
 mkdir -p "${cache_dir}"
 find "${cache_dir}" -mindepth 1 -maxdepth 1 -mtime +30 -print -delete || true

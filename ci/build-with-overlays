@@ -10,5 +10,4 @@ source "${nix_configs_dir}/ci/lib.sh"
 src_dir="$1"
 attr="$2"
 
-set -ex
 nixpkgs-build-cache-result-path "${src_dir}" "${nix_configs_dir}/overlays" "${attr}"
