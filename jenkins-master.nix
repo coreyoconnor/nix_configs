@@ -16,6 +16,7 @@ let
                  pkgs.curl
                  pkgs.xorg.xorgserver
                  pkgs.qemu
+                 pkgs.rsync
                ];
   };
 in {
