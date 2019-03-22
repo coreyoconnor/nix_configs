@@ -8,7 +8,6 @@ let
                  pkgs.openshift
                  pkgs.stdenv
                  pkgs.git
-                 pkgs.jdk
                  pkgs.libvirt
                  pkgs.openssh
                  pkgs.nix
@@ -25,12 +24,16 @@ in {
   services.jenkins =
   {
     enable = true;
+    environment = {
+      JAVA_HOME = "${pkgs.jdk}/jre";
+    };
     extraJavaOptions = [
       "-Dhudson.slaves.WorkspaceList=-"
       "-Djava.awt.headless=true"
       "-Dhudson.model.DirectoryBrowserSupport.CSP=\"default-src 'self'; script-src 'self' 'unsafe-inline';\""
     ];
-    packages = [ builderPackages ];
+    # a pkgs.jdk in builderPackages is not longer included in bin. nixpkgs bug
+    packages = [ pkgs.jdk builderPackages ];
   };
 
   networking =
