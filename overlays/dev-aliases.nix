@@ -7,6 +7,7 @@ self: super: {
       -Xms1G \
       -Xmx12G \
       -Dmetals.client=emacs \
+      -Dmetals.completion-item.detail=off \
       -jar ${self.coursier}/bin/.coursier-wrapped launch \
       -r bintray:scalameta/maven \
       -r bintray:scalacenter/releases \
