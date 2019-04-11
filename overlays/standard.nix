@@ -40,8 +40,6 @@ self: super: {
     '';
   });
 
-  qgis = super.qgis3;
-
   nix-serve = super.nix-serve.overrideAttrs (oldAttrs: rec
   {
     rev = "b2deefaa8d185989a9bba06254d6f7dcc7dbb764";
