@@ -35,7 +35,7 @@ in {
   {
     packageOverrides = super: let self = super.pkgs; in
     {
-      linuxPackages = super.linuxPackages_4_19.extend (self: super: {
+      linuxPackages = super.linuxPackages_latest.extend (self: super: {
         nvidiaPackages = super.nvidiaPackages // {
           stable = self.nvidiaPackages.legacy_390;
         };
