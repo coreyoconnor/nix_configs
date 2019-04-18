@@ -45,7 +45,7 @@
         plasma5.enable = true;
       };
 
-      videoDrivers = [ "nvidia" ];
+      videoDrivers = [ "nvidiaLegacy390" ];
 
       deviceSection = ''
         BusID "PCI:05:00:00"

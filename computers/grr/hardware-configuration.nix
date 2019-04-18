@@ -12,6 +12,7 @@
   {
     initrd.availableKernelModules = [ "ehci_pci" "ahci" "mpt3sas" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
     kernelModules = [ "kvm-intel" ];
+    kernelPackages = pkgs.linuxPackages_5_0;
     extraModulePackages = [ ];
 
     loader.grub =

@@ -28,7 +28,6 @@ in {
 
   boot =
   {
-    kernelPackages = pkgs.linuxPackages_5_0;
     kernelParams = [ "kvm-intel.nested=1" ];
   };
 
@@ -36,11 +35,6 @@ in {
   {
     packageOverrides = super: let self = super.pkgs; in
     {
-      linuxPackages = super.linuxPackages_5_0.extend (self: super: {
-        nvidiaPackages = super.nvidiaPackages // {
-          stable = self.nvidiaPackages.legacy_390;
-        };
-      });
     };
     permittedInsecurePackages = ["linux-4.13.16" "mono-4.0.4.1" ];
   };
