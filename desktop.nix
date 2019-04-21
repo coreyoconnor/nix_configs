@@ -31,6 +31,7 @@ in {
       firefox-devedition-bin
       glib.dev
       gnome3.dconf
+      home-manager
       rxvt_unicode
       spectacle
       wine
