@@ -42,7 +42,7 @@
       {
         default = "gnome3";
         gnome3.enable = true;
-        plasma5.enable = true;
+        plasma5.enable = false;
       };
 
       videoDrivers = [ "nvidiaLegacy390" ];
