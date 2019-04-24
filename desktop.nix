@@ -32,6 +32,7 @@ in {
       glib.dev
       gnome3.dconf
       home-manager
+      qt5.qtbase.gtk
       rxvt_unicode
       spectacle
       wine
