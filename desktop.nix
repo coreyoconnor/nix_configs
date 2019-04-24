@@ -4,9 +4,13 @@ let
   themes = with pkgs; [
     albatross
     adwaita-qt
+    breeze-gtk
+    breeze-icons
+    breeze-qt5
     clearlooks-phenix
     elementary-gtk-theme
     gnome3.defaultIconTheme
+    gnome-breeze
     gnome-themes-extra
     hicolor-icon-theme
     materia-theme
@@ -32,7 +36,7 @@ in {
       glib.dev
       gnome3.dconf
       home-manager
-      qt5.qtbase.gtk
+      qt5.qtbase
       rxvt_unicode
       spectacle
       wine
