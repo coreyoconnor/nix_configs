@@ -126,6 +126,7 @@ in {
       };
 
       udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
+      sysprof.enable = true;
     };
 
     programs.dconf.enable = true;
