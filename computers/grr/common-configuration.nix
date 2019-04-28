@@ -117,7 +117,6 @@ in {
   users.users.coconnor.packages =
   [
     pkgs.godot
-    pkgs.kdenlive
     pkgs.keybase
     pkgs.keybase-gui
     pkgs.metals
