@@ -6,6 +6,12 @@ with lib;
 
   fonts.enableFontDir = true;
 
+  services.clamav =
+  {
+    daemon.enable = true;
+    updater.enable = true;
+  };
+
   /*
   networking.firewall.allowedTCPPorts = [ 5910 ];
 
