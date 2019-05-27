@@ -40,18 +40,6 @@ self: super: {
     '';
   });
 
-  nix-serve = super.nix-serve.overrideAttrs (oldAttrs: rec
-  {
-    rev = "b2deefaa8d185989a9bba06254d6f7dcc7dbb764";
-
-    src = self.fetchgit
-    {
-      inherit rev;
-      url = "https://github.com/coreyoconnor/nix-serve.git";
-      sha256 = "1dgp2741lh9iib8qs8xmy8d0jdb9990iif1n3ql9rj3g8yv00kin";
-    };
-  });
-
   openshift-dev = self.openshift.overrideAttrs (oldAttrs: rec {
     version = "3.10.0";
     name = "openshift-origin-${version}";
