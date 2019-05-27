@@ -50,8 +50,4 @@ self: super: {
       extraPkgs = pkgs: [ pkgs.kde-cli-tools ];
     };
   };
-
-  qemu = super.qemu.overrideAttrs (oldAttrs: rec {
-    patches = [ ./link-speed.patch ] ++ oldAttrs.patches;
-  });
 }
