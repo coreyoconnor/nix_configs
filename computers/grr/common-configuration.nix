@@ -31,14 +31,6 @@ in {
     kernelParams = [ "kvm-intel.nested=1" ];
   };
 
-  nixpkgs.config =
-  {
-    packageOverrides = super: let self = super.pkgs; in
-    {
-    };
-    permittedInsecurePackages = ["linux-4.13.16" "mono-4.0.4.1" ];
-  };
-
   networking =
   {
     hostId = "34343134";
@@ -95,19 +87,6 @@ in {
     enableAllFirmware = true;
     enableRedistributableFirmware = true;
   };
-
-  #musnix =
-  #{
-  #  enable = false;
-  #  kernel =
-  #  {
-  #    latencytop = true;
-  #    optimize = true;
-  #    realtime = true;
-  #    # must match computer linuxPackages version
-  #    # packages = pkgs.linuxPackages_4_14_rt;
-  #  };
-  #};
 
   services.kbfs =
   {

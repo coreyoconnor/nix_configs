@@ -13,8 +13,6 @@ let
     {
       firewall =
       {
-        allowedTCPPorts = [ 53 80 443 4789 8053 8443 10250 ];
-        allowedUDPPorts = [ 53 4789 8053 8443 10250 ];
         checkReversePath = false;
       };
     };
