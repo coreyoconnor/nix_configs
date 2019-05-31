@@ -1,9 +1,9 @@
 def configs = [
     'agh',
-    'flop',
-    'grr',
-    'libvirt',
-    'nixpad'
+//     'flop',
+    'grr'
+//     'libvirt',
+//     'nixpad'
 ]
 
 def generateBuildStage(name) {
