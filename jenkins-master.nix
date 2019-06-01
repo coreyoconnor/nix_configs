@@ -30,7 +30,7 @@ in {
     extraJavaOptions = [
       "-Dhudson.slaves.WorkspaceList=-"
       "-Djava.awt.headless=true"
-      "-Dhudson.model.DirectoryBrowserSupport.CSP=\"default-src 'self'; script-src 'self' 'unsafe-inline';\""
+      "-Dhudson.model.DirectoryBrowserSupport.CSP=\"default-src 'self'; script-src 'self' 'unsafe-inline' ajax.googleapis.com cdnjs.cloudflare.com netdna.bootstrapcdn.com; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com netdna.bootstrapcdn.com; font-src 'self' netdna.bootstrapcdn.com; img-src 'self' data:\""
     ];
     # a pkgs.jdk in builderPackages is not longer included in bin. nixpkgs bug
     packages = [ pkgs.jdk builderPackages ];
