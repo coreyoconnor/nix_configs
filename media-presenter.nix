@@ -13,6 +13,18 @@
     user = "media";
   };
 
+  nixpkgs.config =
+  {
+    kodi =
+    {
+      enableSteamLauncher = true;
+      enableAdvancedLauncher = true;
+      enableAdvancedEmulatorLauncher = true;
+      enableControllers = true;
+      enableJoystick = true;
+    };
+  };
+
   musnix =
   {
     enable = false;
@@ -32,17 +44,28 @@
     allowedUDPPorts = [ 9777 ];
   };
 
-  services.xserver.displayManager.slim =
-  {
-    enable = true;
-    defaultUser = "media";
-    autoLogin = true;
+  services.xserver = {
+    displayManager = {
+      slim = {
+        enable = true;
+        defaultUser = "media";
+        autoLogin = true;
+      };
+    };
+
+    desktopManager = {
+      kodi.enable = true;
+      # default = "kodi";
+      default = "retronix";
+    };
+
+    libinput.enable = true;
+
+    windowManager.pekwm.enable = true;
+    windowManager.default = "pekwm";
   };
 
-  #services.xserver.desktopManager.kodi.enable = true;
-  #services.xserver.desktopManager.default = "xterm";
-  services.xserver.desktopManager.default = "retronix";
-
-  services.xserver.windowManager.pekwm.enable = true;
-  services.xserver.windowManager.default = "pekwm";
+  environment.systemPackages = [
+    pkgs.kodi
+  ];
 }

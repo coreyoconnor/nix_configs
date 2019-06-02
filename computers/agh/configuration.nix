@@ -49,13 +49,6 @@ in
       linuxPackages = in_pkgs.linuxPackages_5_0;
       # steam = in_pkgs.steam.override { newStdcpp = true; };
     };
-    kodi =
-    {
-      enableSteamLauncher = true;
-      enableAdvancedLauncher = true;
-      enableAdvancedEmulatorLauncher = true;
-      enableControllers = true;
-    };
   };
 
   environment.systemPackages = [
@@ -154,15 +147,6 @@ in
       }
     ];
     videoDrivers = [ "amdgpu" "modesetting" ];
-    libinput.enable = true;
-    #inputClassSections = [ ''
-    #  Identifier "joystick catchall"
-    #  MatchIsJoystick "on"
-    #  MatchDevicePath "/dev/input/event*"
-    #  Driver "joystick"
-    #  Option "StartKeysEnabled" "False"       #Disable mouse
-    #  Option "StartMouseEnabled" "False"      #support
-    #'' ];
   };
 
   services.journald.console = "/dev/tty12";
