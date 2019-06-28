@@ -11,7 +11,8 @@ self: super: {
       -jar ${self.coursier}/bin/.coursier-wrapped launch \
       -r bintray:scalameta/maven \
       -r bintray:scalacenter/releases \
-      org.scalameta:metals_2.12:0.6.0-SNAPSHOT \
+      -r sonatype:public \
+      org.scalameta:metals_2.12:0.7.0 \
       -M scala.meta.metals.Main
   '';
 
