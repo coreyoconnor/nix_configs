@@ -6,7 +6,7 @@
     # TODO: Just using pkgs.jdk with icedtea will point to a directory without
     # a proper lib directory. EG: tools.jar is missing.
     environment.shellInit = ''
-      export JAVA_HOME=${pkgs.jdk}/lib/icedtea
+      export JAVA_HOME=${pkgs.jdk}/lib/openjdk
     '';
 
     environment.systemPackages =
