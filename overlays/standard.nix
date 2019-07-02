@@ -13,8 +13,4 @@ self: super: {
       extraPkgs = pkgs: [ pkgs.kde-cli-tools ];
     };
   };
-
-  pkgsi686Linux = super.pkgsi686Linux // {
-    stdenv = self.pkgsi686Linux.gcc6Stdenv;
-  };
 }
