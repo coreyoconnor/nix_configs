@@ -6,7 +6,8 @@ def canaries = [
     'postgresql',
     'godot',
     'qgis',
-    'rustc'
+    'rustc',
+    'wine'
 ]
 
 nixosTests = [
