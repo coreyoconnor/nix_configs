@@ -5,7 +5,7 @@ self: super: {
       -XX:+UseStringDeduplication  \
       -Xss4m \
       -Xms400m \
-      -Xmx10G \
+      -Xmx4G \
       -Dmetals.client=emacs \
       -Dmetals.completion-item.detail=off \
       -jar ${self.coursier}/bin/.coursier-wrapped launch \
