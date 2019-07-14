@@ -9,7 +9,7 @@
   {
     initrd.availableKernelModules = [ "ehci_pci" "ahci" "mpt3sas" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
     kernelModules = [ "kvm-intel" ];
-    kernelPackages = pkgs.linuxPackages_5_0;
+    kernelPackages = pkgs.linuxPackages_5_1;
     extraModulePackages = [ ];
 
     loader.grub =
@@ -51,6 +51,14 @@
   nix.extraOptions = ''
     build-cores = 5
   '';
+
+  nixpkgs.config =
+  {
+    packageOverrides = in_pkgs :
+    {
+      linuxPackages = in_pkgs.linuxPackages_5_1;
+    };
+  };
 
   security.pam.loginLimits =
   [
