@@ -17,7 +17,7 @@ nixosTests = [
     'firefox',
     'jenkins',
     'transmission',
-    // 'plasma5',
+    'plasma5',
     'postgis'
 ]
 
