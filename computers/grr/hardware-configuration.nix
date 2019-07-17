@@ -9,7 +9,8 @@
   {
     initrd.availableKernelModules = [ "ehci_pci" "ahci" "mpt3sas" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
     kernelModules = [ "kvm-intel" ];
-    kernelPackages = pkgs.linuxPackages_5_1;
+    # kernelPackages = pkgs.linuxPackages_5_1;
+    kernelPackages = pkgs.linuxPackages_4_19;
     extraModulePackages = [ ];
 
     loader.grub =
@@ -56,7 +57,8 @@
   {
     packageOverrides = in_pkgs :
     {
-      linuxPackages = in_pkgs.linuxPackages_5_1;
+      # linuxPackages = in_pkgs.linuxPackages_5_1;
+      linuxPackages = in_pkgs.linuxPackages_4_19;
     };
   };
 
