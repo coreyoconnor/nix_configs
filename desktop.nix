@@ -82,7 +82,7 @@ in {
       {
         driSupport32Bit = true;
         enable = true;
-        useGLVND = true;
+        # useGLVND = true;
       };
       pulseaudio =
       {
