@@ -4,6 +4,7 @@
   require =
   [
     ./hardware-configuration.nix
+    ../../base.nix
     ../../editorIsVim.nix
     ../../filesystem.nix
     ../../haskell-dev.nix
@@ -16,7 +17,6 @@
     ../../scala-dev.nix
     ../../standard-env.nix
     ../../standard-packages.nix
-    ../../standard-nixpath.nix
     ../../standard-services.nix
     ../../tobert-config.nix
     ../../vm-host.nix

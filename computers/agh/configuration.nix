@@ -17,6 +17,7 @@ in
   require =
   [
     ./config-at-bootstrap.nix
+    ../../base.nix
     ../../editorIsVim.nix
     ../../haskell-dev.nix
     ../../i18n.nix
@@ -29,7 +30,6 @@ in
     ../../scala-dev.nix
     ../../standard-env.nix
     ../../standard-packages.nix
-    ../../standard-nixpath.nix
     ../../standard-services.nix
     ../../tobert-config.nix
     ../../udev.nix

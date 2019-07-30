@@ -7,6 +7,7 @@ computer_name=$1
 export NIX_PATH=nixpkgs=$project_dir/nixpkgs
 export NIX_PATH=$NIX_PATH:nixos=$project_dir/nixpkgs/nixos
 export NIX_PATH=$NIX_PATH:nixos-config=$project_dir/computers/$computer_name/configuration.nix
+export NIX_PATH="${NIX_PATH}:nixpkgs-overlays=${project_dir}/nixpkgs-config/overlays"
 
 nix="$(nixos-build-cache-result-path config.nix.package.out)"
 system="$(nixos-build-cache-result-path system)"

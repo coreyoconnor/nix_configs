@@ -20,7 +20,8 @@
       enableSteamLauncher = true;
       enableAdvancedLauncher = true;
       enableAdvancedEmulatorLauncher = true;
-      enableControllers = true;
+      # enableControllers = true;
+      enableControllers = false;
       enableJoystick = true;
     };
   };

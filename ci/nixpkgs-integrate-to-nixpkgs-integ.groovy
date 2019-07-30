@@ -110,7 +110,7 @@ pipeline {
                         [$class: 'CleanCheckout'],
                         [$class: 'PathRestriction',
                          excludedRegions: '',
-                         includedRegions: """overlays/
+                         includedRegions: """nixpkgs-config/
                                             |ci/
                                             |nixpkgs-config.nix""".stripMargin()],
                         [$class: 'RelativeTargetDirectory',

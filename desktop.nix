@@ -24,8 +24,10 @@ let
   ];
 in {
   imports = [
+    ./base.nix
     ./disable-gdm-auto-suspend.nix
   ];
+
   config =
   {
     environment.systemPackages = with pkgs; gnome3.corePackages ++

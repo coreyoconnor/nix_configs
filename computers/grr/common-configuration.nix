@@ -9,6 +9,7 @@ in {
   [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ../../desktop.nix
     ../../editorIsVim.nix
     ../../java-dev.nix
     ../../jenkins-node.nix
@@ -16,7 +17,6 @@ in {
     ../../networks/home.nix
     ../../postgis-server.nix
     ../../standard-env.nix
-    ../../standard-nixpath.nix
     ../../standard-packages.nix
     ../../standard-services.nix
     ../../status-tty.nix

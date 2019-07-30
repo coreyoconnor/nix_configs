@@ -3,6 +3,7 @@
 {
   require =
   [
+    ../../base.nix
     ../../editorIsVim.nix
     ../../filesystem.nix
     ../../i18n.nix
