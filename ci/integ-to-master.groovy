@@ -52,8 +52,8 @@ pipeline {
                          shallow: false,
                          timeout: 20],
                         [$class: 'CleanCheckout'],
-                        [$class: 'PreBuildMerge',
-                         options: [mergeRemote: 'nixpkgs', mergeTarget: 'master']],
+                        // [$class: 'PreBuildMerge',
+                        //  options: [mergeRemote: 'nixpkgs', mergeTarget: 'master']],
                         [$class: 'RelativeTargetDirectory',
                          relativeTargetDir: 'nixpkgs'],
                     ],
@@ -126,7 +126,7 @@ pipeline {
             steps {
                 dir('nixpkgs') {
                     sh "git commit || true"
-                    sh "git push nixpkgs HEAD:master"
+                    sh "git push -f nixpkgs HEAD:master"
                 }
                 dir('nix_configs') {
                     sh "git add nixpkgs"
