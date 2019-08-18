@@ -9,7 +9,7 @@ with lib;
       {
         enable = true;
         allowBitmaps = false;
-        ultimate =
+        penultimate =
         {
           enable = true;
         };
@@ -26,7 +26,7 @@ with lib;
         junicode
         ucsFonts
         unifont
-        vistafonts
+        # vistafonts
       ];
     };
 
