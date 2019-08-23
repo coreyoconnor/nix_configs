@@ -4,7 +4,8 @@
   [
     ./dependencies/retronix
     ./users/media.nix
-    ./musnix
+    # TODO: disable musnix for now
+    # ./musnix
   ];
 
   retronix =
