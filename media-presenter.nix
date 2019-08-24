@@ -27,6 +27,7 @@
     };
   };
 
+/*
   musnix =
   {
     enable = false;
@@ -39,6 +40,7 @@
       # packages = pkgs.linuxPackages_4_17_rt;
     };
   };
+  */
 
   networking.firewall =
   {
