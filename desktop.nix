@@ -30,7 +30,7 @@ in {
 
   config =
   {
-    environment.systemPackages = with pkgs; gnome3.corePackages ++
+    environment.systemPackages = with pkgs;
     [
       appimage-run
       desktop_file_utils
@@ -46,12 +46,6 @@ in {
       xclip
       xdg_utils
     ];
-
-    nixpkgs.config.firefox =
-    {
-      enableGnomeExtensions = true;
-      enablePlasmaBrowserIntegration = true;
-    };
 
     environment.variables =
     {
@@ -99,16 +93,27 @@ in {
       };
     };
 
+    nixpkgs.config.firefox =
+    {
+      enableGnomeExtensions = true;
+      enablePlasmaBrowserIntegration = true;
+    };
+
+    programs.dconf.enable = true;
+
     services =
     {
       fwupd.enable = true;
 
-      gnome3.chrome-gnome-shell.enable = true;
+      gnome3 =
+      {
+        chrome-gnome-shell.enable = true;
+        core-shell.enable = true;
+      };
 
       flatpak =
       {
         enable = true;
-        extraPortals = [ pkgs.xdg-desktop-portal-kde ];
       };
 
       packagekit.enable = true;
@@ -131,7 +136,7 @@ in {
       sysprof.enable = true;
     };
 
-    programs.dconf.enable = true;
     sound.enable = true;
+    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-kde ];
   };
 }
