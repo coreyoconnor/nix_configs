@@ -12,7 +12,7 @@ self: super: {
       -r bintray:scalameta/maven \
       -r bintray:scalacenter/releases \
       -r sonatype:public \
-      org.scalameta:metals_2.12:0.7.0 \
+      org.scalameta:metals_2.12:0.7.2 \
       -M scala.meta.metals.Main
   '';
 
