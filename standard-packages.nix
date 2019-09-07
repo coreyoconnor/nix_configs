@@ -55,6 +55,7 @@ with lib;
       irssi
       nginx
       nix-index
+      nixfmt
       ocaml
       openshift
       oprofile
