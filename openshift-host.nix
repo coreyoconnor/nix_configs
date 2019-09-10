@@ -8,8 +8,8 @@ let
     {
       firewall =
       {
-        allowedTCPPorts = [ 53 80 443 4789 8053 8443 10250 ];
-        allowedUDPPorts = [ 53 4789 8053 8443 10250 ];
+        allowedTCPPorts = [ 53 80 443 853 4789 8053 8443 10250 ];
+        allowedUDPPorts = [ 53 853 4789 8053 8443 10250 ];
         checkReversePath = false;
       };
     };
@@ -47,6 +47,8 @@ let
         bogus-priv
         cache-size=1000
         address=/.agh.dev/192.168.1.2
+        conf-file=${pkgs.dnsmasq}/share/dnsmasq/trust-anchors.conf
+        dnssec
       '';
     };
   };
