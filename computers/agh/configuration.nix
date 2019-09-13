@@ -1,14 +1,23 @@
 {config, pkgs, ...}:
 let
-  grrBuildMachine =
+grrBuildMachines = [
   {
     hostName = "grr";
     sshUser = "nix";
     sshKey = "/root/.ssh/id_rsa";
-    system = "x86_64-linux";
+    system = "i686-linux,x86_64-linux";
     maxJobs = 8;
     speedFactor = 2;
-  };
+  }
+  {
+    hostName = "grr";
+    sshUser = "nix";
+    sshKey = "/root/.ssh/id_rsa";
+    system = "armv6l-linux,armv7l-linux,aarch64-linux,riscv32-linux,riscv64-linux,wasm32-wasi,wasm64-wasi";
+    maxJobs = 2;
+    speedFactor = 1;
+  }
+];
   localIp = "192.168.1.2";
 in
 {
@@ -200,7 +209,7 @@ in
   nix =
   {
     distributedBuilds = true;
-    buildMachines = [ grrBuildMachine ];
+    buildMachines = grrBuildMachines;
     extraOptions = ''
       secret-key-files = /etc/nix/agh-1.pem
       keep-outputs = true
