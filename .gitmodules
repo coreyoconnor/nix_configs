@@ -17,3 +17,7 @@
 [submodule "dependencies/kdenlive-dev"]
 	path = dependencies/kdenlive-dev
 	url = git@github.com:coreyoconnor/kdenlive-dev.git
+[submodule "dependencies/cleverca22-nixos-configs"]
+	path = dependencies/cleverca22-nixos-configs
+	url = https://github.com/cleverca22/nixos-configs.git
+	branch = master
