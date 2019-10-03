@@ -12,11 +12,7 @@ self: super: {
       -r bintray:scalameta/maven \
       -r bintray:scalacenter/releases \
       -r sonatype:public \
-      org.scalameta:metals_2.12:0.7.2 \
+      org.scalameta:metals_2.12:0.7.6 \
       -M scala.meta.metals.Main
-  '';
-
-  nix-dev = self.writeShellScriptBin "nix-dev" ''
-    exec nix-shell . -A env "$@"
   '';
 }

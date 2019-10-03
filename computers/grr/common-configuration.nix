@@ -95,6 +95,7 @@ in {
 
   users.users.coconnor.packages =
   [
+    pkgs.freecad
     pkgs.godot
     pkgs.keybase
     pkgs.keybase-gui
