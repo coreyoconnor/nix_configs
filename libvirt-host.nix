@@ -26,6 +26,12 @@ let
 
     # duplicated here for explicitness
     environment.systemPackages = [ pkgs.libvirt pkgs.qemu  pkgs.docker-machine-kvm ];
+    services.nfs.server.enable = true;
+
+    networking.firewall.extraCommands = ''
+      ip46tables -A INPUT -i virbr+ -j ACCEPT
+      ip46tables -A OUTPUT -o virbr+ -j ACCEPT
+    '';
   };
   shareInit =
   {

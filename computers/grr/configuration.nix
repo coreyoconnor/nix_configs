@@ -34,6 +34,12 @@
       };
     };
 
+    nixpkgs = {
+      config = {
+        cudaSupport = true;
+      };
+    };
+
     services.xserver =
     {
       enable = true;
