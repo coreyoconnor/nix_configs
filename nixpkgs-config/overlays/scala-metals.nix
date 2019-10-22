@@ -1,4 +1,6 @@
 self: super: {
+  scala = super.scala_2_12;
+
   metals = self.writeShellScriptBin "metals-emacs" ''
     exec ${self.jre8}/bin/java \
       -XX:+UseG1GC \

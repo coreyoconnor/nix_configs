@@ -3,9 +3,11 @@
 {
   config =
   {
-    environment.systemPackages =
-      [ pkgs.scala
-        pkgs.ammonite
-      ];
+    environment.systemPackages = with pkgs; [
+      metals
+      sbt
+      scala
+      ammonite
+    ];
   };
 }
