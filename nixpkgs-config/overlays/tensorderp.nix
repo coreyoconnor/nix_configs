@@ -32,11 +32,10 @@ in {
     pname = "tensorderp";
     version = "0.1.0";
 
-    buildPhase = ''
-      echo 'empty build'
-    '';
+    buildInputs =  [ self.stdenv ];
 
-    installPhase = ''
+    builder = self.writeShellScript "builder.sh" ''
+      source $stdenv/setup
       mkdir -p $out/bin
       ln -s ${launcher} $out/bin/tensorderp
     '';

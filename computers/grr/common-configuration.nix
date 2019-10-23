@@ -101,11 +101,13 @@ in {
     pkgs.hugo
     pkgs.keybase
     pkgs.keybase-gui
+    pkgs.metals
     pkgs.mono
     pkgs.nix-dev
     pkgs.okular
     pkgs.qgis
     pkgs.steam
+    pkgs.tensorderp
     pkgs.virtmanager
     pkgs.virt-viewer
   ];
