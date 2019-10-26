@@ -1,20 +1,28 @@
 self: super:
 let
   launcher = self.writeShellScript "tensorderp-launcher" ''
-    nix-shell '<nixpkgs>' -A tensorderp-shell
+    nix-shell --cores 16 '<nixpkgs>' -A tensorderp-shell
   '';
-in {
-  tensorderp-shell = self.python3Packages.buildPythonApplication {
-    pname = "tensorderp-shell";
-    version = "0.1.0";
+  version = "0.1.0";
+in rec {
+  tensorderp-deps = self.stdenv.mkDerivation {
+    pname = "tensorderp-deps";
+    inherit version;
 
-    buildInputs =  with self.python3Packages; [
+    propagatedBuildInputs =  with self.python3Packages; [
       gdal
       (matplotlib.override { enableGtk3 = true; })
       numpy
       scikitimage
       tensorflowWithCuda
     ];
+  };
+
+  tensorderp-shell = self.python3Packages.buildPythonApplication {
+    pname = "tensorderp-shell";
+    inherit version;
+
+    buildInputs =  [ tensorderp-deps ];
 
     shellHook = ''
       unset SOURCE_DATE_EPOCH
@@ -30,12 +38,14 @@ in {
 
   tensorderp = self.stdenv.mkDerivation {
     pname = "tensorderp";
-    version = "0.1.0";
+    inherit version;
 
     buildInputs =  [ self.stdenv ];
 
     builder = self.writeShellScript "builder.sh" ''
       source $stdenv/setup
+      # just forces this really
+      echo Using deps ${tensorderp-deps}
       mkdir -p $out/bin
       ln -s ${launcher} $out/bin/tensorderp
     '';
