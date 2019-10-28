@@ -10,8 +10,8 @@ in {
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../desktop.nix
+    ../../dev.nix
     ../../editorIsVim.nix
-    ../../java-dev.nix
     ../../jenkins-node.nix
     ../../i18n.nix
     ../../networks/home.nix

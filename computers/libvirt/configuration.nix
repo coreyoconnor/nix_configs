@@ -7,11 +7,10 @@
     ../../editorIsVim.nix
     ../../haskell-dev.nix
     ../../i18n.nix
-    ../../java-dev.nix
     ../../jenkins-node.nix
     ../../kde5.nix
     ../../networks/home.nix
-    ../../scala-dev.nix
+    ../../dev.nix
     ../../standard-env.nix
     ../../standard-packages.nix
     ../../standard-services.nix

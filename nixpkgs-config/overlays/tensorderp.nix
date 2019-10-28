@@ -44,8 +44,6 @@ in rec {
 
     builder = self.writeShellScript "builder.sh" ''
       source $stdenv/setup
-      # just forces this really
-      echo Using deps ${tensorderp-deps}
       mkdir -p $out/bin
       ln -s ${launcher} $out/bin/tensorderp
     '';

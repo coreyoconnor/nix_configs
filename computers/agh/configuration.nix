@@ -28,15 +28,14 @@ in
     ./config-at-bootstrap.nix
     ../../base.nix
     ../../editorIsVim.nix
+    ../../dev.nix
     ../../haskell-dev.nix
     ../../i18n.nix
-    ../../java-dev.nix
     ../../jenkins-master.nix
     ../../media-downloader.nix
     ../../media-presenter.nix
     ../../networks/home.nix
     ../../openshift-host.nix
-    ../../scala-dev.nix
     ../../standard-env.nix
     ../../standard-packages.nix
     ../../standard-services.nix

@@ -7,12 +7,10 @@
     ../../editorIsVim.nix
     ../../filesystem.nix
     ../../i18n.nix
-    ../../java-dev.nix
     ../../networks/home.nix
-    ../../scala-dev.nix
+    ../../dev.nix
     ../../standard-packages.nix
     ../../standard-services.nix
-    ../../haskell-dev.nix
     ../../kde4.nix
     ../../vm-host.nix
     ../../wine.nix
