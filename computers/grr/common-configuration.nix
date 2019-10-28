@@ -20,6 +20,7 @@ in {
     ../../standard-packages.nix
     ../../standard-services.nix
     ../../status-tty.nix
+    ../../tensorderp.nix
     ../../tobert-config.nix
     ../../libvirt-host.nix
   ];
