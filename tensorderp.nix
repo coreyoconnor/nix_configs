@@ -5,6 +5,7 @@ let
   user = "jupyter";
   group = "jupyter";
   port = 10020;
+  boardPort = 6006;
   home-dir = "/var/lib/jupyter";
   jupyter-service = pkgs.writeShellScript "tensorderp-jupyter-launcher" ''
 
@@ -15,6 +16,7 @@ ${pkgs.docker}/bin/docker run \
       --rm \
       -v ${home-dir}:/notebooks -w /notebooks \
       -p ${toString port}:${toString port} \
+      -p ${toString boardPort}:${toString boardPort} \
       tensorflow/tensorflow:latest-py3-jupyter \
       jupyter-notebook \
         --ip=0.0.0.0 \
@@ -22,7 +24,9 @@ ${pkgs.docker}/bin/docker run \
         -y \
         --notebook-dir=/notebooks \
         --port=${toString port} \
-        --port-retries=0
+        --port-retries=0 \
+        --NotebookApp.token= \
+        --NotebookApp.password=
   '';
 in {
   options = {
@@ -36,7 +40,7 @@ in {
 
   config = mkIf cfg.enable {
     networking.firewall = {
-        allowedTCPPorts = [ port ];
+        allowedTCPPorts = [ port boardPort ];
     };
 
     systemd.services."tensorderp-jupyter" = {
