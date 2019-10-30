@@ -5,12 +5,11 @@
     ./config-at-bootstrap.nix
     ../../base.nix
     ../../editorIsVim.nix
-    ../../haskell-dev.nix
+    ../../dev.nix
     ../../i18n.nix
     ../../jenkins-node.nix
     ../../kde5.nix
     ../../networks/home.nix
-    ../../dev.nix
     ../../standard-env.nix
     ../../standard-packages.nix
     ../../standard-services.nix

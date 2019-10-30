@@ -29,7 +29,6 @@ in
     ../../base.nix
     ../../editorIsVim.nix
     ../../dev.nix
-    ../../haskell-dev.nix
     ../../i18n.nix
     ../../jenkins-master.nix
     ../../media-downloader.nix

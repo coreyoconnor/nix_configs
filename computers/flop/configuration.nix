@@ -7,7 +7,7 @@
     ../../base.nix
     ../../editorIsVim.nix
     ../../filesystem.nix
-    ../../haskell-dev.nix
+    ../../dev.nix
     ../../i18n.nix
     ../../jenkins-node.nix
     ../../kde5.nix
