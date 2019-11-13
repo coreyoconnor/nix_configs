@@ -21,6 +21,7 @@ let
 
     # duplicated here for explicitness
     environment.systemPackages = with pkgs; [
+      ansible
       docker-machine-kvm
       libvirt
       qemu

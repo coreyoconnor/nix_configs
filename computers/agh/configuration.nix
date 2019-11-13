@@ -108,7 +108,23 @@ in {
     '';
   };
 
-  services.dnsmasq.enable = true;
+  services.dnsmasq = {
+    enable = true;
+    servers = [
+      "1.1.1.1"
+      "2606:4700:4700::1111"
+      "8.8.8.8"
+      "2001:4860:4860::8888"
+    ];
+    extraConfig = ''
+      no-resolv
+      domain-needed
+      bogus-priv
+      cache-size=1000
+      conf-file=${pkgs.dnsmasq}/share/dnsmasq/trust-anchors.conf
+      dnssec
+    '';
+  };
 
   services.openssh = {
     extraConfig = ''
