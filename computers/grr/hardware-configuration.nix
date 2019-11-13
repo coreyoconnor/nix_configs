@@ -1,23 +1,20 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
-    ];
+  imports = [
+    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+  ];
 
-  boot =
-  {
+  boot = {
     initrd.availableKernelModules = [ "ehci_pci" "ahci" "mpt3sas" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
     kernelModules = [ "kvm-intel" ];
-    # kernelPackages = pkgs.linuxPackages_5_1;
-    kernelPackages = pkgs.linuxPackages_4_19;
+    kernelPackages = pkgs.linuxPackages_5_2;
+    # kernelPackages = pkgs.linuxPackages_4_19;
     extraModulePackages = [ ];
 
-    loader.grub =
-    {
+    loader.grub = {
       # grub bootloader installed to all devices in the boot raid1 array
-      devices =
-      [
+      devices = [
         "/dev/disk/by-id/ata-ADATA_SP550_2G0420001801"
         "/dev/disk/by-id/ata-ADATA_SP550_2G0420002543"
         "/dev/disk/by-id/ata-ADATA_SP550_2G0420003186"
@@ -53,17 +50,14 @@
     build-cores = 5
   '';
 
-  nixpkgs.config =
-  {
-    packageOverrides = in_pkgs :
-    {
-      # linuxPackages = in_pkgs.linuxPackages_5_1;
-      linuxPackages = in_pkgs.linuxPackages_4_19;
+  nixpkgs.config = {
+    packageOverrides = in_pkgs : {
+      linuxPackages = in_pkgs.linuxPackages_5_2;
+      # linuxPackages = in_pkgs.linuxPackages_4_19;
     };
   };
 
-  security.pam.loginLimits =
-  [
+  security.pam.loginLimits = [
     {
       domain = "*";
       type = "soft";

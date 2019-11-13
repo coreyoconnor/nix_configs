@@ -1,34 +1,29 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-  [
+  imports = [
     ./common-configuration.nix
   ];
 
-  config =
-  {
-    hardware =
-    {
-      opengl =
-      {
+  config = {
+    hardware = {
+    /*
+      opengl = {
         extraPackages = [ pkgs.mesa_drivers ];
         extraPackages32 = [ pkgs.pkgsi686Linux.mesa_drivers ];
       };
+      */
 
-      pulseaudio =
-      {
+      pulseaudio = {
         configFile = ./pulse-audio-config.pa;
-        daemon.config =
-        {
+        daemon.config = {
           default-sample-rate = 96000;
           default-sample-format = "s24le";
           avoid-resampling = true;
         };
       };
 
-      nvidia =
-      {
+      nvidia = {
         modesetting.enable = true;
         # package = config.boot.kernelPackages.nvidiaPackages.stable_390;
       };
@@ -40,24 +35,23 @@
       };
     };
 
-    services.xserver =
-    {
-      enable = true;
-      desktopManager =
-      {
-        default = "gnome3";
+    services.xserver = {
+      enable = false;
+
+      desktopManager = {
+        default = "none";
         gnome3.enable = true;
         plasma5.enable = false;
       };
 
-      videoDrivers = [ "nvidiaLegacy390" ];
+      videoDrivers = [ "nvidia" ];
+      # videoDrivers = [ "nvidiaLegacy390" ];
 
       deviceSection = ''
         BusID "PCI:05:00:00"
       '';
 
-      xrandrHeads =
-      [
+      xrandrHeads = [
         {
           output = "DVI-I-1-1";
           monitorConfig = ''

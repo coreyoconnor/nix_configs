@@ -41,7 +41,7 @@ in {
     networkmanager.enable = false;
     interfaces =
     {
-      enp8s0 =
+      enp10s0 =
       {
         useDHCP = false;
         ipv4.addresses = [ { address = localIpAlt; prefixLength = 24; } ];
@@ -49,7 +49,7 @@ in {
           addresses = [ { address = "2601:602:9700:f0fc::17"; prefixLength = 64; } ];
         };
       };
-      enp9s0 =
+      enp11s0 =
       {
         useDHCP = false;
         ipv4.addresses = [ { address = localIp; prefixLength = 24; } ];
@@ -82,11 +82,11 @@ in {
 
   sound.enable = true;
 
-  hardware =
-  {
+  hardware = {
     bluetooth.enable = true;
     enableAllFirmware = true;
     enableRedistributableFirmware = true;
+    opengl.enable = true;
   };
 
   services.kbfs =

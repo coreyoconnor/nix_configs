@@ -5,8 +5,10 @@ let
   '';
   version = "0.1.0";
 in rec {
-  tensorderp-deps = self.stdenv.mkDerivation {
-    pname = "tensorderp-deps";
+  cudatoolkit = super.cudatoolkit_10;
+
+  tensorderp-shell = self.python3Packages.buildPythonApplication {
+    pname = "tensorderp-shell";
     inherit version;
 
     propagatedBuildInputs =  with self.python3Packages; [
@@ -16,13 +18,10 @@ in rec {
       scikitimage
       tensorflowWithCuda
     ];
-  };
 
-  tensorderp-shell = self.python3Packages.buildPythonApplication {
-    pname = "tensorderp-shell";
-    inherit version;
-
-    buildInputs =  [ tensorderp-deps ];
+    builder = self.writeShellScript "builder.sh" ''
+      echo none
+    '';
 
     shellHook = ''
       unset SOURCE_DATE_EPOCH
