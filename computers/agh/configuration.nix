@@ -32,7 +32,6 @@ in
     ../../i18n.nix
     ../../jenkins-master.nix
     ../../media-downloader.nix
-    ../../media-presenter.nix
     ../../networks/home.nix
     ../../openshift-host.nix
     ../../standard-env.nix
@@ -60,12 +59,9 @@ in
 
   environment.systemPackages = [
     pkgs.btrfs-progs
-    pkgs.retroarch
-    pkgs.kodi-retroarch-advanced-launchers
   ];
 
-  fileSystems =
-  [
+  fileSystems = [
     { mountPoint = "/mnt/non-admin-home/";
       device = "/dev/disk/by-label/home";
     }
@@ -76,8 +72,7 @@ in
 
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
-  hardware.pulseaudio =
-  {
+  hardware.pulseaudio = {
     enable = true;
     support32Bit = true;
     daemon =
@@ -95,8 +90,7 @@ in
     };
   };
 
-  networking =
-  {
+  networking = {
     hostName = "agh"; # must be unique
     useDHCP = false;
     interfaces.enp1s0 = {
@@ -108,8 +102,7 @@ in
       };
     };
     defaultGateway = "192.168.1.1";
-    firewall =
-    {
+    firewall = {
       allowedTCPPorts = [ 445 4999 27036 27037];
       allowedUDPPorts = [ 27031 27036 ];
     };
@@ -120,20 +113,17 @@ in
 
   services.dnsmasq.enable = true;
 
-  services.openssh =
-  {
+  services.openssh = {
     extraConfig = ''
       UseDNS no
     '';
     forwardX11 = true;
   };
 
-  services.xserver =
-  {
-    enable = true;
-    autorun = true;
-    xrandrHeads =
-    [
+  services.xserver = {
+    enable = false;
+    autorun = false;
+    xrandrHeads = [
       {
         output = "HDMI-0";
         monitorConfig = ''
@@ -165,8 +155,7 @@ in
     # [ -L /workspace/coconnor] || ln -s /workspace/coconnor /home/coconnor/Development
   '';
 
-  services.samba =
-  {
+  services.samba = {
     enable = true;
     securityType = "auto";
     extraConfig = ''
@@ -189,13 +178,11 @@ in
     };
   };
 
-  services.kbfs =
-  {
+  services.kbfs = {
     enable = true;
   };
 
-  services.nix-serve =
-  {
+  services.nix-serve = {
     enable = true;
     port = 4999;
     secretKeyFile = "/etc/nix/agh-nix-serve-1.sec";
@@ -204,8 +191,7 @@ in
 
   openshift-host.enable = true;
 
-  nix =
-  {
+  nix = {
     distributedBuilds = true;
     buildMachines = grrBuildMachines;
     extraOptions = ''

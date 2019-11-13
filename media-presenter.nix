@@ -1,6 +1,9 @@
-{config, pkgs, ...}:
-{
-  require =
+{config, pkgs, lib, ...}:
+with lib;
+let
+  cfg = config.media-presenter;
+in {
+  imports =
   [
     ./dependencies/retronix
     ./users/media.nix
@@ -8,68 +11,84 @@
     # ./musnix
   ];
 
-  retronix =
-  {
-    enable = true;
-    user = "media";
-  };
-
-  nixpkgs.config =
-  {
-    kodi =
-    {
-      enableSteamLauncher = true;
-      enableAdvancedLauncher = true;
-      enableAdvancedEmulatorLauncher = true;
-      # enableControllers = true;
-      enableControllers = false;
-      enableJoystick = true;
+  options = {
+    media-presenter = {
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+      };
     };
   };
 
-/*
-  musnix =
-  {
-    enable = false;
-    kernel =
+  config = mkIf cfg.enable {
+    retronix =
     {
-      latencytop = true;
-      optimize = true;
-      realtime = true;
-      # must match computer linuxPackages version
-      # packages = pkgs.linuxPackages_4_17_rt;
+      enable = true;
+      user = "media";
     };
-  };
-  */
 
-  networking.firewall =
-  {
-    allowedTCPPorts = [ 8180 9090 ];
-    allowedUDPPorts = [ 9777 ];
-  };
-
-  services.xserver = {
-    displayManager = {
-      slim = {
-        enable = true;
-        defaultUser = "media";
-        autoLogin = true;
+    nixpkgs.config =
+    {
+      kodi =
+      {
+        enableSteamLauncher = true;
+        enableAdvancedLauncher = true;
+        enableAdvancedEmulatorLauncher = true;
+        # enableControllers = true;
+        enableControllers = false;
+        enableJoystick = true;
       };
     };
 
-    desktopManager = {
-      kodi.enable = true;
-      # default = "kodi";
-      default = "retronix";
+  /*
+    musnix =
+    {
+      enable = false;
+      kernel =
+      {
+        latencytop = true;
+        optimize = true;
+        realtime = true;
+        # must match computer linuxPackages version
+        # packages = pkgs.linuxPackages_4_17_rt;
+      };
+    };
+    */
+
+    networking.firewall =
+    {
+      allowedTCPPorts = [ 8180 9090 ];
+      allowedUDPPorts = [ 9777 ];
     };
 
-    libinput.enable = true;
+    services.xserver = {
+      enable = true;
+      autostart = true;
 
-    windowManager.pekwm.enable = true;
-    windowManager.default = "pekwm";
+      displayManager = {
+        slim = {
+          enable = true;
+          defaultUser = "media";
+          autoLogin = true;
+        };
+      };
+
+      desktopManager = {
+        kodi.enable = true;
+        # default = "kodi";
+        default = "retronix";
+      };
+
+      libinput.enable = true;
+
+      windowManager.pekwm.enable = true;
+      windowManager.default = "pekwm";
+    };
+
+    environment.systemPackages = [
+      pkgs.kodi
+      pkgs.kodi-retroarch-advanced-launchers
+      pkgs.retroarch
+    ];
   };
-
-  environment.systemPackages = [
-    pkgs.kodi
-  ];
 }
