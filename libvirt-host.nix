@@ -2,30 +2,30 @@
 with lib;
 let
   cfg = config.libvirt-host;
-  baseConfig =
-  {
-    boot =
-    {
+  baseConfig = {
+    boot = {
       kernelModules = [ "virtio" ];
     };
 
-    networking =
-    {
-      firewall =
-      {
+    networking = {
+      firewall = {
         checkReversePath = false;
       };
     };
 
     services.haveged.enable = true;
   };
-  libvirtHost =
-  {
+  libvirtHost = {
     virtualisation.virtualbox.host.enable = false;
     virtualisation.libvirtd.enable = true;
 
     # duplicated here for explicitness
-    environment.systemPackages = [ pkgs.libvirt pkgs.qemu  pkgs.docker-machine-kvm ];
+    environment.systemPackages = with pkgs; [
+      docker-machine-kvm
+      libvirt
+      qemu
+      vagrant
+    ];
     services.nfs.server.enable = true;
 
     networking.firewall.extraCommands = ''
@@ -33,8 +33,7 @@ let
       ip46tables -A OUTPUT -o virbr+ -j ACCEPT
     '';
   };
-  shareInit =
-  {
+  shareInit = {
     system.activationScripts.libvirtShareDir = ''
       mkdir -p ${cfg.shareDir}
       chown root:libvirtd ${cfg.shareDir}
@@ -42,23 +41,18 @@ let
     '';
   };
 in {
-  imports =
-  [
+  imports = [
     ./vm-host/vfio.nix
   ];
 
-  options =
-  {
-    libvirt-host =
-    {
-      enable = mkOption
-      {
+  options = {
+    libvirt-host = {
+      enable = mkOption {
         type = types.bool;
         default = false;
       };
 
-      shareDir = mkOption
-      {
+      shareDir = mkOption {
         type = types.string;
         default = "/var/lib/libvirt/images";
       };

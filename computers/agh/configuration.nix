@@ -19,21 +19,19 @@ grrBuildMachines = [
   }
 ];
   localIp = "192.168.1.2";
-in
-{
+in {
   system.stateVersion = "18.09";
 
-  require =
-  [
+  require = [
     ./config-at-bootstrap.nix
     ../../base.nix
     ../../editorIsVim.nix
     ../../dev.nix
     ../../i18n.nix
     ../../jenkins-master.nix
+    ../../libvirt-host.nix
     ../../media-downloader.nix
     ../../networks/home.nix
-    ../../openshift-host.nix
     ../../standard-env.nix
     ../../standard-packages.nix
     ../../standard-services.nix
@@ -41,17 +39,16 @@ in
     ../../udev.nix
   ];
 
-  boot =
-  {
+  libvirt-host.enable = true;
+
+  boot = {
     kernelPackages = pkgs.linuxPackages_5_2;
     # kernelParams = ["nomodeset"];
     kernelParams = ["amdgpu.cik_support=1" "amdgpu.si_support=1"];
   };
 
-  nixpkgs.config =
-  {
-    packageOverrides = in_pkgs :
-    {
+  nixpkgs.config = {
+    packageOverrides = in_pkgs : {
       linuxPackages = in_pkgs.linuxPackages_5_2;
       # steam = in_pkgs.steam.override { newStdcpp = true; };
     };
@@ -188,8 +185,6 @@ in
     secretKeyFile = "/etc/nix/agh-nix-serve-1.sec";
     extraParams = "-E development";
   };
-
-  openshift-host.enable = true;
 
   nix = {
     distributedBuilds = true;

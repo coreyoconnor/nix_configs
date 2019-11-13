@@ -15,7 +15,6 @@ in {
     ../../jenkins-node.nix
     ../../i18n.nix
     ../../networks/home.nix
-    ../../postgis-server.nix
     ../../standard-env.nix
     ../../standard-packages.nix
     ../../standard-services.nix
@@ -27,13 +26,11 @@ in {
 
   libvirt-host.enable = true;
 
-  boot =
-  {
+  boot = {
     kernelParams = [ "kvm-intel.nested=1" ];
   };
 
-  networking =
-  {
+  networking = {
     hostId = "34343134";
     hostName = "grr";
     useDHCP = false;
@@ -60,8 +57,7 @@ in {
     };
     nameservers = [ "192.168.1.2" "1.1.1.1" ];
     defaultGateway = "192.168.1.1";
-    firewall =
-    {
+    firewall = {
         allowedTCPPorts = [ 4999 10000 ];
     };
   };
@@ -75,8 +71,7 @@ in {
 
   services.journald.console = "/dev/tty12";
 
-  boot.kernel.sysctl =
-  {
+  boot.kernel.sysctl = {
     "vm.nr_hugepages" = 16484;
   };
 
@@ -89,13 +84,11 @@ in {
     opengl.enable = true;
   };
 
-  services.kbfs =
-  {
+  services.kbfs = {
     enable = true;
   };
 
-  users.users.coconnor.packages =
-  [
+  users.users.coconnor.packages = [
     pkgs.freecad
     pkgs.godot
     pkgs.google-drive-ocamlfuse
@@ -113,10 +106,8 @@ in {
     pkgs.virt-viewer
   ];
 
-  fileSystems =
-  {
-    "/mnt/storage/media" =
-    {
+  fileSystems = {
+    "/mnt/storage/media" = {
       fsType = "cifs";
       device = "//agh/media";
       options =
@@ -156,14 +147,12 @@ in {
     KERNEL=="hidraw*", ATTRS{idVendor}=="2b24", ATTRS{idProduct}=="0002",  MODE="0666", GROUP="plugdev", TAG+="uaccess", TAG+="udev-acl"
   '';
 
-  services.nix-serve =
-  {
+  services.nix-serve = {
     enable = true;
     port = 4999;
   };
 
-  nix =
-  {
+  nix = {
     extraOptions = ''
       secret-key-files = /etc/nix/grr-1.sec
       keep-outputs = true

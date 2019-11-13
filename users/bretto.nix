@@ -7,7 +7,9 @@ with pkgs.lib;
     {
       isNormalUser = true;
       extraGroups = [ "libvirtd"
-                      "transmission" ];
+                      "transmission"
+                      "systemd-journal"
+                      "docker" ];
       shell = pkgs.bashInteractive + "/bin/bash";
       openssh.authorizedKeys.keyFiles = [./ssh/brett.pub];
     };
