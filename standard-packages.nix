@@ -1,23 +1,18 @@
 {config, pkgs, lib, ...} :
 with lib;
 {
-  config =
-  {
-    fonts =
-    {
-      fontconfig =
-      {
+  config = {
+    fonts = {
+      fontconfig = {
         enable = true;
         allowBitmaps = false;
-        penultimate =
-        {
+        penultimate = {
           enable = true;
         };
       };
       enableFontDir = true;
       enableDefaultFonts = true;
-      fonts = with pkgs;
-      [
+      fonts = with pkgs; [
         anonymousPro
         bakoma_ttf
         cm_unicode
@@ -30,8 +25,7 @@ with lib;
       ];
     };
 
-    environment.systemPackages = with pkgs;
-    [
+    environment.systemPackages = with pkgs; [
       acpi
       atk
       autoconf

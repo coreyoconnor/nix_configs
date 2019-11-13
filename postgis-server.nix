@@ -2,8 +2,7 @@
 with lib;
 let postgresql = pkgs.postgresql_11;
 in {
-  services.postgresql =
-  {
+  services.postgresql = {
     enable = true;
     package = postgresql;
     extraPlugins = [ (pkgs.postgis.override { inherit postgresql; }) ];
@@ -19,8 +18,7 @@ in {
     '';
   };
 
-  environment.systemPackages =
-  [
+  environment.systemPackages = [
     (pkgs.osm2pgsql.override { inherit postgresql; })
   ];
 

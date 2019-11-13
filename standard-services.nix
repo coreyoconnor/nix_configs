@@ -1,14 +1,11 @@
 {config, pkgs, lib, ...}:
 with lib;
 {
-  config =
-  {
+  config = {
     boot.blacklistedKernelModules = [ "snd_pcsp" ];
 
-    nix =
-    {
-      gc =
-      {
+    nix = {
+      gc = {
         automatic = true;
         options = "--delete-older-than 30d";
       };
@@ -18,10 +15,8 @@ with lib;
 
     programs.mosh.enable = true;
 
-    services =
-    {
-      dbus =
-      {
+    services = {
+      dbus = {
         enable = true;
         socketActivated = true;
       };
@@ -29,8 +24,7 @@ with lib;
       udisks2.enable = true;
       upower.enable = true;
       acpid.enable = true;
-      openssh =
-      {
+      openssh = {
         enable = true;
       };
       nixosManual.showManual = true;

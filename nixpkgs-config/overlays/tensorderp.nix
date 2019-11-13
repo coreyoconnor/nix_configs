@@ -16,7 +16,13 @@ in rec {
       (matplotlib.override { enableGtk3 = true; })
       numpy
       scikitimage
-      tensorflowWithCuda
+      (tensorflowWithCuda.override {
+        avxSupport = true;
+        cudaCapabilities = [ "3.0" ];
+        sse41Support = true;
+        sse42Support = true;
+        xlaSupport = false;
+      })
     ];
 
     builder = self.writeShellScript "builder.sh" ''

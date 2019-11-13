@@ -3,13 +3,15 @@
 {config, pkgs, lib, ...}:
 with lib;
 {
-  boot.kernel.sysctl =
-  {
+  boot.kernel.sysctl = {
     # increase the number of allowed mmapped files
     "vm.max_map_count" = 1048576;
 
     # increase the number of file handles available globally
     "fs.file-max" = 1048576;
+
+    # increase the number of inotify watches
+    "fs.inotify.max_user_watches" = 524288;
 
     # allow up to 999999 processes with corresponding pids
     # this looks nice and rarely rolls over - I've never had a problem with it.
@@ -46,8 +48,7 @@ with lib;
     "kernel.msgmnb" = "33554432";
   };
 
-  security.pam.loginLimits =
-  [
+  security.pam.loginLimits = [
     {
       domain = "*";
       type = "-";

@@ -3,10 +3,8 @@ with lib;
 let
   cfg = config.services.status-tty;
 in {
-  options =
-  {
-    services.status-tty =
-    {
+  options = {
+    services.status-tty = {
       enable = mkOption
       {
         type = types.bool;
@@ -15,17 +13,14 @@ in {
     };
   };
 
-  config = mkIf cfg.enable
-  {
+  config = mkIf cfg.enable {
     # systemd.services."getty@tty1".enable = false;
     # systemd.services."autovt@".enable = false;
 
-    systemd.services."autovt@tty1" =
-    {
+    systemd.services."autovt@tty1" = {
       description = "Status";
       wantedBy = [ "multi-user.target" ];
-      serviceConfig =
-      {
+      serviceConfig = {
         ExecStart = "${pkgs.atop}/bin/atop 2";
         Type="idle";
         Restart = "always";
