@@ -3,20 +3,22 @@ with lib;
 let
   builderPackages = pkgs.symlinkJoin {
     name = "jenkins-builder-pkgs";
-    paths = [
-      pkgs.bash
-      pkgs.docker
-      pkgs.openshift
-      pkgs.stdenv
-      pkgs.git
-      pkgs.libvirt
-      pkgs.openssh
-      pkgs.nix
-      pkgs.gzip
-      pkgs.curl
-      pkgs.xorg.xorgserver
-      pkgs.qemu
-      pkgs.rsync
+    paths = with pkgs; [
+      ansible
+      bash
+      curl
+      docker
+      git
+      gzip
+      libvirt
+      nix
+      openshift
+      openssh
+      qemu
+      rsync
+      stdenv
+      vagrant
+      xorg.xorgserver
     ];
   };
 in {
