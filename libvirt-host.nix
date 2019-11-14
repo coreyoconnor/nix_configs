@@ -1,17 +1,11 @@
-{config, pkgs, lib, ...}:
+{ config, pkgs, lib, ... }:
 with lib;
 let
   cfg = config.libvirt-host;
   baseConfig = {
-    boot = {
-      kernelModules = [ "virtio" ];
-    };
+    boot = { kernelModules = [ "virtio" ]; };
 
-    networking = {
-      firewall = {
-        checkReversePath = false;
-      };
-    };
+    networking = { firewall = { checkReversePath = false; }; };
 
     services.haveged.enable = true;
   };
@@ -42,9 +36,7 @@ let
     '';
   };
 in {
-  imports = [
-    ./vm-host/vfio.nix
-  ];
+  imports = [ ./vm-host/vfio.nix ];
 
   options = {
     libvirt-host = {
@@ -60,5 +52,5 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [baseConfig libvirtHost shareInit]);
+  config = mkIf cfg.enable (mkMerge [ baseConfig libvirtHost shareInit ]);
 }

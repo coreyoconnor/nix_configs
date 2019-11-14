@@ -11,7 +11,7 @@ in rec {
     pname = "tensorderp-shell";
     inherit version;
 
-    propagatedBuildInputs =  with self.python3Packages; [
+    propagatedBuildInputs = with self.python3Packages; [
       gdal
       (matplotlib.override { enableGtk3 = true; })
       numpy
@@ -45,7 +45,7 @@ in rec {
     pname = "tensorderp";
     inherit version;
 
-    buildInputs =  [ self.stdenv ];
+    buildInputs = [ self.stdenv ];
 
     builder = self.writeShellScript "builder.sh" ''
       source $stdenv/setup

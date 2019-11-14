@@ -1,12 +1,10 @@
-{ config, pkgs, lib, ... } :
+{ config, pkgs, lib, ... }:
 with lib;
-let
-  cfg = config.services.status-tty;
+let cfg = config.services.status-tty;
 in {
   options = {
     services.status-tty = {
-      enable = mkOption
-      {
+      enable = mkOption {
         type = types.bool;
         default = true;
       };
@@ -22,7 +20,7 @@ in {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = "${pkgs.atop}/bin/atop 2";
-        Type="idle";
+        Type = "idle";
         Restart = "always";
         StandardInput = "null";
         StandardOutput = "tty";

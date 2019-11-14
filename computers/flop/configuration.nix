@@ -1,8 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  require =
-  [
+  require = [
     ./hardware-configuration.nix
     ../../base.nix
     ../../editorIsVim.nix
@@ -24,11 +23,9 @@
 
   hardware.enableAcerPrimus = true;
 
-  boot =
-  {
+  boot = {
     # Use the GRUB 2 boot loader.
-    loader.grub =
-    {
+    loader.grub = {
       enable = true;
       version = 2;
       device = "/dev/sda";
@@ -44,12 +41,10 @@
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
 
-  networking =
-  {
+  networking = {
     hostName = "flop"; # Define your hostname.
-    wireless =
-    {
-      enable = true;  # Enables wireless.
+    wireless = {
+      enable = true; # Enables wireless.
       userControlled.enable = true;
       interfaces = [ "wlp4s0" ];
     };
@@ -59,16 +54,14 @@
     enableIPv6 = false;
   };
 
-  system.activationScripts =
-  {
+  system.activationScripts = {
     removeGlobalAsoundConf = ''
       rm -f /etc/asound.conf
     '';
   };
 
   # configure X11
-  services.xserver =
-  {
+  services.xserver = {
     autorun = true;
 
     videoDrivers = [ "intel" ];
@@ -78,12 +71,11 @@
       Option "AccelMethod" "uxa"
     '';
 
-    synaptics =
-    {
+    synaptics = {
       enable = true;
       twoFingerScroll = true;
       tapButtons = false;
-      buttonsMap = [1 3 2];
+      buttonsMap = [ 1 3 2 ];
       palmDetect = true;
       minSpeed = "1.5";
       maxSpeed = "100";
@@ -103,10 +95,7 @@
 
   };
 
-  environment.systemPackages =
-  [
-    pkgs.xorg.xf86inputsynaptics
-  ];
+  environment.systemPackages = [ pkgs.xorg.xf86inputsynaptics ];
 
   system.stateVersion = "16.03";
 }

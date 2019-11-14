@@ -1,8 +1,7 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 
 {
-  require =
-  [
+  require = [
     ../../base.nix
     ../../editorIsVim.nix
     ../../filesystem.nix
@@ -19,14 +18,9 @@
 
   nix.maxJobs = 10;
 
-  boot.kernelModules =
-  [
-    "acpi-cpufreq"
-    "kvm-intel"
-  ];
+  boot.kernelModules = [ "acpi-cpufreq" "kvm-intel" ];
 
-  boot.initrd.kernelModules =
-  [
+  boot.initrd.kernelModules = [
     "ext4"
     "usb_storage"
     "ehci_hcd"
@@ -36,8 +30,7 @@
     "usbhid"
   ];
 
-  networking =
-  {
+  networking = {
     hostName = "nixpad"; # Define your hostname.
     interfaceMonitor.enable = true; # Watch for plugged cable.
     # Cannot use wicd and have useDHCP true
@@ -55,15 +48,13 @@
 
   # X11 config
   # starts
-  services.xserver =
-  {
+  services.xserver = {
     enable = true;
     autorun = true;
     videoDrivers = [ "nvidia" "vesa" ];
     exportConfiguration = true;
     layout = "us";
-    synaptics =
-    {
+    synaptics = {
       enable = true;
       identifier = "appletouch touchpad catchall";
       twoFingerScroll = true;
@@ -84,17 +75,14 @@
     };
   };
 
-  environment.x11Packages =
-  [
-    pkgs.xorg.xf86inputsynaptics
-  ];
+  environment.x11Packages = [ pkgs.xorg.xf86inputsynaptics ];
 
   environment.shellInit = ''
-      NIX_PATH=/root/nixos
-      NIX_PATH=$NIX_PATH:nixpkgs=/root/nixpkgs
-      NIX_PATH=$NIX_PATH:nixos=/root/nixos
-      NIX_PATH=$NIX_PATH:nixos-config=/root/nix_configs/nixpad_config.nix
-      NIX_PATH=$NIX_PATH:services=/etc/nixos/services
-      export NIX_PATH
+    NIX_PATH=/root/nixos
+    NIX_PATH=$NIX_PATH:nixpkgs=/root/nixpkgs
+    NIX_PATH=$NIX_PATH:nixos=/root/nixos
+    NIX_PATH=$NIX_PATH:nixos-config=/root/nix_configs/nixpad_config.nix
+    NIX_PATH=$NIX_PATH:services=/etc/nixos/services
+    export NIX_PATH
   '';
 }

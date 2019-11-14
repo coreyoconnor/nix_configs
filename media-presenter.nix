@@ -1,10 +1,8 @@
-{config, pkgs, lib, ...}:
+{ config, pkgs, lib, ... }:
 with lib;
-let
-  cfg = config.media-presenter;
+let cfg = config.media-presenter;
 in {
-  imports =
-  [
+  imports = [
     ./dependencies/retronix
     ./users/media.nix
     # TODO: disable musnix for now
@@ -21,16 +19,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    retronix =
-    {
+    retronix = {
       enable = true;
       user = "media";
     };
 
-    nixpkgs.config =
-    {
-      kodi =
-      {
+    nixpkgs.config = {
+      kodi = {
         enableSteamLauncher = true;
         enableAdvancedLauncher = true;
         enableAdvancedEmulatorLauncher = true;
@@ -40,23 +35,21 @@ in {
       };
     };
 
-  /*
-    musnix =
-    {
-      enable = false;
-      kernel =
-      {
-        latencytop = true;
-        optimize = true;
-        realtime = true;
-        # must match computer linuxPackages version
-        # packages = pkgs.linuxPackages_4_17_rt;
-      };
-    };
+    /* musnix =
+       {
+         enable = false;
+         kernel =
+         {
+           latencytop = true;
+           optimize = true;
+           realtime = true;
+           # must match computer linuxPackages version
+           # packages = pkgs.linuxPackages_4_17_rt;
+         };
+       };
     */
 
-    networking.firewall =
-    {
+    networking.firewall = {
       allowedTCPPorts = [ 8180 9090 ];
       allowedUDPPorts = [ 9777 ];
     };
@@ -85,10 +78,7 @@ in {
       windowManager.default = "pekwm";
     };
 
-    environment.systemPackages = [
-      pkgs.kodi
-      pkgs.kodi-retroarch-advanced-launchers
-      pkgs.retroarch
-    ];
+    environment.systemPackages =
+      [ pkgs.kodi pkgs.kodi-retroarch-advanced-launchers pkgs.retroarch ];
   };
 }

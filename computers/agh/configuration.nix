@@ -1,23 +1,24 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 let
-grrBuildMachines = [
-  {
-    hostName = "grr";
-    sshUser = "nix";
-    sshKey = "/root/.ssh/id_rsa";
-    system = "i686-linux,x86_64-linux";
-    maxJobs = 8;
-    speedFactor = 2;
-  }
-  {
-    hostName = "grr";
-    sshUser = "nix";
-    sshKey = "/root/.ssh/id_rsa";
-    system = "armv6l-linux,armv7l-linux,aarch64-linux,riscv32-linux,riscv64-linux,wasm32-wasi,wasm64-wasi";
-    maxJobs = 2;
-    speedFactor = 1;
-  }
-];
+  grrBuildMachines = [
+    {
+      hostName = "grr";
+      sshUser = "nix";
+      sshKey = "/root/.ssh/id_rsa";
+      system = "i686-linux,x86_64-linux";
+      maxJobs = 8;
+      speedFactor = 2;
+    }
+    {
+      hostName = "grr";
+      sshUser = "nix";
+      sshKey = "/root/.ssh/id_rsa";
+      system =
+        "armv6l-linux,armv7l-linux,aarch64-linux,riscv32-linux,riscv64-linux,wasm32-wasi,wasm64-wasi";
+      maxJobs = 2;
+      speedFactor = 1;
+    }
+  ];
   localIp = "192.168.1.2";
 in {
   system.stateVersion = "18.09";
@@ -44,25 +45,25 @@ in {
   boot = {
     kernelPackages = pkgs.linuxPackages_5_2;
     # kernelParams = ["nomodeset"];
-    kernelParams = ["amdgpu.cik_support=1" "amdgpu.si_support=1"];
+    kernelParams = [ "amdgpu.cik_support=1" "amdgpu.si_support=1" ];
   };
 
   nixpkgs.config = {
-    packageOverrides = in_pkgs : {
+    packageOverrides = in_pkgs: {
       linuxPackages = in_pkgs.linuxPackages_5_2;
       # steam = in_pkgs.steam.override { newStdcpp = true; };
     };
   };
 
-  environment.systemPackages = [
-    pkgs.btrfs-progs
-  ];
+  environment.systemPackages = [ pkgs.btrfs-progs ];
 
   fileSystems = [
-    { mountPoint = "/mnt/non-admin-home/";
+    {
+      mountPoint = "/mnt/non-admin-home/";
       device = "/dev/disk/by-label/home";
     }
-    { mountPoint = "/mnt/storage";
+    {
+      mountPoint = "/mnt/storage";
       device = "/dev/disk/by-label/storage";
     }
   ];
@@ -72,10 +73,8 @@ in {
   hardware.pulseaudio = {
     enable = true;
     support32Bit = true;
-    daemon =
-    {
-      config =
-      {
+    daemon = {
+      config = {
         default-sample-rate = "48000";
         high-priority = "yes";
         realtime-scheduling = "yes";
@@ -92,15 +91,21 @@ in {
     useDHCP = false;
     interfaces.enp1s0 = {
       ipv4 = {
-        addresses = [ { address = localIp; prefixLength = 24; } ];
+        addresses = [{
+          address = localIp;
+          prefixLength = 24;
+        }];
       };
       ipv6 = {
-        addresses = [ { address = "2601:602:9700:f0fc::2"; prefixLength = 64; } ];
+        addresses = [{
+          address = "2601:602:9700:f0fc::2";
+          prefixLength = 64;
+        }];
       };
     };
     defaultGateway = "192.168.1.1";
     firewall = {
-      allowedTCPPorts = [ 445 4999 27036 27037];
+      allowedTCPPorts = [ 445 4999 27036 27037 ];
       allowedUDPPorts = [ 27031 27036 ];
     };
     localCommands = ''
@@ -110,12 +115,8 @@ in {
 
   services.dnsmasq = {
     enable = true;
-    servers = [
-      "1.1.1.1"
-      "2606:4700:4700::1111"
-      "8.8.8.8"
-      "2001:4860:4860::8888"
-    ];
+    servers =
+      [ "1.1.1.1" "2606:4700:4700::1111" "8.8.8.8" "2001:4860:4860::8888" ];
     extraConfig = ''
       no-resolv
       domain-needed
@@ -178,10 +179,8 @@ in {
       guest account = media
       map to guest = bad user
     '';
-    shares =
-    {
-      media =
-      {
+    shares = {
+      media = {
         path = "/mnt/storage/media";
         comment = "Public media";
         "writeable" = true;
@@ -191,9 +190,7 @@ in {
     };
   };
 
-  services.kbfs = {
-    enable = true;
-  };
+  services.kbfs = { enable = true; };
 
   services.nix-serve = {
     enable = true;

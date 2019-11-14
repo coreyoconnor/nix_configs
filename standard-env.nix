@@ -1,13 +1,7 @@
-{config, pkgs, lib, ...}:
-with lib;
-{
-  config =
-  {
-    environment.pathsToLink =
-    [
-      "/share"
-      "/etc/gconf"
-    ];
+{ config, pkgs, lib, ... }:
+with lib; {
+  config = {
+    environment.pathsToLink = [ "/share" "/etc/gconf" ];
 
     environment.shellInit = ''
       export LC_ALL=${config.i18n.defaultLocale}
@@ -27,11 +21,10 @@ with lib;
     users.mutableUsers = true;
     nixpkgs.config.allowUnfree = true;
 
-    nix =
-    {
+    nix = {
       autoOptimiseStore = true;
 
-      binaryCaches = [ http://agh:4999 ];
+      binaryCaches = [ "http://agh:4999" ];
       binaryCachePublicKeys = [
         "agh-1:qqgKseTFXMiOYrm+5LyWz/bKCXahP5KjW1RU6Fph674="
         "grr-1:YxoRaiS/IfOtt/DaNvU8xJ0BXxYI8poimtPhlWIWBAU="

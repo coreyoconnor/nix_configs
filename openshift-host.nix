@@ -1,13 +1,10 @@
-{config, pkgs, lib, ...}:
+{ config, pkgs, lib, ... }:
 with lib;
 let
   cfg = config.openshift-host;
-  baseConfig =
-  {
-    networking =
-    {
-      firewall =
-      {
+  baseConfig = {
+    networking = {
+      firewall = {
         allowedTCPPorts = [ 53 80 443 853 4789 8053 8443 10250 ];
         allowedUDPPorts = [ 53 853 4789 8053 8443 10250 ];
         checkReversePath = false;
@@ -17,10 +14,8 @@ let
     services.haveged.enable = true;
     environment.systemPackages = [ pkgs.openshift pkgs.docker ];
   };
-  openshiftHost =
-  {
-    virtualisation.docker =
-    {
+  openshiftHost = {
+    virtualisation.docker = {
       enable = true;
       # extraOptions = "--insecure-registry 172.30.0.0/16";
     };
@@ -30,8 +25,7 @@ let
     #   roles = ["master" "node"];
     # };
 
-    services.dnsmasq =
-    {
+    services.dnsmasq = {
       resolveLocalQueries = true;
       servers = [
         "/.30.172.in-addr.arpa/192.168.1.2#8053"
@@ -53,17 +47,14 @@ let
     };
   };
 in {
-  options =
-  {
-    openshift-host =
-    {
-      enable = mkOption
-      {
+  options = {
+    openshift-host = {
+      enable = mkOption {
         type = types.bool;
         default = false;
       };
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [baseConfig openshiftHost]);
+  config = mkIf cfg.enable (mkMerge [ baseConfig openshiftHost ]);
 }

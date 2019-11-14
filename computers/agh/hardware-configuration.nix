@@ -4,23 +4,20 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
-    ];
+  imports = [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix> ];
 
-  boot =
-  {
-    initrd.availableKernelModules = [ "xhci_hcd" "ahci" "ohci_pci" "ehci_pci" "usbhid" "usb_storage" ];
+  boot = {
+    initrd.availableKernelModules =
+      [ "xhci_hcd" "ahci" "ohci_pci" "ehci_pci" "usbhid" "usb_storage" ];
     blacklistedKernelModules = [ "radeon" ];
   };
 
-  fileSystems."/" =
-    { device = "/dev/sda2";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/sda2";
+    fsType = "ext4";
+  };
 
-  hardware =
-  {
+  hardware = {
     enableAllFirmware = true;
     enableRedistributableFirmware = true;
   };

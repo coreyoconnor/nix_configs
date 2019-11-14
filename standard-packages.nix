@@ -1,14 +1,11 @@
-{config, pkgs, lib, ...} :
-with lib;
-{
+{ config, pkgs, lib, ... }:
+with lib; {
   config = {
     fonts = {
       fontconfig = {
         enable = true;
         allowBitmaps = false;
-        penultimate = {
-          enable = true;
-        };
+        penultimate = { enable = true; };
       };
       enableFontDir = true;
       enableDefaultFonts = true;

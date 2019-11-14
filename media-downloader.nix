@@ -1,12 +1,9 @@
-{config, pkgs, ...}:
-{
+{ config, pkgs, ... }: {
   networking.firewall.allowedTCPPorts = [ 9091 ];
 
-  services.transmission =
-  {
+  services.transmission = {
     enable = true;
-    settings =
-    {
+    settings = {
       rpc-whitelist = "127.0.0.1,192.168.*.*";
       rpc-host-whitelist-enabled = false;
       download-dir = "/mnt/storage/media/Downloads";
@@ -20,7 +17,8 @@
       speed-limit-up = 100;
       speed-limit-up-enabled = true;
 
-      blocklist-url = "https://www.dropbox.com/s/2f8irg93zgglh2d/blocklist.txt?dl=1";
+      blocklist-url =
+        "https://www.dropbox.com/s/2f8irg93zgglh2d/blocklist.txt?dl=1";
       blocklist-enabled = true;
     };
   };

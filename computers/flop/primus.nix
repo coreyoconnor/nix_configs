@@ -1,12 +1,10 @@
-{ config, pkgs, lib, ... } :
+{ config, pkgs, lib, ... }:
 
 with lib;
 
 {
-  options =
-  {
-    hardware.enableAcerPrimus = mkOption
-    {
+  options = {
+    hardware.enableAcerPrimus = mkOption {
       default = false;
       example = true;
       type = with types; bool;
@@ -16,15 +14,12 @@ with lib;
     };
   };
 
-  config = mkMerge
-  [
-    (mkIf config.hardware.enableAcerPrimus
-    {
+  config = mkMerge [
+    (mkIf config.hardware.enableAcerPrimus {
       hardware.bumblebee.enable = true;
     })
 
-    (mkIf (config.hardware.enableAcerPrimus == false)
-    {
+    (mkIf (config.hardware.enableAcerPrimus == false) {
       hardware.nvidiaOptimus.disable = true;
     })
   ];

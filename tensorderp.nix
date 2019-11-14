@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... } :
+{ config, pkgs, lib, ... }:
 with lib;
 
 # export LD_LIBRARY_PATH=/opengl-lib:$LD_LIBRARY_PATH
@@ -10,102 +10,102 @@ let
   globalUserHomeDir = "/var/lib/jupyter";
   notebookPort = 10020;
   tensorboardPort = 6006;
-  globalJupyterServiceCPU = pkgs.writeShellScript "tensorderp-jupyter-launcher" ''
+  globalJupyterServiceCPU =
+    pkgs.writeShellScript "tensorderp-jupyter-launcher" ''
 
-mkdir -p ${globalUserHomeDir}/notebooks
+      mkdir -p ${globalUserHomeDir}/notebooks
 
-${pkgs.docker}/bin/docker run \
-      -u $UID:$UID \
-      --rm \
-      -v ${globalUserHomeDir}:/notebooks -w /notebooks \
-      -p ${toString notebookPort}:${toString notebookPort} \
-      -p ${toString tensorboardPort}:${toString tensorboardPort} \
-      tensorflow/tensorflow:latest-py3-jupyter \
-      jupyter-notebook \
-        --ip=0.0.0.0 \
-        --no-browser \
-        -y \
-        --notebook-dir=/notebooks \
-        --port=${toString notebookPort} \
-        --port-retries=0 \
-        --NotebookApp.token= \
-        --NotebookApp.password=
-  '';
-  globalJupyterServiceGPU = pkgs.writeShellScript "tensorderp-jupyter-launcher" ''
+      ${pkgs.docker}/bin/docker run \
+            -u $UID:$UID \
+            --rm \
+            -v ${globalUserHomeDir}:/notebooks -w /notebooks \
+            -p ${toString notebookPort}:${toString notebookPort} \
+            -p ${toString tensorboardPort}:${toString tensorboardPort} \
+            tensorflow/tensorflow:latest-py3-jupyter \
+            jupyter-notebook \
+              --ip=0.0.0.0 \
+              --no-browser \
+              -y \
+              --notebook-dir=/notebooks \
+              --port=${toString notebookPort} \
+              --port-retries=0 \
+              --NotebookApp.token= \
+              --NotebookApp.password=
+        '';
+  globalJupyterServiceGPU =
+    pkgs.writeShellScript "tensorderp-jupyter-launcher" ''
 
-mkdir -p ${globalUserHomeDir}/notebooks
+      mkdir -p ${globalUserHomeDir}/notebooks
 
-${pkgs.nvidia-docker}/bin/nvidia-docker run \
-      --gpus all
-      -u $UID:$UID \
-      --rm \
-      -v ${globalUserHomeDir}:/notebooks -w /notebooks \
-      -p ${toString notebookPort}:${toString notebookPort} \
-      -p ${toString tensorboardPort}:${toString tensorboardPort} \
-      tensorflow/tensorflow:latest-gpu-py3-jupyter \
-      jupyter-notebook \
-        --ip=0.0.0.0 \
-        --no-browser \
-        -y \
-        --notebook-dir=/notebooks \
-        --port=${toString notebookPort} \
-        --port-retries=0 \
-        --NotebookApp.token= \
-        --NotebookApp.password=
-  '';
+      ${pkgs.nvidia-docker}/bin/nvidia-docker run \
+            --gpus all
+            -u $UID:$UID \
+            --rm \
+            -v ${globalUserHomeDir}:/notebooks -w /notebooks \
+            -p ${toString notebookPort}:${toString notebookPort} \
+            -p ${toString tensorboardPort}:${toString tensorboardPort} \
+            tensorflow/tensorflow:latest-gpu-py3-jupyter \
+            jupyter-notebook \
+              --ip=0.0.0.0 \
+              --no-browser \
+              -y \
+              --notebook-dir=/notebooks \
+              --port=${toString notebookPort} \
+              --port-retries=0 \
+              --NotebookApp.token= \
+              --NotebookApp.password=
+        '';
   userJupyterServiceCPU = pkgs.writeShellScript "tensorderp-jupyter-launcher" ''
 
-mkdir -p "$HOME/notebooks"
+    mkdir -p "$HOME/notebooks"
 
-${pkgs.docker}/bin/docker run \
-      -u $UID:$UID \
-      --rm \
-      -v "$HOME:/notebooks" -w /notebooks \
-      -p ${toString notebookPort}:${toString notebookPort} \
-      -p ${toString tensorboardPort}:${toString tensorboardPort} \
-      tensorflow/tensorflow:latest-py3-jupyter \
-      jupyter-notebook \
-        --ip=0.0.0.0 \
-        --no-browser \
-        -y \
-        --notebook-dir=/notebooks \
-        --port=${toString notebookPort} \
-        --port-retries=0 \
-        --NotebookApp.token= \
-        --NotebookApp.password=
-  '';
+    ${pkgs.docker}/bin/docker run \
+          -u $UID:$UID \
+          --rm \
+          -v "$HOME:/notebooks" -w /notebooks \
+          -p ${toString notebookPort}:${toString notebookPort} \
+          -p ${toString tensorboardPort}:${toString tensorboardPort} \
+          tensorflow/tensorflow:latest-py3-jupyter \
+          jupyter-notebook \
+            --ip=0.0.0.0 \
+            --no-browser \
+            -y \
+            --notebook-dir=/notebooks \
+            --port=${toString notebookPort} \
+            --port-retries=0 \
+            --NotebookApp.token= \
+            --NotebookApp.password=
+      '';
   userJupyterServiceGPU = pkgs.writeShellScript "tensorderp-jupyter-launcher" ''
 
-mkdir -p "$HOME/notebooks"
-set -ex
+    mkdir -p "$HOME/notebooks"
+    set -ex
 
-${pkgs.nvidia-docker}/bin/nvidia-docker run \
-      --gpus all \
-      -u $UID:$UID \
-      --rm \
-      -v "$HOME:/notebooks" -w /notebooks \
-      -p ${toString notebookPort}:${toString notebookPort} \
-      -p ${toString tensorboardPort}:${toString tensorboardPort} \
-      tensorflow/tensorflow:latest-gpu-py3-jupyter \
-      jupyter-notebook \
-        --ip=0.0.0.0 \
-        --no-browser \
-        -y \
-        --notebook-dir=/notebooks \
-        --port=${toString notebookPort} \
-        --port-retries=0 \
-        --NotebookApp.token= \
-        --NotebookApp.password=
-  '';
-  cudatoolkitOverrides = super: rec {
-    cudatoolkit = super.cudatoolkit_10;
-  };
+    ${pkgs.nvidia-docker}/bin/nvidia-docker run \
+          --gpus all \
+          -u $UID:$UID \
+          --rm \
+          -v "$HOME:/notebooks" -w /notebooks \
+          -p ${toString notebookPort}:${toString notebookPort} \
+          -p ${toString tensorboardPort}:${toString tensorboardPort} \
+          tensorflow/tensorflow:latest-gpu-py3-jupyter \
+          jupyter-notebook \
+            --ip=0.0.0.0 \
+            --no-browser \
+            -y \
+            --notebook-dir=/notebooks \
+            --port=${toString notebookPort} \
+            --port-retries=0 \
+            --NotebookApp.token= \
+            --NotebookApp.password=
+      '';
+  cudatoolkitOverrides = super: rec { cudatoolkit = super.cudatoolkit_10; };
   commonConfig = {
     networking.firewall = {
-        allowedTCPPorts = [ notebookPort tensorboardPort ];
+      allowedTCPPorts = [ notebookPort tensorboardPort ];
     };
 
-    users.groups.jupyter = {};
+    users.groups.jupyter = { };
 
     users.extraUsers.jupyter = {
       createHome = true;
@@ -113,10 +113,7 @@ ${pkgs.nvidia-docker}/bin/nvidia-docker run \
       home = globalUserHomeDir;
       useDefaultShell = true;
     };
-    nixpkgs.config =
-    {
-      packageOverrides = cudatoolkitOverrides;
-    };
+    nixpkgs.config = { packageOverrides = cudatoolkitOverrides; };
   };
   globalConfig = mkIf cfg.global {
     systemd.services."tensorderp-jupyter" = {
@@ -166,5 +163,5 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [commonConfig globalConfig userConfig]);
+  config = mkIf cfg.enable (mkMerge [ commonConfig globalConfig userConfig ]);
 }

@@ -1,17 +1,14 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    ./common-configuration.nix
-  ];
+  imports = [ ./common-configuration.nix ];
 
   config = {
     hardware = {
-    /*
-      opengl = {
-        extraPackages = [ pkgs.mesa_drivers ];
-        extraPackages32 = [ pkgs.pkgsi686Linux.mesa_drivers ];
-      };
+      /* opengl = {
+           extraPackages = [ pkgs.mesa_drivers ];
+           extraPackages32 = [ pkgs.pkgsi686Linux.mesa_drivers ];
+         };
       */
 
       pulseaudio = {
@@ -29,11 +26,7 @@
       };
     };
 
-    nixpkgs = {
-      config = {
-        cudaSupport = true;
-      };
-    };
+    nixpkgs = { config = { cudaSupport = true; }; };
 
     services.xserver = {
       enable = false;
@@ -51,25 +44,22 @@
         BusID "PCI:05:00:00"
       '';
 
-      xrandrHeads = [
-        {
-          output = "DVI-I-1-1";
-          monitorConfig = ''
-            Option "PreferredMode" "2560x1080"
-          '';
-          primary = true;
-        }
-      ];
+      xrandrHeads = [{
+        output = "DVI-I-1-1";
+        monitorConfig = ''
+          Option "PreferredMode" "2560x1080"
+        '';
+        primary = true;
+      }];
 
-      inputClassSections =
-      [ ''
+      inputClassSections = [''
         Identifier "joystick catchall"
         MatchIsJoystick "on"
         MatchDevicePath "/dev/input/event*"
         Driver "joystick"
         Option "StartKeysEnabled" "False"
         Option "StartMouseEnabled" "False"
-      '' ];
+      ''];
 
       screenSection = ''
         Option "metamodes" "nvidia-auto-select +0+0 { ForceCompositionPipeline = On }"

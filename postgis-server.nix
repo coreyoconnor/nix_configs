@@ -1,4 +1,4 @@
-{config, pkgs, lib, ...}:
+{ config, pkgs, lib, ... }:
 with lib;
 let postgresql = pkgs.postgresql_11;
 in {
@@ -18,9 +18,8 @@ in {
     '';
   };
 
-  environment.systemPackages = [
-    (pkgs.osm2pgsql.override { inherit postgresql; })
-  ];
+  environment.systemPackages =
+    [ (pkgs.osm2pgsql.override { inherit postgresql; }) ];
 
   networking.firewall.allowedTCPPorts = [ 5432 ];
 }

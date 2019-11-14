@@ -1,8 +1,7 @@
 # from: http://tobert.github.io/post/2014-06-24-linux-defaults.html
 # comments are quotes from the post.
-{config, pkgs, lib, ...}:
-with lib;
-{
+{ config, pkgs, lib, ... }:
+with lib; {
   boot.kernel.sysctl = {
     # increase the number of allowed mmapped files
     "vm.max_map_count" = 1048576;
@@ -48,15 +47,17 @@ with lib;
     "kernel.msgmnb" = "33554432";
   };
 
-  security.pam.loginLimits = [
-    {
-      domain = "*";
-      type = "-";
-      item = "nofile";
-      value = "1048576";
-    }
-  ] ++ (map (item: { item = item; domain = "*"; type = "-"; value = "unlimited"; })
-  [
+  security.pam.loginLimits = [{
+    domain = "*";
+    type = "-";
+    item = "nofile";
+    value = "1048576";
+  }] ++ (map (item: {
+    item = item;
+    domain = "*";
+    type = "-";
+    value = "unlimited";
+  }) [
     "memlock"
     "fsize"
     "data"

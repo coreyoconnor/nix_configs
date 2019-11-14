@@ -5,8 +5,7 @@ let
 in {
   system.stateVersion = "18.09";
 
-  require =
-  [
+  require = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../desktop.nix
@@ -26,9 +25,7 @@ in {
 
   libvirt-host.enable = true;
 
-  boot = {
-    kernelParams = [ "kvm-intel.nested=1" ];
-  };
+  boot = { kernelParams = [ "kvm-intel.nested=1" ]; };
 
   networking = {
     hostId = "34343134";
@@ -36,44 +33,49 @@ in {
     useDHCP = false;
     useNetworkd = true;
     networkmanager.enable = false;
-    interfaces =
-    {
-      enp10s0 =
-      {
+    interfaces = {
+      enp10s0 = {
         useDHCP = false;
-        ipv4.addresses = [ { address = localIpAlt; prefixLength = 24; } ];
+        ipv4.addresses = [{
+          address = localIpAlt;
+          prefixLength = 24;
+        }];
         ipv6 = {
-          addresses = [ { address = "2601:602:9700:f0fc::17"; prefixLength = 64; } ];
+          addresses = [{
+            address = "2601:602:9700:f0fc::17";
+            prefixLength = 64;
+          }];
         };
       };
-      enp11s0 =
-      {
+      enp11s0 = {
         useDHCP = false;
-        ipv4.addresses = [ { address = localIp; prefixLength = 24; } ];
+        ipv4.addresses = [{
+          address = localIp;
+          prefixLength = 24;
+        }];
         ipv6 = {
-          addresses = [ { address = "2601:602:9700:f0fc::7"; prefixLength = 64; } ];
+          addresses = [{
+            address = "2601:602:9700:f0fc::7";
+            prefixLength = 64;
+          }];
         };
       };
     };
     nameservers = [ "192.168.1.2" "1.1.1.1" ];
     defaultGateway = "192.168.1.1";
-    firewall = {
-        allowedTCPPorts = [ 4999 10000 ];
-    };
+    firewall = { allowedTCPPorts = [ 4999 10000 ]; };
   };
 
   services.openssh = {
     extraConfig = ''
-        UseDNS no
+      UseDNS no
     '';
     forwardX11 = true;
   };
 
   services.journald.console = "/dev/tty12";
 
-  boot.kernel.sysctl = {
-    "vm.nr_hugepages" = 16484;
-  };
+  boot.kernel.sysctl = { "vm.nr_hugepages" = 16484; };
 
   sound.enable = true;
 
@@ -84,9 +86,7 @@ in {
     opengl.enable = true;
   };
 
-  services.kbfs = {
-    enable = true;
-  };
+  services.kbfs = { enable = true; };
 
   users.users.coconnor.packages = [
     pkgs.freecad
@@ -110,8 +110,7 @@ in {
     "/mnt/storage/media" = {
       fsType = "cifs";
       device = "//agh/media";
-      options =
-      [
+      options = [
         "guest"
         "uid=media"
         "gid=users"

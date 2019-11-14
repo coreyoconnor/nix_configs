@@ -1,7 +1,5 @@
-{config, pkgs, ...}:
-{
-  require =
-  [
+{ config, pkgs, ... }: {
+  require = [
     ./config-at-bootstrap.nix
     ../../base.nix
     ../../editorIsVim.nix
@@ -20,12 +18,10 @@
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
 
-  networking =
-  {
+  networking = {
     hostName = "alter"; # must be unique
     useDHCP = false;
-    interfaces.enp0s3 =
-    {
+    interfaces.enp0s3 = {
       ipAddress = "192.168.1.6";
       prefixLength = 24;
       # subnetMask = "255.255.255.0";
@@ -34,14 +30,13 @@
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
   };
 
-  nix.trustedBinaryCaches = ["http://hydra.nixos.org"];
+  nix.trustedBinaryCaches = [ "http://hydra.nixos.org" ];
 
   services.openssh.extraConfig = ''
     UseDNS no
   '';
 
-  services.xserver =
-  {
+  services.xserver = {
     enable = true;
     enableTCP = true;
     exportConfiguration = true;

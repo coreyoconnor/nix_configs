@@ -1,12 +1,19 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
-  ];
+  imports = [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix> ];
 
   boot = {
-    initrd.availableKernelModules = [ "ehci_pci" "ahci" "mpt3sas" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
+    initrd.availableKernelModules = [
+      "ehci_pci"
+      "ahci"
+      "mpt3sas"
+      "xhci_pci"
+      "usbhid"
+      "usb_storage"
+      "sd_mod"
+      "sr_mod"
+    ];
     kernelModules = [ "kvm-intel" ];
     kernelPackages = pkgs.linuxPackages_5_2;
     # kernelPackages = pkgs.linuxPackages_4_19;
@@ -30,20 +37,20 @@
     };
   };
 
-  fileSystems."/" =
-    { device = "rpool/root/grr-1";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "rpool/root/grr-1";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home" =
-    { device = "rpool/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "rpool/home";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/bea4ca24-f511-45eb-b979-3d9d7137079e";
-      fsType = "ext4";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/bea4ca24-f511-45eb-b979-3d9d7137079e";
+    fsType = "ext4";
+  };
 
   nix.maxJobs = 2;
   nix.extraOptions = ''
@@ -51,18 +58,16 @@
   '';
 
   nixpkgs.config = {
-    packageOverrides = in_pkgs : {
+    packageOverrides = in_pkgs: {
       linuxPackages = in_pkgs.linuxPackages_5_2;
       # linuxPackages = in_pkgs.linuxPackages_4_19;
     };
   };
 
-  security.pam.loginLimits = [
-    {
-      domain = "*";
-      type = "soft";
-      item = "nproc";
-      value = "unlimited";
-    }
-  ];
+  security.pam.loginLimits = [{
+    domain = "*";
+    type = "soft";
+    item = "nproc";
+    value = "unlimited";
+  }];
 }

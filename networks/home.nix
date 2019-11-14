@@ -1,7 +1,5 @@
-{config, pkgs, ...}:
-{
-  imports =
-  [
+{ config, pkgs, ... }: {
+  imports = [
     ./known-hosts.nix
     ../users/admin.nix
     ../users/bretto.nix
@@ -11,10 +9,8 @@
     ../users/nix.nix
   ];
 
-  config =
-  {
-    networking =
-    {
+  config = {
+    networking = {
       extraHosts = ''
         192.168.1.2 agh
         192.168.1.3 waffle

@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 with lib;
-let
-  cfg = config.services.foreign-binary-emulation;
+let cfg = config.services.foreign-binary-emulation;
 in {
   options = {
     services.foreign-binary-emulation = {

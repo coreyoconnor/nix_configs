@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... } :
+{ config, pkgs, lib, ... }:
 with lib;
 let
   themes = with pkgs; [
@@ -23,15 +23,10 @@ let
     theme-vertex
   ];
 in {
-  imports = [
-    ./base.nix
-    ./disable-gdm-auto-suspend.nix
-  ];
+  imports = [ ./base.nix ./disable-gdm-auto-suspend.nix ];
 
-  config =
-  {
-    environment.systemPackages = with pkgs;
-    [
+  config = {
+    environment.systemPackages = with pkgs; [
       appimage-run
       desktop_file_utils
       firefox-devedition-bin
@@ -47,10 +42,8 @@ in {
       xdg_utils
     ];
 
-    environment.variables =
-    {
-      GIO_EXTRA_MODULES =
-      [
+    environment.variables = {
+      GIO_EXTRA_MODULES = [
         "${lib.getLib pkgs.gnome3.dconf}/lib/gio/modules"
         "${pkgs.gnome3.glib-networking.out}/lib/gio/modules"
         "${pkgs.gnome3.gvfs}/lib/gio/modules"
@@ -60,70 +53,60 @@ in {
 
       # missing if plasma5 *only* is enabled?
       GTK_DATA_PREFIX = "${config.system.path}";
-      GTK_PATH = [ "${config.system.path}/lib/gtk-3.0" "${config.system.path}/lib/gtk-2.0" ];
+      GTK_PATH = [
+        "${config.system.path}/lib/gtk-3.0"
+        "${config.system.path}/lib/gtk-2.0"
+      ];
 
       # also missing?
       # The treatment of QT_PLUGIN_PATH is a bit of inconsistent mess in NixOS.
       # search for "qtPluginPrefix" for a perspective
-      QT_PLUGIN_PATH =
-      [
+      QT_PLUGIN_PATH = [
         "${pkgs.plasma-desktop}/lib/qt-5.11/plugins/kcms"
         "${pkgs.plasma5.plasma-pa}/lib/qt-5.11/plugins/kcms"
       ];
     };
 
-    hardware =
-    {
-      opengl =
-      {
+    hardware = {
+      opengl = {
         driSupport32Bit = true;
         enable = true;
         # useGLVND = true;
       };
-      pulseaudio =
-      {
+      pulseaudio = {
         enable = true;
         package = pkgs.pulseaudioFull;
         support32Bit = true;
-        daemon.config =
-        {
+        daemon.config = {
           flat-volumes = false;
           lock-memory = true;
         };
       };
     };
 
-    nixpkgs.config.firefox =
-    {
+    nixpkgs.config.firefox = {
       enableGnomeExtensions = true;
       enablePlasmaBrowserIntegration = true;
     };
 
     programs.dconf.enable = true;
 
-    services =
-    {
+    services = {
       fwupd.enable = true;
 
-      gnome3 =
-      {
+      gnome3 = {
         chrome-gnome-shell.enable = true;
         core-shell.enable = true;
       };
 
-      flatpak =
-      {
-        enable = true;
-      };
+      flatpak = { enable = true; };
 
       packagekit.enable = true;
 
-      xserver =
-      {
+      xserver = {
         desktopManager.plasma5.enableQt4Support = true;
         # gnome desktop does not work properly without gdm
-        displayManager.gdm =
-        {
+        displayManager.gdm = {
           enable = true;
           wayland = false;
         };

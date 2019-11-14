@@ -1,4 +1,4 @@
-{ config, pkgs, ... } :
+{ config, pkgs, ... }:
 let androidsdk = pkgs.androidsdk_9_0;
 in {
   config = {
@@ -25,7 +25,8 @@ in {
       cabal.libraryProfiling = true;
 
       haskellPackageOverrides = self: super: {
-        mkDerivation = expr: super.mkDerivation (expr // { enableLibraryProfiling = true; });
+        mkDerivation = expr:
+          super.mkDerivation (expr // { enableLibraryProfiling = true; });
       };
     };
 

@@ -1,15 +1,8 @@
-{ config, pkgs, lib, ... } :
-with lib;
-rec {
-  imports = [
-    ./nixpkgs-config.nix
-    ./foreign-binary-emulation.nix
-  ];
+{ config, pkgs, lib, ... }:
+with lib; rec {
+  imports = [ ./nixpkgs-config.nix ./foreign-binary-emulation.nix ];
 
-  options = {
-  };
+  options = { };
 
-  config = {
-    services.foreign-binary-emulation.enable = true;
-  };
+  config = { services.foreign-binary-emulation.enable = true; };
 }

@@ -4,14 +4,12 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ <nixos/modules/installer/scan/not-detected.nix>
-            ];
+  imports = [ <nixos/modules/installer/scan/not-detected.nix> ];
 
   boot.initrd.availableKernelModules = [ "xhci_hcd" "ehci_hcd" "ahci" ];
   boot.kernelModules = [ "kvm-intel" ];
 
-  fileSystems."/boot" =
-  {
+  fileSystems."/boot" = {
     device = "/dev/sda1";
     fsType = "ext4";
     options = [ "rw" "stripe=4" "data=ordered" "relatime" ];

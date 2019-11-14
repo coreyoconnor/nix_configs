@@ -1,12 +1,12 @@
 # Oh the huge manatee: https://github.com/NixOS/nixpkgs/issues/42053
-{ config, pkgs, lib, ... }:     # disable-gdm-auto-suspend.nix
+{ config, pkgs, lib, ... }: # disable-gdm-auto-suspend.nix
 
 {
-  assertions = [
-    { assertion = config.services.xserver.displayManager.gdm.enable;
-       message = "dont't include disable-gdm-auto-suspend.nix unless GDM is enabled";
-    }
-  ];
+  assertions = [{
+    assertion = config.services.xserver.displayManager.gdm.enable;
+    message =
+      "dont't include disable-gdm-auto-suspend.nix unless GDM is enabled";
+  }];
 
   programs.dconf.enable = true;
 
@@ -22,7 +22,7 @@
       text = ''
         ${pkgs.gnome3.dconf}/bin/dconf update
       '';
-      deps = [];
+      deps = [ ];
     };
   };
 }

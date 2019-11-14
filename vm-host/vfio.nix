@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... } :
+{ config, pkgs, lib, ... }:
 
 with lib;
 let
@@ -15,79 +15,63 @@ let
       fi
     done
   '';
-  commonParams = [ "iommu=1" "kvm.emulate_invalid_guest_state=1" "kvm.ignore_msrs=1" ];
-  iommuParamsFor =
-  {
-    intel = [ "intel_iommu=on" ];
-  };
+  commonParams =
+    [ "iommu=1" "kvm.emulate_invalid_guest_state=1" "kvm.ignore_msrs=1" ];
+  iommuParamsFor = { intel = [ "intel_iommu=on" ]; };
   iommuParams = iommuParamsFor.${cfg.iommu};
   bootBindPciIds = cfg.bootBinds ++ cfg.nvidiaBinds;
   vfioPciIdsParam = "vfio_pci.ids=" + (concatStringsSep "," bootBindPciIds);
   bootBindParams = [ vfioPciIdsParam ];
   nvidiaParams = if length cfg.nvidiaBinds > 0 then [ "nomodeset" ] else [ ];
   kernelParams = commonParams ++ iommuParams ++ bootBindParams ++ nvidiaParams;
-  blacklistedNvidiaModules = if length cfg.nvidiaBinds > 0 then [ "nouveau" ] else [ ];
+  blacklistedNvidiaModules =
+    if length cfg.nvidiaBinds > 0 then [ "nouveau" ] else [ ];
   blacklistedKernelModules = blacklistedNvidiaModules;
 in {
-  options =
-  {
-    vmhost.vfio =
-    {
-      enable = mkOption
-      {
+  options = {
+    vmhost.vfio = {
+      enable = mkOption {
         type = types.bool;
         default = false;
       };
 
-      forceBinds = mkOption
-      {
+      forceBinds = mkOption {
         type = types.listOf types.string;
-        default = [];
+        default = [ ];
         example = [ "0000:08:00.0" ];
       };
 
-      bootBinds = mkOption
-      {
+      bootBinds = mkOption {
         type = types.listOf types.string;
-        default = [];
+        default = [ ];
         example = [ "10de:17c8" ];
       };
 
-      iommu = mkOption
-      {
+      iommu = mkOption {
         type = types.enum [ "none" "intel" ];
         default = "none";
         example = "intel";
       };
 
-      nvidiaBinds = mkOption
-      {
+      nvidiaBinds = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "10de:17c8" "10de:0fb0" ];
       };
     };
   };
 
-  config = mkIf cfg.enable
-  {
-    boot =
-    {
+  config = mkIf cfg.enable {
+    boot = {
       kernelModules =
-      [
-        "vfio"
-        "vfio_pci"
-        "vfio_iommu_type1"
-        "vfio_virqfd"
-        "pci_stub"
-      ];
+        [ "vfio" "vfio_pci" "vfio_iommu_type1" "vfio_virqfd" "pci_stub" ];
 
       inherit blacklistedKernelModules kernelParams;
     };
 
-    systemd.services.vfio-force-binds =
-    {
-      description = "Forcefully unbinds the given PCI devices then binds to VFIO";
+    systemd.services.vfio-force-binds = {
+      description =
+        "Forcefully unbinds the given PCI devices then binds to VFIO";
       before = [ "libvirtd.service" ];
       wantedBy = [ "libvirtd.service" ];
       after = [ "systemd-udev-settle.service" ];
@@ -95,8 +79,7 @@ in {
       restartIfChanged = false;
 
       path = [ pkgs.pciutils ];
-      serviceConfig =
-      {
+      serviceConfig = {
         Type = "oneshot";
         Restart = "no";
         User = "root";

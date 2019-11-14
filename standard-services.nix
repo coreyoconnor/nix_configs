@@ -1,6 +1,5 @@
-{config, pkgs, lib, ...}:
-with lib;
-{
+{ config, pkgs, lib, ... }:
+with lib; {
   config = {
     boot.blacklistedKernelModules = [ "snd_pcsp" ];
 
@@ -24,21 +23,16 @@ with lib;
       udisks2.enable = true;
       upower.enable = true;
       acpid.enable = true;
-      openssh = {
-        enable = true;
-      };
+      openssh = { enable = true; };
       nixosManual.showManual = true;
 
       syslogd.extraConfig = ''
-          user.* /var/log/user
+        user.* /var/log/user
       '';
 
       xfs.enable = false;
     };
 
-    systemd.tmpfiles.rules = [
-      "R /tmp/nix* - - - 60d"
-      "R! /tmp/* - - - 6m"
-    ];
+    systemd.tmpfiles.rules = [ "R /tmp/nix* - - - 60d" "R! /tmp/* - - - 6m" ];
   };
 }
