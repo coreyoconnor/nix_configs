@@ -13,14 +13,18 @@ let
     virtualisation.virtualbox.host.enable = false;
     virtualisation.libvirtd.enable = true;
 
+    environment.shellInit = ''
+      export LIBVIRT_DEFAULT_URI=qemu:///system
+    '';
+
     # duplicated here for explicitness
     environment.systemPackages = with pkgs; [
-      ansible
       docker-machine-kvm
       libvirt
       qemu
       vagrant
     ];
+
     services.nfs.server.enable = true;
 
     networking.firewall.extraCommands = ''
@@ -30,9 +34,9 @@ let
   };
   shareInit = {
     system.activationScripts.libvirtShareDir = ''
-      mkdir -p ${cfg.shareDir}
-      chown root:libvirtd ${cfg.shareDir}
-      chmod 770 ${cfg.shareDir}
+      mkdir -p ${cfg.share-dir}
+      chown root:libvirtd ${cfg.share-dir}
+      chmod 770 ${cfg.share-dir}
     '';
   };
 in {
@@ -45,7 +49,7 @@ in {
         default = false;
       };
 
-      shareDir = mkOption {
+      share-dir = mkOption {
         type = types.string;
         default = "/var/lib/libvirt/images";
       };

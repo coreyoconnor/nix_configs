@@ -2,21 +2,22 @@
 let androidsdk = pkgs.androidsdk_9_0;
 in {
   config = {
-    # TODO: Just using pkgs.jdk with icedtea will point to a directory without
-    # a proper lib directory. EG: tools.jar is missing.
     environment.shellInit = ''
       export ANDROID_HOME=${androidsdk}
-      export JAVA_HOME=${pkgs.jdk}/lib/openjdk
+      export JAVA_HOME=${pkgs.jdk}
     '';
 
     environment.systemPackages = with pkgs; [
       ammonite
       androidsdk
+      ansible
       maven3
       jdk
       metals
+      qemu
       sbt
       scala
+      vagrant
     ];
 
     nixpkgs.config = {
