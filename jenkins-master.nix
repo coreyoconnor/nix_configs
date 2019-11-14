@@ -14,6 +14,7 @@ let
       nix
       openshift
       openssh
+      procps
       qemu
       rsync
       stdenv
