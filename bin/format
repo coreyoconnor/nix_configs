@@ -3,3 +3,13 @@ PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
 source "${PROJECT_DIR}/bin/.common.sh"
 
 nixfmt=$(nix-build nixpkgs --no-out-link -A pkgs.nixfmt)
+
+(
+    cd "$PROJECT_DIR"
+    find . \
+      -path './nixpkgs' -prune \
+      -o -path './dependencies' -prune \
+      -o -path './musnix' -prune \
+      -o -path './nix-org' -prune \
+      -o -type f -name '*.nix' -print0 | xargs -0 $nixfmt/bin/nixfmt
+)
