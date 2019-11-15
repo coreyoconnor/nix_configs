@@ -126,6 +126,7 @@ in {
       dnssec
       bind-interfaces
       interface=enp1s0
+      listen-address=::1,127.0.0.1,192.168.1.2
     '';
   };
 
