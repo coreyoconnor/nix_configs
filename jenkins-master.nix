@@ -11,6 +11,7 @@ let
       git
       gzip
       libvirt
+      nfs-utils
       nix
       openshift
       openssh
