@@ -7,7 +7,10 @@ let
 
     networking = { firewall = { checkReversePath = false; }; };
 
-    services.haveged.enable = true;
+    services.haveged = {
+      enable = true;
+      refill_threshold = 2048;
+    };
   };
   libvirtHost = {
     virtualisation.virtualbox.host.enable = false;

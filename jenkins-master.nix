@@ -18,6 +18,7 @@ let
       qemu
       rsync
       stdenv
+      utillinux
       vagrant
       xorg.xorgserver
     ];
@@ -34,8 +35,10 @@ in {
       ''
         -Dhudson.model.DirectoryBrowserSupport.CSP="default-src 'self'; script-src 'self' 'unsafe-inline' ajax.googleapis.com cdnjs.cloudflare.com netdna.bootstrapcdn.com; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com netdna.bootstrapcdn.com; font-src 'self' netdna.bootstrapcdn.com; img-src 'self' data:"''
     ];
-    # a pkgs.jdk in builderPackages is not longer included in bin. nixpkgs bug
     packages = [ pkgs.jdk builderPackages ];
+    scriptPrefix = ''
+      export PATH=/run/wrappers/bin:$PATH
+    '';
   };
 
   networking = { firewall.allowedTCPPorts = [ 8080 53251 ]; };

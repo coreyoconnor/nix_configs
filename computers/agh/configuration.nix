@@ -124,6 +124,8 @@ in {
       cache-size=1000
       conf-file=${pkgs.dnsmasq}/share/dnsmasq/trust-anchors.conf
       dnssec
+      bind-interfaces
+      interface=enp1s0
     '';
   };
 
