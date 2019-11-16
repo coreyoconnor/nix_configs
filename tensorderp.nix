@@ -54,6 +54,7 @@ let
       environment = {
         LD_LIBRARY_PATH = "/run/opengl-driver";
       };
+      path = [ pkgs.python3 ];
       serviceConfig = {
         UMask = "0002";
       };
