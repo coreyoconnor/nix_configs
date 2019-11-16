@@ -15,6 +15,7 @@ with pkgs.lib; {
         "wheel"
         "vboxusers"
         "libvirtd"
+        "jupyter"
         "transmission"
         "plugdev"
         "audio"

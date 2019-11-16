@@ -24,6 +24,7 @@ in {
   ];
 
   libvirt-host.enable = true;
+  services.tensorderp.enable = true;
 
   boot = { kernelParams = [ "kvm-intel.nested=1" ]; };
 
