@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
 source "${PROJECT_DIR}/bin/.common.sh"
-nix-build --builders '' nixpkgs --show-trace -K -A "$@"
+nix-build --show-trace --builders '' "${PROJECT_DIR}/nixpkgs/pkgs/top-level/impure.nix" \
+                           -K -A "$@"

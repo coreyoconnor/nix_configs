@@ -2,9 +2,27 @@
 with lib;
 let
   cfg = config.services.tensorderp;
+  jupyterConfig = config.services.jupyter;
   notebookPort = 10020;
+  shareGroup = "jupyter";
   tensorboardPort = 6006;
-  commonConfig = {
+  setupNotebookDir = ''
+    mkdir -p "${jupyterConfig.notebookDir}"
+    chown ${jupyterConfig.user}:${shareGroup} "${jupyterConfig.notebookDir}"
+    chmod ug+rwx "${jupyterConfig.notebookDir}"
+    chmod g+s "${jupyterConfig.notebookDir}"
+  '';
+in {
+  options = {
+    services.tensorderp = {
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+      };
+    };
+  };
+
+  config = mkIf cfg.enable {
     networking.firewall = {
       allowedTCPPorts = [ notebookPort tensorboardPort ];
     };
@@ -21,16 +39,12 @@ let
                     gdal
                     numpy
                     scikitimage
-                    (tensorflowWithCuda.override {
-                      avxSupport = true;
-                      cudaCapabilities = [ "3.0" ];
-                      sse41Support = true;
-                      sse42Support = true;
-                      xlaSupport = false;
-                    })
+                    setuptools
+                    pkgs.tensorflowWithCudaCompute3
+                    pkgs.tensorflow-datasets
                   ]));
           in {
-            displayName = "Python 3 with machine learning prelude";
+            displayName = "Python 3";
             argv = [
               env.interpreter
               "-m"
@@ -39,6 +53,7 @@ let
               "{connection_file}"
             ];
             language = "python";
+            # TODO: invalid type error with the icons included
             # logo32 = "${env.sitePackages}/ipykernel/resources/logo-32x32.png";
             # logo64 = "${env.sitePackages}/ipykernel/resources/logo-64x64.png";
           };
@@ -51,33 +66,14 @@ let
     };
     users.extraUsers.jupyter.extraGroups = [ "docker" ];
     systemd.services.jupyter = {
-      environment = {
-        LD_LIBRARY_PATH = "/run/opengl-driver";
-      };
-      path = [ pkgs.python3 ];
+      #environment = {
+      #  LD_LIBRARY_PATH = "/run/opengl-driver";
+      #};
+      path = [ pkgs.python3 pkgs.python3Packages.pip ];
+      preStart = setupNotebookDir;
       serviceConfig = {
         UMask = "0002";
       };
     };
   };
-  globalConfig = mkIf cfg.global {
-  };
-  userConfig = mkIf (!cfg.global) {
-  };
-in {
-  options = {
-    services.tensorderp = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
-
-      global = mkOption {
-        type = types.bool;
-        default = false;
-      };
-    };
-  };
-
-  config = mkIf cfg.enable (mkMerge [ commonConfig globalConfig userConfig ]);
 }
