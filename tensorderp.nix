@@ -34,6 +34,7 @@ in {
           python3 = let
             env = (pkgs.python3.withPackages (ps: with ps; [
                     ipykernel
+                    ipywidgets
                     pandas
                     scikitlearn
                     gdal
