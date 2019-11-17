@@ -11,6 +11,10 @@ let
     chown ${jupyterConfig.user}:${shareGroup} "${jupyterConfig.notebookDir}"
     chmod ug+rwx "${jupyterConfig.notebookDir}"
     chmod g+s "${jupyterConfig.notebookDir}"
+    mkdir -p ~/.jupyter/nbconfig/notebook.d/
+    mkdir -p ~/.local/share/jupyter/runtime
+    cp -f ${pkgs.python3Packages.widgetsnbextension}/etc/jupyter/nbconfig/notebook.d/*.json \
+       ~/.jupyter/nbconfig/notebook.d/
   '';
 in {
   options = {
@@ -35,6 +39,7 @@ in {
             env = (pkgs.python3.withPackages (ps: with ps; [
                     ipykernel
                     ipywidgets
+                    widgetsnbextension
                     pandas
                     scikitlearn
                     gdal
@@ -63,15 +68,16 @@ in {
       notebookConfig = ''
         c.NotebookApp.token = ""
       '';
+      notebookDir = "/var/lib/jupyter";
       password = "''";
     };
     users.extraUsers.jupyter.extraGroups = [ "docker" ];
     systemd.services.jupyter = {
-      #environment = {
-      #  LD_LIBRARY_PATH = "/run/opengl-driver";
-      #};
-      path = [ pkgs.python3 pkgs.python3Packages.pip ];
       preStart = setupNotebookDir;
+      environment = {
+        # JUPYTER_DATA_DIR = "${pkgs.python3Packages.widgetsnbextension}/share/jupyter";
+        # JUPYTER_RUNTIME_DIR = "~/.local/share/jupyter/runtime";
+      };
       serviceConfig = {
         UMask = "0002";
       };
