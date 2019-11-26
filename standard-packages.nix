@@ -38,7 +38,6 @@ with lib; {
       gcc
       gdb
       gettext
-      git
       glib
       glibcLocales
       gnumake

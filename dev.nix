@@ -11,9 +11,11 @@ in {
       ammonite
       androidsdk
       ansible
+      git
       maven3
       jdk
       metals
+      operator-sdk
       qemu
       sbt
       scala
