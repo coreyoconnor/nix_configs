@@ -14,6 +14,7 @@ in {
     ../../jenkins-node.nix
     ../../i18n.nix
     ../../networks/home.nix
+    ../../openshift-host.nix
     ../../standard-env.nix
     ../../standard-packages.nix
     ../../standard-services.nix
@@ -24,6 +25,7 @@ in {
   ];
 
   libvirt-host.enable = true;
+  openshift-host.enable = false;
   services.tensorderp.enable = true;
 
   boot = { kernelParams = [ "kvm-intel.nested=1" ]; };

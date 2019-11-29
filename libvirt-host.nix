@@ -5,7 +5,7 @@ let
   baseConfig = {
     boot = { kernelModules = [ "virtio" ]; };
 
-    networking = { firewall = { checkReversePath = false; }; };
+    networking = { firewall = { allowedTCPPorts = [ 16509 ]; checkReversePath = false; }; };
 
     services.haveged = {
       enable = true;
@@ -14,7 +14,19 @@ let
   };
   libvirtHost = {
     virtualisation.virtualbox.host.enable = false;
-    virtualisation.libvirtd.enable = true;
+    virtualisation.libvirtd = {
+      enable = true;
+      extraConfig = ''
+        listen_tls = 0
+        listen_tcp = 1
+        auth_tcp="none"
+        tcp_port = "16509"
+      '';
+      extraOptions = [ "--listen" ];
+      qemuVerbatimConfig = ''
+        security_driver = "none"
+      '';
+    };
 
     environment.shellInit = ''
       export LIBVIRT_DEFAULT_URI=qemu:///system
