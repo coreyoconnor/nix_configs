@@ -104,7 +104,6 @@ in {
       packagekit.enable = true;
 
       xserver = {
-        desktopManager.plasma5.enableQt4Support = true;
         # gnome desktop does not work properly without gdm
         displayManager.gdm = {
           enable = true;
