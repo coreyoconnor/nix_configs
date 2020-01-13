@@ -1,4 +1,8 @@
 self: super: rec {
+  mesa = super.mesa.override {
+    galliumDrivers = [ "auto" "swr" ];
+  };
+
   xspice-server-config = self.writeTextFile {
     name = "xspice-server.conf";
     text = ''
@@ -47,8 +51,7 @@ self: super: rec {
       # Prevent udev from loading vmmouse in a vm and crashing.
       Section "ServerFlags"
           Option "AutoAddDevices" "False"
-          Option "EnableSurfaces" "True"
-          Option "EnableImageCache" "True"
+          Option "NumHeads" "1"
       EndSection
     '';
   };
@@ -83,16 +86,18 @@ self: super: rec {
     export LD_LIBRARY_PATH=${self.mesa_drivers}/lib:${self.pkgsi686Linux.mesa_drivers}/lib:$LD_LIBRARY_PATH
     export MANPATH=${self.xlibs.setxkbmap}/share/man:$MANPATH
     export PATH=${self.xlibs.setxkbmap}/bin:$PATH
+    export GALLIUM_DRIVER=llvmpipe
     exec ${self.xspice}/bin/Xspice -logfile ./XSpice.log --config ${xspice-server-config} "$@"
   '';
 
-  xspice-session = self.writeShellScriptBin "xspice-session" ''
-    exec ${xspice-session-wrapper}/bin/xspice-session-wrapper xterm
+  df-xspice-session = self.writeShellScriptBin "xspice-session" ''
+    exec ${xspice-session-wrapper}/bin/xspice-session-wrapper \
+      ${self.dwarf-fortress-packages.dwarf-fortress-full}/bin/dwarf-fortress
   '';
 
-  xspice-serve = self.writeShellScriptBin "xspice-serve" ''
+  df-server = self.writeShellScriptBin "df-server" ''
     exec ${xspice-server}/bin/xspice-server \
          --port 10000 --disable-ticketing :1.0 \
-         --xsession ${xspice-session}/bin/xspice-session
+         --xsession ${df-xspice-session}/bin/xspice-session
   '';
 }
