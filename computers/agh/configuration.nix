@@ -57,16 +57,17 @@ in {
 
   environment.systemPackages = [ pkgs.btrfs-progs ];
 
-  fileSystems = [
-    {
+  fileSystems = {
+    non-admin-home = {
       mountPoint = "/mnt/non-admin-home/";
       device = "/dev/disk/by-label/home";
-    }
-    {
+    };
+
+    storage = {
       mountPoint = "/mnt/storage";
       device = "/dev/disk/by-label/storage";
-    }
-  ];
+    };
+  };
 
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;

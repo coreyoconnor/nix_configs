@@ -32,7 +32,6 @@
       enable = false;
 
       desktopManager = {
-        default = "none";
         gnome3.enable = true;
         plasma5.enable = false;
       };
