@@ -43,14 +43,14 @@ in {
   libvirt-host.enable = true;
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_3;
+    kernelPackages = pkgs.linuxPackages_5_4;
     # kernelParams = ["nomodeset"];
     kernelParams = [ "amdgpu.cik_support=1" "amdgpu.si_support=1" ];
   };
 
   nixpkgs.config = {
     packageOverrides = in_pkgs: {
-      linuxPackages = in_pkgs.linuxPackages_5_3;
+      linuxPackages = in_pkgs.linuxPackages_5_4;
       # steam = in_pkgs.steam.override { newStdcpp = true; };
     };
   };

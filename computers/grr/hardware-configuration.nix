@@ -15,7 +15,7 @@
       "sr_mod"
     ];
     kernelModules = [ "kvm-intel" ];
-    kernelPackages = pkgs.linuxPackages_5_3;
+    kernelPackages = pkgs.linuxPackages_5_4;
     extraModulePackages = [ ];
 
     loader.grub = {
@@ -58,7 +58,7 @@
 
   nixpkgs.config = {
     packageOverrides = in_pkgs: {
-      linuxPackages = in_pkgs.linuxPackages_5_3;
+      linuxPackages = in_pkgs.linuxPackages_5_4;
     };
   };
 
