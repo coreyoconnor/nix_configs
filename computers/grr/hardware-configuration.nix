@@ -68,4 +68,6 @@
     item = "nproc";
     value = "unlimited";
   }];
+
+  hardware.nvidia.nvidiaPersistenced = true;
 }
