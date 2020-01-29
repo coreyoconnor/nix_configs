@@ -16,6 +16,7 @@
     ];
     kernelModules = [ "kvm-intel" ];
     kernelPackages = pkgs.linuxPackages_5_4;
+    kernelParams = [ "kvm-intel.nested=1" "pcie_aspm=off" "rcutree.rcu_idle_gp_delay=1" ];
     extraModulePackages = [ ];
 
     loader.grub = {
