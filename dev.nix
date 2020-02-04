@@ -11,11 +11,14 @@ in {
       ammonite
       androidsdk
       ansible
+      buildah
       git
-      maven3
       jdk
+      maven3
       metals
       operator-sdk
+      podman
+      python3Packages.pip
       qemu
       sbt
       scala
