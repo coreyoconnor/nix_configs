@@ -11,16 +11,20 @@ in {
       ammonite
       androidsdk
       ansible
+      ansible-python-support
       buildah
+      conmon
+      fuse-overlayfs
       git
       jdk
       maven3
       metals
       operator-sdk
       podman
-      python3Packages.pip
       qemu
+      runc
       sbt
+      slirp4netns
       scala
       vagrant
     ];
@@ -40,5 +44,40 @@ in {
       enable = true;
       autoPrune.enable = true;
     };
+
+    environment.etc."containers/policy.json" = {
+      mode="0644";
+      text=''
+        {
+          "default": [
+            {
+              "type": "insecureAcceptAnything"
+            }
+          ],
+          "transports":
+          {
+            "docker-daemon":
+            {
+              "": [{"type":"insecureAcceptAnything"}]
+            }
+          }
+        }
+      '';
+    };
+
+    environment.etc."containers/registries.conf" = {
+      mode="0644";
+      text=''
+        [registries.search]
+          registries = ['docker.io', 'quay.io']
+      '';
+    };
+
+    /*
+    virtualisation.cri-o = {
+      enable = true;
+      storageDriver = "vfs";
+    };
+    */
   };
 }

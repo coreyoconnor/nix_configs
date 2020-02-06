@@ -1,7 +1,11 @@
 self: super:
 let
   ansible-pythonpath = self.python3Packages.makePythonPath [
-    super.ansible self.python3Packages.urllib3 self.openshift-python-client
+    super.ansible self.python3Packages.urllib3 self.python3Packages.docker self.openshift-python-client
+  ];
+  ansible-python-support-pkgs = python-packages: with python-packages; [
+    pip
+    virtualenvwrapper
   ];
 in rec {
   ansible = self.python3Packages.toPythonApplication (self.python3Packages.ansible.overridePythonAttrs(old: rec {
@@ -10,6 +14,8 @@ in rec {
     ];
     makeWrapperArgs = [ "--set PYTHONPATH ${ansible-pythonpath}" ];
   }));
+
+  ansible-python-support = self.python3.withPackages ansible-python-support-pkgs;
 
   python-dictdiffer = self.python3Packages.buildPythonPackage rec {
     pname = "dictdiffer";

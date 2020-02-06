@@ -6,7 +6,7 @@ with pkgs.lib; {
     gid = 10001;
   }];
 
-  users.extraUsers = {
+  users.users = {
     coconnor = {
       createHome = false;
       uid = 1100;
@@ -26,6 +26,12 @@ with pkgs.lib; {
       home = "/home/coconnor";
       shell = pkgs.bashInteractive + "/bin/bash";
       openssh.authorizedKeys.keyFiles = [ ./ssh/coconnor.pub ];
+      subUidRanges = [
+        { startUid = 100000; count = 65536; }
+      ];
+      subGidRanges = [
+        { startGid = 100000; count = 65536; }
+      ];
     };
   };
 }
