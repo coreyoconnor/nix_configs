@@ -56,18 +56,20 @@ in {
 
     services.xserver = {
       enable = true;
-      autostart = true;
+      autorun = true;
 
       displayManager = {
-        slim = {
+        lightdm = {
           enable = true;
-          defaultUser = "media";
-          autoLogin = true;
+          autoLogin = {
+            enable = true;
+            user = "media";
+          };
         };
       };
 
       desktopManager = {
-        kodi.enable = true;
+        # kodi.enable = true;
         # default = "kodi";
         default = "retronix";
       };
@@ -79,6 +81,6 @@ in {
     };
 
     environment.systemPackages =
-      [ pkgs.kodi pkgs.kodi-retroarch-advanced-launchers pkgs.retroarch ];
+      [ pkgs.retroarch ];
   };
 }

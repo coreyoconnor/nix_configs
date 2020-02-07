@@ -10,7 +10,14 @@
   boot.kernelModules = [ "kvm-intel" "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
-  swapDevices = [ ];
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/7f88268b-ead9-49b7-9e72-21b4df8ffa91"; }
+    ];
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    options = [ "rw" "data=ordered" "relatime" ];
+    fsType = "ext4";
+};
 
   nix.maxJobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
