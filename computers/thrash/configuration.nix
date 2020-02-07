@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  require = [
+  imports = [
     ./config-at-bootstrap.nix
     ../../base.nix
     ../../editorIsVim.nix
