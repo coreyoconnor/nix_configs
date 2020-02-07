@@ -13,7 +13,7 @@
     ../../udev.nix
   ];
 
-  options = {
+  config = {
     networking.interfaces.enp2s0f0.useDHCP = true;
   };
 }
