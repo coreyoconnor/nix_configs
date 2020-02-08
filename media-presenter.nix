@@ -43,30 +43,31 @@ in {
       allowedUDPPorts = [ 9777 ];
     };
 
-    services.xserver = {
-      enable = true;
-      autorun = true;
+    services = {
+      das_watchdog.enable = true;
 
-      displayManager = {
-        lightdm = {
-          enable = true;
-          autoLogin = {
+      xserver = {
+        enable = true;
+        autorun = true;
+
+        displayManager = {
+          defaultSession = "retronix+pekwm";
+
+          lightdm = {
             enable = true;
-            user = "media";
-            timeout = 0;
+            autoLogin = {
+              enable = true;
+              user = "media";
+              timeout = 0;
+            };
+            greeter.enable = false;
           };
-          greeter.enable = false;
         };
+
+        libinput.enable = true;
+
+        windowManager.pekwm.enable = true;
       };
-
-      desktopManager = {
-        default = "retronix";
-      };
-
-      libinput.enable = true;
-
-      windowManager.pekwm.enable = true;
-      windowManager.default = "pekwm";
     };
 
     environment.systemPackages =
