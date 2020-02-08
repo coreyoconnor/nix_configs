@@ -24,17 +24,6 @@ in {
       user = "media";
     };
 
-    nixpkgs.config = {
-      kodi = {
-        enableSteamLauncher = true;
-        enableAdvancedLauncher = true;
-        enableAdvancedEmulatorLauncher = true;
-        # enableControllers = true;
-        enableControllers = false;
-        enableJoystick = true;
-      };
-    };
-
     /* musnix =
        {
          enable = false;
@@ -64,13 +53,13 @@ in {
           autoLogin = {
             enable = true;
             user = "media";
+            timeout = 0;
           };
+          greeter.enable = false;
         };
       };
 
       desktopManager = {
-        # kodi.enable = true;
-        # default = "kodi";
         default = "retronix";
       };
 
