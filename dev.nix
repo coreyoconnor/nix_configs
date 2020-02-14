@@ -26,6 +26,7 @@ in {
       sbt
       slirp4netns
       scala
+      s2i
       vagrant
     ];
 
