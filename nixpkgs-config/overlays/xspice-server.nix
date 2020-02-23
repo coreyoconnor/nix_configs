@@ -92,7 +92,7 @@ self: super: rec {
 
   df-xspice-session = self.writeShellScriptBin "xspice-session" ''
     exec ${xspice-session-wrapper}/bin/xspice-session-wrapper \
-      ${self.dwarf-fortress-packages.dwarf-fortress_0_47_01}/bin/dwarf-fortress
+      ${self.dwarf-fortress-packages.dwarf-fortress_0_47_02}/bin/dwarf-fortress
   '';
 
   df-server = self.writeShellScriptBin "df-server" ''
