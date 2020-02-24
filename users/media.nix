@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 with pkgs.lib; {
-  users.extraUsers = {
+  users.users = {
     media = {
       createHome = true;
       uid = 1001;

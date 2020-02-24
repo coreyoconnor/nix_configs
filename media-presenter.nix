@@ -23,6 +23,12 @@ in {
       enable = true;
       user = "media";
     };
+    hardware.pulseaudio = {
+      # enable = false;
+      extraClientConf = ''
+        autospawn=yes
+      '';
+    };
 
     /* musnix =
        {
@@ -71,6 +77,6 @@ in {
     };
 
     environment.systemPackages =
-      [ pkgs.retroarch ];
+      [ pkgs.retroarch pkgs.glxinfo ];
   };
 }

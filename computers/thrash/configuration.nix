@@ -46,10 +46,24 @@ in {
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio = {
-    enable = true;
+    # enable = true;
     support32Bit = true;
   };
-  sound.enable = true;
+  sound = {
+    enable = true;
+    extraConfig = ''
+      pcm.!default {
+        type hw
+        card 0
+        device 8
+      }
+      ctl.!default {
+        type hw
+        card 0
+        device 8
+      }
+    '';
+  };
   fileSystems = {
     "/mnt/storage/media" = {
       fsType = "cifs";
