@@ -51,6 +51,7 @@ in {
     enable = true;
     driSupport32Bit = true;
     extraPackages = with pkgs; [
+      beignet
       vaapiIntel
       vaapiVdpau
       libvdpau-va-gl
@@ -107,7 +108,7 @@ in {
   };
 
   services.xserver = {
-    videoDrivers = [ "intel" "modesetting" "vesa" ];
+    videoDrivers = [ "modesetting" "vesa" ];
   };
 };
 }
