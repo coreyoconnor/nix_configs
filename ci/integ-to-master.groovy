@@ -69,8 +69,7 @@ pipeline {
                 checkout([
                     $class: 'GitSCM',
                     branches: [
-                        [name: 'nix_configs/dev**'],
-                        [name: 'nix_configs/master']
+                        [name: 'nix_configs/dev**']
                     ],
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [
