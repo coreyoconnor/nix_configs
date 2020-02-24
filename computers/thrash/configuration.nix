@@ -18,6 +18,10 @@ in {
   ];
 
   config = {
+  boot.kernelModules = [
+    "i915"
+  ];
+
   media-presenter.enable = true;
 
   services.openssh = {
@@ -43,12 +47,30 @@ in {
     defaultGateway = "192.168.1.1";
     nameservers = [ "192.168.1.2" "1.1.1.1" ];
   };
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+      intel-media-driver
+    ];
+
+    package = (pkgs.mesa.override {
+      galliumDrivers = [ "nouveau" "virgl" "swrast" "iris" ];
+    }).drivers;
+  };
+
+  environment.variables = {
+    MESA_LOADER_DRIVER_OVERRIDE = "iris";
+  };
+
   hardware.pulseaudio = {
-    # enable = true;
+    enable = false;
     support32Bit = true;
   };
+
   sound = {
     enable = true;
     extraConfig = ''
@@ -85,7 +107,7 @@ in {
   };
 
   services.xserver = {
-    videoDrivers = [ "i915" "vesa" "modesetting" ];
+    videoDrivers = [ "intel" "modesetting" "vesa" ];
   };
 };
 }
