@@ -73,6 +73,10 @@ in {
     firewall = { allowedTCPPorts = [ 4999 8000 10000 ]; };
   };
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.0.2u"
+  ];
+
   services.openssh = {
     extraConfig = ''
       UseDNS no
