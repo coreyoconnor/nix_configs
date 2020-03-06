@@ -98,6 +98,7 @@ self: super: rec {
   df-server = self.writeShellScriptBin "df-server" ''
     exec ${xspice-server}/bin/xspice-server \
          --port 10000 --disable-ticketing :1.0 \
+         --image-compression glz \
          --xsession ${df-xspice-session}/bin/xspice-session
   '';
 }
