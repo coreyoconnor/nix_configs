@@ -11,6 +11,7 @@ in {
       ammonite
       androidsdk
       ansible
+      ansible-bender
       ansible-python-support
       buildah
       conmon
