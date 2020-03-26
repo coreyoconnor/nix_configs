@@ -5,9 +5,13 @@ let
     name = "jenkins-builder-pkgs";
     paths = with pkgs; [
       ansible
+      ansible-bender
+      ansible-python-support
+      buildah
       bash
       curl
       docker
+      fuse-overlayfs
       git
       gzip
       libvirt
@@ -15,9 +19,11 @@ let
       nix
       openshift
       openssh
+      podman
       procps
       qemu
       rsync
+      runc
       stdenv
       utillinux
       vagrant
