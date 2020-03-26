@@ -30,6 +30,7 @@ in {
       '';
       forwardX11 = true;
     };
+
     networking = {
       hostName = "thrash";
       interfaces.enp2s0f0 = {
@@ -57,14 +58,6 @@ in {
         libvdpau-va-gl
         intel-media-driver
       ];
-
-      package = (pkgs.mesa.override {
-        galliumDrivers = [ "nouveau" "virgl" "swrast" "iris" ];
-      }).drivers;
-    };
-
-    environment.variables = {
-      MESA_LOADER_DRIVER_OVERRIDE = "iris";
     };
 
     hardware.pulseaudio = {
