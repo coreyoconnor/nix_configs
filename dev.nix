@@ -76,6 +76,13 @@ in {
       '';
     };
 
+    programs.ssh = {
+      extraConfig = ''
+        ForwardAgent yes
+      '';
+      startAgent = true;
+    };
+
     /*
     virtualisation.cri-o = {
       enable = true;
