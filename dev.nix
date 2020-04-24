@@ -18,6 +18,7 @@ in {
       fuse-overlayfs
       git
       jdk
+      jq
       maven3
       metals
       operator-sdk

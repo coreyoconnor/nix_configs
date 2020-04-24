@@ -14,6 +14,7 @@ let
       fuse-overlayfs
       git
       gzip
+      jq
       libvirt
       nfs-utils
       nix
