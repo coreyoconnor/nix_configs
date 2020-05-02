@@ -25,6 +25,8 @@ let
       qemu
       rsync
       runc
+      s2i
+      slirp4netns
       stdenv
       utillinux
       vagrant
