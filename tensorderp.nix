@@ -78,6 +78,7 @@ in {
         # JUPYTER_DATA_DIR = "${pkgs.python3Packages.widgetsnbextension}/share/jupyter";
         # JUPYTER_RUNTIME_DIR = "~/.local/share/jupyter/runtime";
       };
+      path = [ pkgs.bash pkgs.jdk ];
       serviceConfig = {
         UMask = "0002";
       };

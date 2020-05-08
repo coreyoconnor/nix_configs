@@ -15,6 +15,7 @@ in {
       ansible-python-support
       buildah
       conmon
+      coursier
       fuse-overlayfs
       git
       jdk
