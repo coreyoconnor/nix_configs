@@ -1,15 +1,12 @@
 { config, pkgs, ... }:
-let androidsdk = pkgs.androidsdk_9_0;
-in {
+{
   config = {
     environment.shellInit = ''
-      export ANDROID_HOME=${androidsdk}
       export JAVA_HOME=${pkgs.jdk}
     '';
 
     environment.systemPackages = with pkgs; [
       ammonite
-      androidsdk
       ansible
       ansible-bender
       ansible-python-support
