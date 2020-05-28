@@ -13,6 +13,7 @@ in {
       ansible
       ansible-bender
       ansible-python-support
+      bloop
       buildah
       conmon
       coursier
