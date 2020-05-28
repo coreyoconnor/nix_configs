@@ -2,7 +2,7 @@ self: super: {
   scala = super.scala_2_12;
 
   metals = self.writeShellScriptBin "metals-emacs" ''
-    exec ${self.openjdk12_headless}/bin/java \
+    exec ${self.openjdk11_headless}/bin/java \
       -XX:+UseG1GC \
       -XX:+UseStringDeduplication  \
       -Xss4m \
