@@ -57,6 +57,7 @@ in {
         vaapiVdpau
         libvdpau-va-gl
         intel-media-driver
+        intel-ocl
       ];
     };
 
