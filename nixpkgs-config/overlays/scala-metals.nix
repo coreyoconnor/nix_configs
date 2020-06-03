@@ -1,4 +1,6 @@
 self: super: {
+  jdk = super.openjdk11_headless;
+
   scala = super.scala_2_12;
 
   metals = self.writeShellScriptBin "metals-emacs" ''
