@@ -203,6 +203,8 @@ in {
     extraParams = "-E development";
   };
 
+  time.timeZone = "UTC";
+
   nix = {
     distributedBuilds = true;
     buildMachines = grrBuildMachines;

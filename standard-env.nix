@@ -7,8 +7,6 @@ with lib; {
       export LC_ALL=${config.i18n.defaultLocale}
     '';
 
-    time.timeZone = "America/Los_Angeles";
-
     security.sudo.enable = true;
     security.sudo.wheelNeedsPassword = false;
 

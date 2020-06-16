@@ -66,5 +66,7 @@
     };
 
     virtualisation.docker.enableNvidia = true;
+
+    time.timeZone = "UTC";
   };
 }
