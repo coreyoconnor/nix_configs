@@ -12,13 +12,13 @@ rec {
       six
     ];
   };
-  tensorflowWithCudaCompute3 = self.python3Packages.tensorflowWithCuda.override {
-                      avxSupport = true;
-                      cudaCapabilities = [ "3.0" ];
-                      sse41Support = true;
-                      sse42Support = true;
-                      xlaSupport = false;
-                    };
+
+  tensorflowWithCudaCompute3 = self.python3Packages.tensorflow_2.override {
+    cudaCapabilities = [ "3.0" ];
+    cudaSupport = true;
+    sse42Support = true;
+    xlaSupport = false;
+  };
 
   tensorflow-datasets = self.python3Packages.buildPythonPackage rec {
     pname = "tensorflow-datasets";
