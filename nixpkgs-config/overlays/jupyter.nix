@@ -13,6 +13,9 @@ rec {
     ];
   };
 
+  # tensorflow does not support python 3.8
+  python3 = self.python37;
+
   tensorflowWithCudaCompute3 = self.python3Packages.tensorflow_2.override {
     cudaCapabilities = [ "3.0" ];
     cudaSupport = true;
