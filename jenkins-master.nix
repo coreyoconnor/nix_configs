@@ -4,6 +4,7 @@ let
   builderPackages = pkgs.symlinkJoin {
     name = "jenkins-builder-pkgs";
     paths = with pkgs; [
+      ammonite
       ansible
       ansible-bender
       ansible-python-support
