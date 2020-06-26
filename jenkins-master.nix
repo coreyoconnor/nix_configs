@@ -7,7 +7,6 @@ let
       ammonite
       ansible
       ansible-bender
-      ansible-python-support
       buildah
       bash
       curl
@@ -26,6 +25,7 @@ let
       qemu
       rsync
       runc
+      sbt
       s2i
       slirp4netns
       stdenv
