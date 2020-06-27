@@ -11,6 +11,7 @@ let
       bash
       curl
       docker
+      docker-pushrm
       fuse-overlayfs
       git
       gzip

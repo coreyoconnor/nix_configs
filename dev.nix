@@ -14,6 +14,7 @@
       buildah
       conmon
       coursier
+      docker-pushrm
       fuse-overlayfs
       git
       jdk
