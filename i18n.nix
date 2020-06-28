@@ -1,7 +1,9 @@
 { config, pkgs, ... }: {
+  console = {
+    font = "lat9w-16";
+    keyMap = "emacs2";
+  };
   i18n = {
-    consoleFont = "lat9w-16";
-    consoleKeyMap = "emacs2";
     defaultLocale = "en_US.UTF-8";
   };
 }
