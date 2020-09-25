@@ -19,7 +19,8 @@ rec {
   tensorflowWithCudaCompute3 = self.python3Packages.tensorflow_2.override {
     cudaCapabilities = [ "3.0" ];
     cudaSupport = true;
-    sse42Support = true;
+    sse41Support = true;
+    avxSupport = true;
     xlaSupport = false;
   };
 
