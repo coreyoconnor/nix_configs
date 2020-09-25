@@ -19,7 +19,7 @@ self: super: {
       -r bintray:scalameta/maven \
       -r bintray:scalacenter/releases \
       -r sonatype:public \
-      org.scalameta:metals_2.12:0.9.2 \
+      org.scalameta:metals_2.12:0.9.4 \
       -M scala.meta.metals.Main
   '';
 }
