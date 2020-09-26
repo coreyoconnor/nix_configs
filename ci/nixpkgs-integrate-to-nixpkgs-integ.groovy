@@ -129,6 +129,7 @@ pipeline {
         stage("nixpkgs tests") {
             steps {
                 script {
+                    // TODO: use hydra
                     // parallel canaryBuildStages
                     canaryBuildStages.each {
                         generateBuildStage(it)
