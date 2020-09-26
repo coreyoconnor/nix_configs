@@ -129,7 +129,10 @@ pipeline {
         stage("nixpkgs tests") {
             steps {
                 script {
-                    parallel canaryBuildStages
+                    // parallel canaryBuildStages
+                    canaryBuildStages.each {
+                        generateBuildStage(it)
+                    }
                 }
             }
         }
