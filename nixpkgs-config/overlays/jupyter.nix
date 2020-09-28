@@ -1,20 +1,20 @@
 self: super:
 rec {
-  promise = self.python3Packages.buildPythonPackage rec {
-    pname = "promise";
-    version = "2.2.1";
-    src = self.python3Packages.fetchPypi {
-      inherit pname version;
-      sha256 = "0p35hm648gkxlmqki9js6xni6c8vmh1ysnnnkiyd8kyx7rn5z3rl";
-    };
-    doCheck = false;
-    propagatedBuildInputs = with super.python3Packages; [
-      six
-    ];
-  };
+  #promise = self.python3Packages.buildPythonPackage rec {
+  #  pname = "promise";
+  #  version = "2.2.1";
+  #  src = self.python3Packages.fetchPypi {
+  #    inherit pname version;
+  #    sha256 = "0p35hm648gkxlmqki9js6xni6c8vmh1ysnnnkiyd8kyx7rn5z3rl";
+  #  };
+  #  doCheck = false;
+  #  propagatedBuildInputs = with super.python3Packages; [
+  #    six
+  #  ];
+  #};
 
   # tensorflow does not support python 3.8
-  python3 = self.python37;
+  # python3 = self.python37;
 
   tensorflowWithCudaCompute3 = self.python3Packages.tensorflow_2.override {
     cudaCapabilities = [ "3.0" ];
