@@ -100,18 +100,12 @@ in {
   services.kbfs = { enable = true; };
 
   users.users.coconnor.packages = [
-    pkgs.freecad
-    pkgs.godot
     pkgs.google-drive-ocamlfuse
     pkgs.hugo
     pkgs.keybase
-    pkgs.keybase-gui
     pkgs.metals
     pkgs.mono
     pkgs.nix-dev
-    pkgs.okular
-    pkgs.qgis
-    pkgs.steam
     pkgs.tensorderp
     pkgs.virtmanager
     pkgs.virt-viewer
