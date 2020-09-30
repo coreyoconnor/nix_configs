@@ -4,8 +4,6 @@ def canaries = [
     'go',
     'nix',
     'postgresql',
-    'godot',
-    'qgis',
     'rustc',
     'wine'
 ]
