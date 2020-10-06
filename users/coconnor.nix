@@ -1,10 +1,9 @@
 { config, pkgs, ... }:
 with pkgs.lib; {
   # make sure the required groups exist
-  users.extraGroups = [{
-    name = "plugdev";
+  users.groups.plugdev = {
     gid = 10001;
-  }];
+  };
 
   users.users = {
     coconnor = {

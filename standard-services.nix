@@ -24,7 +24,6 @@ with lib; {
       upower.enable = true;
       acpid.enable = true;
       openssh = { enable = true; };
-      nixosManual.showManual = true;
 
       syslogd.extraConfig = ''
         user.* /var/log/user

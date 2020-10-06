@@ -5,7 +5,6 @@ with lib; {
       fontconfig = {
         enable = true;
         allowBitmaps = false;
-        penultimate = { enable = true; };
       };
       enableFontDir = true;
       enableDefaultFonts = true;

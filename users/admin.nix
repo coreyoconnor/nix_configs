@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 with pkgs.lib; {
-  users.extraUsers = {
+  users.users = {
     admin = {
       createHome = true;
       uid = 1000;
