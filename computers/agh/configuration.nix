@@ -106,7 +106,7 @@ in {
     };
     defaultGateway = "192.168.1.1";
     firewall = {
-      allowedTCPPorts = [ 53 445 4999 27036 27037 ];
+      allowedTCPPorts = [ 53 445 4999 18080 27036 27037 ];
       allowedUDPPorts = [ 53 27031 27036 ];
     };
     localCommands = ''

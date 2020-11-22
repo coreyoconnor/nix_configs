@@ -47,10 +47,7 @@ in {
       ''
         -Dhudson.model.DirectoryBrowserSupport.CSP="default-src 'self'; script-src 'self' 'unsafe-inline' ajax.googleapis.com cdnjs.cloudflare.com netdna.bootstrapcdn.com; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com netdna.bootstrapcdn.com; font-src 'self' netdna.bootstrapcdn.com; img-src 'self' data:"''
     ];
-    packages = [ pkgs.jdk builderPackages ];
-    scriptPrefix = ''
-      export PATH=/run/wrappers/bin:$PATH
-    '';
+    packages = [ pkgs.jdk builderPackages  ];
   };
 
   networking = { firewall.allowedTCPPorts = [ 8080 53251 ]; };

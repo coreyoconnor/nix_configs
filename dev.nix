@@ -21,7 +21,7 @@
       jq
       maven3
       metals
-      operator-sdk
+      # operator-sdk
       podman
       qemu
       runc

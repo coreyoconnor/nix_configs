@@ -16,13 +16,6 @@ let
     virtualisation.virtualbox.host.enable = false;
     virtualisation.libvirtd = {
       enable = true;
-      extraConfig = ''
-        listen_tls = 0
-        listen_tcp = 1
-        auth_tcp="none"
-        tcp_port = "16509"
-      '';
-      extraOptions = [ "--listen" ];
       qemuVerbatimConfig = ''
         security_driver = "none"
       '';
