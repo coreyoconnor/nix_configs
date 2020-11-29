@@ -19,7 +19,6 @@ in {
     ../../standard-packages.nix
     ../../standard-services.nix
     ../../status-tty.nix
-    ../../tensorderp.nix
     ../../tobert-config.nix
     ../../libvirt-host.nix
   ];
@@ -30,7 +29,6 @@ in {
     enable = true;
     package = pkgs.mysql;
   };
-  services.tensorderp.enable = true;
 
   boot = { kernelParams = [ "kvm-intel.nested=1" ]; };
 
@@ -106,7 +104,6 @@ in {
     pkgs.metals
     pkgs.mono
     pkgs.nix-dev
-    pkgs.tensorderp
     pkgs.virtmanager
     pkgs.virt-viewer
   ];

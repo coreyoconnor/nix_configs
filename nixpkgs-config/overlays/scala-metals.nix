@@ -4,7 +4,7 @@ self: super: {
   };
   jre = super.openjdk11;
 
-  scala = super.scala_2_12;
+  scala = super.scala_2_13;
 
   metals = self.writeShellScriptBin "metals-emacs" ''
     exec ${self.openjdk11_headless}/bin/java \
