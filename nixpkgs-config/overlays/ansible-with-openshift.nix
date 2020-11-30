@@ -55,10 +55,10 @@ in rec {
 
   openshift-python-client = self.python3Packages.buildPythonPackage rec {
     pname = "openshift";
-    version = "0.10.1";
+    version = "0.11.2";
     src = self.python3Packages.fetchPypi {
       inherit pname version;
-      sha256 = "0jy3azx9q4sd9yj7nm6m7lgdfq286a68mh2xpcqkhvcyd2ji2x6f";
+      sha256 = "1z3sq6gsg2kq10lgg6v5wrbm2q99xrnv42hmzpq00dd8hhy0s2qi";
     };
     doCheck = false;
     propagatedBuildInputs = with self.python3Packages ; [
