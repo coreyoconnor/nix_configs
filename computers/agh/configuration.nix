@@ -29,6 +29,7 @@ in {
     ../../editorIsVim.nix
     ../../dev.nix
     ../../i18n.nix
+    ../../hw-rand.nix
     ../../jenkins-master.nix
     ../../libvirt-host.nix
     ../../media-downloader.nix
