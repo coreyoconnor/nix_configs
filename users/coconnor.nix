@@ -21,6 +21,7 @@ with pkgs.lib; {
         "video"
         "systemd-journal"
         "docker"
+        "dialout"
       ];
       home = "/home/coconnor";
       shell = pkgs.bashInteractive + "/bin/bash";
