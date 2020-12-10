@@ -7,10 +7,10 @@ let
 
     networking = { firewall = { allowedTCPPorts = [ 16509 ]; checkReversePath = false; }; };
 
-    services.haveged = {
-      enable = true;
-      refill_threshold = 2048;
-    };
+    #services.haveged = {
+    #  enable = true;
+    #  refill_threshold = 2048;
+    #};
   };
   libvirtHost = {
     virtualisation.virtualbox.host.enable = false;
