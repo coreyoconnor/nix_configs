@@ -132,6 +132,8 @@ in {
     '';
   };
 
+  services.fail2ban.enable = true;
+
   services.openssh = {
     extraConfig = ''
       UseDNS no
