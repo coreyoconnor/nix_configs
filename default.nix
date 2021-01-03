@@ -10,7 +10,7 @@ let
     inherit pkgs lib config;
     diskSize = "16000";
     partitionTableType = "efi";
-    format = "raw";
+    format = "qcow2-compressed";
   };
 in {
   inherit image pkgs;
