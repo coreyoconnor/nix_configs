@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -e
-source /etc/profile
 
 config_dir="$WORKSPACE/nix_configs"
 cache_dir="$HOME/.cache/nix/jenkins-cache"
