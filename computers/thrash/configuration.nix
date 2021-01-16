@@ -17,7 +17,7 @@ in {
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
-    media-presenter.enable = true;
+    # media-presenter.enable = true;
 
     services.openssh = {
       extraConfig = ''
