@@ -62,22 +62,16 @@ in {
 
     hardware.opengl = {
       enable = true;
-      driSupport32Bit = true;
-      /*
+      driSupport = true;
       extraPackages = with pkgs; [
         beignet
-        vaapiIntel
         vaapiVdpau
         libvdpau-va-gl
-        intel-media-driver
-        intel-ocl
       ];
-      */
     };
 
     hardware.pulseaudio = {
       enable = false;
-      support32Bit = true;
     };
 
     sound = {
