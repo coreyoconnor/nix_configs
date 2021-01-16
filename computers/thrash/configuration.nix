@@ -5,14 +5,10 @@ in {
   imports = [
     ./hardware-configuration.nix
     ../../base.nix
-    #../../dev.nix
     ../../editorIsVim.nix
-    #../../i18n.nix
-    #../../media-presenter.nix
+    ../../media-presenter.nix
     ../../networks/home.nix
-    #../../standard-packages.nix
-    #../../tobert-config.nix
-    #../../udev.nix
+    ../../fonts.nix
   ];
 
   config = {
@@ -21,9 +17,7 @@ in {
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
-  /*
     media-presenter.enable = true;
-    */
 
     services.openssh = {
       extraConfig = ''
@@ -112,10 +106,14 @@ in {
       };
     };
 
-/*
     services.xserver = {
-      videoDrivers = [ "modesetting" "vesa" ];
+      enable = true;
+      videoDrivers = [ "amdgpu" "modesetting" "vesa" ];
     };
-    */
+
+    virtualisation.docker = {
+      enable = true;
+      autoPrune.enable = true;
+    };
   };
 }

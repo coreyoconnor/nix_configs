@@ -4,9 +4,6 @@ let cfg = config.media-presenter;
 in {
   imports = [
     ./dependencies/retronix
-    ./users/media.nix
-    # TODO: disable musnix for now
-    # ./musnix
   ];
 
   options = {
@@ -30,20 +27,6 @@ in {
       '';
     };
 
-    /* musnix =
-       {
-         enable = false;
-         kernel =
-         {
-           latencytop = true;
-           optimize = true;
-           realtime = true;
-           # must match computer linuxPackages version
-           # packages = pkgs.linuxPackages_4_17_rt;
-         };
-       };
-    */
-
     networking.firewall = {
       allowedTCPPorts = [ 8180 9090 ];
       allowedUDPPorts = [ 9777 ];
@@ -53,20 +36,22 @@ in {
       das_watchdog.enable = true;
 
       xserver = {
-        enable = true;
         autorun = true;
 
         displayManager = {
           defaultSession = "retronix+pekwm";
 
+          autoLogin = {
+            enable = true;
+            user = "media";
+          };
+
           lightdm = {
             enable = true;
+            greeter.enable = false;
             autoLogin = {
-              enable = true;
-              user = "media";
               timeout = 0;
             };
-            greeter.enable = false;
           };
         };
 
