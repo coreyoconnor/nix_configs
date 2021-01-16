@@ -3,26 +3,22 @@ let
   localIp = "192.168.1.5";
 in {
   imports = [
-    ./config-at-bootstrap.nix
+    ./hardware-configuration.nix
     ../../base.nix
-    ../../dev.nix
+    #../../dev.nix
     ../../editorIsVim.nix
-    ../../i18n.nix
-    ../../media-presenter.nix
+    #../../i18n.nix
+    #../../media-presenter.nix
     ../../networks/home.nix
-    ../../standard-env.nix
-    ../../standard-packages.nix
-    ../../standard-services.nix
-    ../../tobert-config.nix
-    ../../udev.nix
+    #../../standard-packages.nix
+    #../../tobert-config.nix
+    #../../udev.nix
   ];
 
   config = {
-    boot.kernelModules = [
-      "i915"
-    ];
-
+  /*
     media-presenter.enable = true;
+    */
 
     services.openssh = {
       extraConfig = ''
@@ -48,9 +44,11 @@ in {
       defaultGateway = "192.168.1.1";
       nameservers = [ "192.168.1.2" "1.1.1.1" ];
     };
+
     hardware.opengl = {
       enable = true;
       driSupport32Bit = true;
+      /*
       extraPackages = with pkgs; [
         beignet
         vaapiIntel
@@ -59,6 +57,7 @@ in {
         intel-media-driver
         intel-ocl
       ];
+      */
     };
 
     hardware.pulseaudio = {
@@ -68,6 +67,7 @@ in {
 
     sound = {
       enable = true;
+      /*
       extraConfig = ''
         pcm.!default {
           type hw
@@ -80,7 +80,9 @@ in {
           device 8
         }
       '';
+      */
     };
+
     fileSystems = {
       "/mnt/storage/media" = {
         fsType = "cifs";
@@ -101,8 +103,10 @@ in {
       };
     };
 
+/*
     services.xserver = {
       videoDrivers = [ "modesetting" "vesa" ];
     };
+    */
   };
 }
