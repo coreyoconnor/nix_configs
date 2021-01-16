@@ -42,6 +42,7 @@ in {
               prefixLength = 64;
             }];
           };
+          useDHCP = true;
         };
         enp2s0.useDHCP = true;
         wlp4s0.useDHCP = true;
@@ -69,24 +70,23 @@ in {
 
     hardware.pulseaudio = {
       enable = false;
+      systemWide = true;
     };
 
     sound = {
       enable = true;
-      /*
       extraConfig = ''
         pcm.!default {
           type hw
           card 0
-          device 8
+          device 3
         }
         ctl.!default {
           type hw
           card 0
-          device 8
+          device 3
         }
       '';
-      */
     };
 
     fileSystems = {
