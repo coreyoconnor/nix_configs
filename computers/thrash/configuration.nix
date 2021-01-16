@@ -6,9 +6,9 @@ in {
     ./hardware-configuration.nix
     ../../base.nix
     ../../editorIsVim.nix
-    #../../media-presenter.nix
+    ../../media-presenter.nix
     ../../networks/home.nix
-    #../../fonts.nix
+    ../../fonts.nix
   ];
 
   config = {
@@ -17,7 +17,7 @@ in {
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
-    # media-presenter.enable = true;
+    media-presenter.enable = true;
 
     services.openssh = {
       extraConfig = ''
@@ -31,7 +31,7 @@ in {
       defaultGateway = "192.168.1.1";
       nameservers = [ "192.168.1.2" "1.1.1.1" ];
       interfaces = {
-        enp2s0f0 = {
+        eno1 = {
           ipv4.addresses = [{
             address = localIp;
             prefixLength = 24;
@@ -46,6 +46,7 @@ in {
         enp2s0.useDHCP = true;
         wlp4s0.useDHCP = true;
       };
+      wireless.enable = true;
     };
 
     i18n.defaultLocale = "en_US.UTF-8";
@@ -108,16 +109,14 @@ in {
       };
     };
 
-/*
     services.xserver = {
       enable = true;
       videoDrivers = [ "amdgpu" "modesetting" "vesa" ];
     };
 
-    virtualisation.docker = {
+    virtualisation.podman = {
       enable = true;
-      autoPrune.enable = true;
+      dockerCompat = true;
     };
-    */
   };
 }
