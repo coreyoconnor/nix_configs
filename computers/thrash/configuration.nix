@@ -54,15 +54,16 @@ in {
       keyMap = "us";
     };
 
-/*
     hardware.opengl = {
       enable = true;
       driSupport = true;
+/*
       extraPackages = with pkgs; [
         beignet
         vaapiVdpau
         libvdpau-va-gl
       ];
+      */
     };
 
     hardware.pulseaudio = {
@@ -107,6 +108,7 @@ in {
       };
     };
 
+/*
     services.xserver = {
       enable = true;
       videoDrivers = [ "amdgpu" "modesetting" "vesa" ];
