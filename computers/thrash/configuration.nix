@@ -6,9 +6,9 @@ in {
     ./hardware-configuration.nix
     ../../base.nix
     ../../editorIsVim.nix
-    ../../media-presenter.nix
+    #../../media-presenter.nix
     ../../networks/home.nix
-    ../../fonts.nix
+    #../../fonts.nix
   ];
 
   config = {
@@ -54,6 +54,7 @@ in {
       keyMap = "us";
     };
 
+/*
     hardware.opengl = {
       enable = true;
       driSupport = true;
@@ -115,5 +116,6 @@ in {
       enable = true;
       autoPrune.enable = true;
     };
+    */
   };
 }
