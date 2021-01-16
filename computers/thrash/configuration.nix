@@ -16,6 +16,11 @@ in {
   ];
 
   config = {
+
+    # Use the systemd-boot EFI boot loader.
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+
   /*
     media-presenter.enable = true;
     */
@@ -29,7 +34,10 @@ in {
 
     networking = {
       hostName = "thrash";
-      interfaces.enp2s0f0 = {
+      defaultGateway = "192.168.1.1";
+      nameservers = [ "192.168.1.2" "1.1.1.1" ];
+      interfaces = {
+        enp2s0f0 = {
           ipv4.addresses = [{
             address = localIp;
             prefixLength = 24;
@@ -40,9 +48,16 @@ in {
               prefixLength = 64;
             }];
           };
+        };
+        enp2s0.useDHCP = true;
+        wlp4s0.useDHCP = true;
       };
-      defaultGateway = "192.168.1.1";
-      nameservers = [ "192.168.1.2" "1.1.1.1" ];
+    };
+
+    i18n.defaultLocale = "en_US.UTF-8";
+    console = {
+      font = "Lat2-Terminus16";
+      keyMap = "us";
     };
 
     hardware.opengl = {
