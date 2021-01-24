@@ -28,8 +28,6 @@ with lib; {
       syslogd.extraConfig = ''
         user.* /var/log/user
       '';
-
-      xfs.enable = false;
     };
 
     systemd.tmpfiles.rules = [ "R /tmp/nix* - - - 60d" "R! /tmp/* - - - 6m" ];

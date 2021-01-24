@@ -23,7 +23,7 @@ let
     theme-vertex
   ];
 in {
-  imports = [ ./base.nix ./disable-gdm-auto-suspend.nix ];
+  imports = [ ./base.nix ./fonts.nix ./disable-gdm-auto-suspend.nix ];
 
   config = {
     environment.systemPackages = with pkgs; [
@@ -69,14 +69,11 @@ in {
 
     hardware = {
       opengl = {
-        driSupport32Bit = true;
         enable = true;
-        # useGLVND = true;
       };
       pulseaudio = {
         enable = true;
         package = pkgs.pulseaudioFull;
-        support32Bit = true;
         daemon.config = {
           flat-volumes = false;
           lock-memory = true;
@@ -120,5 +117,7 @@ in {
 
     sound.enable = true;
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-kde ];
+
+    xfs.enable = false;
   };
 }

@@ -3,24 +3,19 @@ let
   localIp = "192.168.1.5";
 in {
   imports = [
-    ./config-at-bootstrap.nix
+    ./hardware-configuration.nix
     ../../base.nix
-    ../../dev.nix
     ../../editorIsVim.nix
-    ../../i18n.nix
     ../../media-presenter.nix
     ../../networks/home.nix
-    ../../standard-env.nix
-    ../../standard-packages.nix
-    ../../standard-services.nix
-    ../../tobert-config.nix
-    ../../udev.nix
+    ../../fonts.nix
   ];
 
   config = {
-    boot.kernelModules = [
-      "i915"
-    ];
+
+    # Use the systemd-boot EFI boot loader.
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
 
     media-presenter.enable = true;
 
@@ -33,7 +28,10 @@ in {
 
     networking = {
       hostName = "thrash";
-      interfaces.enp2s0f0 = {
+      defaultGateway = "192.168.1.1";
+      nameservers = [ "192.168.1.2" "1.1.1.1" ];
+      interfaces = {
+        eno1 = {
           ipv4.addresses = [{
             address = localIp;
             prefixLength = 24;
@@ -44,26 +42,35 @@ in {
               prefixLength = 64;
             }];
           };
+          useDHCP = true;
+        };
+        enp2s0.useDHCP = true;
+        wlp4s0.useDHCP = true;
       };
-      defaultGateway = "192.168.1.1";
-      nameservers = [ "192.168.1.2" "1.1.1.1" ];
+      wireless.enable = true;
     };
+
+    i18n.defaultLocale = "en_US.UTF-8";
+    console = {
+      font = "Lat2-Terminus16";
+      keyMap = "us";
+    };
+
     hardware.opengl = {
       enable = true;
-      driSupport32Bit = true;
+      driSupport = true;
+/*
       extraPackages = with pkgs; [
         beignet
-        vaapiIntel
         vaapiVdpau
         libvdpau-va-gl
-        intel-media-driver
-        intel-ocl
       ];
+      */
     };
 
     hardware.pulseaudio = {
       enable = false;
-      support32Bit = true;
+      systemWide = true;
     };
 
     sound = {
@@ -72,15 +79,16 @@ in {
         pcm.!default {
           type hw
           card 0
-          device 8
+          device 3
         }
         ctl.!default {
           type hw
           card 0
-          device 8
+          device 3
         }
       '';
     };
+
     fileSystems = {
       "/mnt/storage/media" = {
         fsType = "cifs";
@@ -102,7 +110,13 @@ in {
     };
 
     services.xserver = {
-      videoDrivers = [ "modesetting" "vesa" ];
+      enable = true;
+      videoDrivers = [ "amdgpu" "modesetting" "vesa" ];
+    };
+
+    virtualisation.podman = {
+      enable = true;
+      dockerCompat = true;
     };
   };
 }

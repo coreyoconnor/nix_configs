@@ -16,9 +16,6 @@ with lib; {
       Defaults:root,%wheel env_keep+=TERMINFO_DIRS
     '';
 
-    users.mutableUsers = true;
-    nixpkgs.config.allowUnfree = true;
-
     nix = {
       autoOptimiseStore = true;
 
