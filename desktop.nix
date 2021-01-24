@@ -118,6 +118,6 @@ in {
     sound.enable = true;
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-kde ];
 
-    xfs.enable = false;
+    services.xfs.enable = false;
   };
 }

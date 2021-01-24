@@ -18,6 +18,7 @@ in {
     boot.loader.efi.canTouchEfiVariables = true;
 
     media-presenter.enable = true;
+    retronix.nick = "UFO";
 
     services.openssh = {
       extraConfig = ''

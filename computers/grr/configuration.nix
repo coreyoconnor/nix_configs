@@ -5,6 +5,9 @@
 
   config = {
     hardware = {
+      opengl = {
+        driSupport32Bit = true;
+      };
       /* opengl = {
            extraPackages = [ pkgs.mesa_drivers ];
            extraPackages32 = [ pkgs.pkgsi686Linux.mesa_drivers ];
