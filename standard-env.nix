@@ -19,7 +19,7 @@ with lib; {
     nix = {
       autoOptimiseStore = true;
 
-      binaryCaches = [ "http://agh:4999" ];
+      binaryCaches = [ "http://agh:4999" "http://grr:4999" ];
       binaryCachePublicKeys = [
         "agh-1:qqgKseTFXMiOYrm+5LyWz/bKCXahP5KjW1RU6Fph674="
         "grr-1:YxoRaiS/IfOtt/DaNvU8xJ0BXxYI8poimtPhlWIWBAU="
