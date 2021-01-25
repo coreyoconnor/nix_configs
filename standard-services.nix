@@ -17,7 +17,6 @@ with lib; {
     services = {
       dbus = {
         enable = true;
-        socketActivated = true;
       };
       ntp.enable = true;
       udisks2.enable = true;

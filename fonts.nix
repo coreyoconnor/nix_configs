@@ -6,7 +6,7 @@ with lib; {
         enable = true;
         allowBitmaps = false;
       };
-      enableFontDir = true;
+      fontDir.enable = true;
       enableDefaultFonts = true;
       fonts = with pkgs; [
         anonymousPro
