@@ -57,14 +57,6 @@ in {
         "${config.system.path}/lib/gtk-3.0"
         "${config.system.path}/lib/gtk-2.0"
       ];
-
-      # also missing?
-      # The treatment of QT_PLUGIN_PATH is a bit of inconsistent mess in NixOS.
-      # search for "qtPluginPrefix" for a perspective
-      QT_PLUGIN_PATH = [
-        "${pkgs.plasma-desktop}/lib/qt-5.11/plugins/kcms"
-        "${pkgs.plasma5.plasma-pa}/lib/qt-5.11/plugins/kcms"
-      ];
     };
 
     hardware = {

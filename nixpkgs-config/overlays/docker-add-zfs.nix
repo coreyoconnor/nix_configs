@@ -1,5 +1,7 @@
 self: super: {
   docker = super.docker.overrideAttrs (oldAttrs: rec {
-    extraPath = super.lib.makeBinPath [ self.zfs ] + ":" + oldAttrs.extraPath;
+    moby = oldAttrs.moby.overrideAttrs (mobyOldAttrs: {
+      extraPath = super.lib.makeBinPath [ self.zfs ] + ":" + mobyOldAttrs.extraPath;
+    });
   });
 }

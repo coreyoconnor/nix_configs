@@ -37,7 +37,6 @@ with lib; {
       shared_desktop_ontologies
       shared_mime_info
       stdenv
-      utillinuxCurses
       xterm
     ];
   };
