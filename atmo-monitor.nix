@@ -19,7 +19,7 @@ in {
       script = ''
         mkdir -p -m 0755 /var/run/atmo-monitor
         stty -F /dev/ttyACM0 speed 115200 > /dev/null
-        cat /dev/ttyACM0 | egrep 'TEMP.*CO2.*TIME'
+        cat /dev/ttyACM0
       '';
     };
 
