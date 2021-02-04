@@ -15,6 +15,7 @@ in {
     systemd.services.atmo-monitor = {
       description = "tails the serial data from /dev/ttyACM0";
       path = [ pkgs.coreutils pkgs.gnugrep ];
+      wantedBy = [ "multi-user.target" ];
       script = ''
         mkdir -p -m 0755 /var/run/atmo-monitor
         stty -F /dev/ttyACM0 speed 115200 > /dev/null
