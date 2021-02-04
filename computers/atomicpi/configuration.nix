@@ -8,9 +8,12 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../atmo-monitor.nix
       <nixpkgs/nixos/modules/profiles/headless.nix>
       <nixpkgs/nixos/modules/profiles/minimal.nix>
     ];
+
+  atmo-monitor.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
