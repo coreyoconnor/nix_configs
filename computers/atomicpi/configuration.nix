@@ -56,7 +56,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    curl 
+    curl
     # vim_configurable
     (v4l-utils.override { withGUI = false; })
     fswebcam
@@ -81,7 +81,8 @@
         "file_mode=0664"
         "dir_mode=0775"
         "vers=3.0"
-        "nofail"
+        "x-systemd.requires=network-online.target"
+        "x-systemd.after=network-online.target"
       ];
     };
   };
