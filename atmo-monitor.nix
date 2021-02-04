@@ -14,11 +14,11 @@ in {
   config = mkIf cfg.enable {
     systemd.services.atmo-monitor = {
       description = "tails the serial data from /dev/ttyACM0";
-      path = [ pkgs.coreutils ];
+      path = [ pkgs.coreutils pkgs.gnugrep ];
       script = ''
         mkdir -p -m 0755 /var/run/atmo-monitor
-        stty -F /dev/ttyACM0 speed 115200
-        cat /dev/ttyACM0
+        stty -F /dev/ttyACM0 speed 115200 > /dev/null
+        cat /dev/ttyACM0 | egrep 'TEMP.*CO2.*TIME'
       '';
     };
 
