@@ -8,6 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      <nixpkgs/nixos/modules/profiles/headless.nix>
+      <nixpkgs/nixos/modules/profiles/minimal.nix>
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -36,19 +38,53 @@
 
   users.users.coconnor = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "dialout" "wheel" "video" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAxlFWIpiLwwLlQ7Bgj37ARdoWvFAb6Na+D3b5kvWK9O coconnor@glowness"
     ];
   };
 
+  nixpkgs.config = {
+    netbeans = false;
+    vim = {
+      gui = "none";
+      lua = false;
+      perl = false;
+      python = false;
+      ruby = false;
+    };
+  };
+
   environment.systemPackages = with pkgs; [
-    curl vim
+    curl 
+    # vim_configurable
+    (v4l-utils.override { withGUI = false; })
+    fswebcam
   ];
+
+  environment.noXlibs = true;
 
   services.openssh.enable = true;
 
   networking.firewall.enable = false;
+
+  fileSystems = {
+    "/mnt/storage/media" = {
+      fsType = "cifs";
+      device = "//192.168.1.2/media";
+      options = [
+        "guest"
+        "uid=coconnor"
+        "gid=users"
+        "rw"
+        "setuids"
+        "file_mode=0664"
+        "dir_mode=0775"
+        "vers=3.0"
+        "nofail"
+      ];
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
