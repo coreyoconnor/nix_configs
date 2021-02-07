@@ -10,7 +10,6 @@
       ./hardware-configuration.nix
       ../../nixpkgs-config.nix
       ../../standard-env.nix
-      ../../standard-services.nix
       ../../atmo-monitor.nix
       ../../networks/home.nix
       <nixpkgs/nixos/modules/profiles/headless.nix>
@@ -18,6 +17,16 @@
     ];
 
   atmo-monitor.enable = true;
+
+  nix = {
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 30d";
+    };
+
+    optimise.automatic = true;
+  };
+  systemd.tmpfiles.rules = [ "R /tmp/nix* - - - 60d" "R! /tmp/* - - - 6m" ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
