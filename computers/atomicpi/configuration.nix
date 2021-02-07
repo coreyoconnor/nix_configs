@@ -8,7 +8,11 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../nixpkgs-config.nix
+      ../../standard-env.nix
+      ../../standard-services.nix
       ../../atmo-monitor.nix
+      ../../networks/home.nix
       <nixpkgs/nixos/modules/profiles/headless.nix>
       <nixpkgs/nixos/modules/profiles/minimal.nix>
     ];
@@ -62,7 +66,16 @@
     curl
     # vim_configurable
     (v4l-utils.override { withGUI = false; })
-    fswebcam
+
+    (fswebcam.overrideAttrs(oldAttrs: {
+      src = fetchgit {
+        url = "https://github.com/coreyoconnor/fswebcam.git";
+        rev = "4f9c743112fc31a96a35769219b04c86707f5fa9";
+        sha256 = "0f31fal967h02miidmvgcnlf1mqzm7mr60wag6bk1966izz43bj5";
+      };
+
+      configureFlags = ["--enable-32bit-buffer"];
+    }))
   ];
 
   environment.noXlibs = true;
