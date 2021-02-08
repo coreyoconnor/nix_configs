@@ -4,7 +4,28 @@
 
 { config, pkgs, ... }:
 
-{
+let
+  grrBuildMachines = [
+    {
+      hostName = "grr";
+      sshUser = "nix";
+      sshKey = "/root/.ssh/id_rsa";
+      system = "i686-linux,x86_64-linux";
+      maxJobs = 8;
+      speedFactor = 2;
+    }
+    {
+      hostName = "grr";
+      sshUser = "nix";
+      sshKey = "/root/.ssh/id_rsa";
+      system =
+        "armv6l-linux,armv7l-linux,aarch64-linux,riscv32-linux,riscv64-linux,wasm32-wasi,wasm64-wasi";
+      maxJobs = 2;
+      speedFactor = 1;
+    }
+  ];
+  localIp = "192.168.1.189";
+in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -25,7 +46,11 @@
     };
 
     optimise.automatic = true;
+
+    distributedBuilds = true;
+    buildMachines = grrBuildMachines;
   };
+
   systemd.tmpfiles.rules = [ "R /tmp/nix* - - - 60d" "R! /tmp/* - - - 6m" ];
 
   # Use the systemd-boot EFI boot loader.
@@ -73,6 +98,9 @@
 
   environment.systemPackages = with pkgs; [
     curl
+    arduino-cli
+    cgit
+
     # vim_configurable
     (v4l-utils.override { withGUI = false; })
 
