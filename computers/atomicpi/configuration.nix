@@ -99,7 +99,7 @@ in {
   environment.systemPackages = with pkgs; [
     curl
     arduino-cli
-    cgit
+    git
 
     # vim_configurable
     (v4l-utils.override { withGUI = false; })
