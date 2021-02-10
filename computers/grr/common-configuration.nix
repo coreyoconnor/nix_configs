@@ -68,7 +68,7 @@ in {
     };
     nameservers = [ "192.168.1.2" "1.1.1.1" ];
     defaultGateway = "192.168.1.1";
-    firewall = { allowedTCPPorts = [ 4000 4999 8000 10000 ]; };
+    firewall = { enable = false; allowedTCPPorts = [ 4000 4999 8000 10000 ]; };
   };
 
   nixpkgs.config.permittedInsecurePackages = [

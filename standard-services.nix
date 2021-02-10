@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ options, pkgs, lib, ... }:
 with lib; {
   config = {
     boot.blacklistedKernelModules = [ "snd_pcsp" ];
@@ -12,13 +12,19 @@ with lib; {
       optimise.automatic = true;
     };
 
+    networking.timeServers = options.networking.timeServers.default ++ [ 
+      "0.us.pool.ntp.org"
+      "1.us.pool.ntp.org" 
+      "2.us.pool.ntp.org" 
+      "3.us.pool.ntp.org" 
+    ];
+
     programs.mosh.enable = true;
 
     services = {
       dbus = {
         enable = true;
       };
-      ntp.enable = true;
       udisks2.enable = true;
       upower.enable = true;
       acpid.enable = true;
