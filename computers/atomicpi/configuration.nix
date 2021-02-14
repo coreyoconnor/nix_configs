@@ -77,14 +77,6 @@ in {
     keyMap = "us";
   };
 
-  users.users.coconnor = {
-    isNormalUser = true;
-    extraGroups = [ "dialout" "wheel" "video" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAxlFWIpiLwwLlQ7Bgj37ARdoWvFAb6Na+D3b5kvWK9O coconnor@glowness"
-    ];
-  };
-
   nixpkgs.config = {
     netbeans = false;
     vim = {
