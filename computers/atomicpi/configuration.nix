@@ -92,6 +92,7 @@ in {
     curl
     arduino-cli
     git
+    dfu-programmer
 
     # vim_configurable
     (v4l-utils.override { withGUI = false; })
