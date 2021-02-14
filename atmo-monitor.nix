@@ -36,10 +36,10 @@ in {
           --skip 2 --jpeg 98 -F 15 --no-banner \
           --save '/mnt/storage/media/Pictures/atmo-monitor/monitor-0-%Y%m%d-%H%M%S.jpg' \
           -s 'White Balance Temperature, Auto=false'  \
-          -s 'White Balance Temperature=6400' \
-          -s 'Exposure, Auto Priority=False' -s 'Exposure (Absolute)=2' \
-          -s 'Gain=0' -s 'Brightness=0' \
-          -s 'Backlight Compensation=2'
+          -s 'White Balance Temperature=6500' \
+          -s 'Exposure, Auto Priority=False' -s 'Exposure (Absolute)=8000' \
+          -s 'Gain=40' -s 'Brightness=5' \
+          -s 'Focus, Auto=False' -s 'Focus (absolute)=70'
       '';
     };
 
