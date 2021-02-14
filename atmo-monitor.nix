@@ -33,10 +33,14 @@ in {
       };
       script = ''
         fswebcam -d /dev/video0 -r 3264x2448  \
-          --skip 2 --jpeg 95 -F 10 --no-banner \
+          --skip 2 --jpeg 98 -F 15 --no-banner \
           --save '/mnt/storage/media/Pictures/atmo-monitor/monitor-0-%Y%m%d-%H%M%S.jpg' \
-          -s brightness=50% -s exposure=50% -s 'White Balance Temperature, Auto=false'  \
-          -s 'White Balance Temperature=6200'
+          -s 'White Balance Temperature, Auto=false'  \
+          -s 'White Balance Temperature=6200' \
+          -s 'Exposure, Auto Priority=False' -s 'Exposure (Absolute)=100' \
+          -s 'Gain=1' -s 'Brightness=-64' \
+          -s 'Backlight Compensation=2' \
+          -s 'Power Line Frequency=Disabled'
       '';
     };
 
