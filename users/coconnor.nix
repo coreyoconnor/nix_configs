@@ -7,6 +7,7 @@ with pkgs.lib; {
 
   users.users = {
     coconnor = {
+      isNormalUser = true;
       createHome = false;
       uid = 1100;
       group = "users";

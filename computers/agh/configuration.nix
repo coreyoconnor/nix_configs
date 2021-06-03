@@ -60,7 +60,7 @@ in {
 
   fileSystems = {
     non-admin-home = {
-      mountPoint = "/mnt/non-admin-home/";
+      mountPoint = "/mnt/non-admin-home";
       device = "/dev/disk/by-label/home";
     };
 

@@ -15,10 +15,6 @@ with lib;
   };
 
   config = mkIf config.environment.hw-rand {
-    security.rngd = {
-      enable = false;
-    };
-
     environment.systemPackages = [ pkgs.rng-tools ];
 
     services.udev.extraRules = ''

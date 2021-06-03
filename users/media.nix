@@ -2,6 +2,7 @@
 with pkgs.lib; {
   users.users = {
     media = {
+      isNormalUser = true;
       createHome = true;
       uid = 1001;
       group = "users";

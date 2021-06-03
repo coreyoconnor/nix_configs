@@ -2,6 +2,7 @@
 with pkgs.lib; {
   users.users = {
     admin = {
+      isNormalUser = true;
       createHome = true;
       uid = 1000;
       group = "users";
