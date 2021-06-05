@@ -3,7 +3,7 @@ with lib; {
   services.jenkinsSlave.enable = true;
   users.extraUsers.jenkins.extraGroups = [ "libvirtd" "vboxusers" "plugdev" ];
 
-  fonts.enableFontDir = true;
+  fonts.fontDir.enable = true;
 
   services.clamav = {
     daemon.enable = true;

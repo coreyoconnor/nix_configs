@@ -83,7 +83,7 @@ in {
     services = {
       fwupd.enable = true;
 
-      gnome3 = {
+      gnome = {
         chrome-gnome-shell.enable = true;
         core-shell.enable = true;
       };
