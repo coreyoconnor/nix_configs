@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 with pkgs.lib; {
   users.users.jenkins = {
+    isSystemUser = true;
     openssh.authorizedKeys.keyFiles = [ ./ssh/jenkins.pub ];
     extraGroups = [ "docker" "libvirtd" "wheel" ];
     subUidRanges = [
