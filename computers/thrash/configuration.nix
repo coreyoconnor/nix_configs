@@ -60,13 +60,9 @@ in {
     hardware.opengl = {
       enable = true;
       driSupport = true;
-/*
       extraPackages = with pkgs; [
-        beignet
-        vaapiVdpau
-        libvdpau-va-gl
+        amdvlk
       ];
-      */
     };
 
     hardware.pulseaudio = {
