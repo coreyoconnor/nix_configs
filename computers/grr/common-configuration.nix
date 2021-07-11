@@ -151,12 +151,13 @@ in {
   services.nix-serve = {
     enable = true;
     port = 4999;
+    secretKeyFile = "/etc/nix/grr-1.sec";
   };
 
   nix = {
     extraOptions = ''
-      secret-key-files = /etc/nix/grr-1.sec
       keep-outputs = true
+      secret-key-files = /etc/nix/grr-1.sec
     '';
   };
   virtualisation.docker.storageDriver = "zfs";
