@@ -37,8 +37,7 @@ pipeline {
                 checkout([
                     $class: 'GitSCM',
                     branches: [
-                        [name: 'nixpkgs/integ'],
-                        [name: 'nixpkgs/master']
+                        [name: 'nixpkgs/integ']
                     ],
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [
