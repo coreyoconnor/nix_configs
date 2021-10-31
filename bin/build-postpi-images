@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
+NIX_PATH="nixpkgs=${PROJECT_DIR}/nixpkgs"
+NIX_PATH="${NIX_PATH}:nixos-config=${PROJECT_DIR}/computers/postpi/postpi-1.nix"
+NIX_PATH="${NIX_PATH}:nixpkgs-overlays=${PROJECT_DIR}/nixpkgs-config/overlays"
+export NIX_PATH
+echo "using NIX_PATH=${NIX_PATH}"
+set -ex
+nix-build '<nixpkgs/nixos>' --argstr system armv7l-linux -A config.system.build.sdImage
