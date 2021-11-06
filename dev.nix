@@ -20,14 +20,12 @@
       jdk
       jq
       maven3
-      metals
       # operator-sdk
       podman
       qemu
       runc
       sbt
       slirp4netns
-      scala
       s2i
       vagrant
     ];

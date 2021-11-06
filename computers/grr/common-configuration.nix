@@ -14,7 +14,6 @@ in {
     ../../jenkins-node.nix
     ../../i18n.nix
     ../../networks/home.nix
-    ../../openshift-host.nix
     ../../standard-env.nix
     ../../standard-packages.nix
     ../../standard-services.nix
@@ -24,11 +23,6 @@ in {
   ];
 
   libvirt-host.enable = true;
-  openshift-host.enable = false;
-  services.mysql = {
-    enable = true;
-    package = pkgs.mysql;
-  };
 
   boot = { kernelParams = [ "kvm-intel.nested=1" ]; };
 
@@ -101,11 +95,7 @@ in {
     pkgs.google-drive-ocamlfuse
     pkgs.hugo
     pkgs.keybase
-    pkgs.metals
-    pkgs.mono
     pkgs.nix-dev
-    pkgs.virtmanager
-    pkgs.virt-viewer
   ];
 
   fileSystems = {
