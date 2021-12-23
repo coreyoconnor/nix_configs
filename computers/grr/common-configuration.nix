@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
-  localIp = "192.168.1.7";
-  localIpAlt = "192.168.1.17";
+  localIp = "192.168.86.7";
+  localIpAlt = "192.168.86.17";
 in {
   system.stateVersion = "18.09";
 
@@ -60,8 +60,8 @@ in {
         };
       };
     };
-    nameservers = [ "192.168.1.2" "1.1.1.1" ];
-    defaultGateway = "192.168.1.1";
+    nameservers = [ "192.168.86.2" "1.1.1.1" ];
+    defaultGateway = "192.168.86.1";
     firewall = { enable = false; allowedTCPPorts = [ 4000 4999 8000 10000 ]; };
   };
 

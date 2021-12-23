@@ -24,7 +24,7 @@ let
       speedFactor = 1;
     }
   ];
-  localIp = "192.168.1.189";
+  localIp = "192.168.86.8";
 in {
   imports =
     [ # Include the results of the hardware scan.
@@ -117,7 +117,7 @@ in {
   fileSystems = {
     "/mnt/storage/media" = {
       fsType = "cifs";
-      device = "//192.168.1.2/media";
+      device = "//192.168.86.2/media";
       options = [
         "guest"
         "uid=coconnor"
