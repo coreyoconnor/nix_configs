@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  localIp = "192.168.1.5";
+  localIp = "192.168.86.5";
 in {
   imports = [
     ./hardware-configuration.nix
@@ -29,8 +29,8 @@ in {
 
     networking = {
       hostName = "thrash";
-      defaultGateway = "192.168.1.1";
-      nameservers = [ "192.168.1.2" "1.1.1.1" ];
+      defaultGateway = "192.168.86.1";
+      nameservers = [ "192.168.86.2" "1.1.1.1" ];
       interfaces = {
         eno1 = {
           ipv4.addresses = [{

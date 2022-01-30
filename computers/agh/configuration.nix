@@ -19,7 +19,7 @@ let
       speedFactor = 1;
     }
   ];
-  localIp = "192.168.1.2";
+  localIp = "192.168.86.2";
 in {
   system.stateVersion = "18.09";
 
@@ -105,7 +105,7 @@ in {
         }];
       };
     };
-    defaultGateway = "192.168.1.1";
+    defaultGateway = "192.168.86.1";
     firewall = {
       allowedTCPPorts = [ 53 445 4999 18080 27036 27037 ];
       allowedUDPPorts = [ 53 27031 27036 ];
@@ -128,7 +128,7 @@ in {
       dnssec
       bind-interfaces
       interface=enp1s0
-      listen-address=::1,127.0.0.1,192.168.1.2
+      listen-address=::1,127.0.0.1,192.168.86.2
     '';
   };
 
