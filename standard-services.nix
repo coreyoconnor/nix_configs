@@ -19,6 +19,7 @@ with lib; {
       "3.us.pool.ntp.org"
     ];
 
+    programs.gnupg.agent.enable = true;
     programs.mosh.enable = true;
 
     services = {

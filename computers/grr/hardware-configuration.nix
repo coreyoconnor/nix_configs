@@ -63,6 +63,8 @@
     };
   };
 
+  services.zfs.autoScrub.enable = true;
+
   security.pam.loginLimits = [{
     domain = "*";
     type = "soft";
