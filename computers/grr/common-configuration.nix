@@ -24,8 +24,6 @@ in {
 
   libvirt-host.enable = true;
 
-  boot = { kernelParams = [ "kvm-intel.nested=1" ]; };
-
   networking = {
     hostId = "34343134";
     hostName = "grr";
