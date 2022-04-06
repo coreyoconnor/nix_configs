@@ -16,7 +16,7 @@ let
     virtualisation.virtualbox.host.enable = false;
     virtualisation.libvirtd = {
       enable = true;
-      qemuVerbatimConfig = ''
+      qemu.verbatimConfig = ''
         security_driver = "none"
       '';
     };
@@ -58,7 +58,7 @@ in {
       };
 
       share-dir = mkOption {
-        type = types.string;
+        type = types.str;
         default = "/var/lib/libvirt/images";
       };
     };
