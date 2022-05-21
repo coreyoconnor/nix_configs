@@ -63,10 +63,6 @@ in {
     firewall = { enable = false; allowedTCPPorts = [ 4000 4999 8000 10000 ]; };
   };
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.0.2u"
-  ];
-
   services.openssh = {
     extraConfig = ''
       UseDNS no
@@ -79,13 +75,6 @@ in {
   boot.kernel.sysctl = { "vm.nr_hugepages" = 16484; };
 
   sound.enable = true;
-
-  hardware = {
-    bluetooth.enable = true;
-    enableAllFirmware = true;
-    enableRedistributableFirmware = true;
-    opengl.enable = true;
-  };
 
   services.kbfs = { enable = true; };
 
@@ -148,5 +137,4 @@ in {
       secret-key-files = /etc/nix/grr-1.sec
     '';
   };
-  virtualisation.docker.storageDriver = "zfs";
 }

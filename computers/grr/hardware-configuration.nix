@@ -72,5 +72,13 @@
     value = "unlimited";
   }];
 
-  hardware.nvidia.nvidiaPersistenced = true;
+  hardware = {
+    bluetooth.enable = true;
+    enableAllFirmware = true;
+    enableRedistributableFirmware = true;
+    nvidia.nvidiaPersistenced = true;
+    opengl.enable = true;
+  };
+
+  virtualisation.docker.storageDriver = "zfs";
 }
