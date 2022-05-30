@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
 NIX_PATH="nixpkgs=${PROJECT_DIR}/nixpkgs"
-NIX_PATH="${NIX_PATH}:nixos-config=${PROJECT_DIR}/computers/postpi/postpi-1.nix"
+NIX_PATH="${NIX_PATH}:nixos-config=${PROJECT_DIR}/computers/postpi/postpi-0.nix"
 NIX_PATH="${NIX_PATH}:nixpkgs-overlays=${PROJECT_DIR}/nixpkgs-config/overlays"
 export NIX_PATH
 echo "using NIX_PATH=${NIX_PATH}"
 set -ex
-nix-build '<nixpkgs/nixos>' --argstr system aarch64 -A config.system.build.sdImage
+nix build --show-trace \
+    --argstr system aarch64-linux \
+    --out-link postpi-0-image \
+    --file '<nixpkgs/nixos>' \
+    config.system.build.sdImage

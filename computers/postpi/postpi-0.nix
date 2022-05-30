@@ -13,7 +13,7 @@
     hardware.enableRedistributableFirmware = true;
 
     networking = {
-      hostName = "postpi-1";
+      hostName = "postpi-0";
     };
 
     security.sudo = {
