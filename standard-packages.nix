@@ -3,7 +3,6 @@ with lib; {
   config = {
 
     environment.systemPackages = with pkgs; [
-      acpi
       atk
       autoconf
       automake
@@ -24,7 +23,6 @@ with lib; {
       gnupg
       irssi
       nginx
-      nix-index
       # nixfmt
       ocaml
       openshift
@@ -32,7 +30,6 @@ with lib; {
       pkgconfig
       python
       ruby
-      screen
       # TODO: move to desktop.nix without breaking existing configs in $HOME
       shared_desktop_ontologies
       shared_mime_info
