@@ -15,7 +15,7 @@ with lib; {
         corefonts
         inconsolata
         junicode
-        ucsFonts
+        ucs-fonts
         unifont
         # vistafonts
       ];

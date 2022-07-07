@@ -15,7 +15,7 @@
       "sr_mod"
     ];
     kernelModules = [ "kvm-intel" "msr" ];
-    kernelPackages = pkgs.linuxPackages_5_10;
+    kernelPackages = pkgs.linuxPackages_5_15;
     kernelParams = [ "kvm-intel.nested=1" "pcie_aspm=off" "rcutree.rcu_idle_gp_delay=1" ];
     extraModulePackages = [ ];
 

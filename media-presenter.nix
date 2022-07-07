@@ -20,6 +20,7 @@ in {
       enable = true;
       user = "media";
     };
+
     hardware.pulseaudio = {
       # enable = false;
       extraClientConf = ''

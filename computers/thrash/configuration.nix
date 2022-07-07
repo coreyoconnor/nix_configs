@@ -12,6 +12,7 @@ in {
   ];
 
   config = {
+    system.stateVersion = "22.05";
 
     # Use the systemd-boot EFI boot loader.
     boot.loader.systemd-boot.enable = true;
