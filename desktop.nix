@@ -23,15 +23,15 @@ let
     theme-vertex
   ];
 in {
-  imports = [ ./base.nix ./fonts.nix ./disable-gdm-auto-suspend.nix ];
+  imports = [ ./base.nix ./fonts.nix ];
 
   config = {
     environment.systemPackages = with pkgs; [
       appimage-run
-      desktop_file_utils
+      desktop-file-utils
       firefox-devedition-bin
       glib.dev
-      gnome3.dconf
+      dconf
       home-manager
       qt5.qtbase
       rxvt_unicode
@@ -43,11 +43,6 @@ in {
     ];
 
     environment.variables = {
-      GIO_EXTRA_MODULES = [
-        "${lib.getLib pkgs.gnome3.dconf}/lib/gio/modules"
-        "${pkgs.gnome3.glib-networking.out}/lib/gio/modules"
-        "${pkgs.gnome3.gvfs}/lib/gio/modules"
-      ];
       # workaround libreoffice rending issues.
       SAL_USE_VCLPLUGIN = "gen";
 
@@ -93,11 +88,6 @@ in {
       packagekit.enable = true;
 
       xserver = {
-        # gnome desktop does not work properly without gdm
-        displayManager.gdm = {
-          enable = true;
-          wayland = false;
-        };
         exportConfiguration = true;
         libinput.enable = true;
         updateDbusEnvironment = true;

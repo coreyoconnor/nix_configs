@@ -32,7 +32,7 @@ with lib; {
       ruby
       # TODO: move to desktop.nix without breaking existing configs in $HOME
       shared_desktop_ontologies
-      shared_mime_info
+      shared-mime-info
       stdenv
       xterm
     ];

@@ -8,11 +8,6 @@
       opengl = {
         driSupport32Bit = true;
       };
-      /* opengl = {
-           extraPackages = [ pkgs.mesa_drivers ];
-           extraPackages32 = [ pkgs.pkgsi686Linux.mesa_drivers ];
-         };
-      */
 
       pulseaudio = {
         configFile = ./pulse-audio-config.pa;
@@ -25,7 +20,6 @@
 
       nvidia = {
         modesetting.enable = true;
-        # package = config.boot.kernelPackages.nvidiaPackages.stable_390;
       };
     };
 
@@ -40,7 +34,6 @@
       };
 
       videoDrivers = [ "nvidia" ];
-      # videoDrivers = [ "nvidiaLegacy390" ];
 
       deviceSection = ''
         BusID "PCI:05:00:00"

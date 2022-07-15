@@ -63,7 +63,7 @@ pipeline {
                 checkout([
                     $class: 'GitSCM',
                     branches: [
-                        [name: 'upstream/nixos-21.05'],
+                        [name: 'upstream/nixos-22.05'],
                         [name: 'origin/dev**']
                     ],
                     doGenerateSubmoduleConfigurations: false,

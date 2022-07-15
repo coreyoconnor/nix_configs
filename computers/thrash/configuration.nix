@@ -116,5 +116,7 @@ in {
       enable = true;
       dockerCompat = true;
     };
+
+    programs.gamemode.enable = true;
   };
 }
