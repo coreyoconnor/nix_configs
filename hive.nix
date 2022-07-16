@@ -4,7 +4,7 @@
   };
 
   defaults = { pkgs, ... }: {
-    imports = [ ./defaults ];
+    imports = [ ./defaults ./modules ];
   };
 
   thrash = { name, nodes, ... }: {
