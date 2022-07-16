@@ -20,13 +20,13 @@ with lib; {
     ];
 
     programs.gnupg.agent.enable = true;
-    programs.mosh.enable = true;
 
     services = {
       avahi = {
         enable = true;
         nssmdns = true;
       };
+
       dbus.enable = true;
       udisks2.enable = true;
       upower.enable = true;
