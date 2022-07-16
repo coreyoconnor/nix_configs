@@ -4,6 +4,10 @@
   };
 
   defaults = { pkgs, ... }: {
+    deployment = {
+      targetUser = builtins.getEnv "USER";
+    };
+
     imports = [ ./defaults ./modules ];
   };
 

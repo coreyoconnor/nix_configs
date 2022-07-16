@@ -8,8 +8,6 @@ with lib; rec {
     ./standard-services.nix
   ];
 
-  options = { };
-
   config = {
     i18n.defaultLocale = "en_US.UTF-8";
 
