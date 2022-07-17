@@ -39,5 +39,7 @@ with lib; {
     };
 
     systemd.tmpfiles.rules = [ "R /tmp/nix* - - - 60d" "R! /tmp/* - - - 6m" ];
+
+    virtualisation.podman.dockerCompat = true;
   };
 }

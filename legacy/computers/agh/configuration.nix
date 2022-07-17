@@ -41,50 +41,14 @@ in {
     ../../udev.nix
   ];
 
-  libvirt-host.enable = true;
-
   boot = {
     kernelPackages = pkgs.linuxPackages_5_4;
-    # kernelParams = ["nomodeset"];
-    kernelParams = [ "amdgpu.cik_support=1" "amdgpu.si_support=1" ];
   };
 
   nixpkgs.config = {
     packageOverrides = in_pkgs: {
       linuxPackages = in_pkgs.linuxPackages_5_4;
       # steam = in_pkgs.steam.override { newStdcpp = true; };
-    };
-  };
-
-  environment.systemPackages = [ pkgs.btrfs-progs ];
-
-  fileSystems = {
-    non-admin-home = {
-      mountPoint = "/mnt/non-admin-home";
-      device = "/dev/disk/by-label/home";
-    };
-
-    storage = {
-      mountPoint = "/mnt/storage";
-      device = "/dev/disk/by-label/storage";
-    };
-  };
-
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
-  hardware.pulseaudio = {
-    enable = true;
-    support32Bit = true;
-    daemon = {
-      config = {
-        default-sample-rate = "48000";
-        high-priority = "yes";
-        realtime-scheduling = "yes";
-        realtime-priority = "9";
-        log-level = "debug";
-        avoid-resampling = "yes";
-        flat-volumes = "yes";
-      };
     };
   };
 
@@ -141,40 +105,8 @@ in {
     forwardX11 = true;
   };
 
-  services.xserver = {
-    enable = false;
-    autorun = false;
-    xrandrHeads = [
-      {
-        output = "HDMI-0";
-        monitorConfig = ''
-          Option "PreferredMode" "1920x1080"
-        '';
-      }
-      {
-        output = "HDMI-1";
-        monitorConfig = ''
-          Option "PreferredMode" "1920x1080"
-        '';
-      }
-      {
-        output = "HDMI-A-0";
-        monitorConfig = ''
-          Option "PreferredMode" "1920x1080"
-        '';
-      }
-    ];
-    videoDrivers = [ "amdgpu" "modesetting" ];
-  };
-
   services.journald.console = "/dev/tty12";
 
-  system.activationScripts.non-admin-home = ''
-    [ -L /home/coconnor ] || ln -s /mnt/non-admin-home/coconnor /home/coconnor
-    mkdir -p /workspace/coconnor
-    chown coconnor:users /workspace/coconnor
-    # [ -L /workspace/coconnor] || ln -s /workspace/coconnor /home/coconnor/Development
-  '';
 
   services.samba = {
     enable = true;
@@ -212,8 +144,6 @@ in {
     secretKeyFile = "/etc/nix/agh-nix-serve-1.sec";
     extraParams = "-E development";
   };
-
-  time.timeZone = "UTC";
 
   nix = {
     distributedBuilds = true;
