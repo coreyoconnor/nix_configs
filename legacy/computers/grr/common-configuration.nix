@@ -24,45 +24,6 @@ in {
 
   libvirt-host.enable = true;
 
-  networking = {
-    hostId = "34343134";
-    hostName = "grr";
-    useDHCP = false;
-    useNetworkd = true;
-    networkmanager.enable = false;
-    interfaces = {
-      enp10s0 = {
-        useDHCP = false;
-        ipv4.addresses = [{
-          address = localIpAlt;
-          prefixLength = 24;
-        }];
-        ipv6 = {
-          addresses = [{
-            address = "2601:602:9700:f0fc::17";
-            prefixLength = 64;
-          }];
-        };
-      };
-      enp11s0 = {
-        useDHCP = false;
-        ipv4.addresses = [{
-          address = localIp;
-          prefixLength = 24;
-        }];
-        ipv6 = {
-          addresses = [{
-            address = "2601:602:9700:f0fc::7";
-            prefixLength = 64;
-          }];
-        };
-      };
-    };
-    nameservers = [ "192.168.86.2" "1.1.1.1" ];
-    defaultGateway = "192.168.86.1";
-    firewall = { enable = false; allowedTCPPorts = [ 4000 4999 8000 10000 ]; };
-  };
-
   services.openssh = {
     extraConfig = ''
       UseDNS no

@@ -21,6 +21,7 @@ with lib; {
     services.dnsmasq.enable = true;
     services.fail2ban.enable = true;
     services.foreign-binary-emulation.enable = true;
+    services.hw-rand.enable = true;
     services.kbfs.enable = true;
     services.samba.enable = true;
     services.xserver.enable = false;

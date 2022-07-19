@@ -3,6 +3,7 @@ with lib; rec {
   imports = [
     ./nixpkgs-config.nix
     ./foreign-binary-emulation.nix
+    ./hw-rand.nix
     ./standard-admin.nix
     ./standard-env.nix
     ./standard-services.nix

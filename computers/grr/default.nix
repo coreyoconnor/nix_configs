@@ -11,6 +11,7 @@ with lib; {
     system.stateVersion = "22.05";
 
     services.foreign-binary-emulation.enable = true;
+    services.hw-rand.enable = true;
 
     virtualisation.podman.enable = true;
   };
