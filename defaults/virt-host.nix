@@ -1,19 +1,20 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
-  cfg = config.libvirt-host;
+  cfg = config.virt-host;
+
   baseConfig = {
     boot = { kernelModules = [ "virtio" ]; };
 
-    networking = { firewall = { allowedTCPPorts = [ 16509 ]; checkReversePath = false; }; };
-
-    #services.haveged = {
-    #  enable = true;
-    #  refill_threshold = 2048;
-    #};
+    networking = {
+      firewall = {
+        allowedTCPPorts = [ 16509 ];
+        checkReversePath = false;
+      };
+    };
   };
+
   libvirtHost = {
-    virtualisation.virtualbox.host.enable = false;
     virtualisation.libvirtd = {
       enable = true;
       qemu.verbatimConfig = ''
@@ -30,7 +31,6 @@ let
       docker-machine-kvm
       libvirt
       qemu
-      vagrant
     ];
 
     services.nfs.server.enable = true;
@@ -48,10 +48,10 @@ let
     '';
   };
 in {
-  imports = [ ./vm-host/vfio.nix ];
+  imports = [];
 
   options = {
-    libvirt-host = {
+    virt-host = {
       enable = mkOption {
         type = types.bool;
         default = false;

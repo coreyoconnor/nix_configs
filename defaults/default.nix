@@ -6,6 +6,7 @@ with lib; rec {
     ./standard-admin.nix
     ./standard-env.nix
     ./standard-services.nix
+    ./virt-host.nix
   ];
 
   config = {
