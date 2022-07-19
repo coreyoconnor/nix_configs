@@ -5,10 +5,6 @@
 
   config = {
     hardware = {
-      opengl = {
-        driSupport32Bit = true;
-      };
-
       pulseaudio = {
         configFile = ./pulse-audio-config.pa;
         daemon.config = {
@@ -18,9 +14,6 @@
         };
       };
 
-      nvidia = {
-        modesetting.enable = true;
-      };
     };
 
     nixpkgs = { config = { cudaSupport = true; }; };
@@ -60,8 +53,6 @@
         Option "metamodes" "nvidia-auto-select +0+0 { ForceCompositionPipeline = On }"
       '';
     };
-
-    virtualisation.docker.enableNvidia = true;
 
     time.timeZone = "UTC";
   };

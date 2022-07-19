@@ -3,7 +3,7 @@ with lib; {
   imports = [];
 
   options = {
-    services.hw-rand = mkOption {
+    services.hw-rand.enable = mkOption {
       default = false;
       example = true;
       type = with types; bool;
@@ -13,7 +13,7 @@ with lib; {
     };
   };
 
-  config = mkIf config.services.hw-rand {
+  config = mkIf config.services.hw-rand.enable {
     environment.systemPackages = [ pkgs.rng-tools ];
 
     services.udev.extraRules = ''

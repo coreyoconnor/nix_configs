@@ -7,13 +7,14 @@ with lib; rec {
     ./standard-admin.nix
     ./standard-env.nix
     ./standard-services.nix
+    ./status-tty.nix
     ./virt-host.nix
   ];
 
   config = {
-    i18n.defaultLocale = "en_US.UTF-8";
-
-    time.timeZone = "UTC";
+    boot.loader.grub = {
+      fontSize = 24;
+    };
 
     console = {
       font = "Lat2-Terminus16";
@@ -41,5 +42,16 @@ with lib; rec {
         unifont
       ];
     };
+
+    hardware = {
+      enableAllFirmware = lib.mkDefault true;
+      enableRedistributableFirmware = lib.mkDefault true;
+    };
+
+    i18n.defaultLocale = "en_US.UTF-8";
+
+    time.timeZone = "UTC";
+
+    services.journald.console = "/dev/tty12";
   };
 }

@@ -12,6 +12,8 @@ let
         checkReversePath = false;
       };
     };
+
+    virtualisation.podman.enable = true;
   };
 
   libvirtHost = {
@@ -28,7 +30,6 @@ let
 
     # duplicated here for explicitness
     environment.systemPackages = with pkgs; [
-      docker-machine-kvm
       libvirt
       qemu
     ];

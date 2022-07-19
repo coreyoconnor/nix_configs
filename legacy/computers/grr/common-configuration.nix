@@ -10,34 +10,9 @@ in {
     ./hardware-configuration.nix
     ../../desktop.nix
     ../../dev.nix
-    ../../editorIsVim.nix
     ../../jenkins-node.nix
-    ../../i18n.nix
-    ../../networks/home.nix
-    ../../standard-env.nix
-    ../../standard-packages.nix
-    ../../standard-services.nix
-    ../../status-tty.nix
     ../../tobert-config.nix
-    ../../libvirt-host.nix
   ];
-
-  libvirt-host.enable = true;
-
-  services.openssh = {
-    extraConfig = ''
-      UseDNS no
-    '';
-    forwardX11 = true;
-  };
-
-  services.journald.console = "/dev/tty12";
-
-  boot.kernel.sysctl = { "vm.nr_hugepages" = 16484; };
-
-  sound.enable = true;
-
-  services.kbfs = { enable = true; };
 
   users.users.coconnor.packages = [
     pkgs.google-drive-ocamlfuse
@@ -86,16 +61,4 @@ in {
     KERNEL=="hidraw*", ATTRS{idVendor}=="2b24", ATTRS{idProduct}=="0002",  MODE="0666", GROUP="plugdev", TAG+="uaccess", TAG+="udev-acl"
   '';
 
-  services.nix-serve = {
-    enable = true;
-    port = 4999;
-    secretKeyFile = "/etc/nix/grr-1.sec";
-  };
-
-  nix = {
-    extraOptions = ''
-      keep-outputs = true
-      secret-key-files = /etc/nix/grr-1.sec
-    '';
-  };
 }
