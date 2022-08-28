@@ -27,6 +27,8 @@ in allPostpiConfigs // {
       targetUser = builtins.getEnv "USER";
     };
 
+    # defaults: always set or the option defaults to enabled
+    # modules: enable always defaults to false
     imports = [ ./defaults ./modules ];
   };
 

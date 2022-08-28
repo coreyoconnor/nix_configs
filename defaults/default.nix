@@ -2,14 +2,18 @@
 with lib; rec {
   imports = [
     ./nixpkgs-config.nix
-    ./foreign-binary-emulation.nix
-    ./hw-rand.nix
+    ./fonts.nix
     ./standard-admin.nix
     ./standard-env.nix
     ./standard-services.nix
-    ./status-tty.nix
-    ./virt-host.nix
   ];
+
+  options = {
+    default.graphical = mkOption {
+      type = types.bool;
+      default = true;
+    };
+  };
 
   config = {
     boot.loader.grub = {

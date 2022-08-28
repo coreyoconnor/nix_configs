@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }: {
   imports = [
-    <nixpkgs/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-installer.nix>
+    <nixpkgs/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel.nix>
     ../../network/home
     ../../domains/primary
   ];
