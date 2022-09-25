@@ -16,6 +16,8 @@ with lib; rec {
   };
 
   config = {
+    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+
     boot.loader.grub = {
       fontSize = 24;
     };

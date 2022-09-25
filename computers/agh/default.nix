@@ -14,8 +14,6 @@ with lib; {
   ];
 
   config = {
-    system.stateVersion = "22.05";
-
     virt-host.enable = true;
 
     services.dnsmasq.enable = true;

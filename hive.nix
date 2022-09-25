@@ -5,6 +5,7 @@ let
 
     config = {
       networking.hostName = nodeName;
+      system.stateVersion = "22.05";
     };
   };
   postpiNodeNames = map (n: "postpi-" + (toString n))
@@ -37,6 +38,7 @@ in allPostpiConfigs // {
 
     config = {
       networking.hostName = "agh";
+      system.stateVersion = "22.05";
     };
   };
 
@@ -45,6 +47,7 @@ in allPostpiConfigs // {
 
     config = {
       networking.hostName = "grr";
+      system.stateVersion = "22.05";
     };
   };
 
@@ -53,6 +56,7 @@ in allPostpiConfigs // {
 
     config = {
       networking.hostName = "thrash";
+      system.stateVersion = "22.05";
     };
   };
 }

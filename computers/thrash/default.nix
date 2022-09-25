@@ -11,8 +11,6 @@ with lib; {
   ];
 
   config = {
-    system.stateVersion = "22.05";
-
     media-presenter.enable = true;
 
     retronix = {
