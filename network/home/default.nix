@@ -3,4 +3,11 @@
     ./hosts.nix
     ./lan.nix
   ];
+
+  config = {
+    cluster.jenkins-master = {
+      enable = true;
+      host = "agh";
+    };
+  };
 }

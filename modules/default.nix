@@ -2,6 +2,7 @@
 with lib; {
   imports = [
     ./atmo-monitor.nix
+    ./cluster
     ./editor-is-vim.nix
     ./foreign-binary-emulation.nix
     ./hw-rand.nix

@@ -23,7 +23,5 @@ with lib; {
     services.kbfs.enable = true;
     services.samba.enable = true;
     services.xserver.enable = false;
-
-    virtualisation.podman.enable = true;
   };
 }

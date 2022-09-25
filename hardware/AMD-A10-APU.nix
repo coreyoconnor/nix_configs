@@ -3,6 +3,8 @@ with lib; {
   imports = [];
 
   config = {
-    nix.maxJobs = 4;
+    nix = {
+      maxJobs = 4;
+    };
   };
 }
