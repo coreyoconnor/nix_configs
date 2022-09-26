@@ -24,6 +24,7 @@ with lib; {
     systemd.services.rngd = {
       # Clean shutdown without DefaultDependencies
       conflicts = [ "shutdown.target" ];
+      wantedBy = [ "multi-user.target" ];
       before = [
         "sysinit.target"
         "shutdown.target"
