@@ -4,6 +4,12 @@ with lib; {
   ];
 
   config = {
+    nix.maxJobs = 2;
+
+    nix.extraOptions = ''
+        build-cores = 5
+    '';
+
     boot = {
       kernelModules = [ "kvm-intel" "msr" ];
       kernelParams = [

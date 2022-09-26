@@ -14,6 +14,8 @@ with lib; {
   ];
 
   config = {
+    developer-base.enable = true;
+
     virt-host.enable = true;
 
     services.dnsmasq.enable = true;

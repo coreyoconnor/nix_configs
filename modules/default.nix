@@ -3,6 +3,7 @@ with lib; {
   imports = [
     ./atmo-monitor.nix
     ./cluster
+    ./developer-base.nix
     ./editor-is-vim.nix
     ./foreign-binary-emulation.nix
     ./hw-rand.nix

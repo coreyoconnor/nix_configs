@@ -4,6 +4,8 @@ let
     imports = [ ./computers/postpi ];
 
     config = {
+      deployment.targetHost = null;
+
       networking.hostName = nodeName;
       system.stateVersion = "22.05";
     };

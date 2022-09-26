@@ -6,18 +6,6 @@
   ];
 
   config = {
-    environment.systemPackages = with pkgs; [
-      screen
-      vim
-    ];
-
     hardware.enableRedistributableFirmware = true;
-
-    security.sudo = {
-      enable = true;
-      wheelNeedsPassword = false;
-    };
-
-    services.openssh.enable = true;
   };
 }

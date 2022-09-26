@@ -7,13 +7,13 @@ with lib; {
     ../../network/home/resource-media-share.nix
     ../../domains/primary
     ./filesystems.nix
+    ./memory.nix
     ./gpu.nix
   ];
 
   config = {
-    system.stateVersion = "22.05";
 
-    boot.kernel.sysctl = { "vm.nr_hugepages" = 16484; };
+    developer-base.enable = true;
 
     services.foreign-binary-emulation.enable = true;
     services.hw-rand.enable = true;

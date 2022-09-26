@@ -7,6 +7,14 @@ with lib; {
       nix-index
       screen
       tmux
+      vim
     ];
+
+    security.sudo = {
+      enable = true;
+      wheelNeedsPassword = false;
+    };
+
+    services.openssh.enable = true;
   };
 }
