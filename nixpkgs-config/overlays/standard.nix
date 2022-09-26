@@ -9,4 +9,6 @@ self: super: {
       extraPkgs = pkgs: [ pkgs.kde-cli-tools ];
     };
   };
+
+  nix = super.nixVersions.nix_2_3;
 }

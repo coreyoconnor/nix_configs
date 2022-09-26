@@ -31,19 +31,19 @@ in {
     useNetworkd = true;
     networkmanager.enable = false;
     interfaces = {
-      enp10s0 = {
-        useDHCP = false;
-        ipv4.addresses = [{
-          address = localIpAlt;
-          prefixLength = 24;
-        }];
-        ipv6 = {
-          addresses = [{
-            address = "2601:602:9700:f0fc::17";
-            prefixLength = 64;
-          }];
-        };
-      };
+      #enp10s0 = {
+      #  useDHCP = false;
+      #  ipv4.addresses = [{
+      #    address = localIpAlt;
+      #    prefixLength = 24;
+      #  }];
+      #  ipv6 = {
+      #    addresses = [{
+      #      address = "2601:602:9700:f0fc::17";
+      #      prefixLength = 64;
+      #    }];
+      #  };
+      #};
       enp11s0 = {
         useDHCP = false;
         ipv4.addresses = [{
@@ -83,6 +83,10 @@ in {
     pkgs.hugo
     pkgs.keybase
     pkgs.nix-dev
+  ];
+
+  environment.systemPackages = with pkgs; [
+    besu
   ];
 
   fileSystems = {
@@ -130,6 +134,8 @@ in {
     port = 4999;
     secretKeyFile = "/etc/nix/grr-1.sec";
   };
+
+  services.status-tty.enable = false;
 
   nix = {
     extraOptions = ''

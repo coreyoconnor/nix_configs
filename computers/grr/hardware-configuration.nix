@@ -77,6 +77,7 @@
     enableAllFirmware = true;
     enableRedistributableFirmware = true;
     nvidia.nvidiaPersistenced = true;
+    nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
     opengl.enable = true;
   };
 
