@@ -15,10 +15,14 @@ with lib; {
 
     developer-base.enable = true;
 
+    environment.systemPackages = with pkgs; [
+      besu
+    ];
+
     services.foreign-binary-emulation.enable = true;
     services.hw-rand.enable = true;
     services.kbfs.enable = true;
-    services.status-tty.enable = true;
+    services.status-tty.enable = false;
 
     services.nix-serve = {
       enable = true;
