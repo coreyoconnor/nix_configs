@@ -26,19 +26,25 @@ in allPostpiConfigs // {
   };
 
   defaults = { pkgs, ... }: {
-    deployment = {
-      targetUser = builtins.getEnv "USER";
-    };
-
     # defaults: always set or the option defaults to enabled
     # modules: enable always defaults to false
     imports = [ ./defaults ./modules ];
+
+    config = {
+      deployment = {
+        targetUser = builtins.getEnv "USER";
+      };
+    };
   };
 
   agh = { name, nodes, ... }: {
     imports = [ ./computers/agh ];
 
     config = {
+      deployment = {
+        allowLocalDeployment = true;
+      };
+
       networking.hostName = "agh";
       system.stateVersion = "22.05";
     };

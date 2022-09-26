@@ -6,7 +6,7 @@ let
     paths = with pkgs; [
       ammonite
       ansible
-      ansible-bender
+      # ansible-bender
       buildah
       bash
       curl

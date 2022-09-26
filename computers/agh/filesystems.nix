@@ -7,7 +7,7 @@ with lib; {
 
     fileSystems = {
       "/" = {
-        device = "/dev/sda2";
+        device = "/dev/disk/by-label/root";
         fsType = "ext4";
       };
 

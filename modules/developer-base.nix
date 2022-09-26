@@ -19,8 +19,8 @@ in {
     environment.systemPackages = with pkgs; [
       ammonite
       ansible
-      ansible-bender
-      ansible-python-support
+      # ansible-bender
+      # ansible-python-support
       autoconf
       automake
       bloop
@@ -29,6 +29,7 @@ in {
       coq
       coursier
       docker-pushrm
+      emacs
       fuse-overlayfs
       git
       jdk

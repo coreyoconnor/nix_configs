@@ -4,7 +4,13 @@ with lib; {
 
   config = {
     nix = {
-      maxJobs = 4;
+      maxJobs = 2;
+    };
+
+    boot = {
+      kernelParams = [
+        "amd_iommu=off"
+      ];
     };
   };
 }
