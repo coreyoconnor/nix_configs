@@ -1,11 +1,15 @@
 { config, pkgs, lib, ... }:
 with lib; {
   config = {
-    environment.pathsToLink = [ "/share" "/etc/gconf" ];
+    environment = {
+      pathsToLink = [ "/share" "/etc/gconf" ];
 
-    environment.shellInit = ''
-      export LC_ALL=${config.i18n.defaultLocale}
-    '';
+      shellInit = ''
+        export LC_ALL=${config.i18n.defaultLocale}
+      '';
+
+      variables.NIXPKGS_CONFIG = mkForce "${./nixpkgs-config/config.nix}";
+    };
 
     security.sudo.enable = true;
     security.sudo.wheelNeedsPassword = false;
@@ -25,11 +29,17 @@ with lib; {
         "grr-1:YxoRaiS/IfOtt/DaNvU8xJ0BXxYI8poimtPhlWIWBAU="
       ];
 
-      trustedUsers = [ "nix" "@wheel" ];
-
       extraOptions = ''
         keep-outputs = true
       '';
+
+      nixPath = [
+        "nixos=${../nixpkgs/nixos}"
+        "nixpkgs=${../nixpkgs}"
+        "nixpkgs-overlays=${./nixpkgs-config/overlays}"
+      ];
+
+      trustedUsers = [ "nix" "@wheel" ];
     };
   };
 }
