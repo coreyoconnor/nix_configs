@@ -4,10 +4,16 @@ with lib; {
   ];
 
   config = {
+    boot.kernelPackages = pkgs.linuxPackages_5_15;
+
     hardware = {
       nvidia = {
-        modesetting.enable = true;
+        modesetting.enable = false;
+
+        package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+
         nvidiaPersistenced = true;
+        nvidiaSettings = false;
       };
 
       opengl = {
@@ -17,6 +23,9 @@ with lib; {
     };
 
     nixpkgs.config.cudaSupport = true;
+
+    # required to actually enable the nvidia driver
+    services.xserver.videoDrivers = [ "nvidia" ];
 
     virtualisation.docker.enableNvidia = true;
   };

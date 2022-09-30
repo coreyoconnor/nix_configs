@@ -22,7 +22,7 @@ with lib; {
     services.fail2ban.enable = true;
     services.foreign-binary-emulation.enable = true;
     services.hw-rand.enable = true;
-    services.kbfs.enable = true;
+    services.kbfs.enable = false;
     services.samba.enable = true;
     services.xserver.enable = false;
   };

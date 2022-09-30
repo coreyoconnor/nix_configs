@@ -17,11 +17,12 @@ with lib; {
 
     environment.systemPackages = with pkgs; [
       besu
+      teku
     ];
 
     services.foreign-binary-emulation.enable = true;
     services.hw-rand.enable = true;
-    services.kbfs.enable = true;
+    services.kbfs.enable = false;
     services.status-tty.enable = false;
 
     services.nix-serve = {

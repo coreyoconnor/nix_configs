@@ -7,6 +7,9 @@ let
       deployment.targetHost = null;
 
       networking.hostName = nodeName;
+
+      nixpkgs.system = "aarch64-linux";
+
       system.stateVersion = "22.05";
     };
   };
