@@ -2,6 +2,7 @@
 with lib; {
   imports = [
     ./atmo-monitor.nix
+    ./besu
     ./cluster
     ./developer-base.nix
     ./editor-is-vim.nix
@@ -10,6 +11,7 @@ with lib; {
     ./media-presenter.nix
     ./retronix.nix
     ./status-tty.nix
+    ./teku
     ./virt-host.nix
   ];
 }

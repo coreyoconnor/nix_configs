@@ -13,7 +13,23 @@ let
       };
     };
 
-    virtualisation.podman.enable = true;
+    virtualisation.podman = {
+      enable = true;
+      dockerCompat = true;
+    };
+
+    virtualisation.docker = {
+      enable = false;
+    };
+
+    # see: https://github.com/containers/podman/blob/main/troubleshooting.md#26-running-containers-with-resource-limits-fails-with-a-permissions-error
+    systemd.services."user@".serviceConfig = {
+      Delegate = "cpu cpuset io memory pids";
+    };
+
+    environment.systemPackages = with pkgs; [
+      slirp4netns
+    ];
   };
 
   libvirtHost = {

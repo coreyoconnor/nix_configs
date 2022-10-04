@@ -4,6 +4,7 @@ with lib; {
     ./bretto.nix
     ./coconnor.nix
     ./media.nix
+    ./monkey.nix
     ./nix.nix
   ];
 }

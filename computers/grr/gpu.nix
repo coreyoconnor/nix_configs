@@ -27,6 +27,6 @@ with lib; {
     # required to actually enable the nvidia driver
     services.xserver.videoDrivers = [ "nvidia" ];
 
-    virtualisation.docker.enableNvidia = true;
+    virtualisation.podman.enableNvidia = true;
   };
 }

@@ -20,6 +20,7 @@ with lib; {
       teku
     ];
 
+    services.besu.enable = true;
     services.foreign-binary-emulation.enable = true;
     services.hw-rand.enable = true;
     services.kbfs.enable = false;

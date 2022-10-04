@@ -12,17 +12,18 @@ with pkgs.lib; {
       uid = 1100;
       group = "users";
       extraGroups = [
-        "wheel"
-        "vboxusers"
-        "libvirtd"
-        "jupyter"
-        "transmission"
-        "plugdev"
         "audio"
-        "video"
-        "systemd-journal"
-        "docker"
         "dialout"
+        "docker"
+        "jupyter"
+        "libvirtd"
+        "monkey"
+        "plugdev"
+        "systemd-journal"
+        "transmission"
+        "vboxusers"
+        "video"
+        "wheel"
       ];
       home = "/home/coconnor";
       shell = pkgs.bashInteractive + "/bin/bash";

@@ -6,10 +6,10 @@ with pkgs.lib; {
     group = "jenkins";
     extraGroups = [ "docker" "libvirtd" "wheel" ];
     subUidRanges = [
-      { startUid = 100000; count = 65536; }
+      { startUid = 200000; count = 65536; }
     ];
     subGidRanges = [
-      { startGid = 100000; count = 65536; }
+      { startGid = 200000; count = 65536; }
     ];
   };
 }
