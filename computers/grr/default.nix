@@ -15,12 +15,9 @@ with lib; {
 
     developer-base.enable = true;
 
-    environment.systemPackages = with pkgs; [
-      besu
-      teku
-    ];
-
     services.besu.enable = true;
+    services.teku.enable = true;
+
     services.foreign-binary-emulation.enable = true;
     services.hw-rand.enable = true;
     services.kbfs.enable = false;

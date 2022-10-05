@@ -12,9 +12,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    system.activationScripts.loginctl-enable-linger-monkey = ''
+    system.activationScripts.loginctl-besu-enable-linger-monkey = ''
       ${pkgs.systemd}/bin/loginctl enable-linger monkey || true
     '';
+
+    environment.systemPackages = with pkgs; [
+      besu
+    ];
 
     systemd.user.services.besu = {
       wantedBy = [ "default.target" ];
@@ -23,7 +27,7 @@ in {
         PODMAN_SYSTEMD_UNIT = "%n";
       };
 
-      path = [ config.virtualisation.podman.package pkgs.shadow ];
+      path = [ pkgs.coreutils config.virtualisation.podman.package pkgs.shadow pkgs.besu ];
 
       unitConfig = {
         ConditionUser = "monkey";
@@ -32,9 +36,9 @@ in {
       serviceConfig = {
         ExecStart = "${./start.sh} %t/%n.pid";
         ExecStartPre = [
-          "-rm -rf %t/%n.pid"
-          "-podman stop --time 120 besu"
-          "-podman rm --force besu"
+          "-${pkgs.podman}/bin/podman stop --time 120 --ignore besu"
+          "-${pkgs.podman}/bin/podman rm --force --ignore besu"
+          "-${pkgs.coreutils}/bin/rm -rf %t/%n.pid"
         ];
         ExecStop = "${./stop.sh}";
         Group = "monkey";

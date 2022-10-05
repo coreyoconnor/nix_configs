@@ -10,7 +10,7 @@ RUN_OPTS=(
   --name besu
   --rm
   --stop-timeout 120
-  --cpus 6
+  --cpus 4
   --memory 10g
   --mount=type=bind,source=/mnt/storage/validator/besu,destination=/mnt/besu
   --mount=type=bind,readonly=true,source=/mnt/storage/validator/jwt/jwt.txt,destination=/etc/jwt.txt
