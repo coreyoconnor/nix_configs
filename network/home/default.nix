@@ -6,7 +6,7 @@
 
   config = {
     cluster.jenkins-master = {
-      enable = true;
+      enable = false;
       host = "agh";
     };
   };

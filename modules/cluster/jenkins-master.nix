@@ -69,6 +69,12 @@ in {
       packages = [ pkgs.jdk builderPackages  ];
     };
 
+    systemd.services.jenkins = {
+      serviceConfig = {
+        TimeoutStartSec = "5min";
+      };
+    };
+
     networking = { firewall.allowedTCPPorts = [ 8080 53251 ]; };
   };
 }

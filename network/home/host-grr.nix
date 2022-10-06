@@ -16,20 +16,20 @@ in {
       useNetworkd = true;
 
       interfaces = {
-        enp10s0 = {
-          ipv4.addresses = [{
-            address = localIPv4_0;
-            prefixLength = 24;
-          }];
-          ipv6 = {
-            addresses = [{
-              address = localIPv6_0;
-              prefixLength = 64;
-            }];
-          };
-
-          useDHCP = false;
-        };
+        #enp10s0 = {
+        #  ipv4.addresses = [{
+        #    address = localIPv4_0;
+        #    prefixLength = 24;
+        #  }];
+        #  ipv6 = {
+        #    addresses = [{
+        #      address = localIPv6_0;
+        #      prefixLength = 64;
+        #    }];
+        #  };
+#
+#          useDHCP = false;
+#        };
 
         enp11s0 = {
           ipv4.addresses = [{
