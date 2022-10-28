@@ -25,5 +25,6 @@ with lib; {
     services.kbfs.enable = false;
     services.samba.enable = true;
     services.xserver.enable = false;
+    services.qa-house-manager.enable = true;
   };
 }

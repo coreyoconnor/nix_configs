@@ -20,6 +20,8 @@ in {
       besu
     ];
 
+    networking.firewall.allowedTCPPorts = [ 8551 ];
+
     systemd.user.services.besu = {
       wantedBy = [ "default.target" ];
 
@@ -27,10 +29,11 @@ in {
         PODMAN_SYSTEMD_UNIT = "%n";
       };
 
-      path = [ pkgs.coreutils config.virtualisation.podman.package pkgs.shadow pkgs.besu ];
+      path = [ "/run/wrappers" pkgs.coreutils config.virtualisation.podman.package pkgs.shadow pkgs.besu ];
 
       unitConfig = {
         ConditionUser = "monkey";
+        RequiresMountsFor = "/mnt/storage/validator";
       };
 
       serviceConfig = {

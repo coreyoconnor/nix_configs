@@ -2,6 +2,8 @@
 set -ex
 PID_FILE="$1"
 
+# https://hub.docker.com/r/consensys/teku
+# 22.9.1
 REF=sha256:b6a10d8a521c8b2edcb8782b715a1d9c443d4af57ce04bb32eb4625e84c63caf
 TARGET_WALLET=$(< /mnt/storage/validator/target-wallet.txt)
 
@@ -27,6 +29,7 @@ RUN_OPTS=(
   --cgroups=no-conmon
   --conmon-pidfile "$PID_FILE"
   --sdnotify=conmon
+  --no-healthcheck # spammy
 )
 
 OPTS=(
@@ -45,6 +48,7 @@ OPTS=(
   --ee-endpoint http://192.168.86.7:8551
   --ee-jwt-secret-file /etc/jwt.txt
   --validators-proposer-default-fee-recipient $TARGET_WALLET
+  --validators-builder-registration-default-enabled=true --builder-endpoint=http://192.168.86.7:18550
 )
 
 podman run "${RUN_OPTS[@]}" \

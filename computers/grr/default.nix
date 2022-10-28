@@ -16,6 +16,7 @@ with lib; {
     developer-base.enable = true;
 
     services.besu.enable = true;
+    services.mev-boost.enable = true;
     services.teku.enable = true;
 
     services.foreign-binary-emulation.enable = true;

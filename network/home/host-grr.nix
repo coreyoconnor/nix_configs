@@ -9,6 +9,9 @@ in {
   imports = [ ./default.nix ];
 
   config = {
+    # in case of weirdness...
+    # systemd.services."systemd-networkd-wait-online".enable = false;
+
     networking = {
       hostId = "34343134";
       hostName = "grr";
@@ -31,7 +34,7 @@ in {
 #          useDHCP = false;
 #        };
 
-        enp11s0 = {
+        enp14s0 = {
           ipv4.addresses = [{
             address = localIPv4_1;
             prefixLength = 24;

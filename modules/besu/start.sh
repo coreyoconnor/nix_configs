@@ -2,7 +2,9 @@
 set -ex
 PID_FILE="$1"
 
-REF=sha256:8f22299fc3bdb3bb39186285a62cb717a62441f4a03673edbfed02e0ced08f07
+# https://hub.docker.com/r/hyperledger/besu/tags
+# hyperledger/besu:22.7.6
+REF=sha256:126d1beebb4103ab90454479ccdc5ab8dff861f0f4a97da9b8d298f1b6de6506
 
 # besu container user is `besu` with UID 1000
 # besu container group is `besu` with GID 1000
@@ -11,7 +13,7 @@ RUN_OPTS=(
   --rm
   --stop-timeout 120
   --cpus 4
-  --memory 10g
+  --memory 32g
   --mount=type=bind,source=/mnt/storage/validator/besu,destination=/mnt/besu
   --mount=type=bind,readonly=true,source=/mnt/storage/validator/jwt/jwt.txt,destination=/etc/jwt.txt
   --log-driver=journald
@@ -24,6 +26,7 @@ RUN_OPTS=(
   --cgroups=no-conmon
   --conmon-pidfile "$PID_FILE"
   --sdnotify=conmon
+  --no-healthcheck # spammy
 )
 
 OPTS=(
@@ -40,6 +43,7 @@ OPTS=(
   --engine-host-allowlist=localhost,127.0.0.1,192.168.86.7
   --engine-jwt-enabled=true
   --engine-jwt-secret=/etc/jwt.txt
+  --Xplugin-rocksdb-high-spec-enabled
 )
 
 podman run "${RUN_OPTS[@]}" \

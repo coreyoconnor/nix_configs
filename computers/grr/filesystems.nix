@@ -40,6 +40,7 @@ with lib; {
     fileSystems."/mnt/storage/validator" = {
       device = "rpool/validator";
       fsType = "zfs";
+      depends = [ "/" ];
     };
 
     services.zfs.autoScrub.enable = true;
