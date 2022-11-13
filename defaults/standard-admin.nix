@@ -4,6 +4,7 @@ with lib; {
     environment.systemPackages = with pkgs; [
       acpi
       jq
+      htop
       nix-index
       screen
       tmux

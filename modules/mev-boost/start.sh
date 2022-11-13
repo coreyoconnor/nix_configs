@@ -5,7 +5,7 @@ PID_FILE="$1"
 # https://hub.docker.com/r/flashbots/mev-boost/tags
 # flashbots/mev-boost:v1.3.2-portable
 REF=sha256:8c57eaaf6111bac8fe8c381b57e5ef7ce52d422af41cd4e09f36d181de5e21a9
-# flashbots/mev-boost:1.4.0-rc4
+# flashbots/mev-boost:1.4.0-rc4-portable
 #REF=sha256:1491d0be77309615c7c43f1b1f9418f84ab36b587c448ab5cce4b56c2e5f5d15
 
 # container user is `root` with UID 0
@@ -31,7 +31,11 @@ RELAY_2=https://0xad0a8bb54565c2211cee576363f3a347089d2f07cf72679d16911d74026269
 OPTS=(
     -addr 0.0.0.0:18550
     -mainnet
+    -relay-check
     -relays $RELAY_0,$RELAY_1,$RELAY_2
+    -request-timeout-getheader 8000
+    -request-timeout-getpayload 8000
+    -request-timeout-regval 6000
 )
 
 podman run "${RUN_OPTS[@]}" \

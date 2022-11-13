@@ -39,6 +39,10 @@ with lib; {
         "nixpkgs-overlays=${./nixpkgs-config/overlays}"
       ];
 
+      # requires nix 2.4. However, colmena builds, or nix?, fail with > 2.4.
+      # settings.experimental-features = [ "nix-command" "flakes" ];
+      settings.experimental-features = [ "nix-command" ];
+
       trustedUsers = [ "nix" "@wheel" ];
     };
   };

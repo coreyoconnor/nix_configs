@@ -91,6 +91,7 @@ in {
           longitude = -122.359694;
           elevation = 116;
           time_zone = config.time.timeZone;
+          unit_system = "imperial";
           auth_providers = [
             {
               type = "trusted_networks";
