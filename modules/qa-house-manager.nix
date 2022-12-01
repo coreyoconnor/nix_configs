@@ -4,7 +4,7 @@ with lib;
 let
   unstableSrc = builtins.fetchGit {
     url = https://github.com/NixOS/nixpkgs.git;
-    rev = "104e8082de1b20f9d0e1f05b1028795ed0e0e4bc";
+    rev = "a115bb9bd56831941be3776c8a94005867f316a7";
     ref = "nixos-unstable";
   };
   unstable = import unstableSrc { };
@@ -118,6 +118,12 @@ in {
 
         mqtt = {};
 
+
+        recorder = {
+          db_url = "postgresql://@/hass";
+          purge_keep_days = 800;
+        };
+
         sensor = [
           {
             platform = "aarlo";
@@ -171,14 +177,13 @@ in {
       }).overrideAttrs (oldAttrs: {
         doInstallCheck = false;
       });
-
-      config.recorder.db_url = "postgresql://@/hass";
     };
 
     # MQTT
     networking.firewall.allowedTCPPorts = [ 1883 ];
 
     services.postgresql = {
+      dataDir = "/mnt/storage/postgresql/14";
       enable = true;
       ensureDatabases = [ "hass" ];
       ensureUsers = [{
