@@ -11,6 +11,6 @@ with lib; {
       };
     };
 
-    virtualisation.podman.enableNvidia = true;
+    # virtualisation.podman.enableNvidia = true;
   };
 }

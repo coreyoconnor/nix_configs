@@ -16,19 +16,23 @@ with lib; {
     };
 
     fileSystems."/" = {
-      device = "rpool/root/glowness-1";
+      device = "rpool/root/nixos";
       fsType = "zfs";
     };
 
     fileSystems."/home" = {
-      device = "rpool/home-1";
+      device = "rpool/home";
       fsType = "zfs";
     };
 
     fileSystems."/boot" = {
-      device = "/dev/disk/by-uuid/???";
-      fsType = "ext4";
+      device = "/dev/disk/by-uuid/EEB1-125F";
+      fsType = "vfat";
     };
+
+    swapDevices = [
+      { device = "/dev/disk/by-uuid/fb7a013f-6c4c-4962-a95a-22f49c0f36a6"; }
+    ];
 
     services.zfs.autoScrub.enable = true;
 

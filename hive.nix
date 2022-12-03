@@ -35,7 +35,7 @@ in allPostpiConfigs // {
 
     config = {
       deployment = {
-        targetUser = builtins.getEnv "USER";
+        targetUser = pkgs.lib.mkDefault (builtins.getEnv "USER");
       };
     };
   };
@@ -59,6 +59,7 @@ in allPostpiConfigs // {
     config = {
       deployment = {
         allowLocalDeployment = true;
+        targetUser = "root";
       };
 
       networking.hostName = "glowness";
