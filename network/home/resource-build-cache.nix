@@ -6,8 +6,9 @@ let
       sshUser = "nix";
       sshKey = "/root/.ssh/id_rsa";
       system = "i686-linux,x86_64-linux";
-      maxJobs = 8;
+      maxJobs = 2;
       speedFactor = 2;
+      supportedFeatures = [ "kvm" "big-parallel" ];
     }
     {
       hostName = "grr";
@@ -33,6 +34,7 @@ in {
     extraOptions = ''
       secret-key-files = /etc/nix/agh-1.pem
       keep-outputs = true
+      builders-use-substitutes = true
     '';
   };
 }

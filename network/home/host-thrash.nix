@@ -8,7 +8,6 @@ in {
 
   config = {
     networking = {
-      hostName = "thrash";
       interfaces = {
         eno1 = {
           ipv4.addresses = [{

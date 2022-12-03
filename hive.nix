@@ -53,6 +53,19 @@ in allPostpiConfigs // {
     };
   };
 
+  glowness = { name, nodes, ... }: {
+    imports = [ ./computers/glowness ];
+
+    config = {
+      deployment = {
+        allowLocalDeployment = true;
+      };
+
+      networking.hostName = "glowness";
+      system.stateVersion = "22.11";
+    };
+  };
+
   grr = { name, nodes, ... }: {
     imports = [ ./computers/grr ];
 

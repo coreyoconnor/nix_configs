@@ -14,7 +14,6 @@ in {
 
     networking = {
       hostId = "34343134";
-      hostName = "grr";
 
       useNetworkd = true;
 

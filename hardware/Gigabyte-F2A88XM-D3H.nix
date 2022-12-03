@@ -6,8 +6,6 @@ with lib; {
     boot = {
       initrd.availableKernelModules =
         [ "xhci_hcd" "ahci" "ohci_pci" "ehci_pci" "usbhid" "usb_storage" ];
-
-      kernelModules = [ "kvm-amd" ];
     };
   };
 }

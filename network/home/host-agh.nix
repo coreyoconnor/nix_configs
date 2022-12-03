@@ -8,7 +8,6 @@ in {
 
   config = {
     networking = {
-      hostName = "agh";
 
       interfaces = {
         enp1s0 = {
