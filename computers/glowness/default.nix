@@ -15,7 +15,7 @@ with lib; {
     services.openssh.enable = true;
     services.openssh.permitRootLogin = "yes";
 
-    boot.plymouth.enable = true;
+    # boot.plymouth.enable = true;
 
     developer-base.enable = true;
     services.foreign-binary-emulation.enable = true;

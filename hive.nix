@@ -59,7 +59,6 @@ in allPostpiConfigs // {
     config = {
       deployment = {
         allowLocalDeployment = true;
-        targetUser = "root";
       };
 
       networking.hostName = "glowness";

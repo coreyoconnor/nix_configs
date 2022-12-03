@@ -13,7 +13,7 @@ in {
     # systemd.services."systemd-networkd-wait-online".enable = false;
 
     networking = {
-      hostId = "34343134";
+      hostId = "cb4bcdd2";
 
       useNetworkd = true;
 

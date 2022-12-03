@@ -8,7 +8,7 @@ in {
 
   config = {
     networking = {
-      hostId = "4227edcc";
+      hostId = "4a571618";
 
       useNetworkd = true;
 

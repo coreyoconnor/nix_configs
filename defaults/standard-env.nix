@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
-with lib; {
+with lib;
+let nixpkgsSrc = ../nixpkgs;
+in {
   config = {
     environment = {
       pathsToLink = [ "/share" "/etc/gconf" ];
@@ -34,8 +36,8 @@ with lib; {
       '';
 
       nixPath = [
-        "nixos=${../nixpkgs/nixos}"
-        "nixpkgs=${../nixpkgs}"
+        "nixos=${nixpkgsSrc}/nixos"
+        "nixpkgs=${nixpkgsSrc}"
         "nixpkgs-overlays=${./nixpkgs-config/overlays}"
       ];
 

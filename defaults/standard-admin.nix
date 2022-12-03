@@ -3,6 +3,7 @@ with lib; {
   config = {
     environment.systemPackages = with pkgs; [
       acpi
+      cryptsetup
       jq
       htop
       nix-index
