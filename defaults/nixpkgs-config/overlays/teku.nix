@@ -1,4 +1,4 @@
 self: super:
 {
-  teku = self.callPackage ../pkgs/teku { };
+  teku = self.callPackage ./pkgs/teku { };
 }

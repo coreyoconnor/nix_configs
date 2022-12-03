@@ -22,8 +22,6 @@ in {
     '';
 
     nix = {
-      autoOptimiseStore = true;
-
       binaryCaches = [ "http://agh:4999" "http://grr:4999" ];
 
       binaryCachePublicKeys = [
@@ -40,6 +38,8 @@ in {
         "nixpkgs=${nixpkgsSrc}"
         "nixpkgs-overlays=${./nixpkgs-config/overlays}"
       ];
+
+      settings.auto-optimise-store = true;
 
       # requires nix 2.4. However, colmena builds, or nix?, fail with > 2.4.
       # settings.experimental-features = [ "nix-command" "flakes" ];

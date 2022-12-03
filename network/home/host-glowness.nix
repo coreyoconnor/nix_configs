@@ -8,11 +8,18 @@ in {
 
   config = {
     networking = {
+      enableIPv6 = true;
+
+      firewall.enable = false;
+
       hostId = "4a571618";
 
       useNetworkd = true;
-
-      firewall.enable = false;
     };
+
+    systemd.services.systemd-networkd-wait-online.serviceConfig.ExecStart = [
+      "" # clear old command
+      "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online -i enp4s0"
+    ];
   };
 }

@@ -57,7 +57,7 @@ with lib; rec {
 
     i18n.defaultLocale = "en_US.UTF-8";
 
-    time.timeZone = "UTC";
+    time.timeZone = lib.mkDefault "UTC";
 
     services.journald.console = "/dev/tty12";
   };

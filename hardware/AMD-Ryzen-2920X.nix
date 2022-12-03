@@ -3,6 +3,13 @@ with lib; {
   imports = [];
 
   config = {
+    nix = {
+      extraOptions = ''
+        build-cores = 8
+      '';
+      maxJobs = 2;
+    };
+
     boot = {
       kernelModules = [ "kvm-amd" ];
     };

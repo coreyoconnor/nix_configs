@@ -17,6 +17,7 @@ with lib; {
 
     # boot.plymouth.enable = true;
 
+    desktop.enable = true;
     developer-base.enable = true;
     services.foreign-binary-emulation.enable = true;
     services.kbfs.enable = true;

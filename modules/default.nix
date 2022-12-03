@@ -4,6 +4,7 @@ with lib; {
     ./atmo-monitor.nix
     ./besu
     ./cluster
+    ./desktop.nix
     ./developer-base.nix
     ./editor-is-vim.nix
     ./foreign-binary-emulation.nix

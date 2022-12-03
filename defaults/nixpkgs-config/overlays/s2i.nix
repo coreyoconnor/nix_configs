@@ -1,4 +1,4 @@
 self: super:
 {
-  s2i = self.callPackage ../pkgs/s2i { };
+  s2i = self.callPackage ./pkgs/s2i { };
 }
