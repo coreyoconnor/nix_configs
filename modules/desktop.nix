@@ -55,24 +55,40 @@ in {
 
   config = mkIf cfg.enable {
 
+    boot.kernelPatches = [
+      {
+        name = "enable RT_FULL";
+        patch = null;
+        extraConfig = ''
+          PREEMPT y
+          PREEMPT_BUILD y
+          PREEMPT_VOLUNTARY n
+          PREEMPT_COUNT y
+          PREEMPTION y
+        '';
+      }
+    ];
+
     environment.systemPackages = with pkgs; [
       alacritty # gpu accelerated terminal
       appimage-run
       bemenu # wayland clone of dmenu
-      configure-gtk
-      dbus-sway-environment
       dracula-theme # gtk theme
       glib # gsettings
       gnome.evince
       gnome.gnome-terminal
       gnome.nautilus
       grim # screenshot functionality
+      helvum
+      pavucontrol
       mako # notification system developed by swaywm maintainer
       slurp # screenshot functionality
       sway
       swayidle
       swaylock
+      waybar
       wayland
+      wlogout
       wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
     ];
 
@@ -160,7 +176,6 @@ in {
       enable = true;
       wlr.enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-      gtkUsePortal = true;
     };
   };
 }

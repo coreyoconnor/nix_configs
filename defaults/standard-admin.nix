@@ -4,9 +4,11 @@ with lib; {
     environment.systemPackages = with pkgs; [
       acpi
       cryptsetup
+      fzf
       jq
       htop
       nix-index
+      pcre
       screen
       tmux
       vim
