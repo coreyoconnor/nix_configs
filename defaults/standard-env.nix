@@ -29,10 +29,6 @@ in {
         "grr-1:YxoRaiS/IfOtt/DaNvU8xJ0BXxYI8poimtPhlWIWBAU="
       ];
 
-      extraOptions = ''
-        keep-outputs = true
-      '';
-
       nixPath = [
         "nixos=${nixpkgsSrc}/nixos"
         "nixpkgs=${nixpkgsSrc}"

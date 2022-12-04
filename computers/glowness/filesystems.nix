@@ -13,6 +13,7 @@ with lib; {
       supportedFilesystems = ["zfs"];
 
       zfs.requestEncryptionCredentials = true;
+      plymouth.enable = false;
     };
 
     fileSystems."/" = {

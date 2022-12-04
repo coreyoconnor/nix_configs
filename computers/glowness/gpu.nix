@@ -10,7 +10,5 @@ with lib; {
         driSupport32Bit = true;
       };
     };
-
-    # virtualisation.podman.enableNvidia = true;
   };
 }

@@ -3,10 +3,10 @@
 {
   boot = {
     nix = {
-      extraOptions = ''
-        build-cores = 3
-      '';
-      maxJobs = 2;
+      settings = {
+        cores = 3;
+        max-jobs = 2;
+      };
     };
 
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" ];

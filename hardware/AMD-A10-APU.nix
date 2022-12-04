@@ -4,7 +4,10 @@ with lib; {
 
   config = {
     nix = {
-      maxJobs = 0;
+      settings = {
+        cores = 2;
+        max-jobs = 0;
+      };
     };
 
     boot = {

@@ -15,8 +15,6 @@ with lib; {
     services.openssh.enable = true;
     services.openssh.permitRootLogin = "yes";
 
-    # boot.plymouth.enable = true;
-
     desktop.enable = true;
     developer-base.enable = true;
     services.foreign-binary-emulation.enable = true;
@@ -29,9 +27,5 @@ with lib; {
     };
 
     virt-host.enable = true;
-
-    services.xserver.enable = true;
-    services.xserver.displayManager.sddm.enable = true;
-    services.xserver.desktopManager.plasma5.enable = true;
   };
 }

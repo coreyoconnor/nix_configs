@@ -4,10 +4,10 @@ with lib; {
 
   config = {
     nix = {
-      extraOptions = ''
-        build-cores = 8
-      '';
-      maxJobs = 2;
+      settings = {
+        cores = 8;
+        max-jobs = 2;
+      };
     };
 
     boot = {
