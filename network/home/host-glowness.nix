@@ -10,8 +10,6 @@ in {
     networking = {
       enableIPv6 = true;
 
-      firewall.enable = false;
-
       hostId = "4a571618";
 
       useNetworkd = true;

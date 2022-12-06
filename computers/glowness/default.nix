@@ -12,9 +12,6 @@ with lib; {
   ];
 
   config = {
-    services.openssh.enable = true;
-    services.openssh.permitRootLogin = "yes";
-
     desktop.enable = true;
     developer-base.enable = true;
     services.foreign-binary-emulation.enable = true;
@@ -27,5 +24,10 @@ with lib; {
     };
 
     virt-host.enable = true;
+
+    virtualisation = {
+      waydroid.enable = true;
+      lxd.enable = true;
+    };
   };
 }

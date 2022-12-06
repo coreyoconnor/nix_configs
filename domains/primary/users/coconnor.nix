@@ -29,10 +29,10 @@ with pkgs.lib; {
       shell = pkgs.bashInteractive + "/bin/bash";
       openssh.authorizedKeys.keyFiles = [ ./ssh/coconnor.pub ];
       subUidRanges = [
-        { startUid = 100000; count = 65536; }
+        { startUid = 2000000; count = 65536; }
       ];
       subGidRanges = [
-        { startGid = 100000; count = 65536; }
+        { startGid = 2000000; count = 65536; }
       ];
     };
   };

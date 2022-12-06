@@ -74,6 +74,7 @@ in {
       appimage-run
       bemenu # wayland clone of dmenu
       dracula-theme # gtk theme
+      firefox
       glib # gsettings
       gnome.evince
       gnome.gnome-terminal
@@ -106,6 +107,7 @@ in {
     programs.sway = {
       enable = true;
       extraSessionCommands = ''
+        export MOZ_ENABLE_WAYLAND="1"
         # SDL:
         export SDL_VIDEODRIVER=wayland
         # QT (needs qt5.qtwayland in systemPackages):

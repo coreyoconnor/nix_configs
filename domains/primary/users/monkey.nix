@@ -16,10 +16,10 @@ with pkgs.lib; {
       group = "monkey";
       extraGroups = [ "libvirtd" "docker" ];
       subUidRanges = [
-        { startUid = 300000; count = 65536; }
+        { startUid = 2100000; count = 65536; }
       ];
       subGidRanges = [
-        { startGid = 300000; count = 65536; }
+        { startGid = 2100000; count = 65536; }
       ];
 
       openssh.authorizedKeys.keyFiles = [ ./ssh/coconnor.pub ];
