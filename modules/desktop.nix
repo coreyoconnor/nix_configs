@@ -75,6 +75,7 @@ in {
       bemenu # wayland clone of dmenu
       dracula-theme # gtk theme
       firefox
+      foot
       glib # gsettings
       gnome.evince
       gnome.gnome-terminal
@@ -104,25 +105,9 @@ in {
       enablePlasmaBrowserIntegration = true;
     };
 
-    programs.sway = {
-      enable = true;
-      extraSessionCommands = ''
-        export MOZ_ENABLE_WAYLAND="1"
-        # SDL:
-        export SDL_VIDEODRIVER=wayland
-        # QT (needs qt5.qtwayland in systemPackages):
-        export QT_QPA_PLATFORM=wayland-egl
-        export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-        # Fix for some Java AWT applications (e.g. Android Studio),
-        # use this if they aren't displayed properly:
-        export _JAVA_AWT_WM_NONREPARENTING=1
-      '';
+    sway-gnome.enable = true;
 
-      wrapperFeatures = {
-        base = true;
-        gtk = true;
-      };
-    };
+    hardware.pulseaudio.enable = false;
 
     services = {
       automatic-timezoned.enable = true;
@@ -147,24 +132,13 @@ in {
       xserver = {
         enable = true; # even tho this I use wayland.
 
-        displayManager.session = [
-          {
-            manage = "desktop";
-            name = "sway";
-            start = ''
-              ${pkgs.sway}/bin/sway &
-              waitPID=$!
-            '';
-          }
-        ];
-
         displayManager.gdm = {
           autoSuspend = false;
           enable = true;
           wayland = true;
         };
 
-        desktopManager.plasma5.enable = true;
+        # desktopManager.plasma5.enable = true;
       };
 
       xfs.enable = false;
@@ -177,7 +151,6 @@ in {
     xdg.portal = {
       enable = true;
       wlr.enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
   };
 }

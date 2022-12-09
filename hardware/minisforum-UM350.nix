@@ -1,13 +1,14 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  boot = {
-    nix = {
-      settings = {
-        cores = 3;
-        max-jobs = 2;
-      };
+  nix = {
+    settings = {
+      cores = 3;
+      max-jobs = 2;
     };
+  };
+
+  boot = {
 
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
     kernelModules = [ "kvm-amd" ];

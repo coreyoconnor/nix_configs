@@ -1,5 +1,9 @@
 { config, lib, pkgs, modulesPath, ... }:
-with lib; {
+with lib;
+let sway-gnome = import ../dependencies/sway-gnome {
+      inherit pkgs lib;
+    };
+in {
   imports = [
     ./atmo-monitor.nix
     ./besu
@@ -16,5 +20,6 @@ with lib; {
     ./status-tty.nix
     ./teku
     ./virt-host.nix
+    sway-gnome.module
   ];
 }

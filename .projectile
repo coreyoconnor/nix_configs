@@ -4,3 +4,4 @@
 -df-server-result/
 -dependencies/kdenlive-dev/
 -nix-org/dependencies/nixpkgs/
+-.gcroots

@@ -10,3 +10,7 @@
 	path = dependencies/retronix
 	url = git@github.com:coreyoconnor/retronix.git
 	branch = master
+[submodule "dependencies/sway-gnome"]
+	path = dependencies/sway-gnome
+	url = git@github.com:coreyoconnor/sway-gnome.git
+	branch = master
