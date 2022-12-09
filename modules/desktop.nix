@@ -82,7 +82,7 @@ in {
 
       flatpak.enable = true;
 
-      packagekit.enable = true;
+      packagekit.enable = false;
 
       pipewire = {
         enable = true;
