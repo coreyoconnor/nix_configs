@@ -26,6 +26,9 @@ with lib; {
     virt-host.enable = true;
 
     virtualisation = {
+      # zfs with rootless podman is meh
+      docker.enable = true;
+      podman.enable = false;
       waydroid.enable = true;
       lxd.enable = true;
     };

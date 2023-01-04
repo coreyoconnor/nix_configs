@@ -14,12 +14,12 @@ let
     };
 
     virtualisation.podman = {
-      enable = true;
+      enable = mkDefault true;
       dockerCompat = true;
     };
 
     virtualisation.docker = {
-      enable = false;
+      enable = mkDefault false;
     };
 
     # see: https://github.com/containers/podman/blob/main/troubleshooting.md#26-running-containers-with-resource-limits-fails-with-a-permissions-error

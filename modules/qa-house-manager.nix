@@ -4,10 +4,12 @@ with lib;
 let
   unstableSrc = builtins.fetchGit {
     url = https://github.com/NixOS/nixpkgs.git;
-    rev = "a115bb9bd56831941be3776c8a94005867f316a7";
+    rev = "e182da8622a354d44c39b3d7a542dc12cd7baa5f";
     ref = "nixos-unstable";
   };
-  unstable = import unstableSrc { };
+  unstable = import unstableSrc {
+    overlays = [ ];
+  };
 in {
   disabledModules = [
     "services/home-automation/home-assistant.nix"
@@ -85,8 +87,18 @@ in {
         # https://www.home-assistant.io/integrations/default_config/
         default_config = {};
 
+        ffmpeg = {};
+
         homeassistant = {
+          allowlist_external_dirs = [
+            "/tmp"
+            "/var/lib/hass/arlo/updates"
+            "/var/lib/hass/arlo/media"
+            "/mnt/storage/hass/arlo/updates"
+            "/mnt/storage/hass/arlo/media"
+          ];
           name = "Home";
+          country = "US";
           latitude = 47.628099;
           longitude = -122.359694;
           elevation = 116;
@@ -106,6 +118,10 @@ in {
               type = "homeassistant";
             }
           ];
+
+          media_dirs = {
+            cameras = "/mnt/storage/hass/arlo/media";
+          };
         };
 
         logger = {
@@ -116,8 +132,11 @@ in {
 
         lovelace = { };
 
-        mqtt = {};
+        media_player = [
+          { platform = "aarlo"; }
+        ];
 
+        mqtt = {};
 
         recorder = {
           db_url = "postgresql://@/hass";
@@ -137,6 +156,8 @@ in {
             ];
           }
         ];
+
+        stream = {};
 
         template = [
           {
@@ -166,10 +187,16 @@ in {
       package = (pkgs.home-assistant.override {
         extraPackages = py: with py; [
           psycopg2
-          (callPackage ./pyaarlo.nix { })
+          (py.callPackage ./pyaarlo.nix { })
         ];
 
         packageOverrides = python-self: python-super: {
+          numpy = python-super.numpy.overridePythonAttrs (oldAttrs: {
+            setupPyBuildFlags = [ "--cpu-baseline=\"avx f16c\"" ];
+          });
+          dask = python-super.dask.overridePythonAttrs (oldAttrs: {
+            # doCheck = false;
+          });
           pydaikin = python-super.pydaikin.overridePythonAttrs (oldAttrs: {
             doCheck = false;
           });

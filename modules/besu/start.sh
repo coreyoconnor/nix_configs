@@ -3,8 +3,8 @@ set -ex
 PID_FILE="$1"
 
 # https://hub.docker.com/r/hyperledger/besu/tags
-# hyperledger/besu:22.10-graalvm
-REF=sha256:447cbef67a7fe7b4027d3a8499dfb078b852d8ea23f28a338d6e61bdcabff8ce
+# latest
+REF=sha256:f7ed3b1d3e9bb03da5344fbe737eba64c058c7c170eac2116811d572a8704300
 
 # besu container user is `besu` with UID 1000
 # besu container group is `besu` with GID 1000
@@ -12,7 +12,7 @@ RUN_OPTS=(
   --name besu
   --rm
   --stop-timeout 120
-  --cpus 4
+  --cpus 6
   --memory 32g
   --mount=type=bind,source=/mnt/storage/validator/besu,destination=/mnt/besu
   --mount=type=bind,readonly=true,source=/mnt/storage/validator/jwt/jwt.txt,destination=/etc/jwt.txt
