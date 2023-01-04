@@ -8,7 +8,9 @@ PID_FILE="$1"
 # flashbots/mev-boost:1.4.0-rc4-portable
 #REF=sha256:1491d0be77309615c7c43f1b1f9418f84ab36b587c448ab5cce4b56c2e5f5d15
 # 1.4.0
-REF=sha256:08cca2d62cd269b98ba507ff69472d48e172bf257942b86306a995b7745fa6cc
+#REF=sha256:08cca2d62cd269b98ba507ff69472d48e172bf257942b86306a995b7745fa6cc
+# 1.4.0-portable
+REF=sha256:07508b741f2e0575134a7df930038fbfa0d2720d49435193644b708f85b08f97
 
 # container user is `root` with UID 0
 # container group is `root` with GID 0
