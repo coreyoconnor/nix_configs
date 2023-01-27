@@ -26,6 +26,7 @@ with lib; {
       avahi = {
         enable = true;
         nssmdns = true;
+        openFirewall = true;
       };
 
       dbus.enable = true;

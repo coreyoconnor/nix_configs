@@ -91,6 +91,8 @@ in {
         pulse.enable = true;
       };
 
+      printing.enable = true;
+
       sysprof.enable = true;
 
       xserver = {

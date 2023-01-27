@@ -5,13 +5,17 @@ with lib; {
   config = {
     time.hardwareClockInLocalTime = true;
 
-    boot.initrd.availableKernelModules = [
-      "ahci"
-      "nvme"
-      "sd_mod"
-      "usb_storage"
-      "usbhid"
-      "xhci_pci"
-    ];
+    boot = {
+      initrd.availableKernelModules = [
+        "ahci"
+        "nvme"
+        "sd_mod"
+        "usb_storage"
+        "usbhid"
+        "xhci_pci"
+      ];
+
+      extraModulePackages = with config.boot.kernelPackages; [ it87 ];
+    };
   };
 }
