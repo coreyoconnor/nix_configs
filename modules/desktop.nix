@@ -38,6 +38,7 @@ in {
       dracula-theme # gtk theme
       firefox
       foot
+      fuzzel # launcher
       glib # gsettings
       gnome.evince
       gnome.gnome-terminal
