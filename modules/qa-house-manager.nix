@@ -4,8 +4,8 @@ with lib;
 let
   unstableSrc = builtins.fetchGit {
     url = https://github.com/NixOS/nixpkgs.git;
-    rev = "06999209d7a0043d4372e38f57cffae00223d592";
-    ref = "nixos-unstable";
+    rev = "1a0cf212db3dc6ad2f6df5de2695e01077c27ee1";
+    ref = "master";
   };
   unstable = import unstableSrc {
     overlays = [ ];
@@ -185,22 +185,23 @@ in {
       openFirewall = true;
 
       package = (pkgs.home-assistant.override {
-        extraPackages = py: with py; [
-          psycopg2
+        extraPackages = py: [
+          py.psycopg2
+          py.grpcio
           (py.callPackage ./pyaarlo.nix { })
         ];
 
-        packageOverrides = python-self: python-super: {
-          numpy = python-super.numpy.overridePythonAttrs (oldAttrs: {
-            setupPyBuildFlags = [ "--cpu-baseline=\"avx f16c\"" ];
-          });
-          dask = python-super.dask.overridePythonAttrs (oldAttrs: {
-            # doCheck = false;
-          });
-          pydaikin = python-super.pydaikin.overridePythonAttrs (oldAttrs: {
-            doCheck = false;
-          });
-        };
+        #packageOverrides = python-self: python-super: {
+        #  numpy = python-super.numpy.overridePythonAttrs (oldAttrs: {
+        #    setupPyBuildFlags = [ "--cpu-baseline=\"avx f16c\"" ];
+        #  });
+        #  dask = python-super.dask.overridePythonAttrs (oldAttrs: {
+        #    # doCheck = false;
+        #  });
+        #  pydaikin = python-super.pydaikin.overridePythonAttrs (oldAttrs: {
+        #    doCheck = false;
+        #  });
+        #};
       }).overrideAttrs (oldAttrs: {
         doInstallCheck = false;
       });

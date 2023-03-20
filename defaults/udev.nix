@@ -30,6 +30,10 @@ with lib; {
       # KeepKey WebUSB Firmware/Bootloader
       SUBSYSTEM=="usb", ATTR{idVendor}=="2b24", ATTR{idProduct}=="0002", MODE="0666", GROUP="plugdev", TAG+="uaccess", TAG+="udev-acl", SYMLINK+="keepkey%n"
       KERNEL=="hidraw*", ATTRS{idVendor}=="2b24", ATTRS{idProduct}=="0002",  MODE="0666", GROUP="plugdev", TAG+="uaccess", TAG+="udev-acl"
+
+      # precursor
+      SUBSYSTEM=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="5bf0", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+      SUBSYSTEM=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="3613", MODE="0660", GROUP="plugdev", TAG+="uaccess"
     '';
   };
 }

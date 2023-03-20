@@ -51,6 +51,15 @@ in {
       sway
       swayidle
       swaylock
+      (
+appimageTools.wrapType2 {
+  name = "taskade";
+  src = fetchurl {
+    url = "https://apps.taskade.com/updates/Taskade_4.2.8_x86_64.AppImage";
+    hash = "sha256-6Aj3CemVU3dZb9vLLbyLAS1f81D7jCHCUbXiPI64ytA=";
+  };
+}
+      )
       waybar
       wayland
       wlogout
@@ -64,8 +73,8 @@ in {
     };
 
     nixpkgs.config.firefox = {
-      enableGnomeExtensions = true;
-      enablePlasmaBrowserIntegration = true;
+      enableGnomeExtensions = false;
+      enablePlasmaBrowserIntegration = false;
     };
 
     sway-gnome.enable = true;
@@ -116,6 +125,7 @@ in {
     xdg.portal = {
       enable = true;
       wlr.enable = true;
+      gtkUsePortal = true;
     };
   };
 }

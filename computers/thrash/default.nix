@@ -16,6 +16,7 @@ with lib; {
     retronix = {
       enable = true;
       nick = "UFO";
+      user = "media";
     };
 
     programs.gamemode.enable = true;

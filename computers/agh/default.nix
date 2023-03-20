@@ -19,7 +19,14 @@ with lib; {
     virt-host.enable = true;
 
     services.dnsmasq.enable = true;
-    services.fail2ban.enable = true;
+    services.fail2ban = {
+      enable = true;
+
+      bantime-increment = {
+        enable = true;
+        maxtime = "48h";
+      };
+    };
     services.foreign-binary-emulation.enable = true;
     services.hw-rand.enable = true;
     services.kbfs.enable = false;

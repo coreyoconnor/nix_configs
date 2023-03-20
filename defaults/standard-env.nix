@@ -22,26 +22,27 @@ in {
     '';
 
     nix = {
-      binaryCaches = [ "http://agh:4999" "http://grr:4999" ];
-
-      binaryCachePublicKeys = [
-        "agh-1:qqgKseTFXMiOYrm+5LyWz/bKCXahP5KjW1RU6Fph674="
-        "grr-1:YxoRaiS/IfOtt/DaNvU8xJ0BXxYI8poimtPhlWIWBAU="
-      ];
-
       nixPath = [
         "nixos=${nixpkgsSrc}/nixos"
         "nixpkgs=${nixpkgsSrc}"
         "nixpkgs-overlays=${./nixpkgs-config/overlays}"
       ];
 
-      settings.auto-optimise-store = true;
+      settings = {
+        auto-optimise-store = true;
 
-      # requires nix 2.4. However, colmena builds, or nix?, fail with > 2.4.
-      # settings.experimental-features = [ "nix-command" "flakes" ];
-      settings.experimental-features = [ "nix-command" ];
+        # requires nix 2.4. However, colmena builds, or nix?, fail with > 2.4.
+        # settings.experimental-features = [ "nix-command" "flakes" ];
+        experimental-features = [ "nix-command" ];
 
-      trustedUsers = [ "nix" "@wheel" ];
+        substituters = [ "http://agh:4999" "http://grr:4999" ];
+        trusted-users = [ "nix" "@wheel" ];
+
+        trusted-public-keys = [
+          "agh-1:qqgKseTFXMiOYrm+5LyWz/bKCXahP5KjW1RU6Fph674="
+          "grr-1:YxoRaiS/IfOtt/DaNvU8xJ0BXxYI8poimtPhlWIWBAU="
+        ];
+      };
     };
   };
 }
