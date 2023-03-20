@@ -4,7 +4,8 @@ PID_FILE="$1"
 
 # https://hub.docker.com/r/hyperledger/besu/tags
 # latest
-REF=sha256:f7ed3b1d3e9bb03da5344fbe737eba64c058c7c170eac2116811d572a8704300
+REF=sha256:f82390ae16f50f63957fffe82d9240304779a5b2c824ad6ab3c98023952ad331
+# REF=sha256:f7ed3b1d3e9bb03da5344fbe737eba64c058c7c170eac2116811d572a8704300
 
 # besu container user is `besu` with UID 1000
 # besu container group is `besu` with GID 1000
@@ -12,7 +13,7 @@ RUN_OPTS=(
   --name besu
   --rm
   --stop-timeout 120
-  --cpus 6
+  --cpus 8
   --memory 32g
   --mount=type=bind,source=/mnt/storage/validator/besu,destination=/mnt/besu
   --mount=type=bind,readonly=true,source=/mnt/storage/validator/jwt/jwt.txt,destination=/etc/jwt.txt
@@ -27,6 +28,7 @@ RUN_OPTS=(
   --conmon-pidfile "$PID_FILE"
   --sdnotify=conmon
   --no-healthcheck # spammy
+  --env JAVA_OPTS=-XX:ActiveProcessorCount=8
 )
 
 OPTS=(

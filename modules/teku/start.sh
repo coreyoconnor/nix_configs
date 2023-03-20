@@ -7,8 +7,10 @@ PID_FILE="$1"
 #REF=sha256:b6a10d8a521c8b2edcb8782b715a1d9c443d4af57ce04bb32eb4625e84c63caf
 # 22.10.2
 #REF=sha256:6247df31ec4357a0673625d0004861b01e0797590a0422710bd8470a7314fd58
+#REF=sha256:32c1b3c71ce4efce63b1da83baf7ecab45b106afcb3356928373caf9f9ff5106
 # latest
-REF=sha256:32c1b3c71ce4efce63b1da83baf7ecab45b106afcb3356928373caf9f9ff5106
+REF=sha256:0ae1e0772b4f1c2a911e8e02d0755d9207bd2b3b8c7d556a72afa74b0409d2b4
+
 TARGET_WALLET=$(< /mnt/storage/validator/target-wallet.txt)
 
 # teku container user is `teku` with UID 1000
@@ -17,8 +19,8 @@ RUN_OPTS=(
   --name teku
   --rm
   --stop-timeout 120
-  --cpus 6
-  --memory 10g
+  --cpus 8
+  --memory 12g
   --mount=type=bind,source=/mnt/storage/validator/teku,destination=/mnt/teku
   --mount=type=bind,source=/mnt/storage/validator/keys,destination=/etc/keys
   --mount=type=bind,readonly=true,source=/mnt/storage/validator/jwt/jwt.txt,destination=/etc/jwt.txt
@@ -34,6 +36,7 @@ RUN_OPTS=(
   --conmon-pidfile "$PID_FILE"
   --sdnotify=conmon
   --no-healthcheck # spammy
+  --env JAVA_OPTS=-XX:ActiveProcessorCount=8
 )
 
 OPTS=(

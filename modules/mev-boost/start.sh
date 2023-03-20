@@ -10,7 +10,9 @@ PID_FILE="$1"
 # 1.4.0
 #REF=sha256:08cca2d62cd269b98ba507ff69472d48e172bf257942b86306a995b7745fa6cc
 # 1.4.0-portable
-REF=sha256:07508b741f2e0575134a7df930038fbfa0d2720d49435193644b708f85b08f97
+# REF=sha256:07508b741f2e0575134a7df930038fbfa0d2720d49435193644b708f85b08f97
+# 1.5.0-portable
+REF=sha256:fa0d861658d44da1e95a84b67825cfa62629b75ffb028e7dacae2578b4bd814b
 
 # container user is `root` with UID 0
 # container group is `root` with GID 0
