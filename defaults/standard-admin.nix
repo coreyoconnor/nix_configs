@@ -11,7 +11,7 @@ with lib; {
       pcre
       screen
       tmux
-      vim
+      neovim
     ];
 
     security.sudo = {
