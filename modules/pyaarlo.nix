@@ -11,13 +11,13 @@
 
 buildPythonPackage rec {
   pname = "pyaarlo";
-  version = "0.7.1.3";
+  version = "0.8.0b6";
 
   src = fetchFromGitHub {
     owner = "twrecked";
     repo = "pyaarlo";
-    rev = "ab02c70173b0f9ce637a98969a91f6a5b1abd5cf";
-    sha256 = "sha256-wePfnt6UcPzgYw6+YdFsJ+Y26bVP4xrcpHiGgCvErBg=";
+    rev = "77c202b6f789c7104a024f855a12a3df4fc8df38";
+    sha256 = "sha256-/XHqiyuVZGjJGgc+r35vVMTERQ9FlJrtMWs9+2wKGkk=";
   };
 
   doCheck = false;

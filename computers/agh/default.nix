@@ -24,12 +24,13 @@ with lib; {
 
       bantime-increment = {
         enable = true;
-        maxtime = "48h";
+        maxtime = "200h";
       };
     };
     services.foreign-binary-emulation.enable = true;
     services.hw-rand.enable = true;
     services.kbfs.enable = false;
+    services.openssh.passwordAuthentication = false;
     services.samba.enable = true;
     services.xserver.enable = false;
     services.qa-house-manager.enable = true;

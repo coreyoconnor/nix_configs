@@ -11,6 +11,9 @@ with lib; {
   ];
 
   config = {
+    hardware.bluetooth.enable = true;
+    hardware.xpadneo.enable = true;
+
     media-presenter.enable = true;
 
     retronix = {
