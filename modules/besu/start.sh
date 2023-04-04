@@ -3,9 +3,8 @@ set -ex
 PID_FILE="$1"
 
 # https://hub.docker.com/r/hyperledger/besu/tags
-# latest
-REF=sha256:f82390ae16f50f63957fffe82d9240304779a5b2c824ad6ab3c98023952ad331
-# REF=sha256:f7ed3b1d3e9bb03da5344fbe737eba64c058c7c170eac2116811d572a8704300
+# 23.1.2
+REF=sha256:daaaafba77c7b4702b55a592b6c3600e8b5775c2e14d027fb8d2345632fae2b8
 
 # besu container user is `besu` with UID 1000
 # besu container group is `besu` with GID 1000
