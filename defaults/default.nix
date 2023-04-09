@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
-with lib; rec {
+with lib;
+let zfsLinuxPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+in rec {
   imports = [
     ./nixpkgs-config.nix
     ./fonts.nix
@@ -17,7 +19,7 @@ with lib; rec {
   };
 
   config = {
-    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    boot.kernelPackages = mkDefault zfsLinuxPackages;
 
     boot.loader.grub = {
       fontSize = 24;
