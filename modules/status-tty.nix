@@ -12,8 +12,17 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # systemd.services."getty@tty1".enable = false;
-    # systemd.services."autovt@".enable = false;
+    console = {
+      font = "ter-132n";
+      packages = [ pkgs.terminus_font ];
+    };
+
+    environment.pathsToLink = [
+      "/share/consolefonts"
+    ];
+
+    systemd.services."getty@tty1".enable = false;
+    systemd.services."autovt@".enable = false;
 
     systemd.services."autovt@tty1" = {
       description = "Status";

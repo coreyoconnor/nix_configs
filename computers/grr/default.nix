@@ -22,7 +22,7 @@ with lib; {
     services.foreign-binary-emulation.enable = true;
     services.hw-rand.enable = true;
     services.kbfs.enable = false;
-    services.status-tty.enable = false;
+    services.status-tty.enable = true;
 
     services.nix-serve = {
       enable = true;

@@ -35,6 +35,7 @@ in {
       };
 
       serviceConfig = {
+        Delegate="yes"; # required for CPU limits?
         ExecStart = "${./start.sh} %t/%n.pid";
         ExecStartPre = [
           "-${pkgs.podman}/bin/podman stop --time 120 --ignore teku"

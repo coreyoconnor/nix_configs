@@ -26,7 +26,7 @@ in rec {
     };
 
     console = {
-      font = "Lat2-Terminus16";
+      font = mkDefault "Lat2-Terminus16";
       keyMap = "us";
     };
 
