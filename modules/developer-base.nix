@@ -19,8 +19,6 @@ in {
     environment.systemPackages = with pkgs; [
       ammonite
       ansible
-      # ansible-bender
-      # ansible-python-support
       autoconf
       automake
       bloop
@@ -35,11 +33,12 @@ in {
       jdk
       jq
       maven3
-      # operator-sdk
       podman
       qemu
       runc
       sbt
+      scala-cli
+      silver-searcher
       slirp4netns
     ];
 
