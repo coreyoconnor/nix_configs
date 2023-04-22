@@ -12,7 +12,7 @@ RUN_OPTS=(
   --name besu
   --rm
   --stop-timeout 120
-  --cpus 8
+  --cpus 10
   --memory 16g
   --mount=type=bind,source=/mnt/storage/validator/besu,destination=/mnt/besu
   --mount=type=bind,readonly=true,source=/mnt/storage/validator/jwt/jwt.txt,destination=/etc/jwt.txt
@@ -27,7 +27,7 @@ RUN_OPTS=(
   --conmon-pidfile "$PID_FILE"
   --sdnotify=conmon
   --no-healthcheck # spammy
-  --env BESU_OPTS='-XX:ActiveProcessorCount=8 -Xmx8g -Xss512k'
+  --env BESU_OPTS='-XX:ActiveProcessorCount=10 -Xmx12g -Xss512k -XX:+PrintGC'
 )
 
 OPTS=(

@@ -19,8 +19,8 @@ RUN_OPTS=(
   --name teku
   --rm
   --stop-timeout 120
-  --cpus 8
-  --memory 12g
+  --cpus 12
+  --memory 14g
   --mount=type=bind,source=/mnt/storage/validator/teku,destination=/mnt/teku
   --mount=type=bind,source=/mnt/storage/validator/keys,destination=/etc/keys
   --mount=type=bind,readonly=true,source=/mnt/storage/validator/jwt/jwt.txt,destination=/etc/jwt.txt
@@ -36,7 +36,7 @@ RUN_OPTS=(
   --conmon-pidfile "$PID_FILE"
   --sdnotify=conmon
   --no-healthcheck # spammy
-  --env JAVA_OPTS=-XX:ActiveProcessorCount=8
+  --env TEKU_OPTS='-XX:ActiveProcessorCount=12 -Xmx12g -Xss512k -XX:+PrintGC'
 )
 
 OPTS=(
@@ -55,7 +55,8 @@ OPTS=(
   --ee-endpoint http://192.168.86.7:8551
   --ee-jwt-secret-file /etc/jwt.txt
   --validators-proposer-default-fee-recipient $TARGET_WALLET
-  --validators-builder-registration-default-enabled=true --builder-endpoint=http://192.168.86.7:18550
+  --validators-builder-registration-default-enabled=true
+  --builder-endpoint=http://192.168.86.7:18550
 )
 
 podman run "${RUN_OPTS[@]}" \
