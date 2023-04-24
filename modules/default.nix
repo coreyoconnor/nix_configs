@@ -10,7 +10,6 @@ in {
     ./cluster
     ./desktop.nix
     ./developer-base.nix
-    ./editor-is-vim.nix
     ./foreign-binary-emulation.nix
     ./hw-rand.nix
     ./media-presenter.nix

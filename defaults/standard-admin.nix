@@ -14,6 +14,8 @@ with lib; {
       neovim
     ];
 
+    environment.variables.EDITOR = mkDefault "${neovim}/bin/nvim";
+
     security.sudo = {
       enable = true;
       wheelNeedsPassword = false;

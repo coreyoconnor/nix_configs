@@ -89,6 +89,12 @@ in {
 
       dbus.enable = true;
 
+      emacs = {
+        enable = true;
+        install = true;
+        defaultEditor = true;
+      };
+
       fwupd.enable = true;
 
       flatpak.enable = true;
