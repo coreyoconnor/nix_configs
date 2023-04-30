@@ -6,11 +6,13 @@
   ];
 
   config = {
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxKernel.packages.linux_rpi3;
     hardware.enableRedistributableFirmware = true;
 
     nixpkgs.overlays = [
       (self: super: {
+        makeModulesClosure = x: super.makeModulesClosure (x // { allowMissing = true; });
+
         zfs = super.zfs.overrideAttrs (finalAttrs: previousAttrs: {
           meta = previousAttrs.meta // { platforms = []; broken = true; };
         });

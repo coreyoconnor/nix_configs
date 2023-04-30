@@ -1,0 +1,29 @@
+#!/bin/sh
+
+set -ex
+
+# unzstd postpi-1-image/sd-image/nixos-sd-image-22.11pre-git-aarch64-linux.img.zst -o postpi-1.img
+
+read -p "Enter ok to continue: " input
+
+for I in $(seq 1 7); do
+  sudo rpiboot
+  sleep 2
+
+  while [ "$input" != "ok" ]
+  do
+    read -p "Please enter ok to continue: " input
+  done
+
+  drive="/dev/disk/by-path/pci-0000:43:00.3-usb-0:2:1.0-scsi-0:0:0:0"
+
+  test -b $drive
+
+  rm -f "./postpi-${I}.img"
+  unzstd -i "./postpi-${I}-image/sd-image/nixos-sd-image-22.11pre-git-aarch64-linux.img.zst" -o "./postpi-${I}.img"
+  sudo dd bs=1M of=$drive "if=postpi-${I}.img"
+
+  sleep 2
+
+  umount -q ${drive}-* || true
+done
