@@ -14,7 +14,7 @@ with lib; {
       neovim
     ];
 
-    environment.variables.EDITOR = mkOverride 1000 "${pkgs.neovim}/bin/nvim";
+    environment.variables.EDITOR = mkOverride 950 "${pkgs.neovim}/bin/nvim";
 
     security.sudo = {
       enable = true;
