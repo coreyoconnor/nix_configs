@@ -16,6 +16,7 @@ let
     virtualisation.podman = {
       enable = mkDefault true;
       dockerCompat = true;
+      extraPackages = [ pkgs.zfs ];
     };
 
     virtualisation.docker = {

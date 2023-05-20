@@ -4,8 +4,9 @@ PID_FILE="$1"
 
 # https://hub.docker.com/r/hyperledger/besu/tags
 # 23.1.2
-REF=sha256:daaaafba77c7b4702b55a592b6c3600e8b5775c2e14d027fb8d2345632fae2b8
-
+#REF=sha256:daaaafba77c7b4702b55a592b6c3600e8b5775c2e14d027fb8d2345632fae2b8
+# 23.4.0-openj9-jdk-17
+REF=sha256:0830d8ee81b2c26f725c2a40281b4163fd5d00f8b73f5de16f6a9028e93d8b98
 # besu container user is `besu` with UID 1000
 # besu container group is `besu` with GID 1000
 RUN_OPTS=(

@@ -33,9 +33,9 @@ with lib; {
 
     virtualisation = {
       containers.enable = true;
-      # zfs with rootless podman is a no go
-      docker.enable = true;
-      podman.enable = false;
+      # zfs with rootless podman is a no go?
+      # docker.enable = true;
+      # podman.enable = false;
       waydroid.enable = true;
       lxd.enable = true;
     };

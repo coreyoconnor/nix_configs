@@ -8,8 +8,8 @@ PID_FILE="$1"
 # 22.10.2
 #REF=sha256:6247df31ec4357a0673625d0004861b01e0797590a0422710bd8470a7314fd58
 #REF=sha256:32c1b3c71ce4efce63b1da83baf7ecab45b106afcb3356928373caf9f9ff5106
-# 23.3.1
-REF=sha256:eec97d32fe7111f1ce400fc5cd03700976fb1da56899051199fe6ece0089356e
+# 23.5.0
+REF=sha256:40eed17d1d768edc8fbd50319606e35c2377ce9d89bc0c45ddb51fbe56c0abdd
 
 TARGET_WALLET=$(< /mnt/storage/validator/target-wallet.txt)
 
@@ -36,7 +36,7 @@ RUN_OPTS=(
   --conmon-pidfile "$PID_FILE"
   --sdnotify=conmon
   --no-healthcheck # spammy
-  --env TEKU_OPTS='-XX:ActiveProcessorCount=12 -Xmx12g -Xss512k -XX:+PrintGC'
+  --env TEKU_OPTS='-XX:ActiveProcessorCount=12 -Xss512k -XX:+PrintGC'
 )
 
 OPTS=(

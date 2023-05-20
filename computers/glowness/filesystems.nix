@@ -42,7 +42,5 @@ with lib; {
     ];
 
     services.zfs.autoScrub.enable = true;
-
-    virtualisation.docker.storageDriver = "zfs";
   };
 }
