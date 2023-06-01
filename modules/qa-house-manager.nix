@@ -63,6 +63,7 @@ in {
 
           save_updates_to = "/var/lib/hass/arlo/updates";
           save_media_to = "/var/lib/hass/arlo/media/\${SN}/\${Y}/\${m}/\${d}/\${T}";
+          mqtt_host = "mqtt-cluster-z1.arloxcld.com";
         };
 
         binary_sensor = [
@@ -99,9 +100,9 @@ in {
           ];
           name = "Home";
           country = "US";
-          latitude = 47.628099;
-          longitude = -122.359694;
-          elevation = 116;
+          latitude = "!secret home_latitude";
+          longitude = "!secret home_longitude";
+          elevation  = "!secret home_elevation";
           time_zone = config.time.timeZone;
           unit_system = "imperial";
           auth_providers = [
@@ -178,6 +179,10 @@ in {
             ];
           }
         ];
+
+        tts = [{
+          platform = "picotts";
+        }];
       };
 
       extraComponents = pkgs.home-assistant.supportedComponentsWithTests;
@@ -186,9 +191,10 @@ in {
 
       package = (pkgs.home-assistant.override {
         extraPackages = py: [
+          py.cloudscraper
           py.psycopg2
           py.grpcio
-          (py.callPackage ./pyaarlo.nix { })
+          # (py.callPackage ./pyaarlo.nix { })
         ];
 
         #packageOverrides = python-self: python-super: {
@@ -221,5 +227,7 @@ in {
         };
       }];
     };
+
+    systemd.services.postgresql.serviceConfig.TimeoutSec = lib.mkOverride 10 666;
   };
 }

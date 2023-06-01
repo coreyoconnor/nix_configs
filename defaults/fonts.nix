@@ -13,6 +13,8 @@ with lib; {
 
       fonts = with pkgs; [
         anonymousPro
+        arphic-ukai
+        arphic-uming
         bakoma_ttf
         cm_unicode
         corefonts
@@ -20,9 +22,17 @@ with lib; {
         hack-font
         inconsolata
         junicode
+        noto-fonts
+        noto-fonts-cjk-sans
+        noto-fonts-cjk-serif
+        noto-fonts-emoji
+        noto-fonts-emoji-blob-bin
+        noto-fonts-extra
         ucs-fonts
         unifont
         # vistafonts
+        wqy_microhei
+        wqy_zenhei
       ];
     };
   };

@@ -10,7 +10,7 @@ let
 
       nixpkgs.system = "aarch64-linux";
 
-      system.stateVersion = "22.05";
+      system.stateVersion = "22.11";
     };
   };
   postpiNodeNames = map (n: "postpi-" + (toString n))

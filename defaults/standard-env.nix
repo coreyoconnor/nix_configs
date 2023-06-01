@@ -31,9 +31,7 @@ in {
       settings = {
         auto-optimise-store = true;
 
-        # requires nix 2.4. However, colmena builds, or nix?, fail with > 2.4.
-        # settings.experimental-features = [ "nix-command" "flakes" ];
-        experimental-features = [ "nix-command" ];
+        experimental-features = [ "nix-command" "flakes" ];
 
         substituters = [ "http://agh:4999" "http://grr:4999" ];
         trusted-users = [ "nix" "@wheel" ];
