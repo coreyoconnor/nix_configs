@@ -4,11 +4,19 @@ with lib;
 let
   unstableSrc = builtins.fetchGit {
     url = https://github.com/NixOS/nixpkgs.git;
-    rev = "1a0cf212db3dc6ad2f6df5de2695e01077c27ee1";
+    rev = "d5210941a5003a865421bd50bbd0a43a2d511bcf";
     ref = "master";
   };
   unstable = import unstableSrc {
-    overlays = [ ];
+    config = {
+      permittedInsecurePackages = [ "openssl-1.1.1u" ];
+      allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+        "python-nest"
+      ];
+    };
+
+    overlays = [
+    ];
   };
 in {
   disabledModules = [
@@ -137,6 +145,8 @@ in {
           { platform = "aarlo"; }
         ];
 
+        mobile_app = { };
+
         mqtt = {};
 
         recorder = {
@@ -159,6 +169,8 @@ in {
         ];
 
         stream = {};
+
+        system_health = { };
 
         template = [
           {
@@ -183,6 +195,8 @@ in {
         tts = [{
           platform = "picotts";
         }];
+
+        zeroconf = { };
       };
 
       extraComponents = pkgs.home-assistant.supportedComponentsWithTests;
@@ -190,10 +204,13 @@ in {
       openFirewall = true;
 
       package = (pkgs.home-assistant.override {
+        python311 = unstable.python310;
+
         extraPackages = py: [
           py.cloudscraper
           py.psycopg2
           py.grpcio
+          py.unidecode
           # (py.callPackage ./pyaarlo.nix { })
         ];
 

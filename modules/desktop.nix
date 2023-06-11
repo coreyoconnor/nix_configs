@@ -32,22 +32,22 @@ in {
     ];
 
     environment.systemPackages = with pkgs; [
-      alacritty # gpu accelerated terminal
       appimage-run
       bemenu # wayland clone of dmenu
       dracula-theme # gtk theme
-      firefox
+      firefox-wayland
       foot
       fuzzel # launcher
       glib # gsettings
       gnome.evince
       gnome.gnome-terminal
       gnome.nautilus
-      grim # screenshot functionality
+      grim # screjnshot functionality
       helvum
       mako # notification system developed by swaywm maintainer
       gnvim
       pavucontrol
+      qt6Packages.qtwayland
       slurp # screenshot functionality
       sway
       swayidle
@@ -61,10 +61,13 @@ in {
           };
         }
       )
+      swww
       waybar
       wayland
       wlogout
       wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+      xdg-user-dirs
+      xdg-utils
     ];
 
     hardware = {
@@ -78,9 +81,16 @@ in {
       enablePlasmaBrowserIntegration = false;
     };
 
-    sway-gnome.enable = true;
+    sway-gnome.enable = false;
+
+    programs.hyprland = {
+      enable = true;
+      xwayland.hidpi = true;
+    };
 
     hardware.pulseaudio.enable = false;
+
+    security.pam.services.swaylock = {};
 
     security.rtkit.enable = true;
 
@@ -92,12 +102,21 @@ in {
       emacs = {
         enable = true;
         install = true;
+        package = pkgs.emacs29-gtk3;
         defaultEditor = true;
       };
 
       fwupd.enable = true;
 
       flatpak.enable = true;
+      greetd = {
+        enable = true;
+        settings = {
+          default_session = {
+            command = "${pkgs.greetd.greetd}/bin/agreety --cmd Hyprland";
+          };
+        };
+      };
 
       packagekit.enable = false;
 
@@ -115,12 +134,15 @@ in {
       xserver = {
         enable = true; # even tho this I use wayland.
 
+        displayManager.lightdm.enable = false;
+
         displayManager.gdm = {
           autoSuspend = false;
-          enable = true;
+          enable = false;
           wayland = true;
         };
       };
+
 
       xfs.enable = false;
     };
@@ -131,8 +153,7 @@ in {
 
     xdg.portal = {
       enable = true;
-      wlr.enable = true;
-      gtkUsePortal = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
   };
 }

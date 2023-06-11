@@ -17,35 +17,24 @@ in {
     '';
 
     environment.systemPackages = with pkgs; [
-      ammonite
       ansible
       autoconf
       automake
       bloop
       buildah
       conmon
-      coq
       coursier
       docker-pushrm
-      emacs
-      fuse-overlayfs
       git
       jdk
       jq
-      maven3
-      podman
-      qemu
-      runc
       sbt
       scala-cli
       silver-searcher
-      slirp4netns
     ];
 
     nixpkgs.config = {
       android_sdk.accept_license = true;
-
-      cabal.libraryProfiling = true;
     };
 
     programs.ssh = {

@@ -18,7 +18,6 @@ with lib; {
           "/dev/disk/by-id/ata-ADATA_SP550_2G3220055124"
         ];
         zfsSupport = true;
-        version = 2;
       };
     };
 

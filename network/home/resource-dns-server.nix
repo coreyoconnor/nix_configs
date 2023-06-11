@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }: {
 
   services.dnsmasq = {
-    servers = [
+    settings.server = [
       "1.1.1.1"
       "8.8.8.8"
     ] ++ (if config.networking.enableIPv6 then [
