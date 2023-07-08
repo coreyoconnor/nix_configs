@@ -13,8 +13,6 @@ in {
     };
   };
 
-  # https://github.com/nix-community/home-manager.git
-
   config = mkIf cfg.enable {
 
     boot.kernelPatches = [
@@ -33,15 +31,17 @@ in {
 
     environment.systemPackages = with pkgs; [
       appimage-run
-      bemenu # wayland clone of dmenu
       dracula-theme # gtk theme
       firefox-wayland
       foot
       fuzzel # launcher
-      glib # gsettings
+      gnome44Extensions."gnome-one-window-wonderland@jqno.nl"
+      gnome44Extensions."material-shell@papyelgringo"
+      gnome44Extensions."quick-settings-audio-panel@rayzeq.github.io"
       gnome.evince
       gnome.gnome-terminal
       gnome.nautilus
+      gnomeExtensions.appindicator
       grim # screjnshot functionality
       helvum
       mako # notification system developed by swaywm maintainer
@@ -66,8 +66,6 @@ in {
       wayland
       wlogout
       wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-      xdg-user-dirs
-      xdg-utils
     ];
 
     hardware = {
@@ -76,21 +74,12 @@ in {
       };
     };
 
-    nixpkgs.config.firefox = {
-      enableGnomeExtensions = false;
-      enablePlasmaBrowserIntegration = false;
-    };
+    i18n.inputMethod.enabled = "ibus";
+    i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [ mozc hangul libpinyin ];
 
-    sway-gnome.enable = false;
-
-    programs.hyprland = {
-      enable = true;
-      xwayland.hidpi = true;
-    };
+    sway-gnome.enable = true;
 
     hardware.pulseaudio.enable = false;
-
-    security.pam.services.swaylock = {};
 
     security.rtkit.enable = true;
 
@@ -109,13 +98,10 @@ in {
       fwupd.enable = true;
 
       flatpak.enable = true;
-      greetd = {
-        enable = true;
-        settings = {
-          default_session = {
-            command = "${pkgs.greetd.greetd}/bin/agreety --cmd Hyprland";
-          };
-        };
+
+      gnome = {
+        core-developer-tools.enable = true;
+        games.enable = true;
       };
 
       packagekit.enable = false;
@@ -134,15 +120,16 @@ in {
       xserver = {
         enable = true; # even tho this I use wayland.
 
-        displayManager.lightdm.enable = false;
+        desktopManager.gnome.enable = false;
 
         displayManager.gdm = {
+          enable = true;
           autoSuspend = false;
-          enable = false;
           wayland = true;
         };
-      };
 
+        libinput.enable = mkDefault true;
+      };
 
       xfs.enable = false;
     };
@@ -153,7 +140,6 @@ in {
 
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
   };
 }
