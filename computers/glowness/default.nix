@@ -15,6 +15,8 @@ with lib; {
     desktop.enable = true;
     developer-base.enable = true;
 
+    hardware.spacenavd.enable = true;
+
     nix = {
       extraOptions = ''
         keep-outputs = true
@@ -33,9 +35,6 @@ with lib; {
 
     virtualisation = {
       containers.enable = true;
-      # zfs with rootless podman is a no go?
-      # docker.enable = true;
-      # podman.enable = false;
       waydroid.enable = true;
       lxd.enable = true;
     };

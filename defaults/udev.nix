@@ -34,6 +34,9 @@ with lib; {
       # precursor
       SUBSYSTEM=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="5bf0", MODE="0660", GROUP="plugdev", TAG+="uaccess"
       SUBSYSTEM=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="3613", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+
+      # spacenav
+      SUBSYSTEMS=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c626", MODE="0660", GROUP="input"
     '';
   };
 }

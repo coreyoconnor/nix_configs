@@ -7,11 +7,13 @@ with lib; {
       fzf
       jq
       htop
+      neovim
       nix-index
+      pciutils
       pcre
       screen
       tmux
-      neovim
+      usbutils
     ];
 
     environment.variables.EDITOR = mkOverride 950 "${pkgs.neovim}/bin/nvim";

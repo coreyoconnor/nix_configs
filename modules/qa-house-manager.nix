@@ -4,7 +4,7 @@ with lib;
 let
   unstableSrc = builtins.fetchGit {
     url = https://github.com/NixOS/nixpkgs.git;
-    rev = "94c52940c4275d62d2609ae2cb16b165549d2882";
+    rev = "5150e29817fac10811f1084549209af9de5ef762";
     ref = "master";
   };
   unstable = import unstableSrc {
