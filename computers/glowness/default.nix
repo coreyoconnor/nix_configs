@@ -15,7 +15,13 @@ with lib; {
     desktop.enable = true;
     developer-base.enable = true;
 
+    environment.systemPackages = with pkgs; [
+      chiaki
+    ];
+
     hardware.spacenavd.enable = true;
+
+    networking.firewall.enable = false;
 
     nix = {
       extraOptions = ''
