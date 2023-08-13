@@ -8,8 +8,12 @@ PID_FILE="$1"
 # 22.10.2
 #REF=sha256:6247df31ec4357a0673625d0004861b01e0797590a0422710bd8470a7314fd58
 #REF=sha256:32c1b3c71ce4efce63b1da83baf7ecab45b106afcb3356928373caf9f9ff5106
+# 23.3.1
+# REF=sha256:eec97d32fe7111f1ce400fc5cd03700976fb1da56899051199fe6ece0089356e
 # 23.5.0
-REF=sha256:40eed17d1d768edc8fbd50319606e35c2377ce9d89bc0c45ddb51fbe56c0abdd
+# REF=sha256:40eed17d1d768edc8fbd50319606e35c2377ce9d89bc0c45ddb51fbe56c0abdd
+# 23.8.0
+REF=sha256:920b5d6564a7eefd40037cf968f59f9b3445ac85e923fa73c24b2de610c2d2ab
 
 TARGET_WALLET=$(< /mnt/storage/validator/target-wallet.txt)
 
@@ -47,6 +51,7 @@ OPTS=(
   --rest-api-enabled
   --rest-api-docs-enabled
   --rest-api-port=5051
+  --rest-api-host-allowlist=localhost,127.0.0.1,192.168.86.7
   --p2p-enabled=true
   --p2p-port=9000
   --p2p-peer-upper-bound=80
