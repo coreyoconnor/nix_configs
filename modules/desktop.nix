@@ -44,6 +44,7 @@ in {
       gnomeExtensions.appindicator
       grim # screjnshot functionality
       helvum
+      ispell
       mako # notification system developed by swaywm maintainer
       gnvim
       pavucontrol

@@ -4,7 +4,7 @@ with lib; {
     ../../hardware/Gigabyte-X399-Aorus-Pro.nix
     ../../hardware/AMD-Ryzen-2920X.nix
     ../../network/home/host-glowness.nix
-    ../../network/home/resource-media-share.nix
+    # ../../network/home/resource-media-share.nix
     ../../domains/primary
     ./filesystems.nix
     ./memory.nix

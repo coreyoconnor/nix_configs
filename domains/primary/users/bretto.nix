@@ -4,7 +4,7 @@ with pkgs.lib; {
     bretto = {
       isNormalUser = true;
       extraGroups =
-        [ "libvirtd" "transmission" "systemd-journal" "docker" "wheel" ];
+        [ "libvirtd" "transmission" "systemd-journal" ];
       shell = pkgs.bashInteractive + "/bin/bash";
       openssh.authorizedKeys.keyFiles = [ ./ssh/brett.pub ];
     };

@@ -34,6 +34,6 @@ in {
 
     programs.ssh.knownHosts = knownHosts;
 
-    security.pki.certificateFiles = [ ./agh-0.crt ];
+    # security.pki.certificateFiles = [ ./agh-0.crt ];
   };
 }
