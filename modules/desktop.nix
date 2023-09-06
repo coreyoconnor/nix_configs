@@ -14,6 +14,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    semi-active-av.enable = true;
 
     boot.kernelPatches = [
       {

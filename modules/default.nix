@@ -16,6 +16,7 @@ in {
     ./mev-boost
     ./qa-house-manager.nix
     ./retronix.nix
+    ./semi-active-av.nix
     ./status-tty.nix
     ./teku
     ./virt-host.nix
