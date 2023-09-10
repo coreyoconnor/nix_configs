@@ -47,7 +47,8 @@ in {
       helvum
       ispell
       mako # notification system developed by swaywm maintainer
-      gnvim
+      neovim-qt
+      nordpass
       pavucontrol
       qt6Packages.qtwayland
       slurp # screenshot functionality
@@ -138,7 +139,13 @@ in {
 
     sound.enable = true;
 
+    systemd.user.extraConfig = ''
+      DefaultEnvironment="PATH=/run/current-system/sw/bin"
+    '';
+
     time.timeZone = null;
+
+    xdg.mime.enable = true;
 
     xdg.portal = {
       enable = true;

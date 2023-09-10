@@ -27,10 +27,10 @@ in {
       docker-pushrm
       git
       jdk
-      jq
+      lua-language-server
       sbt
       scala-cli
-      silver-searcher
+      zig
     ];
 
     nixpkgs.config = {

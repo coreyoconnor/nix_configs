@@ -4,6 +4,7 @@ with lib; {
     environment.systemPackages = with pkgs; [
       acpi
       cryptsetup
+      fd
       fzf
       jq
       htop
@@ -11,6 +12,7 @@ with lib; {
       nix-index
       pciutils
       pcre
+      ripgrep
       screen
       tmux
       usbutils
