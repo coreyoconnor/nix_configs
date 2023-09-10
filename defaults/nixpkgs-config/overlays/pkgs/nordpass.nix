@@ -86,11 +86,22 @@ let
       ''
         runHook preInstall
         
-        mkdir -p $out/opt/nordpass
-        cp -r . $out/opt/nordpass/
+        mkdir -p "$out/opt/nordpass"
+        cp -r . "$out/opt/nordpass/"
 
         mkdir -p $out/bin
-        ln -s $out/opt/nordpass/nordpass $out/bin/nordpass
+        ln -s "$out/opt/nordpass/nordpass" "$out/bin/nordpass"
+
+        # Desktop file
+        mkdir -p "$out/share/applications/"
+        cp "$out/opt/nordpass/meta/gui/nordpass.desktop" "$out/share/applications/"
+        # Icon
+        mkdir -p "$out/share/icons/hicolor/512x512/apps"
+        cp "$out/opt/nordpass/meta/gui/icon.png" \
+          "$out/share/icons/hicolor/512x512/apps/nordpass.png"
+
+        sed -i -e "s#^Icon=.*\$#Icon=$out/share/icons/hicolor/512x512/apps/nordpass.png#" \
+          "$out/share/applications/nordpass.desktop"
 
         runHook postInstall
       '';
@@ -105,5 +116,10 @@ buildFHSEnv {
   name = "nordpass";
   targetPkgs = pkgs: (deps pkgs) ++ [ thisPackage ];
   runScript = "nordpass";
+
+  extraInstallCommands = ''
+    mkdir -p "$out/share"
+    cp -r ${thisPackage}/share/* "$out/share/"
+  '';
 }
 
