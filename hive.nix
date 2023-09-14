@@ -53,6 +53,20 @@ in allPostpiConfigs // {
     };
   };
 
+
+  deny = { name, nodes, ... }: {
+    imports = [ ./computers/deny ];
+
+    config = {
+      deployment = {
+        allowLocalDeployment = true;
+      };
+
+      networking.hostName = "deny";
+      system.stateVersion = "23.05";
+    };
+  };
+
   glowness = { name, nodes, ... }: {
     imports = [ ./computers/glowness ];
 
@@ -72,6 +86,20 @@ in allPostpiConfigs // {
     config = {
       networking.hostName = "grr";
       system.stateVersion = "22.05";
+    };
+  };
+
+  installer = { name, nodes, ... }: {
+    imports = [ ./installer ];
+
+    config = {
+      deployment = {
+        allowLocalDeployment = false;
+        targetHost = null;
+      };
+
+      networking.hostName = "nixos-installer";
+      system.stateVersion = "23.05";
     };
   };
 

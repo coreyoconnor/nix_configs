@@ -14,3 +14,7 @@
 	path = dependencies/sway-gnome
 	url = git@github.com:coreyoconnor/sway-gnome.git
 	branch = master
+[submodule "dependencies/nixos-hardware"]
+	path = dependencies/nixos-hardware
+	url = https://github.com/NixOS/nixos-hardware.git
+	branch = master
