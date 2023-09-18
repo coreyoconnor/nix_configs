@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 with lib; {
   imports = [
-    ../hardware/surface-laptop-3-amd.nix
+    ../hardware/lenovo-thinkpad-x1-7th-gen.nix
     ../domains/primary
     ../nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix
   ];

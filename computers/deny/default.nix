@@ -2,7 +2,7 @@
 with lib; {
   imports = [
     ./filesystems.nix
-    ../../hardware/surface-laptop-3-amd.nix
+    ../../hardware/lenovo-thinkpad-x1-7th-gen.nix
     ../../domains/primary
   ];
 
@@ -10,7 +10,7 @@ with lib; {
     desktop.enable = true;
     developer-base.enable = true;
     networking.firewall.enable = true;
-    networking.enableIPv6 = false
+    networking.enableIPv6 = false;
 
     programs.steam = {
       enable = true;

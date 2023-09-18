@@ -9,32 +9,23 @@ with lib; {
         systemd-boot.enable = true;
         efi.canTouchEfiVariables = true;
       };
-
-      supportedFilesystems = ["zfs"];
-
-      zfs.requestEncryptionCredentials = true;
-      plymouth.enable = false;
+      plymouth.enable = true;
     };
 
-    fileSystems."/" = {
-      device = "rpool/root/nixos";
-      fsType = "zfs";
-    };
+    fileSystems."/" =
+      { device = "/dev/disk/by-uuid/b694aa55-35de-4d74-bbb7-0176a64e5178";
+        fsType = "ext4";
+      };
 
-    fileSystems."/home" = {
-      device = "rpool/home";
-      fsType = "zfs";
-    };
+    boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/e5991b53-6c4a-48dd-9950-2554f25ee667";
 
-    fileSystems."/boot" = {
-      device = "/dev/disk/by-uuid/TBD";
-      fsType = "vfat";
-    };
+    fileSystems."/boot" =
+      { device = "/dev/disk/by-uuid/8540-4477";
+        fsType = "vfat";
+      };
 
     swapDevices = [
-      { device = "/dev/disk/by-uuid/TBD"; }
+      { device = "/swapfile"; size = 10000; }
     ];
-
-    services.zfs.autoScrub.enable = true;
   };
 }
