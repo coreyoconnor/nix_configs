@@ -17,14 +17,13 @@ in {
     '';
 
     environment.systemPackages = with pkgs; [
-      ansible
       autoconf
       automake
       bloop
       buildah
+      clang
       conmon
       coursier
-      docker-pushrm
       git
       jdk
       lua-language-server

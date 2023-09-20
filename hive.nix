@@ -60,7 +60,6 @@ in allPostpiConfigs // {
     config = {
       deployment = {
         allowLocalDeployment = true;
-        targetHost = "192.168.86.238";
       };
 
       networking.hostName = "deny";

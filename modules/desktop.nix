@@ -44,6 +44,7 @@ in {
       gnome.nautilus
       gnomeExtensions.appindicator
       grim # screjnshot functionality
+      keyd # key remapping
       helvum
       ispell
       mako # notification system developed by swaywm maintainer
@@ -92,7 +93,7 @@ in {
       dbus.enable = true;
 
       emacs = {
-        enable = true;
+        enable = false;
         install = true;
         package = pkgs.emacs29-gtk3;
         defaultEditor = true;
@@ -105,6 +106,16 @@ in {
       gnome = {
         core-developer-tools.enable = true;
         games.enable = true;
+      };
+
+      keyd = {
+        enable = true;
+        settings = {
+          main = {
+            capslock = "overload(capslock, esc)";
+          };
+          "capslock:C" = {};
+        };
       };
 
       packagekit.enable = false;
