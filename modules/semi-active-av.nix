@@ -59,6 +59,7 @@ in {
         OnAccessExcludeUname =  "clamav";
         VirusEvent = "${notify-all-users}";
         User = "clamav";
+        MaxDirectoryRecursion = 30;
       };
     };
     services.clamav.updater.enable = true;
