@@ -4,7 +4,7 @@ with lib; {
     ../../hardware/ASUS-Z9PA-D8.nix
     ../../hardware/Intel-E5-2687W.nix
     ../../network/home/host-grr.nix
-    ../../network/home/resource-media-share.nix
+#    ../../network/home/resource-media-share.nix
     ../../domains/primary
     ./filesystems.nix
     ./memory.nix
@@ -15,9 +15,7 @@ with lib; {
 
     developer-base.enable = true;
 
-    services.besu.enable = true;
-    services.mev-boost.enable = true;
-    services.teku.enable = true;
+    semi-active-av.enable = true;
 
     services.foreign-binary-emulation.enable = true;
     services.hw-rand.enable = true;

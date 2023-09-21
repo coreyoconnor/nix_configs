@@ -84,6 +84,10 @@ in allPostpiConfigs // {
     imports = [ ./computers/grr ];
 
     config = {
+      deployment = {
+        allowLocalDeployment = true;
+      };
+
       networking.hostName = "grr";
       system.stateVersion = "22.05";
     };
