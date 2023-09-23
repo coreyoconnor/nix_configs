@@ -11,5 +11,7 @@ with lib; {
     nixpkgs.hostPlatform = "x86_64-linux";
     powerManagement.cpuFreqGovernor = "powersave";
     hardware.cpu.intel.updateMicrocode = true;
+    # services.thermald.enable = true;
+    services.throttled.enable = false;
   };
 }

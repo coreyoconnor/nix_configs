@@ -73,6 +73,7 @@ in {
 
       serviceConfig = {
         Type = "simple";
+        ExecStartPre = "${pkgs.coreutils}/bin/sleep 30";
         ExecStart = "${pkgs.systemd}/bin/systemd-cat --identifier=av-scan ${pkgs.clamav}/bin/clamonacc -F --fdpass";
         PrivateTmp = "yes";
         PrivateDevices = "yes";

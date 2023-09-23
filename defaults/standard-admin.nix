@@ -6,8 +6,10 @@ with lib; {
       cryptsetup
       fd
       fzf
-      jq
       htop
+      jq
+      lm_sensors
+      lsix
       neovim
       nix-index
       pciutils
@@ -16,6 +18,7 @@ with lib; {
       screen
       tmux
       usbutils
+      wget
       xxd
     ];
 
