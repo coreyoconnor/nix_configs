@@ -10,5 +10,10 @@ with lib; {
         driSupport32Bit = true;
       };
     };
+
+    boot = {
+      kernelParams = [ "amdgpu.mcbp=0" ];
+      # kernelParams = [ "amd_iommu=off" ];
+    };
   };
 }

@@ -7,10 +7,10 @@ with lib; {
   config = {
     # TODO https://github.com/linux-surface/linux-surface/wiki/Surface-Laptop-3
     boot = {
-      initrd.kernelModules = [ 
-        "surface_aggregator" 
-        "surface_aggregator_registry" 
-        "surface_aggregator_hub" 
+      initrd.kernelModules = [
+        "surface_aggregator"
+        "surface_aggregator_registry"
+        "surface_aggregator_hub"
         "surface_hid_core"
         "surface_hid"
         "8250_dw"

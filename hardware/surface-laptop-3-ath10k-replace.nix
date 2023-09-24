@@ -3,9 +3,9 @@
 let
   repos = pkgs.callPackage ../dependencies/nixos-hardware/microsoft/surface/common/repos.nix {};
 
-  board_firmware = 
+  board_firmware =
     repos.ath10k-firmware-override + "/ath10k-firmware-override/main/board-2.bin";
-  firmware_firmware = 
+  firmware_firmware =
     repos.ath10k-firmware + "/QCA6174/hw3.0/4.4.1/firmware-6.bin_WLAN.RM.4.4.1-00132-QCARMSWP-1";
 
 in stdenv.mkDerivation {
