@@ -78,6 +78,7 @@ in {
         PrivateTmp = "yes";
         PrivateDevices = "yes";
         PrivateNetwork = "yes";
+        TimeoutStopSec = "5";
       };
     };
 

@@ -26,8 +26,9 @@ in rec {
     };
 
     console = {
-      font = mkDefault "Lat2-Terminus16";
+      font = mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-i24n.psf.gz";
       keyMap = "us";
+      packages = [ pkgs.terminus_font ];
     };
 
     fonts = {

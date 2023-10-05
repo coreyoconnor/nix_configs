@@ -18,6 +18,7 @@ with lib; {
       screen
       tmux
       usbutils
+      w3m
       wget
       xxd
     ];

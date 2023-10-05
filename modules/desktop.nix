@@ -36,9 +36,6 @@ in {
       firefox-wayland
       foot
       fuzzel # launcher
-      gnome44Extensions."gnome-one-window-wonderland@jqno.nl"
-      gnome44Extensions."material-shell@papyelgringo"
-      gnome44Extensions."quick-settings-audio-panel@rayzeq.github.io"
       gnome.evince
       gnome.gnome-terminal
       gnome.nautilus
@@ -65,10 +62,11 @@ in {
           };
         }
       )
-      swww
+      swww # wallpaper
       waybar
       wayland
       wlogout
+      wluma # brightness control
       wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
     ];
 
@@ -138,6 +136,7 @@ in {
 
         displayManager.gdm = {
           enable = true;
+          debug = true;
           autoSuspend = false;
           wayland = true;
         };
