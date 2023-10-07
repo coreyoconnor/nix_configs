@@ -12,8 +12,7 @@ with lib; {
     };
 
     boot = {
-      kernelParams = [ "amdgpu.mcbp=0" ];
-      # kernelParams = [ "amd_iommu=off" ];
+      kernelParams = [ "amdgpu.mcbp=0" "amd_iommu=off" ];
     };
   };
 }
