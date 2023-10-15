@@ -23,8 +23,8 @@ echo "╚██████╔╝██║     ╚██████╔╝      
     hardware.enableAllFirmware = true;
     hardware.trackpoint = {
       enable = true;
-      sensitivity = 32;
-      speed = 32;
+      sensitivity = 16;
+      speed = 16;
     };
 
     nixpkgs.hostPlatform = "x86_64-linux";

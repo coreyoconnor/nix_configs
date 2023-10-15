@@ -32,6 +32,7 @@ in {
 
     environment.systemPackages = with pkgs; [
       appimage-run
+      brightnessctl
       dracula-theme # gtk theme
       firefox-wayland
       foot
