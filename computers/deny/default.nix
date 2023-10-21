@@ -2,6 +2,7 @@
 with lib; {
   imports = [
     ./filesystems.nix
+    ./memory.nix
     ../../hardware/lenovo-thinkpad-x1-7th-gen.nix
     ../../domains/primary
   ];
