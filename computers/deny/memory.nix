@@ -9,6 +9,6 @@ with lib; {
     zramSwap = {
       enable = true;
       memoryPercent = 30;
-    }
+    };
   };
 }
