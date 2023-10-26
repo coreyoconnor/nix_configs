@@ -8,10 +8,25 @@ with lib; {
   ];
 
   config = {
+    boot = {
+      initrd = {
+        preLVMCommands = ''
+echo "██╗   ██╗███████╗ ██████╗               ██████╗ ███████╗███╗   ██╗██╗   ██╗"
+echo "██║   ██║██╔════╝██╔═══██╗              ██╔══██╗██╔════╝████╗  ██║╚██╗ ██╔╝"
+echo "██║   ██║█████╗  ██║   ██║    █████╗    ██║  ██║█████╗  ██╔██╗ ██║ ╚████╔╝ "
+echo "██║   ██║██╔══╝  ██║   ██║    ╚════╝    ██║  ██║██╔══╝  ██║╚██╗██║  ╚██╔╝  "
+echo "╚██████╔╝██║     ╚██████╔╝              ██████╔╝███████╗██║ ╚████║   ██║   "
+echo " ╚═════╝ ╚═╝      ╚═════╝               ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝   "
+        '';
+      };
+    };
+
     desktop.enable = true;
     developer-base.enable = true;
     networking.firewall.enable = true;
     networking.enableIPv6 = false;
+
+    powerManagement.cpuFreqGovernor = "powersave";
 
     programs.steam = {
       enable = true;

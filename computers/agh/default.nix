@@ -16,9 +16,15 @@ with lib; {
   config = {
     developer-base.enable = true;
 
-    virt-host.enable = true;
+    nix = {
+      settings = {
+        cores = 2;
+        max-jobs = 0;
+      };
+    };
 
     services.dnsmasq.enable = true;
+
     services.fail2ban = {
       enable = true;
 
@@ -34,5 +40,7 @@ with lib; {
     services.samba.enable = true;
     services.xserver.enable = false;
     services.qa-house-manager.enable = true;
+
+    virt-host.enable = true;
   };
 }

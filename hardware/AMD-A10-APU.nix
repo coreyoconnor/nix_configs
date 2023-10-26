@@ -3,17 +3,12 @@ with lib; {
   imports = [];
 
   config = {
-    nix = {
-      settings = {
-        cores = 2;
-        max-jobs = 0;
-      };
-    };
-
     boot = {
       kernelParams = [
         "amd_iommu=off"
       ];
+
+      hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
       kernelModules = [ "kvm-amd" ];
     };

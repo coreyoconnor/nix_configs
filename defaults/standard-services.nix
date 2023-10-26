@@ -23,6 +23,7 @@ with lib; {
     programs.gnupg.agent.enable = true;
 
     services = {
+      acpid.enable = true;
       avahi = {
         enable = true;
         nssmdns = true;
@@ -30,14 +31,17 @@ with lib; {
       };
 
       dbus.enable = true;
-      udisks2.enable = true;
-      upower.enable = true;
-      acpid.enable = true;
+
+      fstrim.enable = true;
+
       openssh.enable = true;
 
       syslogd.extraConfig = ''
         user.* /var/log/user
       '';
+
+      udisks2.enable = true;
+      upower.enable = true;
     };
 
     systemd.tmpfiles.rules = [ "R /tmp/nix* - - - 60d" "R! /tmp/* - - - 6m" ];
