@@ -8,9 +8,10 @@ with lib; {
         "amd_iommu=off"
       ];
 
-      hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
       kernelModules = [ "kvm-amd" ];
     };
+
+    hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   };
 }

@@ -29,7 +29,7 @@ with lib; {
       };
 
       fprintd.enable = mkDefault true;
-      throttled.enable = mkDefault false;
+      # throttled.enable = mkDefault false;
     };
   };
 }
