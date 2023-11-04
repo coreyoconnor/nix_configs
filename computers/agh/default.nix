@@ -15,6 +15,7 @@ with lib; {
 
   config = {
     developer-base.enable = true;
+    semi-active-av.enable = true;
 
     nix = {
       settings = {

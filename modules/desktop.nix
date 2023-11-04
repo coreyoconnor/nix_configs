@@ -91,13 +91,6 @@ in {
 
       dbus.enable = true;
 
-      emacs = {
-        enable = false;
-        install = true;
-        package = pkgs.emacs29-gtk3;
-        defaultEditor = true;
-      };
-
       fwupd.enable = true;
 
       flatpak.enable = true;
