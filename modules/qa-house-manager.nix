@@ -4,7 +4,7 @@ with lib;
 let
   unstableSrc = builtins.fetchGit {
     url = https://github.com/NixOS/nixpkgs.git;
-    rev = "dc42e2603bc63e39865fbe91c2566182f5e70513";
+    rev = "419b6b2d5cf2ee247dbd90d02def42270d4dc95b";
     ref = "master";
   };
   unstable = import unstableSrc {
@@ -650,7 +650,6 @@ in {
     "rpi_power"
     "rss_feed_template"
     "rtsp_to_webrtc"
-    "safe_mode"
     "scene"
     "schedule"
     "scrape"
