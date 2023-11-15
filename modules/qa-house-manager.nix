@@ -71,7 +71,7 @@ in {
 
           save_updates_to = "/var/lib/hass/arlo/updates";
           save_media_to = "/var/lib/hass/arlo/media/\${SN}/\${Y}/\${m}/\${d}/\${T}";
-          mqtt_host = "mqtt-cluster-z1.arloxcld.com";
+          # mqtt_host = "mqtt-cluster-z1.arloxcld.com";
         };
 
         binary_sensor = [

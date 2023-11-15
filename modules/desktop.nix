@@ -123,6 +123,8 @@ in {
 
       sysprof.enable = true;
 
+      udev.packages = [ pkgs.android-udev-rules ];
+
       xserver = {
         enable = true; # even tho this I use wayland.
 
