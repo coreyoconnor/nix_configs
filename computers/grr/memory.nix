@@ -1,7 +1,14 @@
 { config, lib, pkgs, ... }:
 with lib; {
   config = {
-    boot.kernel.sysctl = { "vm.nr_hugepages" = 16484; };
+    # https://wiki.archlinux.org/title/Zram#Optimizing_swap_on_zram
+    boot.kernel.sysctl = {
+      "vm.nr_hugepages" = 16484;
+      "vm.swappiness" = 130;
+      "vm.watermark_boost_factor" = 0;
+      "vm.watermark_scale_factor" = 125;
+      "vm.page-cluster" = 0;
+    };
     hardware.mcelog.enable = true;
     services.udev.extraRules = ''
       ACTION=="add", KERNEL=="mcelog", SUBSYSTEM=="misc", TAG+="systemd", ENV{SYSTEMD_WANTS}+="mcelog.service"

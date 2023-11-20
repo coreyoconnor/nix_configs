@@ -1,7 +1,7 @@
 let
   pkgs = import ./nixpkgs {};
 in pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [ colmena nix rpiboot ];
+  nativeBuildInputs = with pkgs; [ colmena minicom nix rpiboot ];
   shellHook = ''
     alias build="colmena build"
     alias deploy="colmena apply"

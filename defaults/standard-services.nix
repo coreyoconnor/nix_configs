@@ -26,6 +26,7 @@ with lib; {
       acpid.enable = true;
       avahi = {
         enable = true;
+        ipv6 = false;
         nssmdns = true;
         openFirewall = true;
       };

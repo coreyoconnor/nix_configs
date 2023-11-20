@@ -1,15 +1,14 @@
+# build
+
+`./bin/build-postpi-images.sh`
+
+# flash
+
+1. decompress the images `unzstd`
+2. `sudo rpiboot`
+3. `dd if=<decompressed image> of=/dev/sd<???>`
+
 # reference
-
-* https://blog.hypriot.com/downloads/
-
-
-* postpi-1 - 192.168.1.205
-* postpi-2 - 192.168.1.228
-* postpi-3 - 192.168.1.170
-* postpi-4 - 192.168.1.200
-* postpi-5 - 192.168.1.250
-* postpi-6 - 192.168.1.223
-* postpi-7 - 192.168.1.152
 
 GPIO:
 
