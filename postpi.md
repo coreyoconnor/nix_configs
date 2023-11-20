@@ -8,9 +8,11 @@
 2. `sudo rpiboot`
 3. `dd if=<decompressed image> of=/dev/sd<???>`
 
-# reference
+# Serial
 
-GPIO:
+`minicom --color on --baudrate 115200  --device /dev/ttyUSB0`
+
+## Connecting a USB to Serial adapter
 
 * https://www.raspberrypi.com/documentation/computers/os.html#gpio-and-the-40-pin-header
 
