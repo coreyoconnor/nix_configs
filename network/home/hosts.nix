@@ -35,6 +35,11 @@ in {
 
     programs.ssh.knownHosts = knownHosts;
 
+    services.avahi.publish = {
+      enable = true;
+      domain = true;
+    };
+
     # security.pki.certificateFiles = [ ./agh-0.crt ];
   };
 }

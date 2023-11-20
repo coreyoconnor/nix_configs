@@ -4,6 +4,8 @@ let
     imports = [ ./computers/postpi ];
 
     config = {
+      deployment.targetHost = nodeName + ".lan";
+
       networking.hostName = nodeName;
 
       nixpkgs.system = "aarch64-linux";

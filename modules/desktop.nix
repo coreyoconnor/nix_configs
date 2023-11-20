@@ -42,6 +42,7 @@ in {
       gnome.nautilus
       gnomeExtensions.appindicator
       grim # screjnshot functionality
+      keybase-gui
       keyd # key remapping
       helvum
       ispell

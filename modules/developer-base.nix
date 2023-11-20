@@ -26,6 +26,7 @@ in {
       coursier
       git
       jdk
+      keybase
       lua-language-server
       sbt
       scala-cli

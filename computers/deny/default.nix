@@ -5,7 +5,6 @@ with lib; {
     ./memory.nix
     ../../hardware/lenovo-thinkpad-x1-7th-gen.nix
     ../../domains/primary
-    ../../network/home/lan.nix
   ];
 
   config = {
