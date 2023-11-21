@@ -27,6 +27,7 @@ in {
       git
       jdk
       keybase
+      libsecret # for secret-tool
       lua-language-server
       sbt
       scala-cli
