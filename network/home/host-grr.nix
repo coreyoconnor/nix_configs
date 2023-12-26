@@ -13,6 +13,8 @@ in {
     # systemd.services."systemd-networkd-wait-online".enable = false;
 
     networking = {
+      defaultGateway.interface = "enp14s0";
+
       hostId = "cb4bcdd2";
 
       useNetworkd = true;

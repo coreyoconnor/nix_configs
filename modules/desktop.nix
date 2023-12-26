@@ -103,11 +103,16 @@ in {
 
       keyd = {
         enable = true;
-        settings = {
-          main = {
-            capslock = "overload(capslock, esc)";
+        keyboards = {
+          default = {
+            ids = ["*"];
+            settings = {
+              main = {
+                capslock = "overload(capslock, esc)";
+              };
+              "capslock:C" = {};
+            };
           };
-          "capslock:C" = {};
         };
       };
 

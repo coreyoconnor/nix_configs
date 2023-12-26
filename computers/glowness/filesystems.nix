@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 with lib; {
   imports = [
+    ../../network/home/resource-media-share.nix
   ];
 
   config = {

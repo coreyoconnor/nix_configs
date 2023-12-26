@@ -8,6 +8,7 @@ in {
 
   config = {
     networking = {
+      defaultGateway.interface = "enp1s0";
 
       interfaces = {
         enp1s0 = {

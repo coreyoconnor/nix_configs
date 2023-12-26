@@ -8,6 +8,8 @@ in {
 
   config = {
     networking = {
+      defaultGateway.interface = "enp4s0";
+
       enableIPv6 = true;
 
       hostId = "4a571618";

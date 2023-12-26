@@ -16,6 +16,7 @@ with lib; {
       pcre
       ripgrep
       screen
+      scrub
       tmux
       usbutils
       w3m

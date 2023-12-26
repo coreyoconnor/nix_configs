@@ -21,44 +21,8 @@ in rec {
   config = {
     boot.kernelPackages = mkDefault zfsLinuxPackages;
 
-    boot.loader.grub = {
-      fontSize = 24;
-    };
-
     console = {
-      font = mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-i24n.psf.gz";
       keyMap = "us";
-      packages = [ pkgs.terminus_font ];
-    };
-
-    fonts = {
-      fontconfig = {
-        enable = true;
-        allowBitmaps = false;
-      };
-
-      fontDir.enable = true;
-
-      enableDefaultFonts = true;
-
-      fonts = with pkgs; [
-        anonymousPro
-        atkinson-hyperlegible
-        bakoma_ttf
-        borg-sans-mono
-        cm_unicode
-        corefonts
-        dejavu_fonts
-        fira-code
-        fira-code-symbols
-        fira-mono
-        font-awesome
-        google-fonts
-        inconsolata
-        junicode
-        ucs-fonts
-        unifont
-      ];
     };
 
     hardware = {

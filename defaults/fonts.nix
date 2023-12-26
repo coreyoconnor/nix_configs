@@ -1,6 +1,15 @@
 { config, pkgs, lib, ... }:
 with lib; {
   config = mkIf config.default.graphical {
+    boot.loader.grub = {
+      fontSize = 24;
+    };
+
+    console = {
+      font = mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-i24n.psf.gz";
+      packages = [ pkgs.terminus_font ];
+    };
+
     fonts = {
       fontconfig = {
         enable = true;
@@ -9,16 +18,23 @@ with lib; {
 
       fontDir.enable = true;
 
-      enableDefaultFonts = true;
+      enableDefaultPackages = true;
 
-      fonts = with pkgs; [
+      packages = with pkgs; [
         anonymousPro
         arphic-ukai
         arphic-uming
+        atkinson-hyperlegible
         bakoma_ttf
+        borg-sans-mono
         cm_unicode
         corefonts
+        dejavu_fonts
+        fira-code
+        fira-code-symbols
+        fira-mono
         font-awesome
+        google-fonts
         hack-font
         inconsolata
         junicode
