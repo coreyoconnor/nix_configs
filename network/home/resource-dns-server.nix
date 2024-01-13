@@ -10,7 +10,7 @@
         "2001:4860:4860::8888"
       ] else []);
 
-      no-resolve = true;
+      # no-resolve = true;
       domain-needed = true;
       bogus-priv = true;
       cache-size = 1000;
