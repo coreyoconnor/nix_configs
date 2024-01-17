@@ -18,5 +18,9 @@ with lib; {
       enable = true;
       memoryPercent = 30;
     };
+
+    swapDevices = [
+      { device = "/swapfile"; size = 10000; }
+    ];
   };
 }

@@ -29,6 +29,7 @@ with lib; {
         ipv6 = false;
         nssmdns = true;
         openFirewall = true;
+        publish.enable = true;
       };
 
       dbus.enable = true;

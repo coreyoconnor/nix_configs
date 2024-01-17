@@ -23,9 +23,5 @@ with lib; {
       { device = "/dev/disk/by-uuid/8540-4477";
         fsType = "vfat";
       };
-
-    swapDevices = [
-      { device = "/swapfile"; size = 10000; }
-    ];
   };
 }

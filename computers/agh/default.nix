@@ -9,6 +9,7 @@ with lib; {
     ../../network/home/resource-media-server.nix
     ../../domains/primary
     ./filesystems.nix
+    ./memory.nix
     ./audio.nix
     ./gpu.nix
   ];
@@ -41,7 +42,5 @@ with lib; {
     services.samba.enable = true;
     services.xserver.enable = false;
     services.qa-house-manager.enable = true;
-
-    virt-host.enable = true;
   };
 }
