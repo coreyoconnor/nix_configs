@@ -92,8 +92,6 @@ in {
 
       dbus.enable = true;
 
-      fwupd.enable = true;
-
       flatpak.enable = true;
 
       gnome = {

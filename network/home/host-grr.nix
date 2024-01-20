@@ -17,8 +17,6 @@ in {
 
       hostId = "cb4bcdd2";
 
-      useNetworkd = true;
-
       interfaces = {
         #enp10s0 = {
         #  ipv4.addresses = [{

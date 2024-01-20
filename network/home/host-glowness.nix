@@ -13,8 +13,6 @@ in {
       enableIPv6 = true;
 
       hostId = "4a571618";
-
-      useNetworkd = false;
     };
   };
 }

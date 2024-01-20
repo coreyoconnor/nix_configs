@@ -12,12 +12,14 @@ with lib; {
       optimise.automatic = true;
     };
 
-    networking.timeServers = options.networking.timeServers.default ++ [
-      "0.us.pool.ntp.org"
-      "1.us.pool.ntp.org"
-      "2.us.pool.ntp.org"
-      "3.us.pool.ntp.org"
-    ];
+    networking = {
+      timeServers = options.networking.timeServers.default ++ [
+        "0.us.pool.ntp.org"
+        "1.us.pool.ntp.org"
+        "2.us.pool.ntp.org"
+        "3.us.pool.ntp.org"
+      ];
+    };
 
     programs.dconf.enable = true;
     programs.gnupg.agent.enable = true;
@@ -26,15 +28,20 @@ with lib; {
       acpid.enable = true;
       avahi = {
         enable = true;
-        ipv6 = false;
         nssmdns = true;
         openFirewall = true;
         publish.enable = true;
+        publish.addresses = true;
+        publish.domain = true;
+        publish.userServices = true;
+        publish.workstation = true;
       };
 
       dbus.enable = true;
 
       fstrim.enable = true;
+
+      fwupd.enable = true;
 
       openssh.enable = true;
 
