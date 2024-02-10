@@ -4,7 +4,7 @@ with lib;
 let
   unstableSrc = builtins.fetchGit {
     url = https://github.com/NixOS/nixpkgs.git;
-    rev = "757637581797f148c50977b6127147c5d298f9e9";
+    rev = "e4bac1087a2b5e66679f682a4126bebc17dc73a0";
     ref = "master";
   };
   unstable = import unstableSrc {
@@ -614,6 +614,7 @@ in {
     "songpal"
     "soundtouch"
     "spaceapi"
+    "spotify"
     "spc"
     "sql"
     "srp_energy"
