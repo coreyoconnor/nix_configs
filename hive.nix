@@ -1,3 +1,4 @@
+nixpkgs:
 let
   postpiCount = 7;
   postpiConfig = nodeName: {
@@ -25,7 +26,7 @@ let
   );
 in allPostpiConfigs // {
   meta = {
-    nixpkgs = ./nixpkgs;
+    inherit nixpkgs;
   };
 
   defaults = { pkgs, ... }: {
