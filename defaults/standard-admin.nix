@@ -15,7 +15,6 @@ with lib; {
       pciutils
       pcre
       ripgrep
-      screen
       scrub
       tmux
       usbutils
@@ -26,13 +25,19 @@ with lib; {
 
     environment.variables.EDITOR = mkOverride 950 "${pkgs.neovim}/bin/nvim";
 
-    security.sudo = {
-      enable = true;
-      wheelNeedsPassword = false;
-    };
+    security = {
+      sudo = {
+        enable = true;
+        wheelNeedsPassword = false;
+        configFile = ''
+          Defaults:root,%wheel env_keep+=LOCALE_ARCHIVE
+          Defaults:root,%wheel env_keep+=TERMINFO_DIRS
+        '';
+      };
 
-    security.forcePageTableIsolation = true;
-    security.virtualisation.flushL1DataCache = "cond";
+      forcePageTableIsolation = true;
+      virtualisation.flushL1DataCache = "cond";
+    };
 
     services.openssh.enable = true;
   };

@@ -4,6 +4,10 @@ with lib; {
   ];
 
   config = {
+    boot = {
+      kernelParams = [ "amdgpu.mcbp=0" "amd_iommu=off" ];
+    };
+
     hardware = {
       opengl = {
         enable = true;
@@ -11,8 +15,6 @@ with lib; {
       };
     };
 
-    boot = {
-      kernelParams = [ "amdgpu.mcbp=0" "amd_iommu=off" ];
-    };
+    programs.gamemode.enable = true;
   };
 }

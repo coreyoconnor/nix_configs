@@ -9,10 +9,7 @@ with lib; {
       "vm.page-cluster" = 0;
     };
 
-    hardware.mcelog.enable = true;
-    services.udev.extraRules = ''
-      ACTION=="add", KERNEL=="mcelog", SUBSYSTEM=="misc", TAG+="systemd", ENV{SYSTEMD_WANTS}+="mcelog.service"
-    '';
+    hardware.rasdaemon.enable = true;
 
     zramSwap = {
       enable = true;

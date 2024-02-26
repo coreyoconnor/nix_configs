@@ -33,9 +33,9 @@ in {
         allowedUDPPorts = [ 53 27031 27036 ];
       };
 
-      localCommands = ''
-        ${pkgs.iproute}/bin/ip route add local 192.168.100.0/24 dev lo
-      '';
+      #localCommands = ''
+      #  ${pkgs.iproute}/bin/ip route add local 192.168.100.0/24 dev lo
+      #'';
     };
   };
 }

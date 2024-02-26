@@ -2,7 +2,6 @@
 with lib;
 let
   cfg = config.desktop;
-
 in {
   options = {
     desktop = {
@@ -12,6 +11,10 @@ in {
       };
     };
   };
+
+  imports = [
+    ../hardware/desktop-devices.nix
+  ];
 
   config = mkIf cfg.enable {
     semi-active-av.enable = true;
@@ -67,6 +70,9 @@ in {
       swww # wallpaper
       waybar
       wayland
+      wine
+      wine64Forwarder
+      winetricks
       wlogout
       wluma # brightness control
       wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout

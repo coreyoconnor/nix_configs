@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 with lib; {
   imports = [
+    ../../hardware/lenovo-thinkpad-x1-7th-gen.nix
     ./filesystems.nix
     ./memory.nix
-    ../../hardware/lenovo-thinkpad-x1-7th-gen.nix
     ../../domains/primary
   ];
 
@@ -24,7 +24,7 @@ echo " ╚═════╝ ╚═╝      ╚═════╝               
     desktop.enable = true;
     developer-base.enable = true;
     networking.firewall.enable = true;
-    networking.enableIPv6 = false;
+    networking.enableIPv6 = true;
 
     powerManagement.cpuFreqGovernor = "powersave";
 

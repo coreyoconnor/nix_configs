@@ -7,11 +7,12 @@ with lib; {
     ../../domains/primary
     ./filesystems.nix
     ./audio.nix
-    ./video.nix
+    ./gpu.nix
   ];
 
   config = {
     hardware.bluetooth.enable = true;
+    hardware.rasdaemon.enable = true;
     hardware.xpadneo.enable = true;
 
     media-presenter.enable = true;

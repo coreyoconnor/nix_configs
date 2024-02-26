@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 with lib; {
-  config = mkIf config.default.graphical {
+  config = {
     boot.loader.grub = {
       fontSize = 24;
     };
@@ -9,7 +9,7 @@ with lib; {
       font = mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-i24n.psf.gz";
       packages = [ pkgs.terminus_font ];
     };
-
+  } // mkIf config.default.graphical {
     fonts = {
       fontconfig = {
         enable = true;
@@ -29,6 +29,7 @@ with lib; {
         borg-sans-mono
         cm_unicode
         corefonts
+        courier-prime
         dejavu_fonts
         fira-code
         fira-code-symbols
@@ -36,17 +37,20 @@ with lib; {
         font-awesome
         google-fonts
         hack-font
+        helvetica-neue-lt-std
         inconsolata
         junicode
+        open-fonts
+        oxygenfonts
         noto-fonts
         noto-fonts-cjk-sans
         noto-fonts-cjk-serif
         noto-fonts-emoji
         noto-fonts-emoji-blob-bin
         noto-fonts-extra
+        siji
         ucs-fonts
         unifont
-        # vistafonts
         wqy_microhei
         wqy_zenhei
       ];

@@ -4,22 +4,8 @@ let nixpkgsSrc = ../nixpkgs;
 in {
   config = {
     environment = {
-      pathsToLink = [ "/share" "/etc/gconf" ];
-
-      shellInit = ''
-        export LC_ALL=${config.i18n.defaultLocale}
-      '';
-
       variables.NIXPKGS_CONFIG = mkForce "${./nixpkgs-config/config.nix}";
     };
-
-    security.sudo.enable = true;
-    security.sudo.wheelNeedsPassword = false;
-
-    security.sudo.configFile = ''
-      Defaults:root,%wheel env_keep+=LOCALE_ARCHIVE
-      Defaults:root,%wheel env_keep+=TERMINFO_DIRS
-    '';
 
     nix = {
       nixPath = [

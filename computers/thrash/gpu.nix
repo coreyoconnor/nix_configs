@@ -7,6 +7,8 @@
     ];
   };
 
+  programs.gamemode.enable = true;
+
   services.xserver = {
     enable = true;
     videoDrivers = [ "amdgpu" "modesetting" "vesa" ];

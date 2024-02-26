@@ -6,7 +6,7 @@ in rec {
     ./nixpkgs-config.nix
     ./fonts.nix
     ./standard-admin.nix
-    ./standard-env.nix
+    ./standard-nix.nix
     ./standard-services.nix
     ./udev.nix
   ];
@@ -23,6 +23,14 @@ in rec {
 
     console = {
       keyMap = "us";
+    };
+
+    environment = {
+      pathsToLink = [ "/share" "/etc/gconf" ];
+
+      shellInit = ''
+        export LC_ALL=${config.i18n.defaultLocale}
+      '';
     };
 
     hardware = {

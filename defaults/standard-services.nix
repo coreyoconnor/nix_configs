@@ -30,11 +30,13 @@ with lib; {
         enable = true;
         nssmdns = true;
         openFirewall = true;
-        publish.enable = true;
-        publish.addresses = true;
-        publish.domain = true;
-        publish.userServices = true;
-        publish.workstation = true;
+        publish = {
+          enable = true;
+          addresses = true;
+          domain = true;
+          userServices = true;
+          workstation = true;
+        };
       };
 
       dbus.enable = true;
