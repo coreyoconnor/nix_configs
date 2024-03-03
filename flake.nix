@@ -25,6 +25,24 @@
     sway-gnome,
   } @ inputs:
     {
+      lib = let
+        system = name: attrs:
+          nixpkgs.lib.nixosSystem ({
+            specialArgs = inputs;
+            modules = [self.nixosModules.default "${self}/computers/${name}"];
+          } // attrs);
+        node = name: attrs: ({
+          hostname = name;
+          profiles.system = {
+            user = "root";
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${name};
+          };
+        } // attrs);
+        nixosConfigurations = nodes: builtins.mapAttrs system nodes;
+        deployNodes = nodes: builtins.mapAttrs node nodes;
+      in {
+        inherit system node nixosConfigurations deployNodes;
+      };
       nixosModules = {
         default = {
           imports = [
@@ -33,34 +51,19 @@
           ];
         };
       };
-      nixosConfigurations = let
-        mkSystem = system: name:
-          nixpkgs.lib.nixosSystem {
-            inherit system;
-            specialArgs = inputs;
-            modules = [self.nixosModules.default "${self}/computers/${name}"];
-          };
-      in {
-        agh = mkSystem "x86_64-linux" "agh";
-        deny = mkSystem "x86_64-linux" "deny";
-        glowness = mkSystem "x86_64-linux" "glowness";
-        grr = mkSystem "x86_64-linux" "grr";
-        thrash = mkSystem "x86_64-linux" "thrash";
+      nixosConfigurations = self.lib.nixosConfigurations {
+        agh = { system = "x86_64-linux"; };
+        deny = { system = "x86_64-linux"; };
+        glowness = { system = "x86_64-linux"; };
+        grr = { system = "x86_64-linux"; };
+        thrash = { system = "x86_64-linux"; };
       };
-      deploy.nodes = let
-        mkNode = name: {
-          hostname = name;
-          profiles.system = {
-            user = "root";
-            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${name};
-          };
-        };
-      in {
-        agh = mkNode "agh";
-        deny = mkNode "deny";
-        glowness = mkNode "glowness";
-        grr = mkNode "grr";
-        thrash = mkNode "thrash";
+      deploy.nodes = self.lib.deployNodes {
+        agh = {};
+        deny = {};
+        glowness = {};
+        grr = {};
+        thrash = {};
       };
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     }
@@ -75,8 +78,7 @@
       with nixpkgs.lib; {
         formatter = nixpkgs.legacyPackages.${system}.writeScriptBin "alejandra" ''
           exec ${nixpkgs.legacyPackages.${system}.alejandra}/bin/alejandra \
-            --exclude ./dev-dependencies/nixpkgs \
-            --exclude ./dev-dependencies/nixos-hardware \
+            --exclude ./dev-dependencies \
             --exclude ./.git \
             "$@"
         '';
