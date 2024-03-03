@@ -1,5 +1,9 @@
-{ lib, buildGoModule, fetchurl, fetchFromGitHub }:
-
+{
+  lib,
+  buildGoModule,
+  fetchurl,
+  fetchFromGitHub,
+}:
 buildGoModule rec {
   pname = "docker-pushrm";
   version = "1.0.4";

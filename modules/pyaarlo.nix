@@ -1,14 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pycryptodome
-, click
-, unidecode
-, cloudscraper
-, paho-mqtt
-, cryptography
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pycryptodome,
+  click,
+  unidecode,
+  cloudscraper,
+  paho-mqtt,
+  cryptography,
 }:
-
 buildPythonPackage rec {
   pname = "pyaarlo";
   version = "0.8.0b6";
@@ -33,6 +33,6 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = https://github.com/twrecked/pyaarlo;
-    license = with licenses; [ lgpl3Plus ];
+    license = with licenses; [lgpl3Plus];
   };
 }

@@ -1,10 +1,13 @@
-{ config, lib, pkgs, modulesPath, ... }:
-with lib;
-let cfg = config.retronix;
-in {
-  imports = [ ../dependencies/retronix ];
+{
+  config,
+  lib,
+  retronix,
+  ...
+}:
+with lib; {
+  imports = [retronix.nixosModules.default];
 
-  config = mkIf cfg.enable {
+  config = mkIf config.retronix.enable {
     hardware.pulseaudio = {
       extraClientConf = ''
         autospawn=yes
@@ -12,8 +15,8 @@ in {
     };
 
     networking.firewall = {
-      allowedTCPPorts = [ 8180 9090 ];
-      allowedUDPPorts = [ 9777 ];
+      allowedTCPPorts = [8180 9090];
+      allowedUDPPorts = [9777];
     };
 
     services = {
@@ -44,7 +47,5 @@ in {
         windowManager.pekwm.enable = true;
       };
     };
-
-    environment.systemPackages = [ pkgs.glxinfo ];
   };
 }

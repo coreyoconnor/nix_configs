@@ -1,6 +1,10 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
   themes = with pkgs; [
     albatross
     adwaita-qt
@@ -23,7 +27,7 @@ let
     theme-vertex
   ];
 in {
-  imports = [ ./base.nix ./fonts.nix ];
+  imports = [./base.nix ./fonts.nix];
 
   config = {
     environment.systemPackages = with pkgs; [
@@ -83,7 +87,7 @@ in {
         core-shell.enable = true;
       };
 
-      flatpak = { enable = true; };
+      flatpak = {enable = true;};
 
       packagekit.enable = true;
 
@@ -93,12 +97,12 @@ in {
         updateDbusEnvironment = true;
       };
 
-      udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
+      udev.packages = [pkgs.gnome3.gnome-settings-daemon];
       sysprof.enable = true;
     };
 
     sound.enable = true;
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-kde ];
+    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-kde];
 
     services.xfs.enable = false;
   };

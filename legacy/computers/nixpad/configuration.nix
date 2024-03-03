@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   require = [
     ../../base.nix
     ../../editorIsVim.nix
@@ -18,7 +20,7 @@
 
   nix.maxJobs = 10;
 
-  boot.kernelModules = [ "acpi-cpufreq" "kvm-intel" ];
+  boot.kernelModules = ["acpi-cpufreq" "kvm-intel"];
 
   boot.initrd.kernelModules = [
     "ext4"
@@ -51,7 +53,7 @@
   services.xserver = {
     enable = true;
     autorun = true;
-    videoDrivers = [ "nvidia" "vesa" ];
+    videoDrivers = ["nvidia" "vesa"];
     exportConfiguration = true;
     layout = "us";
     synaptics = {
@@ -75,7 +77,7 @@
     };
   };
 
-  environment.x11Packages = [ pkgs.xorg.xf86inputsynaptics ];
+  environment.x11Packages = [pkgs.xorg.xf86inputsynaptics];
 
   environment.shellInit = ''
     NIX_PATH=/root/nixos

@@ -1,5 +1,9 @@
-{ config, pkgs, ... }: {
-  networking.firewall.allowedTCPPorts = [ 9091 ];
+{
+  config,
+  pkgs,
+  ...
+}: {
+  networking.firewall.allowedTCPPorts = [9091];
 
   services.transmission = {
     enable = true;
@@ -17,8 +21,7 @@
       speed-limit-up = 100;
       speed-limit-up-enabled = true;
 
-      blocklist-url =
-        "https://www.dropbox.com/s/2f8irg93zgglh2d/blocklist.txt?dl=1";
+      blocklist-url = "https://www.dropbox.com/s/2f8irg93zgglh2d/blocklist.txt?dl=1";
       blocklist-enabled = true;
     };
   };

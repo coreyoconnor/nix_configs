@@ -1,6 +1,10 @@
-{ config, lib, pkgs, modulesPath, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}: {
   nix = {
     settings = {
       cores = 3;
@@ -9,10 +13,9 @@
   };
 
   boot = {
-
-    initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
-    kernelModules = [ "kvm-amd" ];
-    kernelParams = [ "tsc=unstable" ];
+    initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod"];
+    kernelModules = ["kvm-amd"];
+    kernelParams = ["tsc=unstable"];
 
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;

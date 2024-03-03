@@ -1,5 +1,4 @@
-self: super:
-{
+self: super: {
   winePackages = self.wineWow64Packages;
   wine64Forwarder = self.stdenv.mkDerivation {
     name = "wine64Forwarder";
@@ -9,4 +8,3 @@ self: super:
     '';
   };
 }
-

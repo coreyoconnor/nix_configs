@@ -1,9 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
   imports = [];
 
   config = {
-    environment.systemPackages = [ pkgs.btrfs-progs ];
+    environment.systemPackages = [pkgs.btrfs-progs];
 
     fileSystems = {
       "/" = {
@@ -29,8 +34,8 @@ with lib; {
     '';
 
     boot.loader.grub = {
-        enable = true;
-        device = "/dev/sda";
+      enable = true;
+      device = "/dev/sda";
     };
   };
 }

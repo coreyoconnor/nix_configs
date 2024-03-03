@@ -1,6 +1,11 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let cfg = config.services.mev-boost;
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.services.mev-boost;
 in {
   imports = [];
 
@@ -18,16 +23,16 @@ in {
       ${pkgs.systemd}/bin/loginctl enable-linger monkey || true
     '';
 
-    networking.firewall.allowedTCPPorts = [ 18550 ];
+    networking.firewall.allowedTCPPorts = [18550];
 
     systemd.user.services.mev-boost = {
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
 
       environment = {
         PODMAN_SYSTEMD_UNIT = "%n";
       };
 
-      path = [ "/run/wrappers" pkgs.coreutils config.virtualisation.podman.package pkgs.shadow ];
+      path = ["/run/wrappers" pkgs.coreutils config.virtualisation.podman.package pkgs.shadow];
 
       unitConfig = {
         ConditionUser = "monkey";

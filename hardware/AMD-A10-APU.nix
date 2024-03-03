@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
   imports = [];
 
@@ -8,8 +13,7 @@ with lib; {
         "amd_iommu=off"
       ];
 
-
-      kernelModules = [ "kvm-amd" ];
+      kernelModules = ["kvm-amd"];
     };
 
     hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

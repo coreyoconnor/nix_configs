@@ -1,13 +1,15 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   vmhost = {
     vfio = {
       enable = true;
       iommu = "intel";
-      nvidiaBinds = [ "10de:17c8" "10de:0fb0" ];
-      forceBinds = [ "0000:08:00.0" ];
-      bootBinds = [ "13f6:8788" ];
+      nvidiaBinds = ["10de:17c8" "10de:0fb0"];
+      forceBinds = ["0000:08:00.0"];
+      bootBinds = ["13f6:8788"];
     };
   };
 
@@ -22,9 +24,9 @@
       "acpid.service"
       "systemd-logind.service"
     ];
-    wants = [ "vfio-force-binds.service" "systemd-udev-settle.service" ];
+    wants = ["vfio-force-binds.service" "systemd-udev-settle.service"];
     restartIfChanged = false;
-    serviceConfig = { Type = "simple"; };
+    serviceConfig = {Type = "simple";};
     # -drive file=/dev/zvol/rpool/root/waffle-1,format=raw,cache=writeback,aio=native,cache.direct=on \
     # ${pkgs.utillinux}/bin/chrt --rr 60 \
     # -drive file=/mnt/storage/transfer.qcow2,if=virtio \

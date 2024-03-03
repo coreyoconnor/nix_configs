@@ -1,6 +1,11 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let zfsLinuxPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  zfsLinuxPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 in rec {
   imports = [
     ./nixpkgs-config.nix
@@ -26,7 +31,7 @@ in rec {
     };
 
     environment = {
-      pathsToLink = [ "/share" "/etc/gconf" ];
+      pathsToLink = ["/share" "/etc/gconf"];
 
       shellInit = ''
         export LC_ALL=${config.i18n.defaultLocale}

@@ -1,6 +1,6 @@
 self: super: rec {
   mesa = super.mesa.override {
-    galliumDrivers = [ "auto" "swrast" ];
+    galliumDrivers = ["auto" "swrast"];
   };
 
   xspice-server-config = self.writeTextFile {

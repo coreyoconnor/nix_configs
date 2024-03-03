@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 with pkgs.lib; {
   # make sure the required groups exist
   users.groups.plugdev = {
@@ -27,12 +31,18 @@ with pkgs.lib; {
       ];
       home = "/home/coconnor";
       shell = pkgs.bashInteractive + "/bin/bash";
-      openssh.authorizedKeys.keyFiles = [ ./ssh/coconnor.pub ];
+      openssh.authorizedKeys.keyFiles = [./ssh/coconnor.pub];
       subUidRanges = [
-        { startUid = 2000000; count = 65536; }
+        {
+          startUid = 2000000;
+          count = 65536;
+        }
       ];
       subGidRanges = [
-        { startGid = 2000000; count = 65536; }
+        {
+          startGid = 2000000;
+          count = 65536;
+        }
       ];
     };
   };

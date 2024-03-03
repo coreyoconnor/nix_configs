@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
   imports = [];
 
@@ -15,7 +20,7 @@ with lib; {
         "xhci_pci"
       ];
 
-      extraModulePackages = with config.boot.kernelPackages; [ it87 ];
+      extraModulePackages = with config.boot.kernelPackages; [it87];
     };
   };
 }

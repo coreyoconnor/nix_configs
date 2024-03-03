@@ -1,10 +1,12 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   config = {
-
     environment.etc."containers/policy.json" = {
-      mode="0644";
-      text=''
+      mode = "0644";
+      text = ''
         {
           "default": [
             {
@@ -23,8 +25,8 @@
     };
 
     environment.etc."containers/registries.conf" = {
-      mode="0644";
-      text=''
+      mode = "0644";
+      text = ''
         [registries.search]
           registries = ['docker.io', 'quay.io']
       '';

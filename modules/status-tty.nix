@@ -1,6 +1,11 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let cfg = config.services.status-tty;
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.services.status-tty;
 in {
   options = {
     services.status-tty = {
@@ -14,7 +19,7 @@ in {
   config = mkIf cfg.enable {
     console = {
       font = "ter-132n";
-      packages = [ pkgs.terminus_font ];
+      packages = [pkgs.terminus_font];
     };
 
     environment.pathsToLink = [
@@ -26,7 +31,7 @@ in {
 
     systemd.services."autovt@tty1" = {
       description = "Status";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.atop}/bin/atop 2";
         Type = "idle";
@@ -39,7 +44,7 @@ in {
         TTYVTDisallocate = true;
         User = "nobody";
       };
-      wants = [ "getty@tty2.service" ];
+      wants = ["getty@tty2.service"];
     };
   };
 }

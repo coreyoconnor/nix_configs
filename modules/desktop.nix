@@ -1,6 +1,10 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
   cfg = config.desktop;
 in {
   options = {
@@ -85,7 +89,7 @@ in {
     };
 
     i18n.inputMethod.enabled = "ibus";
-    i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [ mozc hangul libpinyin ];
+    i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [mozc hangul libpinyin];
 
     sway-gnome.enable = true;
 
@@ -133,7 +137,7 @@ in {
 
       sysprof.enable = true;
 
-      udev.packages = [ pkgs.android-udev-rules ];
+      udev.packages = [pkgs.android-udev-rules];
 
       xserver = {
         enable = true; # even tho this I use wayland.

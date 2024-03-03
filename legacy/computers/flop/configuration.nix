@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   require = [
     ./hardware-configuration.nix
     ../../base.nix
@@ -46,7 +48,7 @@
     wireless = {
       enable = true; # Enables wireless.
       userControlled.enable = true;
-      interfaces = [ "wlp4s0" ];
+      interfaces = ["wlp4s0"];
     };
     dhcpcd.extraConfig = ''
       ipv4only
@@ -64,7 +66,7 @@
   services.xserver = {
     autorun = true;
 
-    videoDrivers = [ "intel" ];
+    videoDrivers = ["intel"];
     layout = "us";
     # see: http://tinyurl.com/qxzud5l
     deviceSection = ''
@@ -75,7 +77,7 @@
       enable = true;
       twoFingerScroll = true;
       tapButtons = false;
-      buttonsMap = [ 1 3 2 ];
+      buttonsMap = [1 3 2];
       palmDetect = true;
       minSpeed = "1.5";
       maxSpeed = "100";
@@ -92,10 +94,9 @@
         Option "VertHysteresis" "1"
       '';
     };
-
   };
 
-  environment.systemPackages = [ pkgs.xorg.xf86inputsynaptics ];
+  environment.systemPackages = [pkgs.xorg.xf86inputsynaptics];
 
   system.stateVersion = "16.03";
 }

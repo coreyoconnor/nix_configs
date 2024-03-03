@@ -1,4 +1,3 @@
-self: super:
-{
+self: super: {
   # cudatoolkit = super.cudatoolkit_10;
 }

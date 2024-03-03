@@ -1,5 +1,4 @@
-self: super:
-let
+self: super: let
   launcher = self.writeShellScript "tensorderp-launcher" ''
     nix-shell --cores 16 '<nixpkgs>' -A tensorderp-shell
   '';
@@ -13,7 +12,7 @@ in rec {
 
     propagatedBuildInputs = with self.python3Packages; [
       gdal
-      (matplotlib.override { enableGtk3 = true; })
+      (matplotlib.override {enableGtk3 = true;})
       numpy
       scikitimage
       tensorflowWithCudaCompute3
@@ -39,7 +38,7 @@ in rec {
     pname = "tensorderp";
     inherit version;
 
-    buildInputs = [ self.stdenv ];
+    buildInputs = [self.stdenv];
 
     builder = self.writeShellScript "builder.sh" ''
       source $stdenv/setup

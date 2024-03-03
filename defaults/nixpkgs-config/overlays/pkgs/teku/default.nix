@@ -1,5 +1,11 @@
-{ lib, stdenv, fetchurl, makeWrapper, jre, jemalloc }:
-
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jre,
+  jemalloc,
+}:
 stdenv.mkDerivation rec {
   pname = "teku";
   version = "22.9.1";
@@ -9,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "a4ab66e30cc24c99d14f91d31d95443cb0d12c984521837ec72e114af5cb5fd9";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -20,6 +26,6 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    maintainers = with maintainers; [ coreyoconnor ];
+    maintainers = with maintainers; [coreyoconnor];
   };
 }

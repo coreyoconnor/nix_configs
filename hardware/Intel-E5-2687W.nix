@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
   imports = [
   ];
@@ -12,7 +17,7 @@ with lib; {
     };
 
     boot = {
-      kernelModules = [ "kvm-intel" "msr" ];
+      kernelModules = ["kvm-intel" "msr"];
       kernelParams = [
         "kvm-intel.nested=1"
       ];

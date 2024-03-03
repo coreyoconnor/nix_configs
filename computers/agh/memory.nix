@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
   imports = [];
 
@@ -11,7 +16,10 @@ with lib; {
     };
 
     swapDevices = [
-      { device = "/swapfile"; size = 32000; }
+      {
+        device = "/swapfile";
+        size = 32000;
+      }
     ];
 
     zramSwap = {
@@ -20,4 +28,3 @@ with lib; {
     };
   };
 }
-

@@ -1,14 +1,20 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  nixos-hardware,
+  ...
+}:
 with lib; {
   imports = [
-    ../dependencies/nixos-hardware/lenovo/thinkpad/x1/7th-gen
+    nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
   ];
   config = {
     boot = {
       initrd = {
-        availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "aesni_intel" "cryptd" ];
+        availableKernelModules = ["xhci_pci" "nvme" "usb_storage" "sd_mod" "aesni_intel" "cryptd"];
       };
-      kernelModules = [ "kvm-intel" ];
+      kernelModules = ["kvm-intel"];
     };
 
     hardware.cpu.intel.updateMicrocode = true;

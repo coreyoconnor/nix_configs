@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
   config = {
     # https://wiki.archlinux.org/title/Zram#Optimizing_swap_on_zram

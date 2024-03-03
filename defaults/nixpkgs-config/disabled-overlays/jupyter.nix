@@ -1,5 +1,4 @@
-self: super:
-rec {
+self: super: rec {
   #promise = self.python3Packages.buildPythonPackage rec {
   #  pname = "promise";
   #  version = "2.2.1";
@@ -17,7 +16,7 @@ rec {
   python3 = self.python37;
 
   tensorflowWithCudaCompute3 = self.python3Packages.tensorflow_2.override {
-    cudaCapabilities = [ "3.0" ];
+    cudaCapabilities = ["3.0"];
     cudaSupport = true;
     sse41Support = true;
     avxSupport = true;
@@ -36,7 +35,7 @@ rec {
       self.protobuf
     ];
     propagatedBuildInputs = with super.python3Packages; [
-    attrs
+      attrs
       dill
       promise
       protobuf
@@ -56,8 +55,8 @@ rec {
     pname = "tensorflow-metadata";
     version = "0.15.1";
     src = self.fetchFromGitHub {
-    owner = "tensorflow";
-    repo = "metadata";
+      owner = "tensorflow";
+      repo = "metadata";
       rev = "aa93a557e61cd8c8c9a2348809cf3a4717fe30ce";
       sha256 = "1cj11z3rd6frv4fsz49ba5yp847q3yzfpn8gnr4rdnwvs7xx9af6";
     };
@@ -81,6 +80,6 @@ rec {
         TensorFlow Metadata provides standard representations for metadata that are useful when
         training machine learning models with TensorFlow.
       '';
-};
+    };
   };
 }

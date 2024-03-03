@@ -1,7 +1,9 @@
 self: super: {
-  jdk = super.openjdk11 // {
-    jre = super.openjdk11;
-  };
+  jdk =
+    super.openjdk11
+    // {
+      jre = super.openjdk11;
+    };
   jre = super.openjdk11;
 
   scala = super.scala_2_13;

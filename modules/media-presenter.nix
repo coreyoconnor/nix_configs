@@ -1,6 +1,12 @@
-{ config, lib, pkgs, modulesPath, ... }:
-with lib;
-let cfg = config.media-presenter;
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
+with lib; let
+  cfg = config.media-presenter;
 in {
   options = {
     media-presenter = {

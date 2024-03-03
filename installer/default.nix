@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
   imports = [
     ../defaults
@@ -10,7 +15,7 @@ with lib; {
   ];
 
   config = {
-    environment.systemPackages = [ pkgs.btrfs-progs ];
+    environment.systemPackages = [pkgs.btrfs-progs];
 
     isoImage.isoBaseName = "my-nixos-installer";
 
@@ -27,4 +32,3 @@ with lib; {
     };
   };
 }
-

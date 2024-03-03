@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
   imports = [
     ../../hardware/AMD-A10-APU.nix
@@ -15,6 +20,9 @@ with lib; {
   ];
 
   config = {
+    networking.hostName = "agh";
+    system.stateVersion = "22.05";
+
     developer-base.enable = true;
     semi-active-av.enable = true;
 

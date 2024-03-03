@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
   imports = [
     ../../hardware/minisforum-UM350.nix
@@ -11,6 +16,9 @@ with lib; {
   ];
 
   config = {
+    networking.hostName = "thrash";
+    system.stateVersion = "22.05";
+
     hardware.bluetooth.enable = true;
     hardware.rasdaemon.enable = true;
     hardware.xpadneo.enable = true;

@@ -1,8 +1,10 @@
-{ config, pkgs, lib, ... }:
-
-with lib;
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; {
   options = {
     hardware.enableAcerPrimus = mkOption {
       default = false;
@@ -24,4 +26,3 @@ with lib;
     })
   ];
 }
-

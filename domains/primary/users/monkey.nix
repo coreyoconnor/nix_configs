@@ -1,8 +1,11 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 with pkgs.lib; {
   users.groups = {
-    monkey = {
-    };
+    monkey = {};
   };
 
   users.users = {
@@ -14,15 +17,21 @@ with pkgs.lib; {
       shell = pkgs.bashInteractive + "/bin/bash";
 
       group = "monkey";
-      extraGroups = [ "libvirtd" "docker" ];
+      extraGroups = ["libvirtd" "docker"];
       subUidRanges = [
-        { startUid = 2100000; count = 65536; }
+        {
+          startUid = 2100000;
+          count = 65536;
+        }
       ];
       subGidRanges = [
-        { startGid = 2100000; count = 65536; }
+        {
+          startGid = 2100000;
+          count = 65536;
+        }
       ];
 
-      openssh.authorizedKeys.keyFiles = [ ./ssh/coconnor.pub ];
+      openssh.authorizedKeys.keyFiles = [./ssh/coconnor.pub];
     };
   };
 }

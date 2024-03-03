@@ -1,7 +1,12 @@
-{ options, pkgs, lib, ... }:
+{
+  options,
+  pkgs,
+  lib,
+  ...
+}:
 with lib; {
   config = {
-    boot.blacklistedKernelModules = [ "snd_pcsp" ];
+    boot.blacklistedKernelModules = ["snd_pcsp"];
 
     nix = {
       gc = {
@@ -13,12 +18,14 @@ with lib; {
     };
 
     networking = {
-      timeServers = options.networking.timeServers.default ++ [
-        "0.us.pool.ntp.org"
-        "1.us.pool.ntp.org"
-        "2.us.pool.ntp.org"
-        "3.us.pool.ntp.org"
-      ];
+      timeServers =
+        options.networking.timeServers.default
+        ++ [
+          "0.us.pool.ntp.org"
+          "1.us.pool.ntp.org"
+          "2.us.pool.ntp.org"
+          "3.us.pool.ntp.org"
+        ];
     };
 
     programs.dconf.enable = true;
@@ -55,6 +62,6 @@ with lib; {
       upower.enable = true;
     };
 
-    systemd.tmpfiles.rules = [ "R /tmp/nix* - - - 60d" "R! /tmp/* - - - 6m" ];
+    systemd.tmpfiles.rules = ["R /tmp/nix* - - - 60d" "R! /tmp/* - - - 6m"];
   };
 }

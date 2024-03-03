@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   hardware.opengl = {
     enable = true;
     driSupport = true;
@@ -11,6 +16,6 @@
 
   services.xserver = {
     enable = true;
-    videoDrivers = [ "amdgpu" "modesetting" "vesa" ];
+    videoDrivers = ["amdgpu" "modesetting" "vesa"];
   };
 }

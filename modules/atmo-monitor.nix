@@ -1,6 +1,11 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let cfg = config.atmo-monitor;
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.atmo-monitor;
 in {
   options = {
     atmo-monitor = {
@@ -14,8 +19,8 @@ in {
   config = mkIf cfg.enable {
     systemd.services.atmo-monitor = {
       description = "tails the serial data from /dev/ttyACM0";
-      path = [ pkgs.coreutils pkgs.gnugrep ];
-      wantedBy = [ "multi-user.target" ];
+      path = [pkgs.coreutils pkgs.gnugrep];
+      wantedBy = ["multi-user.target"];
       script = ''
         mkdir -p -m 0755 /var/run/atmo-monitor
         stty -F /dev/ttyACM0 speed 115200 > /dev/null
@@ -24,7 +29,7 @@ in {
     };
 
     systemd.services.atmo-monitor-photo = {
-      path = [ pkgs.fswebcam ];
+      path = [pkgs.fswebcam];
       unitConfig = {
         RequiresMountsFor = "/mnt/storage/media";
       };
@@ -44,8 +49,8 @@ in {
     };
 
     systemd.timers.atmo-monitor-photo = {
-      partOf = [ "atmo-monitor-photo.service" ];
-      wantedBy = [ "timers.target" ];
+      partOf = ["atmo-monitor-photo.service"];
+      wantedBy = ["timers.target"];
       timerConfig.OnCalendar = "*:0/30";
     };
   };

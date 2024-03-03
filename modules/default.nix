@@ -1,9 +1,12 @@
-{ config, lib, pkgs, modulesPath, ... }:
-with lib;
-let sway-gnome = import ../dependencies/sway-gnome {
-      inherit pkgs lib;
-    };
-in {
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  sway-gnome,
+  ...
+}:
+with lib; {
   imports = [
     ./atmo-monitor.nix
     ./besu
@@ -15,11 +18,11 @@ in {
     ./media-presenter.nix
     ./mev-boost
     ./qa-house-manager.nix
-    ./retronix.nix
+    ./retronix-default-session.nix
     ./semi-active-av.nix
     ./status-tty.nix
     ./teku
     ./virt-host.nix
-    sway-gnome.module
+    sway-gnome.nixosModules.default
   ];
 }

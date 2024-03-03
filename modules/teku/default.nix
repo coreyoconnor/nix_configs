@@ -1,6 +1,11 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let cfg = config.services.teku;
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.services.teku;
 in {
   options = {
     services.teku = {
@@ -21,13 +26,13 @@ in {
     ];
 
     systemd.user.services.teku = {
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
 
       environment = {
         PODMAN_SYSTEMD_UNIT = "%n";
       };
 
-      path = [ "/run/wrappers" pkgs.coreutils config.virtualisation.podman.package pkgs.shadow pkgs.teku ];
+      path = ["/run/wrappers" pkgs.coreutils config.virtualisation.podman.package pkgs.shadow pkgs.teku];
 
       unitConfig = {
         ConditionUser = "monkey";
@@ -35,7 +40,7 @@ in {
       };
 
       serviceConfig = {
-        Delegate="yes"; # required for CPU limits?
+        Delegate = "yes"; # required for CPU limits?
         ExecStart = "${./start.sh} %t/%n.pid";
         ExecStartPre = [
           "-${pkgs.podman}/bin/podman stop --time 120 --ignore teku"

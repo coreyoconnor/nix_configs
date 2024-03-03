@@ -1,11 +1,16 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let postgresql = pkgs.postgresql_13;
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  postgresql = pkgs.postgresql_13;
 in {
   services.postgresql = {
     enable = true;
     package = postgresql;
-    extraPlugins = [ (pkgs.postgis.override { inherit postgresql; }) ];
+    extraPlugins = [(pkgs.postgis.override {inherit postgresql;})];
     extraConfig = ''
       max_wal_size = 4096
       max_connections = 400
@@ -19,9 +24,9 @@ in {
   };
 
   environment.systemPackages = [
-    (pkgs.osm2pgsql.override { inherit postgresql; })
+    (pkgs.osm2pgsql.override {inherit postgresql;})
     postgresql
   ];
 
-  networking.firewall.allowedTCPPorts = [ 5432 ];
+  networking.firewall.allowedTCPPorts = [5432];
 }

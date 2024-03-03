@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
   imports = [
     ../../hardware/ASUS-Z9PA-D8.nix
@@ -12,8 +17,7 @@ with lib; {
   ];
 
   config = {
-    networking.hostName = "agh";
-
+    networking.hostName = "grr";
     system.stateVersion = "22.05";
 
     developer-base.enable = true;

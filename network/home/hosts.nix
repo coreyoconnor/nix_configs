@@ -1,18 +1,17 @@
-
 let
   knownHosts = {
     github = {
-      hostNames = [ "github.com" ];
+      hostNames = ["github.com"];
       publicKeyFile = ./known-hosts/github.com.pub;
     };
 
     grr = {
-      hostNames = [ "grr" ];
+      hostNames = ["grr"];
       publicKeyFile = ./known-hosts/grr.pub;
     };
 
     gitlab = {
-      hostNames = [ "gitlab.com" ];
+      hostNames = ["gitlab.com"];
       publicKeyFile = ./known-hosts/gitlab.com.pub;
     };
   };
@@ -20,7 +19,6 @@ in {
   imports = [];
 
   config = {
-
     networking = {
       extraHosts = ''
         192.168.86.2 agh

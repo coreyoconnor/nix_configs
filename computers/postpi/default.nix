@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ../../nixpkgs/nixos/modules/installer/sd-card/sd-image-aarch64.nix
     ../../network/home
@@ -20,10 +25,15 @@
 
     nixpkgs.overlays = [
       (self: super: {
-        makeModulesClosure = x: super.makeModulesClosure (x // { allowMissing = true; });
+        makeModulesClosure = x: super.makeModulesClosure (x // {allowMissing = true;});
 
         zfs = super.zfs.overrideAttrs (finalAttrs: previousAttrs: {
-          meta = previousAttrs.meta // { platforms = []; broken = true; };
+          meta =
+            previousAttrs.meta
+            // {
+              platforms = [];
+              broken = true;
+            };
         });
       })
     ];

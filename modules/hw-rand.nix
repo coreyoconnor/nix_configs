@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib; {
   imports = [];
 
@@ -14,7 +19,7 @@ with lib; {
   };
 
   config = mkIf config.services.hw-rand.enable {
-    environment.systemPackages = [ pkgs.rng-tools ];
+    environment.systemPackages = [pkgs.rng-tools];
 
     services.udev.extraRules = ''
       SUBSYSTEM=="tty", ATTRS{product}=="TrueRNG", SYMLINK+="hwrandom", RUN+="${pkgs.coreutils}/bin/stty raw -echo -ixoff -F /dev/%k speed 3000000"
@@ -23,8 +28,8 @@ with lib; {
 
     systemd.services.rngd = {
       # Clean shutdown without DefaultDependencies
-      conflicts = [ "shutdown.target" ];
-      wantedBy = [ "multi-user.target" ];
+      conflicts = ["shutdown.target"];
+      wantedBy = ["multi-user.target"];
       before = [
         "sysinit.target"
         "shutdown.target"

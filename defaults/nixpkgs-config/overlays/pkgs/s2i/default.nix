@@ -1,5 +1,10 @@
-{ lib, buildGoPackage, fetchurl, fetchFromGitHub, phantomjs2 }:
-
+{
+  lib,
+  buildGoPackage,
+  fetchurl,
+  fetchFromGitHub,
+  phantomjs2,
+}:
 buildGoPackage rec {
   pname = "s2i";
   version = "1.2.0";

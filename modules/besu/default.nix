@@ -1,6 +1,11 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let cfg = config.services.besu;
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.services.besu;
 in {
   options = {
     services.besu = {
@@ -20,16 +25,16 @@ in {
       besu
     ];
 
-    networking.firewall.allowedTCPPorts = [ 8551 ];
+    networking.firewall.allowedTCPPorts = [8551];
 
     systemd.user.services.besu = {
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
 
       environment = {
         PODMAN_SYSTEMD_UNIT = "%n";
       };
 
-      path = [ "/run/wrappers" pkgs.coreutils config.virtualisation.podman.package pkgs.shadow pkgs.besu ];
+      path = ["/run/wrappers" pkgs.coreutils config.virtualisation.podman.package pkgs.shadow pkgs.besu];
 
       unitConfig = {
         ConditionUser = "monkey";
@@ -37,7 +42,7 @@ in {
       };
 
       serviceConfig = {
-        Delegate="yes"; # required for CPU limits?
+        Delegate = "yes"; # required for CPU limits?
         ExecStart = "${./start.sh} %t/%n.pid";
         ExecStartPre = [
           "-${pkgs.podman}/bin/podman stop --time 120 --ignore besu"

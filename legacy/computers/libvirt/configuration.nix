@@ -1,4 +1,8 @@
-{ config, pkgs, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   require = [
     ./config-at-bootstrap.nix
     ../../base.nix
@@ -27,10 +31,10 @@
       # subnetMask = "255.255.255.0";
     };
     defaultGateway = "192.168.1.1";
-    nameservers = [ "8.8.8.8" "8.8.4.4" ];
+    nameservers = ["8.8.8.8" "8.8.4.4"];
   };
 
-  nix.trustedBinaryCaches = [ "http://hydra.nixos.org" ];
+  nix.trustedBinaryCaches = ["http://hydra.nixos.org"];
 
   services.openssh.extraConfig = ''
     UseDNS no
@@ -41,7 +45,7 @@
     enableTCP = true;
     exportConfiguration = true;
     layout = "us";
-    videoDrivers = [ "virtualbox" ];
+    videoDrivers = ["virtualbox"];
   };
 
   services.journald.console = "/dev/tty12";

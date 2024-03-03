@@ -1,4 +1,10 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 with lib; {
   imports = [
   ];
@@ -13,7 +19,7 @@ with lib; {
 
   config = mkIf config.cluster.jenkins-node.enable {
     # services.jenkinsSlave.enable = true;
-    users.extraUsers.jenkins.extraGroups = [ "libvirtd" "vboxusers" "plugdev" ];
+    users.extraUsers.jenkins.extraGroups = ["libvirtd" "vboxusers" "plugdev"];
 
     fonts.fontDir.enable = true;
 

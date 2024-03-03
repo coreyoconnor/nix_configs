@@ -1,6 +1,11 @@
-{ config, lib, pkgs, modulesPath, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
+with lib; let
   builderPackages = pkgs.symlinkJoin {
     name = "jenkins-builder-pkgs";
     paths = with pkgs; [
@@ -50,31 +55,35 @@ in {
     };
   };
 
-  config = mkIf (
-    config.cluster.jenkins-master.enable && (
-      config.networking.hostName == config.cluster.jenkins-master.host
+  config =
+    mkIf
+    (
+      config.cluster.jenkins-master.enable
+      && (
+        config.networking.hostName == config.cluster.jenkins-master.host
+      )
     )
-  ) {
-    cluster.jenkins-node.enable = true;
+    {
+      cluster.jenkins-node.enable = true;
 
-    services.jenkins = {
-      enable = true;
-      environment = { JAVA_HOME = "${pkgs.jdk}/jre"; };
-      extraJavaOptions = [
-        "-Dhudson.slaves.WorkspaceList=-"
-        "-Djava.awt.headless=true"
-        ''
+      services.jenkins = {
+        enable = true;
+        environment = {JAVA_HOME = "${pkgs.jdk}/jre";};
+        extraJavaOptions = [
+          "-Dhudson.slaves.WorkspaceList=-"
+          "-Djava.awt.headless=true"
+          ''
             -Dhudson.model.DirectoryBrowserSupport.CSP="default-src 'self'; script-src 'self' 'unsafe-inline' ajax.googleapis.com cdnjs.cloudflare.com netdna.bootstrapcdn.com; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com netdna.bootstrapcdn.com; font-src 'self' netdna.bootstrapcdn.com; img-src 'self' data:"''
-      ];
-      packages = [ pkgs.jdk builderPackages  ];
-    };
-
-    systemd.services.jenkins = {
-      serviceConfig = {
-        TimeoutStartSec = "5min";
+        ];
+        packages = [pkgs.jdk builderPackages];
       };
-    };
 
-    networking = { firewall.allowedTCPPorts = [ 8080 53251 ]; };
-  };
+      systemd.services.jenkins = {
+        serviceConfig = {
+          TimeoutStartSec = "5min";
+        };
+      };
+
+      networking = {firewall.allowedTCPPorts = [8080 53251];};
+    };
 }

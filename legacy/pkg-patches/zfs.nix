@@ -1,10 +1,15 @@
-{ config, pkgs, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   nixpkgs.config = {
     packageOverrides = in_pkgs: {
-      linuxPackages = in_pkgs.linuxPackages_4_13.extend
+      linuxPackages =
+        in_pkgs.linuxPackages_4_13.extend
         (selfLinux: superLinux: {
           zfs = pkgs.lib.overrideDerivation superLinux.zfs (oldAttrs: {
-            patches = [ ./zfs.patch ];
+            patches = [./zfs.patch];
             src = pkgs.fetchFromGitHub {
               owner = "zfsonlinux";
               repo = "zfs";

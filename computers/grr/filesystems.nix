@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
   imports = [
   ];
@@ -39,7 +44,7 @@ with lib; {
     fileSystems."/mnt/storage/validator" = {
       device = "rpool/validator";
       fsType = "zfs";
-      depends = [ "/" ];
+      depends = ["/"];
     };
 
     services.zfs.autoScrub.enable = true;

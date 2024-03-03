@@ -1,10 +1,11 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   grrBuildMachines = [
     {
       hostName = "grr";
@@ -18,24 +19,23 @@ let
       hostName = "grr";
       sshUser = "nix";
       sshKey = "/root/.ssh/id_rsa";
-      system =
-        "armv6l-linux,armv7l-linux,aarch64-linux,riscv32-linux,riscv64-linux,wasm32-wasi,wasm64-wasi";
+      system = "armv6l-linux,armv7l-linux,aarch64-linux,riscv32-linux,riscv64-linux,wasm32-wasi,wasm64-wasi";
       maxJobs = 2;
       speedFactor = 1;
     }
   ];
   localIp = "192.168.86.8";
 in {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../nixpkgs-config.nix
-      ../../standard-env.nix
-      ../../atmo-monitor.nix
-      ../../networks/home.nix
-      <nixpkgs/nixos/modules/profiles/headless.nix>
-      <nixpkgs/nixos/modules/profiles/minimal.nix>
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../nixpkgs-config.nix
+    ../../standard-env.nix
+    ../../atmo-monitor.nix
+    ../../networks/home.nix
+    <nixpkgs/nixos/modules/profiles/headless.nix>
+    <nixpkgs/nixos/modules/profiles/minimal.nix>
+  ];
 
   atmo-monitor.enable = true;
 
@@ -51,7 +51,7 @@ in {
     buildMachines = grrBuildMachines;
   };
 
-  systemd.tmpfiles.rules = [ "R /tmp/nix* - - - 60d" "R! /tmp/* - - - 6m" ];
+  systemd.tmpfiles.rules = ["R /tmp/nix* - - - 60d" "R! /tmp/* - - - 6m"];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -95,9 +95,9 @@ in {
     dfu-programmer
 
     # vim_configurable
-    (v4l-utils.override { withGUI = false; })
+    (v4l-utils.override {withGUI = false;})
 
-    (fswebcam.overrideAttrs(oldAttrs: {
+    (fswebcam.overrideAttrs (oldAttrs: {
       src = fetchgit {
         url = "https://github.com/coreyoconnor/fswebcam.git";
         rev = "4f9c743112fc31a96a35769219b04c86707f5fa9";

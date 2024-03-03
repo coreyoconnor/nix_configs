@@ -1,6 +1,10 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
   cfg = config.services.tensorderp;
   jupyterConfig = config.services.jupyter;
   notebookPort = 10020;
@@ -28,42 +32,43 @@ in {
 
   config = mkIf cfg.enable {
     networking.firewall = {
-      allowedTCPPorts = [ notebookPort tensorboardPort ];
+      allowedTCPPorts = [notebookPort tensorboardPort];
     };
 
     services.jupyter = {
       enable = true;
       ip = "0.0.0.0";
       kernels = {
-          python3 = let
-            env = (pkgs.python3.withPackages (ps: with ps; [
-                    ipykernel
-                    ipywidgets
-                    widgetsnbextension
-                    pandas
-                    scikitlearn
-                    gdal
-                    numpy
-                    scikitimage
-                    setuptools
-                    pkgs.tensorflowWithCudaCompute3
-                    pkgs.tensorflow-datasets
-                  ]));
-          in {
-            displayName = "Python 3";
-            argv = [
-              env.interpreter
-              "-m"
-              "ipykernel_launcher"
-              "-f"
-              "{connection_file}"
-            ];
-            language = "python";
-            # TODO: invalid type error with the icons included
-            # logo32 = "${env.sitePackages}/ipykernel/resources/logo-32x32.png";
-            # logo64 = "${env.sitePackages}/ipykernel/resources/logo-64x64.png";
-          };
+        python3 = let
+          env = pkgs.python3.withPackages (ps:
+            with ps; [
+              ipykernel
+              ipywidgets
+              widgetsnbextension
+              pandas
+              scikitlearn
+              gdal
+              numpy
+              scikitimage
+              setuptools
+              pkgs.tensorflowWithCudaCompute3
+              pkgs.tensorflow-datasets
+            ]);
+        in {
+          displayName = "Python 3";
+          argv = [
+            env.interpreter
+            "-m"
+            "ipykernel_launcher"
+            "-f"
+            "{connection_file}"
+          ];
+          language = "python";
+          # TODO: invalid type error with the icons included
+          # logo32 = "${env.sitePackages}/ipykernel/resources/logo-32x32.png";
+          # logo64 = "${env.sitePackages}/ipykernel/resources/logo-64x64.png";
         };
+      };
       port = notebookPort;
       notebookConfig = ''
         c.NotebookApp.token = ""
@@ -71,7 +76,7 @@ in {
       notebookDir = "/var/lib/jupyter";
       password = "''";
     };
-    users.extraUsers.jupyter.extraGroups = [ "docker" ];
+    users.extraUsers.jupyter.extraGroups = ["docker"];
     systemd.services.jupyter = {
       preStart = setupNotebookDir;
       environment = {
@@ -79,7 +84,7 @@ in {
         # JUPYTER_RUNTIME_DIR = "~/.local/share/jupyter/runtime";
         LD_LIBRARY_PATH = "${pkgs.tensorflowWithCudaCompute3.libtensorflow}/lib";
       };
-      path = [ pkgs.bash pkgs.jdk ];
+      path = [pkgs.bash pkgs.jdk];
       serviceConfig = {
         UMask = "0002";
       };

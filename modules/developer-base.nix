@@ -1,6 +1,11 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let cfg = config.developer-base;
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.developer-base;
 in {
   options = {
     developer-base = {
@@ -45,11 +50,13 @@ in {
       startAgent = true;
     };
 
-    security.pam.loginLimits = [{
-      domain = "*";
-      type = "soft";
-      item = "nproc";
-      value = "unlimited";
-    }];
+    security.pam.loginLimits = [
+      {
+        domain = "*";
+        type = "soft";
+        item = "nproc";
+        value = "unlimited";
+      }
+    ];
   };
 }

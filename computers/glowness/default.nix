@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
   imports = [
     ../../hardware/Gigabyte-X399-Aorus-Pro.nix
@@ -11,6 +16,9 @@ with lib; {
   ];
 
   config = {
+    networking.hostName = "glowness";
+    system.stateVersion = "22.11";
+
     boot.kernelPackages = pkgs.linuxPackages_6_5;
 
     desktop.enable = true;

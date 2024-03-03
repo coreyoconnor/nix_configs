@@ -2,7 +2,7 @@ let
   system = builtins.currentSystem;
   eval = import ./nixpkgs/nixos/lib/eval-config.nix {
     inherit system;
-    modules = [ ./computers/thrash/configuration.nix ];
+    modules = [./computers/thrash/configuration.nix];
   };
   inherit (eval) pkgs config options;
   inherit (pkgs) lib;
