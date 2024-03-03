@@ -27,10 +27,11 @@
     {
       lib = let
         system = name: attrs:
-          nixpkgs.lib.nixosSystem ({
+          let configPath = if attrs?configPath then attrs.configPath else "${self}/computers/${name}";
+          in nixpkgs.lib.nixosSystem ({
             specialArgs = inputs;
-            modules = [self.nixosModules.default "${self}/computers/${name}"];
-          } // attrs);
+            modules = [self.nixosModules.default configPath ];
+          } // (builtins.removeAttrs attrs [ "configPath" ]));
         node = name: attrs: ({
           hostname = name;
           profiles.system = {
@@ -40,8 +41,78 @@
         } // attrs);
         nixosConfigurations = nodes: builtins.mapAttrs system nodes;
         deployNodes = nodes: builtins.mapAttrs node nodes;
+        devshellImport = overrides:
+          let
+            devArgs = [
+              "--override-input"
+              "nixpkgs"
+              "path:./dev-dependencies/nixpkgs"
+              "--override-input"
+              "nixos-hardware"
+              "path:./dev-dependencies/nixos-hardware"
+              "--override-input"
+              "retronix"
+              "path:./dev-dependencies/retronix"
+              "--override-input"
+              "sway-gnome"
+              "path:./dev-dependencies/sway-gnome"
+            ];
+            devArgsShell = nixpkgs.lib.concatStringsSep " " devArgs;
+            argToFragmentShell = arg: ''
+              if [ -n  "${arg}" ] ; then
+                fragment="#${arg}"
+              else
+                fragment=""
+              fi
+            '';
+            mkDevDeployCmd = name: subcommand: {
+              name = "dev-${name}";
+              command = ''
+                ${argToFragmentShell "\${1:-}"}
+                exec deploy .?submodules=1$fragment ${subcommand} -- ${devArgsShell};
+              '';
+            };
+            mkProdDeployCmd = name: subcommand: {
+              name = "prod-${name}";
+              command = ''
+                ${argToFragmentShell "\${1:-}"}
+                exec deploy .$fragment ${subcommand};
+              '';
+            };
+          in {
+            commands = [
+              {
+                name = "dev-build";
+                command = ''
+                  if [ -n  "$${1:-}" ] ; then
+                    fragment="#nixosConfigurations.$1.config.system.build.toplevel"
+                  else
+                    fragment=""
+                  fi
+                  exec nix build .?submodules=1$fragment --show-trace
+                '';
+              }
+              (mkDevDeployCmd "apply" "")
+              (mkDevDeployCmd "boot" "--boot")
+              (mkDevDeployCmd "dry-run" "--dry-activate")
+              {
+                name = "prod-build";
+                command = ''
+                  if [ -n  "$${1:-}" ] ; then
+                    fragment="#nixosConfigurations.$1.config.system.build.toplevel"
+                  else
+                    fragment=""
+                  fi
+                  exec nix build .$fragment
+                '';
+              }
+              (mkProdDeployCmd "apply" "")
+              (mkProdDeployCmd "boot" "--boot")
+              (mkProdDeployCmd "dry-run" "--dry-activate")
+            ];
+          };
       in {
-        inherit system node nixosConfigurations deployNodes;
+        inherit system node nixosConfigurations deployNodes devshellImport;
       };
       nixosModules = {
         default = {
@@ -57,6 +128,10 @@
         glowness = { system = "x86_64-linux"; };
         grr = { system = "x86_64-linux"; };
         thrash = { system = "x86_64-linux"; };
+        nixos-installer-x86-image = {
+          system = "x86_64-linux";
+          configPath = "${self}/installer";
+        };
       };
       deploy.nodes = self.lib.deployNodes {
         agh = {};
@@ -83,57 +158,20 @@
             "$@"
         '';
 
-        devShells.default = let
-          devArgs = [
-            "--override-input"
-            "nixpkgs"
-            "path:./dev-dependencies/nixpkgs"
-            "--override-input"
-            "nixos-hardware"
-            "path:./dev-dependencies/nixos-hardware"
-            "--override-input"
-            "retronix"
-            "path:./dev-dependencies/retronix"
-            "--override-input"
-            "sway-gnome"
-            "path:./dev-dependencies/sway-gnome"
+        devShells.default = pkgs.devshell.mkShell {
+          imports = [
+            (self.lib.devshellImport {})
+            (pkgs.devshell.importTOML ./devshell.toml)
           ];
-          devArgsShell = concatStringsSep " " devArgs;
-        in
-          pkgs.devshell.mkShell {
-            imports = [
-              {
-                commands = let
-                  deploy-cmd = name: subcommand: {
-                    name = "dev-${name}";
-                    command = ''
-                      if [ -n  "$1" ] ; then
-                        fragment="#$1"
-                      else
-                        fragment=""
-                      fi
-                      exec deploy .?submodules=1$fragment ${subcommand} -- ${devArgsShell};
-                    '';
-                  };
-                in [
-                  {
-                    name = "dev-build";
-                    command = "nix build .?submodules=1 ${devArgsShell}";
-                  }
-                  (deploy-cmd "apply" "")
-                  (deploy-cmd "boot" "--boot")
-                  (deploy-cmd "dry-run" "--dry-activate")
-                ];
-              }
-              (pkgs.devshell.importTOML ./devshell.toml)
-            ];
-          };
+        };
 
         packages.default = nixpkgs.legacyPackages.${system}.linkFarm "all-nixos-configurations" (
           nixpkgs.lib.mapAttrsToList (
             node: nixosSystem: {
               name = node;
-              path = nixosSystem.config.system.build.toplevel;
+              path = if (nixpkgs.lib.hasSuffix "-image" node)
+                then nixosSystem.config.system.build.isoImage
+                else nixosSystem.config.system.build.toplevel;
             }
           )
           self.nixosConfigurations

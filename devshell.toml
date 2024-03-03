@@ -7,8 +7,3 @@ packages = [
 
 package = "deploy-rs"
 
-[[commands]]
-
-name = "prod-build"
-command = "nix build"
-help = "build all the system configurations - nix build"
