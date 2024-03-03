@@ -49,7 +49,7 @@
       };
       deploy.nodes = let
         mkNode = name: {
-          hostname = "${name}.local";
+          hostname = name;
           profiles.system = {
             user = "root";
             path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${name};
@@ -64,24 +64,24 @@
       };
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     }
-    // flake-utils.lib.eachDefaultSystem (system: {
-      formatter = nixpkgs.legacyPackages.${system}.writeScriptBin "alejandra" ''
-        exec ${nixpkgs.legacyPackages.${system}.alejandra}/bin/alejandra \
-          --exclude ./dev-dependencies/nixpkgs \
-          --exclude ./dev-dependencies/nixos-hardware \
-          --exclude ./.git \
-          "$@"
-      '';
+    // flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          devshell.overlays.default
+        ];
+      };
+    in
+      with nixpkgs.lib; {
+        formatter = nixpkgs.legacyPackages.${system}.writeScriptBin "alejandra" ''
+          exec ${nixpkgs.legacyPackages.${system}.alejandra}/bin/alejandra \
+            --exclude ./dev-dependencies/nixpkgs \
+            --exclude ./dev-dependencies/nixos-hardware \
+            --exclude ./.git \
+            "$@"
+        '';
 
-      devShells.default = let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [
-            devshell.overlays.default
-          ];
-        };
-      in
-        with nixpkgs.lib; let
+        devShells.default = let
           devArgs = [
             "--override-input"
             "nixpkgs"
@@ -101,19 +101,40 @@
           pkgs.devshell.mkShell {
             imports = [
               {
-                commands = [
+                commands = let
+                  deploy-cmd = name: subcommand: {
+                    name = "dev-${name}";
+                    command = ''
+                      if [ -n  "$1" ] ; then
+                        fragment="#$1"
+                      else
+                        fragment=""
+                      fi
+                      exec deploy .?submodules=1$fragment ${subcommand} -- ${devArgsShell};
+                    '';
+                  };
+                in [
                   {
                     name = "dev-build";
-                    command = "deploy .?submodules=1 --dry-activate -- ${concatStringsSep " " devArgs} \"$@\"";
+                    command = "nix build .?submodules=1 ${devArgsShell}";
                   }
-                  {
-                    name = "dev-boot";
-                    command = "deploy .?submodules=1 --boot -- ${concatStringsSep " " devArgs} \"$@\"";
-                  }
+                  (deploy-cmd "apply" "")
+                  (deploy-cmd "boot" "--boot")
+                  (deploy-cmd "dry-run" "--dry-activate")
                 ];
               }
               (pkgs.devshell.importTOML ./devshell.toml)
             ];
           };
-    });
+
+        packages.default = nixpkgs.legacyPackages.${system}.linkFarm "all-nixos-configurations" (
+          nixpkgs.lib.mapAttrsToList (
+            node: nixosSystem: {
+              name = node;
+              path = nixosSystem.config.system.build.toplevel;
+            }
+          )
+          self.nixosConfigurations
+        );
+      });
 }
