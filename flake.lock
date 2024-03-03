@@ -1,9 +1,29 @@
 {
   "nodes": {
+    "deploy-rs": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "nixpkgs": "nixpkgs",
+        "utils": "utils"
+      },
+      "locked": {
+        "lastModified": 1708091384,
+        "narHash": "sha256-dTGGw2y8wvfjr+J9CjQbfdulOq72hUG17HXVNxpH1yE=",
+        "owner": "serokell",
+        "repo": "deploy-rs",
+        "rev": "0a0187794ac7f7a1e62cda3dabf8dc041f868790",
+        "type": "github"
+      },
+      "original": {
+        "owner": "serokell",
+        "repo": "deploy-rs",
+        "type": "github"
+      }
+    },
     "devshell": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1705332421,
@@ -19,9 +39,25 @@
         "type": "github"
       }
     },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696426674,
+        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
-        "systems": "systems"
+        "systems": "systems_2"
       },
       "locked": {
         "lastModified": 1701680307,
@@ -39,7 +75,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_2"
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1705309234,
@@ -55,7 +91,39 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1708809488,
+        "narHash": "sha256-wqa65IEZ8Mqx6OOqTj5yye3Cq5SbWh1WOiru1VXDMKU=",
+        "owner": "coreyoconnor",
+        "repo": "nixos-hardware",
+        "rev": "a666f6c8ffa331a73c15452235617f3ec2139e1e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "coreyoconnor",
+        "ref": "master",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1702272962,
+        "narHash": "sha256-D+zHwkwPc6oYQ4G3A1HuadopqRwUY/JkMwHz1YF7j4Q=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e97b3e4186bcadf0ef1b6be22b8558eab1cdeb5d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1704161960,
         "narHash": "sha256-QGua89Pmq+FBAro8NriTuoO/wNaUtugt29/qqA8zeeM=",
@@ -71,7 +139,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1708816085,
         "narHash": "sha256-iIYRebhMRQ52+Y/n3JtZ+uxqk1/oLTFQzyXcsLo7kdw=",
@@ -87,11 +155,47 @@
         "type": "github"
       }
     },
+    "retronix": {
+      "locked": {
+        "lastModified": 1709189239,
+        "narHash": "sha256-ZVaioRi9iBqqmKDq+mTTSZ9Rt0bN3VT46NRzvbZFvfk=",
+        "owner": "coreyoconnor",
+        "repo": "retronix",
+        "rev": "adf076dfcc7e1278113aa96089ac078e14be2bc8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "coreyoconnor",
+        "ref": "main",
+        "repo": "retronix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
+        "deploy-rs": "deploy-rs",
         "devshell": "devshell",
         "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_2"
+        "nixos-hardware": "nixos-hardware",
+        "nixpkgs": "nixpkgs_3",
+        "retronix": "retronix",
+        "sway-gnome": "sway-gnome"
+      }
+    },
+    "sway-gnome": {
+      "locked": {
+        "lastModified": 1709189574,
+        "narHash": "sha256-3dlorknzdhynEGgD86yRmbz5dJpG+0hasHcXSfC1bUM=",
+        "owner": "coreyoconnor",
+        "repo": "sway-gnome",
+        "rev": "bd93e126c37a4ce7a375816358c0ea0c15507cf4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "coreyoconnor",
+        "ref": "main",
+        "repo": "sway-gnome",
+        "type": "github"
       }
     },
     "systems": {
@@ -121,6 +225,39 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_3": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "utils": {
+      "inputs": {
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1701680307,
+        "narHash": "sha256-kAuep2h5ajznlPMD9rnQyffWG8EM/C73lejGofXvdM8=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "4022d587cbbfd70fe950c1e2083a02621806a725",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     }

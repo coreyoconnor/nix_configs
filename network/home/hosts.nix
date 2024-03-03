@@ -39,7 +39,5 @@ in {
       enable = true;
       domain = true;
     };
-
-    # security.pki.certificateFiles = [ ./agh-0.crt ];
   };
 }

@@ -2,3 +2,7 @@
 packages = [
   "nix"
 ]
+
+[[commands]]
+
+package = "deploy-rs"

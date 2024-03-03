@@ -12,6 +12,9 @@ with lib; {
   ];
 
   config = {
+    networking.hostName = "agh";
+
+    system.stateVersion = "22.05";
 
     developer-base.enable = true;
 
