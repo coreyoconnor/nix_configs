@@ -173,11 +173,11 @@
     },
     "retronix": {
       "locked": {
-        "lastModified": 1709189239,
-        "narHash": "sha256-ZVaioRi9iBqqmKDq+mTTSZ9Rt0bN3VT46NRzvbZFvfk=",
+        "lastModified": 1709449444,
+        "narHash": "sha256-13EHHQvixDxypZb/l7ibobBtDikRxufFa2GEb6OJYnU=",
         "owner": "coreyoconnor",
         "repo": "retronix",
-        "rev": "adf076dfcc7e1278113aa96089ac078e14be2bc8",
+        "rev": "012d1233e73e56af63e5cbf1de9ee81989f9e5f1",
         "type": "github"
       },
       "original": {
@@ -201,11 +201,11 @@
     },
     "sway-gnome": {
       "locked": {
-        "lastModified": 1709189574,
-        "narHash": "sha256-3dlorknzdhynEGgD86yRmbz5dJpG+0hasHcXSfC1bUM=",
+        "lastModified": 1709449460,
+        "narHash": "sha256-OA0+zotE9pHkSEA1YMmqEtyAgUo1oOMEZzQmw8icvTs=",
         "owner": "coreyoconnor",
         "repo": "sway-gnome",
-        "rev": "bd93e126c37a4ce7a375816358c0ea0c15507cf4",
+        "rev": "9d5855567408124867887549493037f31d96404f",
         "type": "github"
       },
       "original": {
