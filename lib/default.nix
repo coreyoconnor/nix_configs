@@ -1,6 +1,10 @@
-{ self, nixpkgs, deploy-rs, ... }@inputs:
-with nixpkgs.lib;
-let
+{
+  self,
+  nixpkgs,
+  deploy-rs,
+  ...
+} @ inputs:
+with nixpkgs.lib; let
   nixosConfiguration = {
     name,
     system,
