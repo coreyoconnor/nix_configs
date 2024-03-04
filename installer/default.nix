@@ -2,19 +2,22 @@
   config,
   lib,
   pkgs,
+  nixpkgs,
   ...
 }:
 with lib; {
   imports = [
-    ../defaults
     ../domains/primary
     ../hardware/lenovo-thinkpad-x1-7th-gen.nix
     ../hardware/AMD-A10-APU.nix
     ../hardware/Gigabyte-F2A88XM-D3H.nix
-    "${pkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+    "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 
   config = {
+    networking.hostName = "my-nixos-installer";
+    system.stateVersion = "23.11";
+
     environment.systemPackages = [pkgs.btrfs-progs];
 
     isoImage.isoBaseName = "my-nixos-installer";

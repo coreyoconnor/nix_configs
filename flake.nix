@@ -26,17 +26,16 @@
   } @ inputs:
     {
       lib = let
-        system = name: attrs: let
-          configPath =
-            if attrs ? configPath
-            then attrs.configPath
-            else "${self}/computers/${name}";
-        in
-          nixpkgs.lib.nixosSystem ({
-              specialArgs = inputs;
-              modules = [self.nixosModules.default configPath];
-            }
-            // (builtins.removeAttrs attrs ["configPath"]));
+        nixosConfiguration = {
+          name,
+          system,
+          configPath ? "${self}/computers/${name}",
+        }:
+          nixpkgs.lib.nixosSystem {
+            specialArgs = inputs;
+            modules = [self.nixosModules.default configPath];
+            inherit system;
+          };
         node = name: attrs: ({
             hostname = name;
             profiles.system = {
@@ -45,7 +44,7 @@
             };
           }
           // attrs);
-        nixosConfigurations = nodes: builtins.mapAttrs system nodes;
+        nixosConfigurations = nodes: builtins.mapAttrs (node: attrs: nixosConfiguration ({name = node;} // attrs)) nodes;
         deployNodes = nodes: builtins.mapAttrs node nodes;
         devshellImport = overrides: let
           devArgs = [
@@ -94,7 +93,7 @@
                 else
                   fragment=""
                 fi
-                exec nix build .?submodules=1$fragment --show-trace
+                exec nix build --show-trace .?submodules=1$fragment
               '';
             }
             (mkDevDeployCmd "apply" "")
@@ -108,7 +107,7 @@
                 else
                   fragment=""
                 fi
-                exec nix build .$fragment
+                exec nix build --show-trace .$fragment
               '';
             }
             (mkProdDeployCmd "apply" "")
@@ -138,13 +137,13 @@
           );
       in {
         inherit
-          system
-          node
-          nixosConfigurations
+          allSystemsUsingNativeSystem
           deployNodes
           devshellImport
           formatterUsingNativeSystem
-          allSystemsUsingNativeSystem
+          nixosConfiguration
+          nixosConfigurations
+          node
           ;
       };
       nixosModules = {
@@ -155,17 +154,21 @@
           ];
         };
       };
-      nixosConfigurations = self.lib.nixosConfigurations {
-        agh = {system = "x86_64-linux";};
-        deny = {system = "x86_64-linux";};
-        glowness = {system = "x86_64-linux";};
-        grr = {system = "x86_64-linux";};
-        thrash = {system = "x86_64-linux";};
-        nixos-installer-x86-image = {
-          system = "x86_64-linux";
-          configPath = "${self}/installer";
+      nixosConfigurations =
+        (self.lib.nixosConfigurations {
+          agh = {system = "x86_64-linux";};
+          deny = {system = "x86_64-linux";};
+          glowness = {system = "x86_64-linux";};
+          grr = {system = "x86_64-linux";};
+          thrash = {system = "x86_64-linux";};
+        })
+        // {
+          installer-x86-image = self.lib.nixosConfiguration {
+            name = "installer-x86-image";
+            system = "x86_64-linux";
+            configPath = "${self}/installer";
+          };
         };
-      };
       deploy.nodes = self.lib.deployNodes {
         agh = {};
         deny = {};
