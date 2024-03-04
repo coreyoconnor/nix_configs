@@ -44,7 +44,6 @@ with lib; {
       };
     };
     services.foreign-binary-emulation.enable = true;
-    services.hw-rand.enable = true;
     services.kbfs.enable = false;
     services.openssh.settings.PasswordAuthentication = false;
     services.samba.enable = true;
