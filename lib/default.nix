@@ -101,22 +101,24 @@ with nixpkgs.lib; let
         --exclude ./.git \
         "$@"
     '';
-  allSystemsUsingNativeSystem = system:
+  allSystemsUsing = system:
     nixpkgs.legacyPackages.${system}.linkFarm "all-nixos-configurations" (
       nixpkgs.lib.mapAttrsToList (
         node: nixosSystem: {
           name = node;
           path =
             if (nixpkgs.lib.hasSuffix "-image" node)
-            then nixosSystem.config.system.build.isoImage
-            else nixosSystem.config.system.build.toplevel;
+            then nixosSystem.config.system.build.sdImage
+            else if (nixpkgs.lib.hasSuffix "-iso" node)
+              then nixosSystem.config.system.build.isoImage
+              else nixosSystem.config.system.build.toplevel;
         }
       )
       self.nixosConfigurations
     );
 in {
   inherit
-    allSystemsUsingNativeSystem
+    allSystemsUsing
     deployNodes
     devshellImport
     formatterUsingNativeSystem

@@ -43,10 +43,15 @@
           thrash = {system = "x86_64-linux";};
         })
         // {
-          installer-x86-image = self.lib.nixosConfiguration {
-            name = "installer-x86-image";
+          installer-x86-iso = self.lib.nixosConfiguration {
+            name = "installer-x86-iso";
             system = "x86_64-linux";
             configPath = "${self}/installer";
+          };
+          postpi-0-image = self.lib.nixosConfiguration {
+            name = "postpi-0-image";
+            system = "aarch64-linux";
+            configPath = "${self}/computers/postpi-0.nix";
           };
         };
       deploy.nodes = self.lib.deployNodes {
@@ -76,6 +81,6 @@
           ];
         };
 
-        packages.default = self.lib.allSystemsUsingNativeSystem system;
+        packages.default = self.lib.allSystemsUsing system;
       });
 }
