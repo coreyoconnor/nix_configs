@@ -18,6 +18,7 @@ with lib; {
         "usb_storage"
         "usbhid"
         "xhci_pci"
+        "it87"
       ];
 
       extraModulePackages = with config.boot.kernelPackages; [it87];

@@ -61,7 +61,7 @@
         grr = {};
         thrash = {};
       };
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+      checks = self.lib.checks;
     }
     // flake-utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs {
