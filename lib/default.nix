@@ -110,8 +110,8 @@ with nixpkgs.lib; let
             if (nixpkgs.lib.hasSuffix "-image" node)
             then nixosSystem.config.system.build.sdImage
             else if (nixpkgs.lib.hasSuffix "-iso" node)
-              then nixosSystem.config.system.build.isoImage
-              else nixosSystem.config.system.build.toplevel;
+            then nixosSystem.config.system.build.isoImage
+            else nixosSystem.config.system.build.toplevel;
         }
       )
       self.nixosConfigurations
