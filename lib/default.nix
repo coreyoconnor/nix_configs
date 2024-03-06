@@ -73,8 +73,10 @@ with nixpkgs.lib; let
         name = "prod-integ-${inputName}";
         command = ''
           set -ex
-          cd $(git rev-parse --show-toplevel)/dev-dependencies/${inputName}
-          git push ${mapping.prodUrl} HEAD:${mapping.prodBranch}
+          (
+            cd $(git rev-parse --show-toplevel)/dev-dependencies/${inputName}
+            git push $@ ${mapping.prodUrl} HEAD:${mapping.prodBranch}
+          )
           cd $(git rev-parse --show-toplevel)
           prod-update-${inputName}
         '';
