@@ -62,14 +62,38 @@ with nixpkgs.lib; let
         name = "dev-update-${inputName}";
         command = ''
           set -ex
-          exec git submodule update --init --merge -- \
+          git submodule update --init --merge -- \
             $(git rev-parse --show-toplevel)/dev-dependencies/${inputName}
         '';
         help = "Update dev submodule of ${inputName} from ${mapping.url}@${mapping.branch}";
       }
     ) devDependencies;
+    prodIntegCommands = nixpkgs.lib.mapAttrsToList (inputName: mapping:
+      {
+        name = "prod-integ-${inputName}";
+        command = ''
+          set -ex
+          cd $(git rev-parse --show-toplevel)/dev-dependencies/${inputName}
+          git push ${mapping.prodUrl} HEAD:${mapping.prodBranch}
+          cd $(git rev-parse --show-toplevel)
+          prod-update-${inputName}
+        '';
+        help = "Integrate ${inputName} dev checkout into ${mapping.prodBranch} and update the input";
+      }
+    ) devDependencies;
+    prodUpdateCommands = nixpkgs.lib.mapAttrsToList (inputName: mapping:
+      {
+        name = "prod-update-${inputName}";
+        command = ''
+          set -ex
+          cd $(git rev-parse --show-toplevel)
+          nix flake lock --update-input ${inputName}
+        '';
+        help = "Update the input ${inputName}";
+      }
+    ) devDependencies;
   in {
-    commands = devUpdateCommands ++ [
+    commands = devUpdateCommands ++ prodIntegCommands ++ prodUpdateCommands ++ [
       {
         name = "dev-build";
         command = ''

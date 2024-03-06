@@ -75,29 +75,29 @@
           url = "git@github.com:coreyoconnor/nixos-hardware";
           branch = "dev";
           # TODO: infer from inputs
-          prod-url = "git@github.com:coreyoconnor/nixos-hardware";
-          prod-branch = "master";
+          prodUrl = "git@github.com:coreyoconnor/nixos-hardware";
+          prodBranch = "master";
         };
         retronix = {
           url = "git@github.com:coreyoconnor/retronix";
           branch = "dev";
           # TODO: infer from inputs
-          prod-url = "git@github.com:coreyoconnor/retronix";
-          prod-branch = "main";
+          prodUrl = "git@github.com:coreyoconnor/retronix";
+          prodBranch = "main";
         };
         sway-gnome = {
           url = "git@github.com:coreyoconnor/sway-gnome";
           branch = "dev";
           # TODO: infer from inputs
-          prod-url = "git@github.com:coreyoconnor/sway-gnome";
-          prod-branch = "main";
+          prodUrl = "git@github.com:coreyoconnor/sway-gnome";
+          prodBranch = "main";
         };
         nixpkgs = {
           url = "git@github.com:coreyoconnor/nixpkgs";
           branch = "dev";
           # TODO: infer from inputs
-          prod-url = "git@github.com:coreyoconnor/nixpkgs";
-          prod-branch = "main";
+          prodUrl = "git@github.com:coreyoconnor/nixpkgs";
+          prodBranch = "main";
         };
       };
     in
