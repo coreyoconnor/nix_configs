@@ -70,13 +70,43 @@
           devshell.overlays.default
         ];
       };
+      devDependencies = {
+        nixos-hardware = {
+          url = "git@github.com:coreyoconnor/nixos-hardware";
+          branch = "dev";
+          # TODO: infer from inputs
+          prod-url = "git@github.com:coreyoconnor/nixos-hardware";
+          prod-branch = "master";
+        };
+        retronix = {
+          url = "git@github.com:coreyoconnor/retronix";
+          branch = "dev";
+          # TODO: infer from inputs
+          prod-url = "git@github.com:coreyoconnor/retronix";
+          prod-branch = "main";
+        };
+        sway-gnome = {
+          url = "git@github.com:coreyoconnor/sway-gnome";
+          branch = "dev";
+          # TODO: infer from inputs
+          prod-url = "git@github.com:coreyoconnor/sway-gnome";
+          prod-branch = "main";
+        };
+        nixpkgs = {
+          url = "git@github.com:coreyoconnor/nixpkgs";
+          branch = "dev";
+          # TODO: infer from inputs
+          prod-url = "git@github.com:coreyoconnor/nixpkgs";
+          prod-branch = "main";
+        };
+      };
     in
       with nixpkgs.lib; {
         formatter = self.lib.formatterUsingNativeSystem system;
 
         devShells.default = pkgs.devshell.mkShell {
           imports = [
-            (self.lib.devshellImport {})
+            (self.lib.devshellImport devDependencies)
             (pkgs.devshell.importTOML ./devshell.toml)
           ];
         };

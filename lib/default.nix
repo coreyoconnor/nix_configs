@@ -25,21 +25,14 @@ with nixpkgs.lib; let
     // attrs);
   nixosConfigurations = nodes: builtins.mapAttrs (node: attrs: nixosConfiguration ({name = node;} // attrs)) nodes;
   deployNodes = nodes: builtins.mapAttrs node nodes;
-  devshellImport = overrides: let
-    devArgs = [
-      "--override-input"
-      "nixpkgs"
-      "path:./dev-dependencies/nixpkgs"
-      "--override-input"
-      "nixos-hardware"
-      "path:./dev-dependencies/nixos-hardware"
-      "--override-input"
-      "retronix"
-      "path:./dev-dependencies/retronix"
-      "--override-input"
-      "sway-gnome"
-      "path:./dev-dependencies/sway-gnome"
-    ];
+  devshellImport = devDependencies: let
+    devArgs = builtins.concatMap (
+      inputName: [
+        "--override-input"
+        inputName
+        "path:./dev-dependencies/${inputName}"
+      ]
+    ) (builtins.attrNames devDependencies);
     devArgsShell = nixpkgs.lib.concatStringsSep " " devArgs;
     argToFragmentShell = arg: ''
       if [ -n  "${arg}" ] ; then
@@ -54,6 +47,7 @@ with nixpkgs.lib; let
         ${argToFragmentShell "\${1:-}"}
         exec deploy --keep-result .?submodules=1$fragment ${subcommand} -- ${devArgsShell};
       '';
+      help = "${name} using the dev input overrides and git submodules";
     };
     mkProdDeployCmd = name: subcommand: {
       name = "prod-${name}";
@@ -61,9 +55,21 @@ with nixpkgs.lib; let
         ${argToFragmentShell "\${1:-}"}
         exec deploy --keep-result .$fragment ${subcommand};
       '';
+      help = "${name} using the production inputs";
     };
+    devUpdateCommands = nixpkgs.lib.mapAttrsToList (inputName: mapping:
+      {
+        name = "dev-update-${inputName}";
+        command = ''
+          set -ex
+          exec git submodule update --init --merge -- \
+            $(git rev-parse --show-toplevel)/dev-dependencies/${inputName}
+        '';
+        help = "Update dev submodule of ${inputName} from ${mapping.url}@${mapping.branch}";
+      }
+    ) devDependencies;
   in {
-    commands = [
+    commands = devUpdateCommands ++ [
       {
         name = "dev-build";
         command = ''
@@ -74,6 +80,7 @@ with nixpkgs.lib; let
           fi
           exec nix build --show-trace .?submodules=1$fragment
         '';
+        help = "Build using the dev input overrides and git submodules";
       }
       (mkDevDeployCmd "apply" "")
       (mkDevDeployCmd "boot" "--boot")
