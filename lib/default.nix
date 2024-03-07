@@ -104,7 +104,7 @@ with nixpkgs.lib; let
           else
             fragment=""
           fi
-          exec nix build --show-trace .?submodules=1$fragment
+          exec nix build ${devArgsShell} --show-trace .?submodules=1$fragment
         '';
         help = "Build using the dev input overrides and git submodules";
       }
