@@ -83,7 +83,7 @@ with nixpkgs.lib; let
         help = "Integrate ${inputName} dev checkout into ${mapping.prodBranch} and update the input";
       }
     ) devDependencies;
-    prodUpdateCommands = nixpkgs.lib.mapAttrsToList (inputName: mapping:
+    prodUpdateCommands = map (inputName:
       {
         name = "prod-update-${inputName}";
         command = ''
@@ -93,7 +93,7 @@ with nixpkgs.lib; let
         '';
         help = "Update the input ${inputName}";
       }
-    ) devDependencies;
+    ) (builtins.filter (n: n != "self") (builtins.attrNames inputs));
   in {
     commands = devUpdateCommands ++ prodIntegCommands ++ prodUpdateCommands ++ [
       {
