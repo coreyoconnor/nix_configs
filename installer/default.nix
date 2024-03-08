@@ -8,6 +8,7 @@
 with lib; {
   imports = [
     ../domains/primary
+    ../network/home
     ../hardware/lenovo-thinkpad-x1-7th-gen.nix
     ../hardware/AMD-A10-APU.nix
     ../hardware/Gigabyte-F2A88XM-D3H.nix
@@ -18,7 +19,13 @@ with lib; {
     networking.hostName = "my-nixos-installer";
     system.stateVersion = "23.11";
 
-    environment.systemPackages = [pkgs.btrfs-progs];
+    boot.loader.grub.memtest86.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      btrfs-progs
+      ipmitool
+      stress-ng
+    ];
 
     isoImage.isoBaseName = "my-nixos-installer";
 
