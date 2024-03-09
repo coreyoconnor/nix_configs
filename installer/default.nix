@@ -3,6 +3,7 @@
   lib,
   pkgs,
   nixpkgs,
+  nixos-hardware,
   ...
 }:
 with lib; {
@@ -13,17 +14,20 @@ with lib; {
     ../hardware/AMD-A10-APU.nix
     ../hardware/Gigabyte-F2A88XM-D3H.nix
     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+    nixos-hardware.nixosModules.supermicro
+    nixos-hardware.nixosModules.common-cpu-intel
   ];
 
   config = {
     networking.hostName = "my-nixos-installer";
     system.stateVersion = "23.11";
 
-    boot.loader.grub.memtest86.enable = true;
+    boot = {
+      loader.grub.memtest86.enable = true;
+    };
 
     environment.systemPackages = with pkgs; [
       btrfs-progs
-      ipmitool
       stress-ng
     ];
 
