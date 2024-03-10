@@ -28,6 +28,7 @@ with lib; {
 
     environment.systemPackages = with pkgs; [
       btrfs-progs
+      pciutils
       stress-ng
     ];
 

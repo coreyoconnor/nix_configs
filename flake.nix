@@ -41,6 +41,7 @@
           glowness = {system = "x86_64-linux";};
           grr = {system = "x86_64-linux";};
           thrash = {system = "x86_64-linux";};
+          ufo = {system = "x86_64-linux";};
         })
         // {
           installer-x86-iso = self.lib.nixosConfiguration {
@@ -60,6 +61,9 @@
         glowness = {};
         grr = {};
         thrash = {};
+        ufo = {
+          hostname = "192.168.86.33";
+        };
       };
       checks = self.lib.checks;
     }
