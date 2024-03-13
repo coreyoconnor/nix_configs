@@ -62,7 +62,7 @@
         grr = {};
         thrash = {};
         ufo = {
-          hostname = "192.168.86.33";
+          remoteBuild = true;
         };
       };
       checks = self.lib.checks;

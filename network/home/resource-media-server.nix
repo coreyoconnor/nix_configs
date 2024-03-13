@@ -28,6 +28,13 @@
         "guest ok" = true;
         "guest only" = true;
       };
+      storage = {
+        path = "/mnt/storage";
+        comment = "storage";
+        "writeable" = false;
+        "guest ok" = true;
+        "guest only" = true;
+      };
     };
   };
 }

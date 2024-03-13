@@ -41,12 +41,6 @@ with lib; {
       fsType = "ext4";
     };
 
-    fileSystems."/mnt/storage/validator" = {
-      device = "rpool/validator";
-      fsType = "zfs";
-      depends = ["/"];
-    };
-
     services.zfs.autoScrub.enable = true;
   };
 }

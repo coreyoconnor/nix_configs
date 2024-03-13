@@ -10,9 +10,5 @@
   ];
 
   config = {
-    cluster.jenkins-master = {
-      enable = false;
-      host = "agh";
-    };
   };
 }

@@ -48,6 +48,6 @@ with lib; {
     services.openssh.settings.PasswordAuthentication = false;
     services.samba.enable = true;
     services.xserver.enable = false;
-    services.qa-house-manager.enable = true;
+    services.qa-house-manager.enable = false;
   };
 }

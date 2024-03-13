@@ -10,7 +10,6 @@ with lib; {
   imports = [
     ./atmo-monitor.nix
     ./besu
-    ./cluster
     ./desktop.nix
     ./developer-base.nix
     ./foreign-binary-emulation.nix
