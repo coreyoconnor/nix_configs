@@ -57,7 +57,7 @@
         };
       deploy.nodes = self.lib.deployNodes {
         agh = {};
-        #deny = {};
+        deny = {};
         glowness = {};
         grr = {};
         thrash = {};

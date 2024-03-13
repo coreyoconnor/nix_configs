@@ -41,24 +41,6 @@
         depends = ["/"];
       };
 
-    fileSystems."/mnt/storage-old" = {
-      fsType = "cifs";
-      device = "//agh/storage";
-      options = [
-        "guest"
-        "uid=media"
-        "gid=users"
-        "rw"
-        "setuids"
-        "file_mode=0664"
-        "dir_mode=0775"
-        "vers=3.0"
-        "nofail"
-        "x-systemd.automount"
-        "noauto"
-      ];
-    };
-
     services.zfs.autoScrub.enable = true;
 
     swapDevices = [ ];
