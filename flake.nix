@@ -102,6 +102,8 @@
           # TODO: infer from inputs
           prodUrl = "git@github.com:coreyoconnor/nixpkgs";
           prodBranch = "main";
+          upstreamUrl = "https://github.com/NixOS/nixpkgs.git";
+          upstreamBranch = "release-23.11";
         };
       };
     in

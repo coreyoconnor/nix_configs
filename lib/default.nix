@@ -57,6 +57,28 @@ with nixpkgs.lib; let
       '';
       help = "${name} using the production inputs";
     };
+    devIntegCommands = nixpkgs.lib.flatten (
+      nixpkgs.lib.mapAttrsToList (inputName: mapping:
+        if (mapping ? upstreamUrl) then [
+          {
+            name = "dev-integ-${inputName}";
+            command = ''
+              set -ex
+              (
+                cd dev-dependencies
+                baseSha=$(cat ${inputName}-base-sha.txt)
+                echo "rebase from base: $baseSha"
+                cd ${inputName}
+                git fetch upstream
+                git rebase --interactive --onto upstream/${mapping.upstreamBranch} $baseSha ${mapping.branch}
+                git show '--format=%H' upstream/${mapping.upstreamBranch} > ../${inputName}-base-next-sha.txt
+              )
+            '';
+            help = "Integ dev submodule of ${inputName} from ${mapping.upstreamUrl}@${mapping.upstreamBranch}";
+          }
+        ] else []
+      ) devDependencies
+    );
     devUpdateCommands = nixpkgs.lib.mapAttrsToList (inputName: mapping:
       {
         name = "dev-update-${inputName}";
@@ -95,7 +117,7 @@ with nixpkgs.lib; let
       }
     ) (builtins.filter (n: n != "self") (builtins.attrNames inputs));
   in {
-    commands = devUpdateCommands ++ prodIntegCommands ++ prodUpdateCommands ++ [
+    commands = devIntegCommands ++ devUpdateCommands ++ prodIntegCommands ++ prodUpdateCommands ++ [
       {
         name = "dev-build";
         command = ''
