@@ -26,7 +26,7 @@ with lib; {
 
     nix = {
       settings = {
-        cores = 4;
+        cores = 3;
         max-jobs = 2;
       };
     };
