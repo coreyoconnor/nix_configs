@@ -23,6 +23,13 @@ with lib; {
     services.foreign-binary-emulation.enable = true;
 
     virt-host.enable = true;
+
+    nix = {
+      settings = {
+        cores = 4;
+        max-jobs = 2;
+      };
+    };
   };
 }
 
