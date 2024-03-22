@@ -65,7 +65,7 @@ with nixpkgs.lib; let
             command = ''
               set -ex
               (
-                cd dev-dependencies
+                cd $(git rev-parse --show-toplevel)/dev-dependencies
                 baseSha=$(cat ${inputName}-base-sha.txt)
                 echo "rebase from base: $baseSha"
                 cd ${inputName}
@@ -81,7 +81,7 @@ with nixpkgs.lib; let
             command = ''
               set -ex
               (
-                cd dev-dependencies
+                cd $(git rev-parse --show-toplevel)/dev-dependencies
                 (
                   cd ${inputName}
                   git push -f origin HEAD
@@ -149,6 +149,46 @@ with nixpkgs.lib; let
       (mkDevDeployCmd "apply" "")
       (mkDevDeployCmd "boot" "--boot")
       (mkDevDeployCmd "dry-run" "--dry-activate")
+      {
+        name = "dev-fetch";
+        command =
+          let
+            inputDirs = builtins.attrNames devDependencies;
+          in ''
+            cd $(git rev-parse --show-toplevel)/dev-dependencies
+            for I in ${builtins.concatStringsSep " " inputDirs} ; do
+              echo $I
+              (
+                cd $I
+                git fetch --all
+              )
+            done
+          '';
+      }
+      {
+        name = "dev-status";
+        command =
+          let
+            statusChecks = nixpkgs.lib.mapAttrsToList (inputName: mapping:
+              let upstreamCheck = if (mapping ? upstreamUrl) then ''
+                  echo "Relative to ${mapping.upstreamUrl}/${mapping.upstreamBranch}:"
+                  echo -e "Behind\tAhead"
+                  git rev-list --count --left-right upstream/${mapping.upstreamBranch}...HEAD
+                '' else "";
+              in ''
+              (
+                echo ${inputName}
+                cd ${inputName}
+                git status
+                ${upstreamCheck}
+              )
+              ''
+            ) devDependencies;
+          in ''
+            cd $(git rev-parse --show-toplevel)/dev-dependencies
+            ${builtins.concatStringsSep "\n\n" statusChecks}
+          '';
+      }
       {
         name = "prod-build";
         command = ''
