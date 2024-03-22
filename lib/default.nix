@@ -61,7 +61,7 @@ with nixpkgs.lib; let
       nixpkgs.lib.mapAttrsToList (inputName: mapping:
         if (mapping ? upstreamUrl) then [
           {
-            name = "dev-integ-${inputName}";
+            name = "dev-integ-${inputName}-start";
             command = ''
               set -ex
               (
@@ -70,11 +70,24 @@ with nixpkgs.lib; let
                 echo "rebase from base: $baseSha"
                 cd ${inputName}
                 git fetch upstream
-                git rebase --interactive --onto upstream/${mapping.upstreamBranch} $baseSha ${mapping.branch}
                 git show '--format=%H' upstream/${mapping.upstreamBranch} > ../${inputName}-base-next-sha.txt
+                git rebase --interactive --onto upstream/${mapping.upstreamBranch} $baseSha ${mapping.branch}
               )
             '';
-            help = "Integ dev submodule of ${inputName} from ${mapping.upstreamUrl}@${mapping.upstreamBranch}";
+            help = "Start integ dev submodule of ${inputName} from ${mapping.upstreamUrl}@${mapping.upstreamBranch}";
+          }
+          {
+            name = "dev-integ-${inputName}-finish";
+            command = ''
+              set -ex
+              (
+                cd dev-dependencies
+                cd ${inputName}
+                git push -f origin HEAD
+                cp ../${inputName}-base-next-sha.txt ../${inputName}-base-sha.txt
+              )
+            '';
+            help = "Finish integ dev submodule of ${inputName} from ${mapping.upstreamUrl}@${mapping.upstreamBranch}";
           }
         ] else []
       ) devDependencies
