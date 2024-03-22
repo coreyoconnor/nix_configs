@@ -82,9 +82,12 @@ with nixpkgs.lib; let
               set -ex
               (
                 cd dev-dependencies
-                cd ${inputName}
-                git push -f origin HEAD
-                cp ../${inputName}-base-next-sha.txt ../${inputName}-base-sha.txt
+                (
+                  cd ${inputName}
+                  git push -f origin HEAD
+                )
+                cp ${inputName}-base-next-sha.txt ${inputName}-base-sha.txt
+                git add ${inputName}*
               )
             '';
             help = "Finish integ dev submodule of ${inputName} from ${mapping.upstreamUrl}@${mapping.upstreamBranch}";
