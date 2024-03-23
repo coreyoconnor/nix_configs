@@ -90,6 +90,7 @@ with nixpkgs.lib; let
                 )
                 cp ${inputName}-base-next-sha.txt ${inputName}-base-sha.txt
                 git add ${inputName}*
+                git commit ${inputName}* -m 'update ${inputName}'
               )
             '';
             help = "Finish integ dev submodule of ${inputName} from ${mapping.upstreamUrl}@${mapping.upstreamBranch}";
