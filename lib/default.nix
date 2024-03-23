@@ -45,7 +45,8 @@ with nixpkgs.lib; let
       name = "dev-${name}";
       command = ''
         ${argToFragmentShell "\${1:-}"}
-        exec deploy --keep-result .?submodules=1$fragment ${subcommand} -- ${devArgsShell};
+        shift
+        exec deploy --keep-result .?submodules=1$fragment ${subcommand} -- ${devArgsShell} "$@";
       '';
       help = "${name} using the dev input overrides and git submodules";
     };
@@ -53,7 +54,8 @@ with nixpkgs.lib; let
       name = "prod-${name}";
       command = ''
         ${argToFragmentShell "\${1:-}"}
-        exec deploy --keep-result .$fragment ${subcommand};
+        shift
+        exec deploy --keep-result .$fragment ${subcommand} "$@";
       '';
       help = "${name} using the production inputs";
     };
@@ -138,7 +140,8 @@ with nixpkgs.lib; let
         name = "dev-nixpkgs-build";
         command = ''
           fragment="#$1"
-          exec nix build ${devArgsShell} --show-trace .?submodules=1$fragment
+          shift
+          exec nix build ${devArgsShell} --show-trace .?submodules=1$fragment "$@"
         '';
       }
       {
@@ -149,7 +152,8 @@ with nixpkgs.lib; let
           else
             fragment=""
           fi
-          exec nix build ${devArgsShell} --show-trace .?submodules=1$fragment
+          shift
+          exec nix build ${devArgsShell} --show-trace .?submodules=1$fragment "$@"
         '';
         help = "Build using the dev input overrides and git submodules";
       }
