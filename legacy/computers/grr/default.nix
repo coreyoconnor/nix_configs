@@ -9,7 +9,6 @@ with lib; {
     ../../hardware/ASUS-Z9PA-D8.nix
     ../../hardware/Intel-E5-2687W.nix
     ../../network/home/host-grr.nix
-    # ../../network/home/resource-media-share.nix
     ../../domains/primary
     ./filesystems.nix
     ./memory.nix

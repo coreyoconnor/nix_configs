@@ -8,7 +8,6 @@ with lib; {
   imports = [
     ../../hardware/minisforum-UM350.nix
     ../../network/home/host-thrash.nix
-    # ../../network/home/resource-media-share.nix
     ../../domains/primary
     ./filesystems.nix
     ./audio.nix

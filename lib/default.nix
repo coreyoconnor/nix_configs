@@ -135,6 +135,13 @@ with nixpkgs.lib; let
   in {
     commands = devIntegCommands ++ devUpdateCommands ++ prodIntegCommands ++ prodUpdateCommands ++ [
       {
+        name = "dev-nixpkgs-build";
+        command = ''
+          fragment="#$1"
+          exec nix build ${devArgsShell} --show-trace .?submodules=1$fragment
+        '';
+      }
+      {
         name = "dev-build";
         command = ''
           if [ -n  "''${1:-}" ] ; then

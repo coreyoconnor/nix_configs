@@ -21,20 +21,6 @@
         "guest ok" = true;
         "guest only" = true;
       };
-      backup = {
-        path = "/mnt/storage/backup";
-        comment = "Backup";
-        "writeable" = false;
-        "guest ok" = true;
-        "guest only" = true;
-      };
-      storage = {
-        path = "/mnt/storage";
-        comment = "storage";
-        "writeable" = false;
-        "guest ok" = true;
-        "guest only" = true;
-      };
     };
   };
 }

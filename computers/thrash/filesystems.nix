@@ -5,7 +5,9 @@
   ...
 }:
 with lib; {
-  imports = [];
+  imports = [
+    ../../network/home/resource-media-share.nix
+  ];
 
   config = {
     fileSystems."/" = {

@@ -9,9 +9,6 @@ with lib; {
     ../../hardware/AMD-A10-APU.nix
     ../../hardware/Gigabyte-F2A88XM-D3H.nix
     ../../network/home/host-agh.nix
-    ../../network/home/resource-build-cache.nix
-    ../../network/home/resource-dns-server.nix
-    ../../network/home/resource-media-server.nix
     ../../domains/primary
     ./filesystems.nix
     ./memory.nix

@@ -39,7 +39,6 @@
           agh = {system = "x86_64-linux";};
           deny = {system = "x86_64-linux";};
           glowness = {system = "x86_64-linux";};
-          grr = {system = "x86_64-linux";};
           thrash = {system = "x86_64-linux";};
           ufo = {system = "x86_64-linux";};
         })
@@ -57,13 +56,10 @@
         };
       deploy.nodes = self.lib.deployNodes {
         agh = {};
-        deny = {};
+        # deny = {};
         glowness = {};
-        grr = {};
-        thrash = {};
-        ufo = {
-          remoteBuild = true;
-        };
+        # thrash = {};
+        ufo = { remoteBuild = true; };
       };
       checks = self.lib.checks;
     }
