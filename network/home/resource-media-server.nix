@@ -5,7 +5,9 @@
   ...
 }: {
   services.samba = {
+    enable = true;
     securityType = "auto";
+    openFirewall = true;
     extraConfig = ''
       create mask = 0664
       directory mask = 0775

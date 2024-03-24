@@ -55,7 +55,7 @@
           };
         };
       deploy.nodes = self.lib.deployNodes {
-        agh = {};
+        agh = { autoRollback = false; magicRollback = false; };
         # deny = {};
         glowness = {};
         # thrash = {};

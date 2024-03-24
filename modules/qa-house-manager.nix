@@ -40,8 +40,6 @@ in {
   };
 
   config = mkIf config.services.qa-house-manager.enable {
-    networking.enableIPv6 = false;
-
     nixpkgs.overlays = [
       (self: super: {
         inherit (unstable) home-assistant;

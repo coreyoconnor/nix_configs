@@ -30,6 +30,7 @@ with lib; {
       port = 4999;
       secretKeyFile = "/etc/nix/ufo-1.sec";
     };
+    networking.firewall.allowedTCPPorts = [ 4999 ];
 
     nix = {
       extraOptions = ''
