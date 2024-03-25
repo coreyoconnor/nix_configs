@@ -30,7 +30,7 @@ with lib; {
       };
     };
 
-    services.dnsmasq.enable = true;
+    services.dnsmasq.enable = false;
 
     services.fail2ban = {
       enable = true;
@@ -43,7 +43,7 @@ with lib; {
     services.foreign-binary-emulation.enable = true;
     services.kbfs.enable = false;
     services.openssh.settings.PasswordAuthentication = false;
-    services.samba.enable = true;
+    services.samba.enable = false;
     services.xserver.enable = false;
     services.qa-house-manager.enable = false;
   };

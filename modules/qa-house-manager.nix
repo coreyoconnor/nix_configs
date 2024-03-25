@@ -107,8 +107,6 @@ in {
             "/tmp"
             "/var/lib/hass/arlo/updates"
             "/var/lib/hass/arlo/media"
-            "/mnt/storage/hass/arlo/updates"
-            "/mnt/storage/hass/arlo/media"
           ];
           name = "Home";
           country = "US";
@@ -133,7 +131,7 @@ in {
           ];
 
           media_dirs = {
-            cameras = "/mnt/storage/hass/arlo/media";
+            cameras = "/var/lib/hass/arlo/media";
           };
         };
 
@@ -767,7 +765,7 @@ in {
     networking.firewall.allowedTCPPorts = [1883];
 
     services.postgresql = {
-      dataDir = "/mnt/storage/postgresql/14";
+      dataDir = "/var/lib/postgresql/14";
       enable = true;
       ensureDatabases = ["hass"];
       ensureUsers = [
@@ -776,6 +774,7 @@ in {
           ensureDBOwnership = true;
         }
       ];
+      package = pkgs.postgresql_14;
     };
 
     systemd.services.postgresql.serviceConfig.TimeoutSec = lib.mkOverride 10 666;

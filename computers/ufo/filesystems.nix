@@ -29,10 +29,16 @@
         depends = ["/"];
       };
 
-    fileSystems."/mnt/storage/postgresql" =
-      { device = "storage/postgresql";
+    fileSystems."/var/lib/postgresql" =
+      { device = "rpool/postgresql";
         fsType = "zfs";
         depends = ["/"];
+      };
+
+    fileSystems."/var/lib/hass" =
+      { device = "rpool/hass";
+        fsType = "zfs";
+        depends = ["/" "/mnt/storage/hass"];
       };
 
     fileSystems."/mnt/storage/hass" =

@@ -21,15 +21,28 @@ with lib; {
 
     developer-base.enable = true;
     semi-active-av.enable = true;
+
     services.foreign-binary-emulation.enable = true;
+
+    services.fail2ban = {
+      enable = true;
+
+      bantime-increment = {
+        enable = true;
+        maxtime = "200h";
+      };
+    };
+
     services.hw-rand.enable = true;
-    services.qa-house-manager.enable = false;
 
     services.nix-serve = {
       enable = true;
       port = 4999;
       secretKeyFile = "/etc/nix/ufo-1.sec";
     };
+
+    services.qa-house-manager.enable = true;
+
     networking.firewall.allowedTCPPorts = [ 4999 ];
 
     nix = {
