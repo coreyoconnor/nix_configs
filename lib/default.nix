@@ -150,10 +150,10 @@ with nixpkgs.lib; let
         command = ''
           if [ -n  "''${1:-}" ] ; then
             fragment="#nixosConfigurations.$1.config.system.build.toplevel"
+            shift
           else
             fragment=""
           fi
-          shift
           exec nix build ${devArgsShell} --show-trace .?submodules=1$fragment "$@"
         '';
         help = "Build using the dev input overrides and git submodules";

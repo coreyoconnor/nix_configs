@@ -35,6 +35,7 @@ with lib; {
 
     services.hw-rand.enable = true;
 
+    networking.firewall.allowedTCPPorts = [ 4999 ];
     services.nix-serve = {
       enable = true;
       port = 4999;
@@ -42,8 +43,6 @@ with lib; {
     };
 
     services.qa-house-manager.enable = true;
-
-    networking.firewall.allowedTCPPorts = [ 4999 ];
 
     nix = {
       extraOptions = ''
@@ -56,6 +55,7 @@ with lib; {
       };
     };
 
+    ufo-k8s.enable = true;
     virt-host.enable = true;
   };
 }

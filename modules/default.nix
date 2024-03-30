@@ -21,6 +21,7 @@ with lib; {
     ./semi-active-av.nix
     ./status-tty.nix
     ./teku
+    ./ufo-k8s.nix
     ./virt-host.nix
     sway-gnome.nixosModules.default
   ];
