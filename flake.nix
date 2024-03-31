@@ -58,7 +58,7 @@
         agh = { autoRollback = false; magicRollback = false; };
         deny = {};
         glowness = {};
-        # thrash = {};
+        thrash = {};
         ufo = { remoteBuild = true; };
       };
       checks = self.lib.checks;
