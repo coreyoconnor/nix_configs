@@ -56,9 +56,9 @@
         };
       deploy.nodes = self.lib.deployNodes {
         agh = { autoRollback = false; magicRollback = false; };
-        deny = {};
+        # deny = {};
         glowness = {};
-        thrash = {};
+        # thrash = {};
         ufo = { remoteBuild = true; };
       };
       checks = self.lib.checks;
