@@ -32,6 +32,8 @@ in {
       git
       jdk
       keybase
+      kubectl
+      kubernetes-helm
       libsecret # for secret-tool
       lua-language-server
       sbt
