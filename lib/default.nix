@@ -189,10 +189,11 @@ with nixpkgs.lib; let
                 '' else "";
               in ''
               (
-                echo ${inputName}
+                echo -e "\t${inputName}"
                 cd ${inputName}
                 git status
                 ${upstreamCheck}
+                echo
               )
               ''
             ) devDependencies;
@@ -215,6 +216,35 @@ with nixpkgs.lib; let
       (mkProdDeployCmd "apply" "")
       (mkProdDeployCmd "boot" "--boot")
       (mkProdDeployCmd "dry-run" "--dry-activate")
+      {
+        name = "prod-status";
+        command =
+          let
+            statusChecks = nixpkgs.lib.mapAttrsToList (inputName: mapping:
+              let upstreamCheck = ''
+                  echo "Relative to ${mapping.url}/${mapping.branch}:"
+                  echo '`main` relative to `dev` is'
+                  echo -e "Behind\tAhead"
+                  git rev-list --count --left-right origin/${mapping.prodBranch}...origin/${mapping.branch}
+                '';
+              in ''
+              (
+                echo -e "\t${inputName}"
+                cd ${inputName}
+                git fetch origin
+                echo 'local `dev` related to `origin/dev` is'
+                echo -e "Behind\tAhead"
+                git rev-list --count --left-right ${mapping.branch}...origin/${mapping.branch}
+                ${upstreamCheck}
+                echo
+              )
+              ''
+            ) devDependencies;
+          in ''
+            cd $(git rev-parse --show-toplevel)/dev-dependencies
+            ${builtins.concatStringsSep "\n\n" statusChecks}
+          '';
+      }
     ];
   };
   formatterUsingNativeSystem = system:
