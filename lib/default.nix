@@ -225,7 +225,7 @@ with nixpkgs.lib; let
                   echo "Relative to ${mapping.url}/${mapping.branch}:"
                   echo '`main` relative to `dev` is'
                   echo -e "Behind\tAhead"
-                  git rev-list --count --left-right origin/${mapping.prodBranch}...origin/${mapping.branch}
+                  git rev-list --count --left-right origin/${mapping.branch}...origin/${mapping.prodBranch}
                 '';
               in ''
               (
@@ -243,6 +243,15 @@ with nixpkgs.lib; let
           in ''
             cd $(git rev-parse --show-toplevel)/dev-dependencies
             ${builtins.concatStringsSep "\n\n" statusChecks}
+
+            echo -e "\tnix_configs"
+            git fetch origin
+            echo 'local `dev` related to `origin/dev` is'
+            echo -e "Behind\tAhead"
+            git rev-list --count --left-right dev...origin/dev
+            echo '`main` relative to `dev` is'
+            echo -e "Behind\tAhead"
+            git rev-list --count --left-right origin/dev...origin/main
           '';
       }
     ];
