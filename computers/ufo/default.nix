@@ -35,7 +35,7 @@ with lib; {
 
     services.hw-rand.enable = true;
 
-    networking.firewall.allowedTCPPorts = [ 4999 ];
+    networking.firewall.allowedTCPPorts = [4999];
     services.nix-serve = {
       enable = true;
       port = 4999;
@@ -59,4 +59,3 @@ with lib; {
     virt-host.enable = true;
   };
 }
-

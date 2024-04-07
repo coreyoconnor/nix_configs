@@ -2,10 +2,11 @@
   description = "coreyoconnor's nixos configuration";
 
   inputs = {
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
-    flake-utils.url = "github:numtide/flake-utils";
-    devshell.url = "github:numtide/devshell";
     deploy-rs.url = "github:serokell/deploy-rs";
+    devshell.url = "github:numtide/devshell";
+    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
     nixpkgs.url = "github:coreyoconnor/nixpkgs/main";
     nixos-hardware.url = "github:coreyoconnor/nixos-hardware/master";
@@ -17,6 +18,7 @@
     self,
     nixpkgs,
     nixpkgs-unstable,
+    nixpkgs-wayland,
     deploy-rs,
     devshell,
     flake-utils,
@@ -55,11 +57,14 @@
           };
         };
       deploy.nodes = self.lib.deployNodes {
-        agh = { autoRollback = false; magicRollback = false; };
+        agh = {
+          autoRollback = false;
+          magicRollback = false;
+        };
         # deny = {};
         glowness = {};
         # thrash = {};
-        ufo = { remoteBuild = true; };
+        ufo = {remoteBuild = true;};
       };
       checks = self.lib.checks;
     }

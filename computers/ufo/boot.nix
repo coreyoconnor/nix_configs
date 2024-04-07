@@ -1,14 +1,17 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   config = {
     boot = {
-      kernelModules = [ "kvm-intel" ];
-      extraModulePackages = [ ];
+      kernelModules = ["kvm-intel"];
+      extraModulePackages = [];
 
       initrd = {
-        availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "igb" ];
-        kernelModules = [ ];
+        availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "igb"];
+        kernelModules = [];
         luks.devices = {
           # root pool
           "luks-rpool-nvme-CT2000P3PSSD8_2322E6DC4ADE-part2".device = "/dev/disk/by-id/nvme-CT2000P3PSSD8_2322E6DC4ADE-part2";
@@ -24,7 +27,7 @@
 
           ssh = {
             enable = true;
-            authorizedKeys = [ (builtins.readFile ../../domains/primary/users/ssh/coconnor.pub) ];
+            authorizedKeys = [(builtins.readFile ../../domains/primary/users/ssh/coconnor.pub)];
             hostKeys = [
               "/etc/secrets/initrd/ssh_host_ed25519_key"
             ];
@@ -41,4 +44,3 @@
     };
   };
 }
-

@@ -60,72 +60,80 @@ with nixpkgs.lib; let
       help = "${name} using the production inputs";
     };
     devIntegCommands = nixpkgs.lib.flatten (
-      nixpkgs.lib.mapAttrsToList (inputName: mapping:
-        if (mapping ? upstreamUrl) then [
-          {
-            name = "dev-integ-${inputName}-start";
-            command = ''
-              set -ex
-              (
-                cd $(git rev-parse --show-toplevel)/dev-dependencies
-                baseSha=$(cat ${inputName}-base-sha.txt)
-                echo "rebase from base: $baseSha"
-                cd ${inputName}
-                git fetch upstream
-                git show '--format=%H' upstream/${mapping.upstreamBranch} > ../${inputName}-base-next-sha.txt
-                git rebase --interactive --onto upstream/${mapping.upstreamBranch} $baseSha ${mapping.branch}
-              )
-            '';
-            help = "Start integ dev submodule of ${inputName} from ${mapping.upstreamUrl}@${mapping.upstreamBranch}";
-          }
-          {
-            name = "dev-integ-${inputName}-finish";
-            command = ''
-              set -ex
-              (
-                cd $(git rev-parse --show-toplevel)/dev-dependencies
+      nixpkgs.lib.mapAttrsToList (
+        inputName: mapping:
+          if (mapping ? upstreamUrl)
+          then [
+            {
+              name = "dev-integ-${inputName}-start";
+              command = ''
+                set -ex
                 (
+                  cd $(git rev-parse --show-toplevel)/dev-dependencies
+                  baseSha=$(cat ${inputName}-base-sha.txt)
+                  echo "rebase from base: $baseSha"
                   cd ${inputName}
-                  git push -f origin HEAD
+                  git fetch upstream
+                  git show '--format=%H' upstream/${mapping.upstreamBranch} > ../${inputName}-base-next-sha.txt
+                  git rebase --interactive --onto upstream/${mapping.upstreamBranch} $baseSha ${mapping.branch}
                 )
-                cp ${inputName}-base-next-sha.txt ${inputName}-base-sha.txt
-                git add ${inputName}*
-                git commit ${inputName}* -m 'update ${inputName}'
-              )
-            '';
-            help = "Finish integ dev submodule of ${inputName} from ${mapping.upstreamUrl}@${mapping.upstreamBranch}";
-          }
-        ] else []
-      ) devDependencies
+              '';
+              help = "Start integ dev submodule of ${inputName} from ${mapping.upstreamUrl}@${mapping.upstreamBranch}";
+            }
+            {
+              name = "dev-integ-${inputName}-finish";
+              command = ''
+                set -ex
+                (
+                  cd $(git rev-parse --show-toplevel)/dev-dependencies
+                  (
+                    cd ${inputName}
+                    git push -f origin HEAD
+                  )
+                  cp ${inputName}-base-next-sha.txt ${inputName}-base-sha.txt
+                  git add ${inputName}*
+                  git commit ${inputName}* -m 'update ${inputName}'
+                )
+              '';
+              help = "Finish integ dev submodule of ${inputName} from ${mapping.upstreamUrl}@${mapping.upstreamBranch}";
+            }
+          ]
+          else []
+      )
+      devDependencies
     );
-    devUpdateCommands = nixpkgs.lib.mapAttrsToList (inputName: mapping:
-      {
-        name = "dev-update-${inputName}";
-        command = ''
-          set -ex
-          git submodule update --init --merge -- \
-            $(git rev-parse --show-toplevel)/dev-dependencies/${inputName}
-        '';
-        help = "Update dev submodule of ${inputName} from ${mapping.url}@${mapping.branch}";
-      }
-    ) devDependencies;
-    prodIntegCommands = nixpkgs.lib.mapAttrsToList (inputName: mapping:
-      {
-        name = "prod-integ-${inputName}";
-        command = ''
-          set -ex
-          (
-            cd $(git rev-parse --show-toplevel)/dev-dependencies/${inputName}
-            git push $@ ${mapping.prodUrl} HEAD:${mapping.prodBranch}
-          )
-          cd $(git rev-parse --show-toplevel)
-          prod-update-${inputName}
-        '';
-        help = "Integrate ${inputName} dev checkout into ${mapping.prodBranch} and update the input";
-      }
-    ) devDependencies;
-    prodUpdateCommands = map (inputName:
-      {
+    devUpdateCommands =
+      nixpkgs.lib.mapAttrsToList (
+        inputName: mapping: {
+          name = "dev-update-${inputName}";
+          command = ''
+            set -ex
+            git submodule update --init --merge -- \
+              $(git rev-parse --show-toplevel)/dev-dependencies/${inputName}
+          '';
+          help = "Update dev submodule of ${inputName} from ${mapping.url}@${mapping.branch}";
+        }
+      )
+      devDependencies;
+    prodIntegCommands =
+      nixpkgs.lib.mapAttrsToList (
+        inputName: mapping: {
+          name = "prod-integ-${inputName}";
+          command = ''
+            set -ex
+            (
+              cd $(git rev-parse --show-toplevel)/dev-dependencies/${inputName}
+              git push $@ ${mapping.prodUrl} HEAD:${mapping.prodBranch}
+            )
+            cd $(git rev-parse --show-toplevel)
+            prod-update-${inputName}
+          '';
+          help = "Integrate ${inputName} dev checkout into ${mapping.prodBranch} and update the input";
+        }
+      )
+      devDependencies;
+    prodUpdateCommands = map (
+      inputName: {
         name = "prod-update-${inputName}";
         command = ''
           set -ex
@@ -136,35 +144,39 @@ with nixpkgs.lib; let
       }
     ) (builtins.filter (n: n != "self") (builtins.attrNames inputs));
   in {
-    commands = devIntegCommands ++ devUpdateCommands ++ prodIntegCommands ++ prodUpdateCommands ++ [
-      {
-        name = "dev-nixpkgs-build";
-        command = ''
-          fragment="#$1"
-          shift
-          exec nix build ${devArgsShell} --show-trace .?submodules=1$fragment "$@"
-        '';
-      }
-      {
-        name = "dev-build";
-        command = ''
-          if [ -n  "''${1:-}" ] ; then
-            fragment="#nixosConfigurations.$1.config.system.build.toplevel"
+    commands =
+      devIntegCommands
+      ++ devUpdateCommands
+      ++ prodIntegCommands
+      ++ prodUpdateCommands
+      ++ [
+        {
+          name = "dev-nixpkgs-build";
+          command = ''
+            fragment="#$1"
             shift
-          else
-            fragment=""
-          fi
-          exec nix build ${devArgsShell} --show-trace .?submodules=1$fragment "$@"
-        '';
-        help = "Build using the dev input overrides and git submodules";
-      }
-      (mkDevDeployCmd "apply" "")
-      (mkDevDeployCmd "boot" "--boot")
-      (mkDevDeployCmd "dry-run" "--dry-activate")
-      {
-        name = "dev-fetch";
-        command =
-          let
+            exec nix build ${devArgsShell} --show-trace .?submodules=1$fragment "$@"
+          '';
+        }
+        {
+          name = "dev-build";
+          command = ''
+            if [ -n  "''${1:-}" ] ; then
+              fragment="#nixosConfigurations.$1.config.system.build.toplevel"
+              shift
+            else
+              fragment=""
+            fi
+            exec nix build ${devArgsShell} --show-trace .?submodules=1$fragment "$@"
+          '';
+          help = "Build using the dev input overrides and git submodules";
+        }
+        (mkDevDeployCmd "apply" "")
+        (mkDevDeployCmd "boot" "--boot")
+        (mkDevDeployCmd "dry-run" "--dry-activate")
+        {
+          name = "dev-fetch";
+          command = let
             inputDirs = builtins.attrNames devDependencies;
           in ''
             cd $(git rev-parse --show-toplevel)/dev-dependencies
@@ -176,70 +188,77 @@ with nixpkgs.lib; let
               )
             done
           '';
-      }
-      {
-        name = "dev-status";
-        command =
-          let
-            statusChecks = nixpkgs.lib.mapAttrsToList (inputName: mapping:
-              let upstreamCheck = if (mapping ? upstreamUrl) then ''
-                  echo "Relative to ${mapping.upstreamUrl}/${mapping.upstreamBranch}:"
-                  echo -e "Behind\tAhead"
-                  git rev-list --count --left-right upstream/${mapping.upstreamBranch}...HEAD
-                '' else "";
-              in ''
-              (
-                echo -e "\t${inputName}"
-                cd ${inputName}
-                git status
-                ${upstreamCheck}
-                echo
+        }
+        {
+          name = "dev-status";
+          command = let
+            statusChecks =
+              nixpkgs.lib.mapAttrsToList (
+                inputName: mapping: let
+                  upstreamCheck =
+                    if (mapping ? upstreamUrl)
+                    then ''
+                      echo "Relative to ${mapping.upstreamUrl}/${mapping.upstreamBranch}:"
+                      echo -e "Behind\tAhead"
+                      git rev-list --count --left-right upstream/${mapping.upstreamBranch}...HEAD
+                    ''
+                    else "";
+                in ''
+                  (
+                    echo -e "\t${inputName}"
+                    cd ${inputName}
+                    git status
+                    ${upstreamCheck}
+                    echo
+                  )
+                ''
               )
-              ''
-            ) devDependencies;
+              devDependencies;
           in ''
             cd $(git rev-parse --show-toplevel)/dev-dependencies
             ${builtins.concatStringsSep "\n\n" statusChecks}
           '';
-      }
-      {
-        name = "prod-build";
-        command = ''
-          if [ -n  "''${1:-}" ] ; then
-            fragment="#nixosConfigurations.$1.config.system.build.toplevel"
-          else
-            fragment=""
-          fi
-          exec nix build --show-trace .$fragment
-        '';
-      }
-      (mkProdDeployCmd "apply" "")
-      (mkProdDeployCmd "boot" "--boot")
-      (mkProdDeployCmd "dry-run" "--dry-activate")
-      {
-        name = "prod-status";
-        command =
-          let
-            statusChecks = nixpkgs.lib.mapAttrsToList (inputName: mapping:
-              let upstreamCheck = ''
-                  echo "Relative to ${mapping.url}/${mapping.branch}:"
-                  echo '`main` relative to `dev` is'
-                  echo -e "Behind\tAhead"
-                  git rev-list --count --left-right origin/${mapping.branch}...origin/${mapping.prodBranch}
-                '';
-              in ''
-              (
-                echo -e "\t${inputName}"
-                cd ${inputName}
-                git fetch origin
-                echo 'local `dev` related to `origin/dev` is'
-                echo -e "Behind\tAhead"
-                git rev-list --count --left-right ${mapping.branch}...origin/${mapping.branch}
-                ${upstreamCheck}
-                echo
+        }
+        {
+          name = "prod-build";
+          command = ''
+            if [ -n  "''${1:-}" ] ; then
+              fragment="#nixosConfigurations.$1.config.system.build.toplevel"
+            else
+              fragment=""
+            fi
+            exec nix build --show-trace .$fragment
+          '';
+        }
+        (mkProdDeployCmd "apply" "")
+        (mkProdDeployCmd "boot" "--boot")
+        (mkProdDeployCmd "dry-run" "--dry-activate")
+        {
+          name = "prod-status";
+          command = let
+            statusChecks =
+              nixpkgs.lib.mapAttrsToList (
+                inputName: mapping: let
+                  upstreamCheck = ''
+                    echo "Relative to ${mapping.url}/${mapping.branch}:"
+                    echo '`main` relative to `dev` is'
+                    echo -e "Behind\tAhead"
+                    git rev-list --count --left-right origin/${mapping.branch}...origin/${mapping.prodBranch}
+                  '';
+                in ''
+                  (
+                    echo -e "\t${inputName}"
+                    cd ${inputName}
+                    git fetch origin
+                    echo 'local `dev` related to `origin/dev` is'
+                    echo -e "Behind\tAhead"
+                    git rev-list --count --left-right ${mapping.branch}...origin/${mapping.branch}
+                    ${upstreamCheck}
+                    echo
+                  )
+                ''
               )
-              ''
-            ) devDependencies;
+              devDependencies;
           in ''
             cd $(git rev-parse --show-toplevel)/dev-dependencies
             ${builtins.concatStringsSep "\n\n" statusChecks}
@@ -253,8 +272,8 @@ with nixpkgs.lib; let
             echo -e "Behind\tAhead"
             git rev-list --count --left-right origin/dev...origin/main
           '';
-      }
-    ];
+        }
+      ];
   };
   formatterUsingNativeSystem = system:
     nixpkgs.legacyPackages.${system}.writeScriptBin "alejandra" ''

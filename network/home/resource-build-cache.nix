@@ -25,7 +25,6 @@
     }
   ];
 in {
-
   nix = {
     distributedBuilds = true;
     buildMachines = buildMachines;
