@@ -6,7 +6,6 @@
     devshell.url = "github:numtide/devshell";
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
     nixpkgs.url = "github:coreyoconnor/nixpkgs/main";
     nixos-hardware.url = "github:coreyoconnor/nixos-hardware/master";
@@ -18,7 +17,6 @@
     self,
     nixpkgs,
     nixpkgs-unstable,
-    nixpkgs-wayland,
     deploy-rs,
     devshell,
     flake-utils,
