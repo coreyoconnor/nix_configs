@@ -36,7 +36,7 @@
       };
       nixosConfigurations =
         (self.lib.nixosConfigurations {
-          agh = {system = "x86_64-linux";};
+          # agh = {system = "x86_64-linux";};
           deny = {system = "x86_64-linux";};
           glowness = {system = "x86_64-linux";};
           thrash = {system = "x86_64-linux";};
@@ -55,10 +55,10 @@
           };
         };
       deploy.nodes = self.lib.deployNodes {
-        agh = {
-          autoRollback = false;
-          magicRollback = false;
-        };
+        #agh = {
+        #  autoRollback = false;
+        #  magicRollback = false;
+        #};
         # deny = {};
         glowness = {};
         # thrash = {};
