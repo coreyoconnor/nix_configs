@@ -88,8 +88,8 @@ in {
       };
     };
 
-    i18n.inputMethod.enabled = "ibus";
-    i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [mozc hangul libpinyin];
+    # i18n.inputMethod.enabled = "ibus";
+    # i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [mozc hangul libpinyin];
 
     sway-gnome.enable = true;
 
