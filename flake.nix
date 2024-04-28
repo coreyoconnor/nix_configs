@@ -59,7 +59,7 @@
         #  autoRollback = false;
         #  magicRollback = false;
         #};
-        # deny = {};
+        deny = {};
         glowness = {};
         # thrash = {};
         ufo = {remoteBuild = true;};

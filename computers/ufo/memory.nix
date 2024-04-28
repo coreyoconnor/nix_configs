@@ -8,7 +8,8 @@ with lib; {
   config = {
     # https://wiki.archlinux.org/title/Zram#Optimizing_swap_on_zram
     boot.kernel.sysctl = {
-      "vm.nr_hugepages" = 16484;
+      # k3s requires 0 for unknown reasons
+      "vm.nr_hugepages" = 0;
       "vm.swappiness" = 130;
       "vm.watermark_boost_factor" = 0;
       "vm.watermark_scale_factor" = 125;
