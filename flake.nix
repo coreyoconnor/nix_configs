@@ -9,6 +9,7 @@
 
     nixpkgs.url = "github:coreyoconnor/nixpkgs/main";
     nixos-hardware.url = "github:coreyoconnor/nixos-hardware/master";
+    nix-kube-modules.url = "github:coreyoconnor/nix-kube-modules";
     retronix.url = "github:coreyoconnor/retronix/main";
     sway-gnome.url = "github:coreyoconnor/sway-gnome/main";
   };
@@ -21,6 +22,7 @@
     devshell,
     flake-utils,
     nixos-hardware,
+    nix-kube-modules,
     retronix,
     sway-gnome,
   } @ inputs:

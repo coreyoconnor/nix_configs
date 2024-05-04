@@ -235,7 +235,7 @@ in {
         "broadlink"
         "brother"
         "button"
-        "caldav"
+        #"caldav"
         "calendar"
         "camera"
         "canary"
@@ -642,7 +642,7 @@ in {
             py.psycopg2
             py.grpcio
             py.unidecode
-            # (py.callPackage ./pyaarlo.nix { })
+            (py.callPackage ./pyaarlo.nix { })
           ];
 
           packageOverrides = python-self: python-super: {

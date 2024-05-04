@@ -91,6 +91,24 @@
         "type": "github"
       }
     },
+    "nix-kube-modules": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1684945214,
+        "narHash": "sha256-dR+By8wsmE6+5BlEP3zsTDkOiY1rBYRlrw9BSHg3DCk=",
+        "owner": "coreyoconnor",
+        "repo": "nix-kube-modules",
+        "rev": "b83ca57ca1b3c1c874e5c38a3826fc9a466bf665",
+        "type": "github"
+      },
+      "original": {
+        "owner": "coreyoconnor",
+        "repo": "nix-kube-modules",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1708809488,
@@ -125,11 +143,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1713537308,
-        "narHash": "sha256-XtTSSIB2DA6tOv+l0FhvfDMiyCmhoRbNB+0SeInZkbk=",
+        "lastModified": 1714325954,
+        "narHash": "sha256-EyLPveP6XNVb6O/T774Vq4vFu4lU3OHm9jxZWEGVTEY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5c24cf2f0a12ad855f444c30b2421d044120c66f",
+        "rev": "9e5cd80f1df6f3df438d062695d3e1670cfa556f",
         "type": "github"
       },
       "original": {
@@ -157,11 +175,25 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1711948600,
-        "narHash": "sha256-qJ17ri1X4nHaTesWJOx8iXdfGkPoBmHycUCk6VEv8Y0=",
+        "lastModified": 1669809720,
+        "narHash": "sha256-RMT77f6CPOYtLLQ2esj+EJ1BPVWxf4RDidjrSvA5OhI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "227de2b3bbec142f912c09d5e8a1b4e778aa54fb",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1713660361,
+        "narHash": "sha256-DIEsRmal149qGL4EXMjqEKDI9kc0s5hN/n3oykukDDQ=",
         "owner": "coreyoconnor",
         "repo": "nixpkgs",
-        "rev": "5751712dd75fbc4ba6675eccb13793d928c4869c",
+        "rev": "86cbbb1b848861474d5004e23f45c965add14876",
         "type": "github"
       },
       "original": {
@@ -192,8 +224,9 @@
         "deploy-rs": "deploy-rs",
         "devshell": "devshell",
         "flake-utils": "flake-utils_2",
+        "nix-kube-modules": "nix-kube-modules",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "retronix": "retronix",
         "sway-gnome": "sway-gnome"
