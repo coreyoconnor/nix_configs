@@ -13,12 +13,6 @@ USER root
 # (ARGS are in lowercase to distinguish them from ENV)
 ARG openjdk_version="17"
 
-RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends \
-    "openjdk-${openjdk_version}-jre-headless" \
-    ca-certificates-java && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
 # If spark_version is not set, latest stable Spark will be installed
 ARG spark_version="3.5.1"
 ARG hadoop_version="3"
@@ -28,6 +22,15 @@ ARG scala3_version="3.3"
 ARG scala3_full_version="3.3.0"
 ARG almond_version="0.14.0-RC7"
 ARG ammonite_spark_version="0.14.0-RC8"
+
+RUN apt-get update --yes && \
+    apt-get install --yes --no-install-recommends \
+    "openjdk-${openjdk_version}-jre-headless" \
+    ca-certificates-java \
+    fonts-dejavu \
+    gfortran \
+    gcc && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # URL to use for Spark downloads
 # You need to use https://archive.apache.org/dist/spark/ website if you want to download old Spark versions
@@ -46,6 +49,10 @@ RUN /opt/setup-scripts/setup_spark.py \
     --hadoop-version="${hadoop_version}" \
     --scala-version="${scala2_version}" \
     --spark-download-url="${spark_download_url}"
+
+# RSpark config
+ENV R_LIBS_USER "${SPARK_HOME}/R/lib"
+RUN fix-permissions "${R_LIBS_USER}"
 
 # Configure IPython system-wide
 COPY ipython_kernel_config.py "/etc/ipython/"
@@ -112,7 +119,12 @@ RUN mamba install --yes \
     'grpcio-status' \
     'grpcio' \
     'pandas=2.0.3' \
-    'pyarrow' && \
+    'pyarrow' \
+    'r-base' \
+    'r-ggplot2' \
+    'r-irkernel' \
+    'r-rcurl' \
+    'r-sparklyr' && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
