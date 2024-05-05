@@ -6,3 +6,4 @@ xmrig
 .gcroots
 postpi-*.img
 .deploy-gc
+.scala-build

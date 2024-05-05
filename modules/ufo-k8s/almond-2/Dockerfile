@@ -62,27 +62,44 @@ RUN curl -Lo /bin/coursier https://git.io/coursier-cli && \
     chmod +x /bin/coursier
 
 COPY spark-jvm-opts.txt /etc/spark-jvm-opts.txt
-COPY spark-predef.scala /etc/spark-predef.scala
+COPY scala2-spark-predef.scala /etc/scala2-spark-predef.scala
+COPY scala3-spark-predef.scala /etc/scala3-spark-predef.scala
+COPY scala3-lamp-predef.scala /etc/scala3-lamp-predef.scala
 COPY ipython_config.py /etc/ipython/ipython_config.py
+
 COPY almond-install.sh /bin/almond-install.sh
 RUN chmod +x /bin/almond-install.sh
-COPY almond-spark-install.sh /bin/almond-spark-install.sh
-RUN chmod +x /bin/almond-spark-install.sh
+
+COPY almond-scala2-spark-install.sh /bin/almond-scala2-spark-install.sh
+RUN chmod +x /bin/almond-scala2-spark-install.sh
+
+COPY almond-scala3-spark-install.sh /bin/almond-scala3-spark-install.sh
+RUN chmod +x /bin/almond-scala3-spark-install.sh
+
+COPY almond-scala3-lamp-install.sh /bin/almond-scala3-lamp-install.sh
+RUN chmod +x /bin/almond-scala3-lamp-install.sh
 
 ARG spark_cluster="local[*]"
 ARG spark_cluster_name="Local"
 
 USER ${NB_UID}
 
-RUN /bin/almond-spark-install.sh ${almond_version} ${scala2_full_version} \
+RUN /bin/almond-scala2-spark-install.sh ${almond_version} ${scala2_full_version} \
       ${spark_version} ${ammonite_spark_version} \
       scala2spark3 "Scala 2 with Spark cluster ${spark_cluster_name}" \
       "${spark_cluster}" "${spark_cluster_name}"
 
+RUN /bin/almond-scala3-spark-install.sh ${almond_version} ${scala3_full_version} \
+      ${spark_version} ${ammonite_spark_version} \
+      scala3spark3 "Scala 3 with Spark cluster ${spark_cluster_name}" \
+      "${spark_cluster}" "${spark_cluster_name}"
+
+RUN /bin/almond-install.sh ${almond_version} ${scala2_full_version} scala2 "Scala 2"
+
 RUN /bin/almond-install.sh ${almond_version} ${scala3_full_version} scala3 "Scala 3"
 
-RUN coursier fetch --scala ${scala2_version} org.apache.spark::spark-sql:${spark_version}
-RUN coursier fetch --scala ${scala2_version} sh.almond::ammonite-spark:${ammonite_spark_version}
+RUN /bin/almond-scala3-lamp-install.sh ${almond_version} ${scala3_full_version} \
+      scala3lamp "Scala 3 with Lamp"
 
 # Install pyarrow
 # NOTE: It's important to ensure compatibility between Pandas versions.
@@ -99,6 +116,17 @@ RUN mamba install --yes \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
+
+# Install PyTorch with pip (https://pytorch.org/get-started/locally/)
+# hadolint ignore=DL3013
+RUN pip install --no-cache-dir --index-url 'https://download.pytorch.org/whl/cpu' \
+    'torch' \
+    'torchvision' \
+    'torchaudio'  && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
+ENV LD_LIBRARY_PATH /usr/local/lib/python3.11/dist-packages/torch/lib/
 
 WORKDIR "${HOME}"
 EXPOSE 4040
