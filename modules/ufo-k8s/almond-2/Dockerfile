@@ -126,7 +126,7 @@ RUN pip install --no-cache-dir --index-url 'https://download.pytorch.org/whl/cpu
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
-ENV LD_LIBRARY_PATH /usr/local/lib/python3.11/dist-packages/torch/lib/
+ENV LD_LIBRARY_PATH /opt/conda/lib/python3.11/site-packages/torch/lib
 
 WORKDIR "${HOME}"
 EXPOSE 4040
