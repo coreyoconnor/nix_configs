@@ -148,6 +148,27 @@ with nixpkgs.lib; let
       devIntegCommands
       ++ devUpdateCommands
       ++ prodIntegCommands
+      ++ [
+      (
+        let allIntegs = builtins.attrNames devDependencies;
+            allUpdates = builtins.attrNames (builtins.removeAttrs inputs (
+              allIntegs ++ [ "self" ]
+            ));
+            integCmds = builtins.map (n: "prod-integ-${n}") allIntegs;
+            updateCmds = builtins.map (n: "prod-update-${n}") allUpdates;
+        in {
+          name = "prod-integ-all";
+          command = ''
+            set -ex
+            echo all integs
+            ${builtins.concatStringsSep "\n" integCmds}
+            echo remaining updates
+            ${builtins.concatStringsSep "\n" updateCmds}
+          '';
+          help = "Integrate all dev checkouts and update all the inputs.";
+        }
+      )
+      ]
       ++ prodUpdateCommands
       ++ [
         {

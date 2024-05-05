@@ -143,11 +143,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1714325954,
-        "narHash": "sha256-EyLPveP6XNVb6O/T774Vq4vFu4lU3OHm9jxZWEGVTEY=",
+        "lastModified": 1714927696,
+        "narHash": "sha256-hiPv/GS5eSR0rV4bOBs0qVzJn20vggevRMzw6Oj5CoQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "9e5cd80f1df6f3df438d062695d3e1670cfa556f",
+        "rev": "2ebb39172c43c37ee935a6cc0baef2b31a646dd9",
         "type": "github"
       },
       "original": {
@@ -189,11 +189,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1713660361,
-        "narHash": "sha256-DIEsRmal149qGL4EXMjqEKDI9kc0s5hN/n3oykukDDQ=",
+        "lastModified": 1714144669,
+        "narHash": "sha256-RF+bT6qI0kiDANpvdhhV70L4e1ShD9u8+kz/aHur69k=",
         "owner": "coreyoconnor",
         "repo": "nixpkgs",
-        "rev": "86cbbb1b848861474d5004e23f45c965add14876",
+        "rev": "547401a7bcb8351779f778dadf4b0bd05a35e857",
         "type": "github"
       },
       "original": {
@@ -234,11 +234,11 @@
     },
     "sway-gnome": {
       "locked": {
-        "lastModified": 1712505296,
-        "narHash": "sha256-Ib5y2IiaXlovVb4E3WXjz5rkh055RrEbCBzNEeDbZHc=",
+        "lastModified": 1712533121,
+        "narHash": "sha256-EJHjFvbZPpo+1KzZZRWV1dDELmF4eKwcJfCxjjIRABo=",
         "owner": "coreyoconnor",
         "repo": "sway-gnome",
-        "rev": "aeba0a4301260a28c0b12068e7e345d3d61f18e4",
+        "rev": "ead0689adc6ca8c34b3230b288a9ef2359af5d0a",
         "type": "github"
       },
       "original": {
