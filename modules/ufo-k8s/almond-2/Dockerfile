@@ -23,10 +23,10 @@ RUN apt-get update --yes && \
 ARG spark_version="3.5.1"
 ARG hadoop_version="3"
 ARG scala2_version="2.13"
-ARG scala2_full_version="2.13.12"
+ARG scala2_full_version="2.13.11"
 ARG scala3_version="3.3"
-ARG scala3_full_version="3.3.1"
-ARG almond_version="0.14.0-RC14"
+ARG scala3_full_version="3.3.0"
+ARG almond_version="0.14.0-RC7"
 ARG ammonite_spark_version="0.14.0-RC8"
 
 # URL to use for Spark downloads

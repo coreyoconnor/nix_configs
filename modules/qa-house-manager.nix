@@ -69,31 +69,12 @@ in {
           tfa_host = "!secret arlo_imap_host";
           tfa_username = "!secret arlo_imap_username";
           tfa_password = "!secret arlo_imap_password";
-
-          refresh_devices_every = 2;
-          stream_timeout = 120;
-
-          save_updates_to = "/var/lib/hass/arlo/updates";
-          save_media_to = "/var/lib/hass/arlo/media/\${SN}/\${Y}/\${m}/\${d}/\${T}";
-          mqtt_host = "mqtt-cluster-z1.arloxcld.com";
         };
 
         binary_sensor = [
-          {
-            platform = "aarlo";
-
-            monitored_conditions = [
-              "motion"
-              "sound"
-              "connectivity"
-            ];
-          }
         ];
 
         camera = [
-          {
-            platform = "aarlo";
-          }
         ];
 
         # Includes dependencies for a basic setup
@@ -107,6 +88,8 @@ in {
             "/tmp"
             "/var/lib/hass/arlo/updates"
             "/var/lib/hass/arlo/media"
+            "/mnt/storage/hass/arlo/media"
+            "/mnt/storage/hass/arlo/updates"
           ];
           name = "Home";
           country = "US";
@@ -143,7 +126,6 @@ in {
         lovelace = {};
 
         media_player = [
-          {platform = "aarlo";}
         ];
 
         mobile_app = {};
@@ -156,17 +138,6 @@ in {
         };
 
         sensor = [
-          {
-            platform = "aarlo";
-            monitored_conditions = [
-              "total_cameras"
-              "last_capture"
-              "recent_activity"
-              "captured_today"
-              "battery_level"
-              "signal_strength"
-            ];
-          }
         ];
 
         stream = {};
