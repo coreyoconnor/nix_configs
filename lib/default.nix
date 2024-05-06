@@ -249,11 +249,14 @@ with nixpkgs.lib; let
           command = ''
             if [ -n  "''${1:-}" ] ; then
               fragment="#nixosConfigurations.$1.config.system.build.toplevel"
+              outlink=$fragment
               shift
             else
               fragment=""
+              outlink=all
             fi
-            exec nix build --show-trace .$fragment "$@"
+            mkidr -p .gcroots
+            exec nix build --out-link .gcroots/$outlink --show-trace .$fragment "$@"
           '';
         }
         (mkProdDeployCmd "apply" "")

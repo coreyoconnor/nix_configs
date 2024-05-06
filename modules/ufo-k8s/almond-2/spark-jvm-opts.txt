@@ -17,3 +17,6 @@
 --add-opens=java.security.jgss/sun.security.krb5=ALL-UNNAMED
 -Djdk.reflect.useDirectMethodHandle=false
 -Dio.netty.tryReflectionSetAccessible=true
+-Xcheck:jni:verbose
+-Xlog:library=trace
+

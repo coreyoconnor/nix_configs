@@ -24,4 +24,3 @@ coursier fetch --scala 3 io.github.pityka::lamp-sten:${LAMP_VERSION}
 coursier fetch --scala 3 io.github.pityka::lamp-core:${LAMP_VERSION}
 coursier fetch --scala 3 io.github.pityka::lamp-data:${LAMP_VERSION}
 coursier fetch --scala 3 io.github.pityka::lamp-saddle:${LAMP_VERSION}
-
