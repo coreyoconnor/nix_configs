@@ -255,7 +255,7 @@ with nixpkgs.lib; let
               fragment=""
               outlink=all
             fi
-            mkidr -p .gcroots
+            mkdir -p .gcroots
             exec nix build --out-link .gcroots/$outlink --show-trace .$fragment "$@"
           '';
         }
