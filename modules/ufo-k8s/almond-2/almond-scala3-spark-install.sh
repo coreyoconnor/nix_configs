@@ -15,7 +15,7 @@ coursier launch --fork almond:${almond_version} --scala ${scala_full_version} \
       --jupyter-path /opt/conda/share/jupyter/kernels \
       --global \
       --arg /opt/conda/share/jupyter/kernels/${kernel_id}/launcher \
-      --arg --predef --arg /etc/scala3-spark-predef.scala #\
+      --arg --predef-code --arg "$(cat /etc/scala3-spark-predef.scala)" #\
       #--arg --toree-compatibility
 
 coursier bootstrap almond:${almond_version} --scala ${scala_full_version} \
