@@ -45,7 +45,9 @@ with nixpkgs.lib; let
       name = "dev-${name}";
       command = ''
         ${argToFragmentShell "\${1:-}"}
-        shift
+        if [ -n "$fragment" ] ; then
+          shift
+        fi
         exec deploy --keep-result .?submodules=1$fragment ${subcommand} -- ${devArgsShell} "$@";
       '';
       help = "${name} using the dev input overrides and git submodules";
@@ -54,7 +56,9 @@ with nixpkgs.lib; let
       name = "prod-${name}";
       command = ''
         ${argToFragmentShell "\${1:-}"}
-        shift
+        if [ -n "$fragment" ] ; then
+          shift
+        fi
         exec deploy --keep-result .$fragment ${subcommand} "$@";
       '';
       help = "${name} using the production inputs";
@@ -245,10 +249,11 @@ with nixpkgs.lib; let
           command = ''
             if [ -n  "''${1:-}" ] ; then
               fragment="#nixosConfigurations.$1.config.system.build.toplevel"
+              shift
             else
               fragment=""
             fi
-            exec nix build --show-trace .$fragment
+            exec nix build --show-trace .$fragment "$@"
           '';
         }
         (mkProdDeployCmd "apply" "")
