@@ -105,7 +105,7 @@ RUN /bin/almond-install.sh ${almond_version} ${scala2_full_version} scala2 "Scal
 
 RUN /bin/almond-install.sh ${almond_version} ${scala3_full_version} scala3 "Scala 3"
 
-RUN /bin/almond-scala3-lamp-install.sh ${almond_version} ${scala3_full_version} \
+RUN /bin/almond-scala3-lamp-install.sh 0.14.0-RC14 3.3.1 \
       scala3lamp "Scala 3 with Lamp"
 
 # Install pyarrow

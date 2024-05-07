@@ -18,5 +18,4 @@
 -Djdk.reflect.useDirectMethodHandle=false
 -Dio.netty.tryReflectionSetAccessible=true
 -Xcheck:jni:verbose
--Xlog:library=trace
-
+-Xlog:library=debug
