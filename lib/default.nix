@@ -5,13 +5,14 @@
   ...
 } @ inputs:
 with nixpkgs.lib; let
+  inputsMinusSelf = builtins.removeAttrs inputs [ "self" ];
   nixosConfiguration = {
     name,
     system,
     configPath ? "${self}/computers/${name}",
   }:
     nixpkgs.lib.nixosSystem {
-      specialArgs = inputs;
+      specialArgs = inputsMinusSelf // { inputs = inputsMinusSelf; };
       modules = [self.nixosModules.default configPath];
       inherit system;
     };
@@ -146,7 +147,7 @@ with nixpkgs.lib; let
         '';
         help = "Update the input ${inputName}";
       }
-    ) (builtins.filter (n: n != "self") (builtins.attrNames inputs));
+    ) (builtins.attrNames inputsMinusSelf);
   in {
     commands =
       devIntegCommands
@@ -155,9 +156,7 @@ with nixpkgs.lib; let
       ++ [
       (
         let allIntegs = builtins.attrNames devDependencies;
-            allUpdates = builtins.attrNames (builtins.removeAttrs inputs (
-              allIntegs ++ [ "self" ]
-            ));
+            allUpdates = builtins.attrNames (builtins.removeAttrs inputsMinusSelf allIntegs);
             integCmds = builtins.map (n: "prod-integ-${n}") allIntegs;
             updateCmds = builtins.map (n: "prod-update-${n}") allUpdates;
         in {

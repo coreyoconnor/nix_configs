@@ -1,10 +1,13 @@
 {
+  inputs,
+  lib,
   config,
   pkgs,
-  lib,
   ...
 }:
-with lib; {
+let
+  flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+in with lib; {
   config = {
     nix = {
       settings = {
