@@ -5,7 +5,7 @@
   ...
 } @ inputs:
 with nixpkgs.lib; let
-  inputsMinusSelf = builtins.removeAttrs inputs [ "self" ];
+  inputsMinusSelf = builtins.removeAttrs inputs [ "self" "deploy-rs" "devshell" "flake-utils" ];
   nixosConfiguration = {
     name,
     system,
