@@ -1,9 +1,9 @@
 result*
 xmrig
-.gcroots/
 *-image
-
 .gcroots
 postpi-*.img
 .deploy-gc
 .scala-build
+.metals
+.bsp
