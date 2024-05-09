@@ -15,7 +15,6 @@ with lib; let
       allowUnfreePredicate = pkg:
         builtins.elem (lib.getName pkg) [
           "python-nest"
-          "python3.11-pyasyncore-1.0.2"
         ];
     };
 
@@ -23,13 +22,13 @@ with lib; let
     ];
   };
 in {
-  disabledModules = [
-    "services/home-automation/home-assistant.nix"
-  ];
-
-  imports = [
-    "${nixpkgs-unstable}/nixos/modules/services/home-automation/home-assistant.nix"
-  ];
+  #disabledModules = [
+  #  "services/home-automation/home-assistant.nix"
+  #];
+#
+#  imports = [
+#    "${nixpkgs-unstable}/nixos/modules/services/home-automation/home-assistant.nix"
+#  ];
 
   options.services.qa-house-manager = {
     enable = mkOption {
@@ -40,11 +39,11 @@ in {
   };
 
   config = mkIf config.services.qa-house-manager.enable {
-    nixpkgs.overlays = [
-      (self: super: {
-        inherit (unstable) home-assistant;
-      })
-    ];
+    #nixpkgs.overlays = [
+    #  (self: super: {
+    #    inherit (unstable) home-assistant;
+    #  })
+    #];
 
     services.mosquitto = {
       enable = true;
@@ -206,7 +205,6 @@ in {
         "broadlink"
         "brother"
         "button"
-        #"caldav"
         "calendar"
         "camera"
         "canary"
@@ -233,7 +231,6 @@ in {
         "default_config"
         "deluge"
         "demo"
-        "denonavr"
         "derivative"
         "device_automation"
         "device_sun_light_trigger"
@@ -245,29 +242,9 @@ in {
         "dlna_dmr"
         "dlna_dms"
         "dnsip"
-        "doorbird"
-        "dormakaba_dkey"
         "dsmr"
         "dsmr_reader"
-        "ecobee"
-        "econet"
-        "ecowitt"
-        "edl21"
-        "efergy"
-        "elgato"
-        "elkm1"
-        "elmax"
-        "emonitor"
-        "emulated_hue"
-        "emulated_kasa"
-        "emulated_roku"
         "energy"
-        "energyzero"
-        "enocean"
-        "enphase_envoy"
-        "environment_canada"
-        "epson"
-        "escea"
         "esphome"
         "faa_delays"
         "fail2ban"
@@ -280,25 +257,11 @@ in {
         "file_upload"
         "filesize"
         "filter"
-        "fireservicerota"
-        "firmata"
         "fivem"
-        "flo"
-        "flume"
-        "flux"
-        "flux_led"
         "folder"
         "folder_watcher"
-        "foobot"
         "forecast_solar"
-        "foscam"
-        "freebox"
-        "freedns"
-        "fronius"
         "frontend"
-        "frontier_silicon"
-        "fully_kiosk"
-        "garages_amsterdam"
         "gdacs"
         "generic"
         "generic_hygrostat"
@@ -307,12 +270,8 @@ in {
         "geo_location"
         "geo_rss_events"
         "geocaching"
-        "geofency"
-        "gios"
         "github"
         "glances"
-        "goalzero"
-        "goodwe"
         "google"
         "google_assistant"
         "google_assistant_sdk"
@@ -323,15 +282,12 @@ in {
         "google_translate"
         "google_travel_time"
         "google_wifi"
-        "govee_ble"
         "gpslogger"
         "graphite"
         "group"
         "guardian"
         "habitica"
         "hardware"
-        "harmony"
-        "hassio"
         "hddtemp"
         "hdmi_cec"
         "history"
@@ -350,11 +306,9 @@ in {
         "http"
         "hue"
         "humidifier"
-        "hyperion"
         "image_processing"
         "image_upload"
         "influxdb"
-        "inkbird"
         "input_boolean"
         "input_button"
         "input_datetime"
@@ -363,19 +317,14 @@ in {
         "input_text"
         "insteon"
         "integration"
-        # "intellifire"
         "intent"
         "intent_script"
         "ios"
         "iotawatt"
         "ipma"
         "ipp"
-        "iqvia"
-        "isy994"
-        "izone"
         "kitchen_sink"
         "launch_library"
-        "laundrify"
         "lcn"
         "light"
         "local_calendar"
@@ -386,7 +335,6 @@ in {
         "logbook"
         "logentries"
         "logger"
-        "logi_circle"
         "lookin"
         "lovelace"
         "mailbox"
@@ -396,19 +344,13 @@ in {
         "matter"
         "media_player"
         "media_source"
-        "meraki"
         "met"
-        "met_eireann"
-        "meteo_france"
-        "meteoclimatic"
-        "mikrotik"
         "mill"
         "min_max"
         "minio"
         "mjpeg"
         "moat"
         "mobile_app"
-        "modbus"
         "modern_forms"
         "mold_indicator"
         "moon"
@@ -425,30 +367,21 @@ in {
         "no_ip"
         "notify"
         "notify_events"
-        "notion"
         "number"
         "nut"
-        "nws"
-        "obihai"
         "octoprint"
-        "omnilogic"
         "onboarding"
-        "oncue"
         "openai_conversation"
-        "openalpr_cloud"
-        "openerz"
         "openhardwaremonitor"
         "openuv"
         "openweathermap"
         "panel_custom"
         "panel_iframe"
-        "peco"
         "persistent_notification"
         "person"
         "picnic"
         "ping"
         "plant"
-        "plugwise"
         "point"
         "profiler"
         "prometheus"
@@ -457,15 +390,11 @@ in {
         "pushover"
         "pvoutput"
         "python_script"
-        "qnap_qsw"
         "rachio"
         "radarr"
         "radio_browser"
         "radiotherm"
-        "rainbird"
-        "rainmachine"
         "random"
-        "rapt_ble"
         "rdw"
         "recorder"
         "remote"
@@ -473,7 +402,6 @@ in {
         "rest"
         "rest_command"
         "rflink"
-        "roon"
         "rpi_power"
         "rss_feed_template"
         "rtsp_to_webrtc"
@@ -503,8 +431,6 @@ in {
         "snips"
         "snmp"
         "soma"
-        "sonarr"
-        "songpal"
         "soundtouch"
         "spaceapi"
         "spotify"
@@ -529,9 +455,7 @@ in {
         "tado"
         "tag"
         "tailscale"
-        "tankerkoenig"
         "tasmota"
-        "tautulli"
         "tcp"
         "temper"
         "template"
@@ -547,16 +471,11 @@ in {
         "totalconnect"
         "trace"
         "transmission"
-        "transport_nsw"
         "trend"
         "tts"
         "tuya"
-        "unifi"
-        "unifi_direct"
-        "unifiprotect"
         "universal"
         "upb"
-        "upcloud"
         "update"
         "upnp"
         "uptime"
@@ -566,10 +485,6 @@ in {
         "utility_meter"
         "uvc"
         "vacuum"
-        "vallox"
-        "velbus"
-        "venstar"
-        "vera"
         "verisure"
         "version"
         "vesync"
@@ -578,7 +493,6 @@ in {
         "vizio"
         "vlc_telnet"
         "voicerss"
-        "volumio"
         "vulcan"
         "vultr"
         "wake_on_lan"
@@ -589,17 +503,12 @@ in {
         "webhook"
         "webostv"
         "websocket_api"
-        "wemo"
         "whois"
-        "wiffi"
-        "wilight"
         "withings"
-        "wiz"
         "wled"
         "workday"
         "worldclock"
         "wsdot"
-        "zamg"
         "zeroconf"
         "zone"
       ];
@@ -607,31 +516,32 @@ in {
       openFirewall = true;
 
       package =
-        (pkgs.home-assistant.override {
-          extraPackages = py: [
-            py.cloudscraper
-            py.psycopg2
-            py.grpcio
-            py.unidecode
-            (py.callPackage ./pyaarlo.nix { })
+        pkgs.home-assistant.override {
+          extraPackages = ps: with ps; [
+            #cloudscraper
+            #psycopg2
+            #grpcio
+            #unidecode
+            (callPackage ./pyaarlo.nix)
           ];
 
-          packageOverrides = python-self: python-super: {
-            asynctest = null;
-            debugpy = null;
-            mox3 = null;
-            bellows = python-super.bellows.overridePythonAttrs (_: {
-              doCheck = false;
-            });
-          };
-        })
-        .overrideAttrs (oldAttrs: {
-          doInstallCheck = false;
-        });
+          #packageOverrides = python-self: python-super: {
+          #  asynctest = null;
+          #  debugpy = null;
+          #  mox3 = null;
+          #  bellows = python-super.bellows.overridePythonAttrs (_: {
+          #    doCheck = false;
+          #  });
+          #};
+        };
     };
 
     # MQTT
     networking.firewall.allowedTCPPorts = [1883];
+
+    nixpkgs.config.permittedInsecurePackages = [
+      "openssl-1.1.1w"
+    ];
 
     services.postgresql = {
       dataDir = "/var/lib/postgresql/14";
