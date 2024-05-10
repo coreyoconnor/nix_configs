@@ -49,7 +49,7 @@ with nixpkgs.lib; let
         if [ -n "$fragment" ] ; then
           shift
         fi
-        exec deploy --keep-result .?submodules=1$fragment ${subcommand} -- ${devArgsShell} "$@";
+        exec deploy --skip-checks --auto-rollback false --keep-result .?submodules=1$fragment ${subcommand} -- ${devArgsShell} "$@";
       '';
       help = "${name} using the dev input overrides and git submodules";
     };
@@ -60,7 +60,7 @@ with nixpkgs.lib; let
         if [ -n "$fragment" ] ; then
           shift
         fi
-        exec deploy --keep-result .$fragment ${subcommand} "$@";
+        exec deploy --skip-checks --auto-rollback false --keep-result .$fragment ${subcommand} "$@";
       '';
       help = "${name} using the production inputs";
     };

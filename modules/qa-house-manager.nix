@@ -164,9 +164,9 @@ in {
         ];
 
         tts = [
-          {
-            platform = "picotts";
-          }
+          #{
+          #  platform = "picotts";
+          #}
         ];
 
         zeroconf = {};
@@ -515,25 +515,16 @@ in {
 
       openFirewall = true;
 
-      package =
-        pkgs.home-assistant.override {
-          extraPackages = ps: with ps; [
-            #cloudscraper
-            #psycopg2
-            #grpcio
-            #unidecode
-            (callPackage ./pyaarlo.nix)
-          ];
+      customComponents = [
+      ];
 
-          #packageOverrides = python-self: python-super: {
-          #  asynctest = null;
-          #  debugpy = null;
-          #  mox3 = null;
-          #  bellows = python-super.bellows.overridePythonAttrs (_: {
-          #    doCheck = false;
-          #  });
-          #};
-        };
+      extraPackages = ps: with ps; [
+        cloudscraper
+        psycopg2
+        grpcio
+        unidecode
+        (callPackage ./pyaarlo.nix {})
+      ];
     };
 
     # MQTT
