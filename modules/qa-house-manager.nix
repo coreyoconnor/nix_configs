@@ -5,31 +5,7 @@
   lib,
   ...
 }:
-with lib; let
-  unstable = import nixpkgs-unstable {
-    system = pkgs.system;
-
-    config = {
-      permittedInsecurePackages = ["openssl-1.1.1w"];
-      allowUnfree = true;
-      allowUnfreePredicate = pkg:
-        builtins.elem (lib.getName pkg) [
-          "python-nest"
-        ];
-    };
-
-    overlays = [
-    ];
-  };
-in {
-  #disabledModules = [
-  #  "services/home-automation/home-assistant.nix"
-  #];
-#
-#  imports = [
-#    "${nixpkgs-unstable}/nixos/modules/services/home-automation/home-assistant.nix"
-#  ];
-
+with lib; {
   options.services.qa-house-manager = {
     enable = mkOption {
       default = false;
@@ -39,11 +15,6 @@ in {
   };
 
   config = mkIf config.services.qa-house-manager.enable {
-    #nixpkgs.overlays = [
-    #  (self: super: {
-    #    inherit (unstable) home-assistant;
-    #  })
-    #];
 
     services.mosquitto = {
       enable = true;
@@ -452,6 +423,7 @@ in {
         "syncthru"
         "system_health"
         "system_log"
+        "systemmonitor"
         "tado"
         "tag"
         "tailscale"
@@ -516,6 +488,12 @@ in {
       openFirewall = true;
 
       customComponents = [
+        (pkgs.fetchFromGitHub {
+          owner = "MarcoGos";
+          repo = "kleenex_pollenradar";
+          rev = "a4840fdf9bffe7adf1b1f2a1b7ca84d864357be1";
+          hash = "sha256-0yvJSE/c9DwY6kcaJQZIsGtQtAqwmwe3Ww9zm9bcHHc=";
+        })
       ];
 
       extraPackages = ps: with ps; [
