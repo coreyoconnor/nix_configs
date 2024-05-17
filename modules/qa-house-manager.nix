@@ -41,6 +41,8 @@ with lib; {
           tfa_password = "!secret arlo_imap_password";
         };
 
+        "automation ui" = "!include automations.yaml";
+
         binary_sensor = [
         ];
 
