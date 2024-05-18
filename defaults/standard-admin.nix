@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  nixpkgs-unstable,
   ...
 }:
 with lib; {
@@ -15,7 +16,7 @@ with lib; {
       jq
       lm_sensors
       lsix
-      neovim
+      (nixpkgs-unstable.legacyPackages.${pkgs.system}.neovim)
       nix-index
       pciutils
       pcre
