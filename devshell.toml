@@ -1,6 +1,7 @@
 [devshell]
 packages = [
-  "nix"
+  "nix",
+  "hub"
 ]
 
 [[commands]]
