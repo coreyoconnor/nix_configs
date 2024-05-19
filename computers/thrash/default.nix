@@ -32,6 +32,11 @@ with lib; {
 
     programs.gamemode.enable = true;
 
+    programs.steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+    };
+
     services.foreign-binary-emulation.enable = true;
 
     virtualisation.podman.enable = true;
