@@ -59,7 +59,7 @@
       deploy.nodes = self.lib.deployNodes {
         deny = {};
         glowness = {};
-        # thrash = {};
+        thrash = {};
         ufo = {remoteBuild = true;};
       };
       checks = self.lib.checks;
