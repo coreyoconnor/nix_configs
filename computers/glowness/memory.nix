@@ -14,7 +14,7 @@ with lib; {
       "vm.watermark_scale_factor" = 125;
       "vm.page-cluster" = 0;
     };
-    hardware.rasdaemon.enable = true;
+    hardware.rasdaemon.enable = false;
 
     zramSwap = {
       enable = true;
