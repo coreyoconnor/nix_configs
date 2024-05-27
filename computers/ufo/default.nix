@@ -50,7 +50,7 @@ with lib; {
         secret-key-files = /etc/nix/ufo-1.sec
       '';
       settings = {
-        cores = 3;
+        cores = 8;
         max-jobs = 2;
       };
     };
