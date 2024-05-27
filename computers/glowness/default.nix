@@ -41,6 +41,11 @@ with lib; {
       remotePlay.openFirewall = true;
     };
 
+    programs.streamdeck-ui = {
+      enable = true;
+      autoStart = true;
+    };
+
     services.foreign-binary-emulation.enable = true;
     services.kbfs.enable = true;
 
