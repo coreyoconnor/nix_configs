@@ -1,0 +1,18 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 54a8c19..edf6f0c 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -14,11 +14,11 @@ packages = [
+ [tool.poetry.dependencies]
+ python = ">=3.8,<3.13"
+ streamdeck = "^0.9.5"
+-pillow = "10.2.0"
++pillow = "10.3.0"
+ pyside6 = "^6.4.2"
+ CairoSVG = "^2.5.2"
+ filetype = "^1.0.10"
+-importlib-metadata = "^6.8.0"
++importlib-metadata = "^7.1.0"
+ evdev = "^1.6.1"
+ 
+ [tool.poetry.group.docs.dependencies]

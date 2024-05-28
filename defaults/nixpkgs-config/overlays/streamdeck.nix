@@ -14,16 +14,19 @@ self: super: {
 
     patches = [
       ./streamdeck-fc-list.patch
+      ./streamdeck-update-dependencies.patch
     ];
 
     preBuild = ''
       export HOME="$TMP"
     '';
 
-    propagatedBuildInputs = with self.python3Packages; [
-      evdev
-      importlib-metadata
-    ] ++ old.propagatedBuildInputs;
+    propagatedBuildInputs = with self.python3Packages;
+      [
+        evdev
+        importlib-metadata
+      ]
+      ++ old.propagatedBuildInputs;
   });
 
   python3 = super.python3.override {

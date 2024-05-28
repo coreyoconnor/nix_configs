@@ -15,7 +15,6 @@ with lib; {
   };
 
   config = mkIf config.services.qa-house-manager.enable {
-
     services.mosquitto = {
       enable = true;
       listeners = [
@@ -498,13 +497,14 @@ with lib; {
         })
       ];
 
-      extraPackages = ps: with ps; [
-        cloudscraper
-        psycopg2
-        grpcio
-        unidecode
-        (callPackage ./pyaarlo.nix {})
-      ];
+      extraPackages = ps:
+        with ps; [
+          cloudscraper
+          psycopg2
+          grpcio
+          unidecode
+          (callPackage ./pyaarlo.nix {})
+        ];
     };
 
     # MQTT

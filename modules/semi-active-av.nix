@@ -101,7 +101,8 @@ in {
 
     systemd.services.av-user-scan = {
       description = "scan normal user directories for suspect files";
-      after = ["network-online.target"];
+      wantedBy = [ "multi-user.target" ];
+      after = ["network.target" "clamav-daemon.service"];
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${pkgs.systemd}/bin/systemd-cat --identifier=av-scan ${pkgs.clamav}/bin/clamdscan --quiet --recursive --fdpass ${toString all-user-folders}";
@@ -119,7 +120,8 @@ in {
 
     systemd.services.av-all-scan = {
       description = "scan all directories for suspect files";
-      after = ["network-online.target"];
+      wantedBy = [ "multi-user.target" ];
+      after = ["network.target" "clamav-daemon.service"];
       serviceConfig = {
         Type = "oneshot";
         ExecStart = ''

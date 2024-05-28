@@ -124,6 +124,8 @@ in {
         };
       };
 
+      libinput.enable = mkDefault true;
+
       packagekit.enable = false;
 
       pipewire = {
@@ -139,19 +141,13 @@ in {
 
       udev.packages = [pkgs.android-udev-rules];
 
-      xserver = {
-        enable = true; # even tho this I use wayland.
+      xserver.enable = true; # for xwayland
 
-        desktopManager.gnome.enable = false;
-
-        displayManager.gdm = {
-          enable = true;
-          debug = true;
-          autoSuspend = false;
-          wayland = true;
-        };
-
-        libinput.enable = mkDefault true;
+      xserver.displayManager.gdm = {
+        enable = true;
+        debug = true;
+        autoSuspend = false;
+        wayland = true;
       };
 
       xfs.enable = false;

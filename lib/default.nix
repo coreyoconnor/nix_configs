@@ -5,14 +5,14 @@
   ...
 } @ inputs:
 with nixpkgs.lib; let
-  inputsMinusSelf = builtins.removeAttrs inputs [ "self" "deploy-rs" "devshell" "flake-utils" ];
+  inputsMinusSelf = builtins.removeAttrs inputs ["self" "deploy-rs" "devshell" "flake-utils"];
   nixosConfiguration = {
     name,
     system,
     configPath ? "${self}/computers/${name}",
   }:
     nixpkgs.lib.nixosSystem {
-      specialArgs = inputsMinusSelf // { inputs = inputsMinusSelf; };
+      specialArgs = inputsMinusSelf // {inputs = inputsMinusSelf;};
       modules = [self.nixosModules.default configPath];
       inherit system;
     };
@@ -154,23 +154,24 @@ with nixpkgs.lib; let
       ++ devUpdateCommands
       ++ prodIntegCommands
       ++ [
-      (
-        let allIntegs = builtins.attrNames devDependencies;
+        (
+          let
+            allIntegs = builtins.attrNames devDependencies;
             allUpdates = builtins.attrNames (builtins.removeAttrs inputsMinusSelf allIntegs);
             integCmds = builtins.map (n: "prod-integ-${n}") allIntegs;
             updateCmds = builtins.map (n: "prod-update-${n}") allUpdates;
-        in {
-          name = "prod-integ-all";
-          command = ''
-            set -ex
-            echo all integs
-            ${builtins.concatStringsSep "\n" integCmds}
-            echo remaining updates
-            ${builtins.concatStringsSep "\n" updateCmds}
-          '';
-          help = "Integrate all dev checkouts and update all the inputs.";
-        }
-      )
+          in {
+            name = "prod-integ-all";
+            command = ''
+              set -ex
+              echo all integs
+              ${builtins.concatStringsSep "\n" integCmds}
+              echo remaining updates
+              ${builtins.concatStringsSep "\n" updateCmds}
+            '';
+            help = "Integrate all dev checkouts and update all the inputs.";
+          }
+        )
       ]
       ++ prodUpdateCommands
       ++ [

@@ -11,7 +11,13 @@
     nixos-hardware.url = "github:coreyoconnor/nixos-hardware/master";
     nix-kube-modules.url = "github:coreyoconnor/nix-kube-modules";
     retronix.url = "github:coreyoconnor/retronix/main";
-    sway-gnome.url = "github:coreyoconnor/sway-gnome/main";
+    sway-gnome = {
+      url = "github:coreyoconnor/sway-gnome/main";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
   };
 
   outputs = {
@@ -100,7 +106,7 @@
           prodUrl = "git@github.com:coreyoconnor/nixpkgs";
           prodBranch = "main";
           upstreamUrl = "https://github.com/NixOS/nixpkgs.git";
-          upstreamBranch = "nixos-23.11";
+          upstreamBranch = "nixos-24.05";
         };
       };
     in

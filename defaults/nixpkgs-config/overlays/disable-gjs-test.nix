@@ -1,4 +1,3 @@
 self: super: {
-  gjs = super.gjs.overrideDerivation (_: { doCheck = !(self.stdenv.isDarwin || self.stdenv.isAarch64); });
+  gjs = super.gjs.overrideDerivation (_: {doCheck = !(self.stdenv.isDarwin || self.stdenv.isAarch64);});
 }
-
