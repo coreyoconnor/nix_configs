@@ -44,7 +44,6 @@
       };
       nixosConfigurations =
         (self.lib.nixosConfigurations {
-          # agh = {system = "x86_64-linux";};
           deny = {system = "x86_64-linux";};
           glowness = {system = "x86_64-linux";};
           thrash = {system = "x86_64-linux";};
