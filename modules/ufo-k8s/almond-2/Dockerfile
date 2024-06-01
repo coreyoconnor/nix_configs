@@ -17,10 +17,10 @@ ARG openjdk_version="17"
 ARG spark_version="3.5.1"
 ARG hadoop_version="3"
 ARG scala2_version="2.13"
-ARG scala2_full_version="2.13.11"
+ARG scala2_full_version="2.13.13"
 ARG scala3_version="3.3"
-ARG scala3_full_version="3.3.0"
-ARG almond_version="0.14.0-RC7"
+ARG scala3_full_version="3.3.3"
+ARG almond_version="0.14.0-RC15"
 ARG ammonite_spark_version="0.14.0-RC8"
 
 RUN apt-get update --yes && \
@@ -105,7 +105,7 @@ RUN /bin/almond-install.sh ${almond_version} ${scala2_full_version} scala2 "Scal
 
 RUN /bin/almond-install.sh ${almond_version} ${scala3_full_version} scala3 "Scala 3"
 
-RUN /bin/almond-scala3-lamp-install.sh 0.14.0-RC14 3.3.1 \
+RUN /bin/almond-scala3-lamp-install.sh ${almond_version} ${scala3_full_version} \
       scala3lamp "Scala 3 with Lamp"
 
 # Install pyarrow
