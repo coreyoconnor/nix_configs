@@ -11,7 +11,7 @@ USER root
 # Spark dependencies
 # Default values can be overridden at build time
 # (ARGS are in lowercase to distinguish them from ENV)
-ARG openjdk_version="17"
+ARG openjdk_version="21"
 
 # If spark_version is not set, latest stable Spark will be installed
 ARG spark_version="3.5.1"
