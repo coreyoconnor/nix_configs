@@ -158,6 +158,7 @@ with lib; {
         "apache_kafka"
         "apcupsd"
         "api"
+        "apple_tv"
         "application_credentials"
         "assist_pipeline"
         "asuswrt"
@@ -495,6 +496,12 @@ with lib; {
           rev = "a4840fdf9bffe7adf1b1f2a1b7ca84d864357be1";
           hash = "sha256-0yvJSE/c9DwY6kcaJQZIsGtQtAqwmwe3Ww9zm9bcHHc=";
         })
+      ];
+
+      customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
+        mini-graph-card
+        lg-webos-remote-control
+        mushroom
       ];
 
       extraPackages = ps:
