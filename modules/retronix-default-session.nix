@@ -22,16 +22,21 @@ with lib; {
     services = {
       das_watchdog.enable = true;
 
+      displayManager = {
+        defaultSession = "retronix+pekwm";
+
+        autoLogin = {
+          enable = true;
+          user = "media";
+        };
+      };
+
+      libinput.enable = true;
+
       xserver = {
         autorun = true;
 
         displayManager = {
-          defaultSession = "retronix+pekwm";
-
-          autoLogin = {
-            enable = true;
-            user = "media";
-          };
 
           lightdm = {
             enable = true;
@@ -41,8 +46,6 @@ with lib; {
             };
           };
         };
-
-        libinput.enable = true;
 
         windowManager.pekwm.enable = true;
       };
