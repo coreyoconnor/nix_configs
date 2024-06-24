@@ -25,7 +25,6 @@ with lib; let
     "/boot"
     "/etc"
     "/nix"
-    "/opt"
     "/root"
     "/usr"
   ];
@@ -101,7 +100,6 @@ in {
 
     systemd.services.av-user-scan = {
       description = "scan normal user directories for suspect files";
-      wantedBy = [ "multi-user.target" ];
       after = ["network.target" "clamav-daemon.service"];
       serviceConfig = {
         Type = "oneshot";
@@ -109,18 +107,8 @@ in {
       };
     };
 
-    #systemd.timers.av-all-scan = {
-    #  description = "scan all directories for suspect files";
-    #  wantedBy = ["timers.target"];
-    #  timerConfig = {
-    #    OnCalendar = "monthly";
-    #    Unit = "av-all-scan.service";
-    #  };
-    #};
-
     systemd.services.av-all-scan = {
       description = "scan all directories for suspect files";
-      wantedBy = [ "multi-user.target" ];
       after = ["network.target" "clamav-daemon.service"];
       serviceConfig = {
         Type = "oneshot";
