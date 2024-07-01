@@ -26,6 +26,7 @@ with lib; {
       chiaki
     ];
 
+    hardware.bluetooth.enable = true;
     hardware.spacenavd.enable = true;
 
     networking.firewall.enable = false;

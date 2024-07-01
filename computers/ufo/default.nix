@@ -22,6 +22,7 @@ with lib; {
     developer-base.enable = true;
     semi-active-av.enable = true;
 
+    hardware.bluetooth.enable = true;
     services.foreign-binary-emulation.enable = true;
 
     services.fail2ban = {
