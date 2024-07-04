@@ -8,7 +8,6 @@ with lib; let
   cfg = config.semi-active-av;
   sus-user-dirs = [
     "Downloads"
-    ".mozilla"
   ];
   all-normal-users = attrsets.filterAttrs (username: config: config.isNormalUser) config.users.users;
   all-sus-dirs =
