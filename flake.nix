@@ -119,6 +119,10 @@
           ];
         };
 
+        enterShell = ''
+          source /etc/profile
+        '';
+
         packages.default = self.lib.allSystemsUsing system;
       });
 }

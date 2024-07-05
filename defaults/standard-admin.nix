@@ -31,6 +31,8 @@ with lib; {
 
     environment.variables.EDITOR = mkOverride 950 "${pkgs.neovim}/bin/nvim";
 
+    programs.direnv.enable = true;
+
     security = {
       sudo = {
         enable = true;
