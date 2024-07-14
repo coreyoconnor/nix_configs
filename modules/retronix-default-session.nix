@@ -23,7 +23,7 @@ with lib; {
       das_watchdog.enable = true;
 
       displayManager = {
-        defaultSession = "retronix+pekwm";
+        defaultSession = "retronix";
 
         autoLogin = {
           enable = true;
@@ -47,7 +47,7 @@ with lib; {
           };
         };
 
-        windowManager.pekwm.enable = true;
+        # windowManager.pekwm.enable = true;
       };
     };
   };
