@@ -8,47 +8,32 @@ with lib; {
   imports = [retronix.nixosModules.default];
 
   config = mkIf config.retronix.enable {
-    hardware.pulseaudio = {
-      extraClientConf = ''
-        autospawn=yes
-      '';
-    };
-
     networking.firewall = {
       allowedTCPPorts = [8180 9090];
       allowedUDPPorts = [9777];
+    };
+
+    programs.steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+      remotePlay.openFirewall = true;
     };
 
     services = {
       das_watchdog.enable = true;
 
       displayManager = {
-        defaultSession = "retronix";
+        defaultSession = "steam";
 
         autoLogin = {
           enable = true;
           user = "media";
         };
+
+        sddm.enable = true;
       };
 
       libinput.enable = true;
-
-      xserver = {
-        autorun = true;
-
-        displayManager = {
-
-          lightdm = {
-            enable = true;
-            greeter.enable = false;
-            autoLogin = {
-              timeout = 0;
-            };
-          };
-        };
-
-        # windowManager.pekwm.enable = true;
-      };
     };
   };
 }

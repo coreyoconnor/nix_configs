@@ -4,24 +4,13 @@
   pkgs,
   ...
 }: {
-  hardware.pulseaudio = {
-    enable = false;
-    systemWide = true;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
   };
 
-  sound = {
-    enable = true;
-    extraConfig = ''
-      pcm.!default {
-        type hw
-        card 0
-        device 3
-      }
-      ctl.!default {
-        type hw
-        card 0
-        device 3
-      }
-    '';
-  };
+  sound.enable = true;
 }

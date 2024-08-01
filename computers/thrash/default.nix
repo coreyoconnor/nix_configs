@@ -19,6 +19,7 @@ with lib; {
     system.stateVersion = "22.05";
 
     hardware.bluetooth.enable = true;
+    hardware.bluetooth.powerOnBoot = true;
     hardware.rasdaemon.enable = true;
     hardware.xpadneo.enable = true;
 
