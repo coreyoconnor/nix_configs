@@ -15,7 +15,10 @@ with lib; {
 
     programs.steam = {
       enable = true;
-      gamescopeSession.enable = true;
+      gamescopeSession = {
+        enable = true;
+        capSysNice = true;
+      };
       remotePlay.openFirewall = true;
     };
 
