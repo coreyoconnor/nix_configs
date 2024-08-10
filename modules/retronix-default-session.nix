@@ -15,11 +15,13 @@ with lib; {
 
     programs.steam = {
       enable = true;
-      gamescopeSession = {
-        enable = true;
-        capSysNice = true;
-      };
+      gamescopeSession.enable = true;
       remotePlay.openFirewall = true;
+    };
+
+    programs.gamescope = {
+      enable = true;
+      capSysNice = true;
     };
 
     services = {
