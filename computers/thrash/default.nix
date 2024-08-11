@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  retronix,
   ...
 }:
 with lib; {
@@ -12,6 +13,7 @@ with lib; {
     ./filesystems.nix
     ./audio.nix
     ./gpu.nix
+    retronix.nixosModules.default
   ];
 
   config = {
@@ -27,17 +29,12 @@ with lib; {
 
     retronix = {
       enable = true;
+      # steamLauncher = true;
       nick = "UFO";
       user = "media";
     };
 
     programs.gamemode.enable = true;
-
-    programs.steam = {
-      enable = true;
-      gamescopeSession.enable = true;
-      remotePlay.openFirewall = true;
-    };
 
     services.foreign-binary-emulation.enable = true;
 

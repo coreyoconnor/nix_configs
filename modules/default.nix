@@ -17,7 +17,6 @@ with lib; {
     ./media-presenter.nix
     ./mev-boost
     ./qa-house-manager.nix
-    ./retronix-default-session.nix
     ./semi-active-av.nix
     ./status-tty.nix
     ./teku

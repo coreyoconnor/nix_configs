@@ -64,6 +64,20 @@ with nixpkgs.lib; let
       '';
       help = "${name} using the production inputs";
     };
+    devBuildVMCmd = {
+      name = "dev-build-vm";
+      command = ''
+        if [ -n  "$1" ] ; then
+          fragment="#$1"
+          shift
+        else
+          echo "requires computer to build vm for"
+          exit 1
+        fi
+        exec nixos-rebuild build-vm --flake .?submodules=1$fragment ${devArgsShell} "$@";
+      '';
+      help = "build vm launcher";
+    };
     devIntegCommands = nixpkgs.lib.flatten (
       nixpkgs.lib.mapAttrsToList (
         inputName: mapping:
@@ -244,6 +258,7 @@ with nixpkgs.lib; let
             ${builtins.concatStringsSep "\n\n" statusChecks}
           '';
         }
+        devBuildVMCmd
         {
           name = "prod-build";
           command = ''
