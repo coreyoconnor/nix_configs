@@ -8,14 +8,23 @@
     enable = true;
     driSupport = true;
     extraPackages = with pkgs; [
-      amdvlk
+      vaapiVdpau
+      libvdpau-va-gl
     ];
   };
 
-  programs.gamemode.enable = true;
-
-  services.xserver = {
-    enable = true;
-    videoDrivers = ["amdgpu" "modesetting" "vesa"];
+  hardware.amdgpu = {
+    amdvlk = {
+      enable = true;
+      support32Bit.enable = true;
+    };
+    opencl.enable = true;
+    initrd.enable = true;
   };
+
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  ];
+
+  programs.gamemode.enable = false;
 }

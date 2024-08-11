@@ -34,8 +34,6 @@ with lib; {
       user = "media";
     };
 
-    programs.gamemode.enable = true;
-
     services.foreign-binary-emulation.enable = true;
 
     virtualisation.podman.enable = true;
