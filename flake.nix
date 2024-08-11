@@ -52,6 +52,7 @@
         (self.lib.nixosConfigurations {
           deny = {system = "x86_64-linux";};
           glowness = {system = "x86_64-linux";};
+          retronix-vm = {system = "x86_64-linux";};
           thrash = {system = "x86_64-linux";};
           ufo = {system = "x86_64-linux";};
         })
