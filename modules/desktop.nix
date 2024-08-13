@@ -56,6 +56,7 @@ in {
       mako # notification system developed by swaywm maintainer
       neovim-qt
       nordpass
+      opencl-info
       pavucontrol
       qt6Packages.qtwayland
       slurp # screenshot functionality
@@ -72,6 +73,7 @@ in {
         }
       )
       swww # wallpaper
+      vulkan-tools
       waybar
       wayland
       wine
