@@ -1,2 +1,20 @@
-c3d4ac725177c030b1e289015989da2ad9d56af0
+224042e9a3039291f22f4f2ded12af95a616cca0
 
+diff --git a/pkgs/development/ocaml-modules/ezjsonm-encoding/default.nix b/pkgs/development/ocaml-modules/ezjsonm-encoding/default.nix
+index ec81d52da687..3a5b047903ad 100644
+--- a/pkgs/development/ocaml-modules/ezjsonm-encoding/default.nix
++++ b/pkgs/development/ocaml-modules/ezjsonm-encoding/default.nix
+@@ -2,11 +2,11 @@
+ 
+ buildDunePackage rec {
+   pname = "ezjsonm-encoding";
+-  version = "2.0.0";
++  version = "2.1.0";
+ 
+   src = fetchurl {
+     url = "https://github.com/lthms/ezjsonm-encoding/releases/download/${version}/ezjsonm-encoding-${version}.tbz";
+-    hash = "sha256-e5OPcbbQLr16ANFNZ5i10LjlHgwcRTCYhyvOhVk22yI=";
++    hash = "sha256-qR8Nn3pL1K33qTBLkElaqsTjLjudtI8IMe0GEK08qW4=";
+   };
+ 
+   propagatedBuildInputs = [ ezjsonm ];
