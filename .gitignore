@@ -7,3 +7,4 @@ postpi-*.img
 .scala-build
 .metals
 .bsp
+.direnv

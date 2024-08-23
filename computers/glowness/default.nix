@@ -24,6 +24,7 @@ with lib; {
 
     environment.systemPackages = with pkgs; [
       chiaki
+      piper
     ];
 
     hardware.bluetooth.enable = true;
