@@ -31,7 +31,10 @@ with lib; {
 
     environment.variables.EDITOR = mkOverride 950 "${pkgs.neovim}/bin/nvim";
 
-    programs.direnv.enable = true;
+    programs = {
+      direnv.enable = true;
+      fish.enable = true;
+    };
 
     security = {
       sudo = {
@@ -48,5 +51,7 @@ with lib; {
     };
 
     services.openssh.enable = true;
+
+    users.defaultUserShell = pkgs.fish;
   };
 }

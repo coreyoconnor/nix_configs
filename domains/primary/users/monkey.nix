@@ -14,7 +14,6 @@ with pkgs.lib; {
 
       createHome = true;
       home = "/home/monkey";
-      shell = pkgs.bashInteractive + "/bin/bash";
 
       group = "monkey";
       extraGroups = ["libvirtd" "docker"];

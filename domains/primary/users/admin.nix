@@ -12,7 +12,6 @@ with pkgs.lib; {
       group = "users";
       extraGroups = ["wheel" "libvirtd" "vboxusers"];
       home = "/home/admin";
-      shell = pkgs.bashInteractive + "/bin/bash";
       openssh.authorizedKeys.keyFiles = [./ssh/coconnor.pub];
     };
   };

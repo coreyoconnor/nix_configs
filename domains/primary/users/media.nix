@@ -10,9 +10,9 @@ with pkgs.lib; {
       createHome = true;
       uid = 1001;
       group = "users";
-      extraGroups = ["transmission" "plugdev" "audio" "video" "input"];
+      extraGroups = ["transmission" "plugdev" "audio" "video" "input" config.services.kubo.group];
       home = "/home/media";
-      shell = pkgs.bashInteractive + "/bin/bash";
+      shell = pkgs.fish;
       openssh.authorizedKeys.keyFiles = [./ssh/coconnor.pub];
     };
   };

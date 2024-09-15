@@ -97,6 +97,12 @@ in {
 
     hardware.pulseaudio.enable = false;
 
+    programs.dconf.profiles.gdm.databases = [{
+      settings."org/gnome/login-screen" = {
+        enable-fingerprint-authentication = false;
+      };
+    }];
+
     security.rtkit.enable = true;
 
     services = {
@@ -124,6 +130,10 @@ in {
             };
           };
         };
+      };
+
+      kubo = {
+        enable = true;
       };
 
       libinput.enable = mkDefault true;

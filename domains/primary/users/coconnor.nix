@@ -28,9 +28,10 @@ with pkgs.lib; {
         "vboxusers"
         "video"
         "wheel"
+        config.services.kubo.group
       ];
       home = "/home/coconnor";
-      shell = pkgs.bashInteractive + "/bin/bash";
+      shell = pkgs.fish;
       openssh.authorizedKeys.keyFiles = [./ssh/coconnor.pub];
       subUidRanges = [
         {
