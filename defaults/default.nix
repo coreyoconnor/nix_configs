@@ -24,7 +24,8 @@ in rec {
   };
 
   config = {
-    boot.kernelPackages = mkDefault zfsLinuxPackages;
+    # 6.10 is broken and since 6.8, 6.9 were removed this must be 6.6
+    boot.kernelPackages = pkgs.linuxPackages; # mkDefault zfsLinuxPackages;
 
     console = {
       keyMap = "us";
