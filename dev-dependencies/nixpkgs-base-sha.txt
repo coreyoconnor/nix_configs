@@ -1,2 +1,15 @@
-6e6b3dd395c3b1eb9be9f2d096383a8d05add030
+c505ebf777526041d792a49d5f6dd4095ea391a7
 
+diff --git a/pkgs/applications/networking/remote/teamviewer/default.nix b/pkgs/applications/networking/remote/teamviewer/default.nix
+index edebb6859193..c88f380961de 100644
+--- a/pkgs/applications/networking/remote/teamviewer/default.nix
++++ b/pkgs/applications/networking/remote/teamviewer/default.nix
+@@ -30,7 +30,7 @@ mkDerivation rec {
+ 
+   src =
+     let
+-       base_url = "https://dl.tvcdn.de/download/linux/version_${lib.versions.major version}x";
++       base_url = "https://dl.teamviewer.com/download/linux/version_${lib.versions.major version}x";
+     in
+       {
+        x86_64-linux = fetchurl {
