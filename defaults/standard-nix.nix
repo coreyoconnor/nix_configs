@@ -39,5 +39,10 @@ in
         # gc is overly aggressive
         gc.dates = "weekly";
       };
+
+      programs = {
+        nix-index.enable = true;
+        command-not-found.enable = false;
+      };
     };
   }
