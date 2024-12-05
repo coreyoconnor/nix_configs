@@ -6,7 +6,6 @@
 }: {
   hardware.opengl = {
     enable = true;
-    driSupport = true;
     extraPackages = with pkgs; [
       vaapiVdpau
       libvdpau-va-gl

@@ -56,7 +56,7 @@ in {
       mako # notification system developed by swaywm maintainer
       neovim-qt
       nordpass
-      opencl-info
+      clinfo
       pavucontrol
       qt6Packages.qtwayland
       slurp # screenshot functionality
@@ -166,8 +166,6 @@ in {
 
       xfs.enable = false;
     };
-
-    sound.enable = true;
 
     systemd.user.extraConfig = ''
       DefaultEnvironment="PATH=/run/current-system/sw/bin"

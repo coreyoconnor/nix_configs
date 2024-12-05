@@ -6,22 +6,23 @@
 }: {
   services.samba = {
     enable = true;
-    securityType = "auto";
     openFirewall = true;
-    extraConfig = ''
-      create mask = 0664
-      directory mask = 0775
-      server role = standalone
-      guest account = media
-      map to guest = bad user
-    '';
-    shares = {
+    settings = {
+      global = {
+        "create mask" = "0664";
+        "directory mask" = "0775";
+        "server role" = "standalone";
+        "guest account" = "media";
+        "map to guest" = "bad user";
+        "security" = "auto";
+      };
       media = {
-        path = "/mnt/storage/media";
-        comment = "Public media";
-        "writeable" = true;
-        "guest ok" = true;
-        "guest only" = true;
+        "path" = "/mnt/storage/media";
+        "comment" = "Public media";
+        "browseable" = "yes";
+        "writeable" = "yes";
+        "guest ok" = "yes";
+        "guest only" = "yes";
       };
     };
   };
