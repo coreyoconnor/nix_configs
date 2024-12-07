@@ -24,8 +24,8 @@ with lib; {
 
     hardware.amdgpu = {
       amdvlk = {
-        enable = false;
-        support32Bit.enable = false;
+        enable = true;
+        support32Bit.enable = true;
       };
       opencl.enable = true;
       initrd.enable = true;
