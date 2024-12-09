@@ -4,9 +4,7 @@
   lib,
   ...
 }:
-with lib; let
-  zfsLinuxPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-in rec {
+with lib; rec {
   imports = [
     ./nixpkgs-config.nix
     ./fonts.nix
@@ -24,8 +22,6 @@ in rec {
   };
 
   config = {
-    boot.kernelPackages = mkDefault zfsLinuxPackages;
-
     console = {
       keyMap = "us";
     };

@@ -44,9 +44,9 @@ in {
       firefox-wayland
       foot
       fuzzel # launcher
-      gnome.evince
-      gnome.gnome-terminal
-      gnome.nautilus
+      evince
+      gnome-terminal
+      nautilus
       gnomeExtensions.appindicator
       grim # screjnshot functionality
       keybase-gui
@@ -85,7 +85,7 @@ in {
     ];
 
     hardware = {
-      opengl = {
+      graphics = {
         enable = true;
       };
     };

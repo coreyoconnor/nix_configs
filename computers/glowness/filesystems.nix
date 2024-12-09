@@ -11,6 +11,8 @@ with lib; {
 
   config = {
     boot = {
+      initrd.supportedFilesystems = ["zfs"];
+
       loader = {
         systemd-boot.enable = true;
         efi.canTouchEfiVariables = true;

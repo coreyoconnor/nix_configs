@@ -34,6 +34,7 @@
             port = 2269;
           };
         };
+        supportedFilesystems = ["zfs"];
       };
 
       loader.grub = {
@@ -41,6 +42,8 @@
         efiSupport = true;
         device = "nodev";
       };
+
+      supportedFilesystems = ["zfs"];
     };
   };
 }
