@@ -14,8 +14,8 @@ with lib; {
       fzf
       htop
       jq
+      libsixel
       lm_sensors
-      lsix
       (nixpkgs-unstable.legacyPackages.${pkgs.system}.neovim)
       nix-index
       pciutils

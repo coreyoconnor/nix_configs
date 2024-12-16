@@ -248,7 +248,6 @@ with lib; {
         "google"
         "google_assistant"
         "google_assistant_sdk"
-        "google_domains"
         "google_mail"
         "google_pubsub"
         "google_sheets"
@@ -310,8 +309,6 @@ with lib; {
         "logger"
         "lookin"
         "lovelace"
-        "mailbox"
-        "mailgun"
         "manual"
         "manual_mqtt"
         "matter"
@@ -349,7 +346,6 @@ with lib; {
         "openuv"
         "openweathermap"
         "panel_custom"
-        "panel_iframe"
         "persistent_notification"
         "person"
         "picnic"
@@ -375,27 +371,22 @@ with lib; {
         "rest"
         "rest_command"
         "rflink"
-        "rpi_power"
         "rss_feed_template"
-        "rtsp_to_webrtc"
         "scene"
         "schedule"
         "scrape"
-        "screenlogic"
         "script"
         "search"
         "season"
         "select"
         "sense"
         "sensor"
-        "sensorpro"
         "sensorpush"
         "sentry"
         "shell_command"
         "shelly"
         "shopping_list"
         "sia"
-        "sighthound"
         "simulated"
         "siren"
         "smartthings"
@@ -404,12 +395,10 @@ with lib; {
         "snips"
         "snmp"
         "soma"
-        "soundtouch"
         "spaceapi"
         "spotify"
         "spc"
         "sql"
-        "srp_energy"
         "ssdp"
         "statistics"
         "statsd"
@@ -418,15 +407,12 @@ with lib; {
         "sun"
         "switch"
         "switch_as_x"
-        "switchbee"
         "switchbot"
-        "switcher_kis"
         "syncthing"
         "syncthru"
         "system_health"
         "system_log"
         "systemmonitor"
-        "tado"
         "tag"
         "tailscale"
         "tasmota"
@@ -489,14 +475,14 @@ with lib; {
 
       openFirewall = true;
 
-      customComponents = [
-        (pkgs.fetchFromGitHub {
-          owner = "MarcoGos";
-          repo = "kleenex_pollenradar";
-          rev = "a4840fdf9bffe7adf1b1f2a1b7ca84d864357be1";
-          hash = "sha256-0yvJSE/c9DwY6kcaJQZIsGtQtAqwmwe3Ww9zm9bcHHc=";
-        })
-      ];
+      # customComponents = [
+      #   (pkgs.fetchFromGitHub {
+      #     owner = "MarcoGos";
+      #     repo = "kleenex_pollenradar";
+      #     rev = "a4840fdf9bffe7adf1b1f2a1b7ca84d864357be1";
+      #     hash = "sha256-0yvJSE/c9DwY6kcaJQZIsGtQtAqwmwe3Ww9zm9bcHHc=";
+      #   })
+      # ];
 
       customLovelaceModules = with pkgs.home-assistant-custom-lovelace-modules; [
         mini-graph-card

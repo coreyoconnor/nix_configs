@@ -29,8 +29,6 @@ with lib; {
 
         packages = with pkgs; [
           anonymousPro
-          arphic-ukai
-          arphic-uming
           atkinson-hyperlegible
           bakoma_ttf
           borg-sans-mono
@@ -38,25 +36,18 @@ with lib; {
           corefonts
           courier-prime
           dejavu_fonts
-          fira-code
-          fira-code-symbols
           fira-mono
-          font-awesome
-          google-fonts
-          hack-font
+          # google-fonts
           helvetica-neue-lt-std
           inconsolata
           junicode
-          open-fonts
+          # open-fonts
           oxygenfonts
-          noto-fonts
+          nerdfonts
           noto-fonts-cjk-sans
           noto-fonts-cjk-serif
-          noto-fonts-emoji
-          noto-fonts-emoji-blob-bin
-          noto-fonts-extra
           siji
-          ucs-fonts
+          # ucs-fonts
           unifont
           wqy_microhei
           wqy_zenhei
