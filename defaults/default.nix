@@ -22,6 +22,8 @@ with lib; rec {
   };
 
   config = {
+    boot.kernelPackages = pkgs.linuxPackages_6_12;
+
     console = {
       keyMap = "us";
     };

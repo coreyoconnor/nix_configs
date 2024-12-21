@@ -23,19 +23,19 @@ in {
   config = mkIf cfg.enable {
     semi-active-av.enable = true;
 
-    boot.kernelPatches = [
-      {
-        name = "enable RT_FULL";
-        patch = null;
-        extraConfig = ''
-          PREEMPT y
-          PREEMPT_BUILD y
-          PREEMPT_VOLUNTARY n
-          PREEMPT_COUNT y
-          PREEMPTION y
-        '';
-      }
-    ];
+    #boot.kernelPatches = [
+    #  {
+    #    name = "enable RT_FULL";
+    #    patch = null;
+    #    extraConfig = ''
+    #      PREEMPT y
+    #      PREEMPT_BUILD y
+    #      PREEMPT_VOLUNTARY n
+    #      PREEMPT_COUNT y
+    #      PREEMPTION y
+    #    '';
+    #  }
+    #];
 
     environment.systemPackages = with pkgs; [
       appimage-run
