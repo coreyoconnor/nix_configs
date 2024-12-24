@@ -59,6 +59,12 @@ in {
         item = "nproc";
         value = "unlimited";
       }
+      {
+        domain = "*";
+        type = "-";
+        item = "nofile";
+        value = "1048576";
+      }
     ];
   };
 }
