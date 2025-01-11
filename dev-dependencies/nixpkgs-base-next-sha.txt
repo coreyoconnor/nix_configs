@@ -1,2 +1,25 @@
-cbd8ec4de4469333c82ff40d057350c30e9f7d36
+3f0a8ac25fb674611b98089ca3a5dd6480175751
 
+diff --git a/nixos/modules/services/networking/dhcpcd.nix b/nixos/modules/services/networking/dhcpcd.nix
+index 310a1f3d1c55..4e3f21c0f3e4 100644
+--- a/nixos/modules/services/networking/dhcpcd.nix
++++ b/nixos/modules/services/networking/dhcpcd.nix
+@@ -303,6 +303,18 @@ in
+         /run/current-system/systemd/bin/systemctl reload dhcpcd.service
+       '';
+ 
++    security.polkit.extraConfig = lib.mkIf config.services.resolved.enable ''
++      polkit.addRule(function(action, subject) {
++          if (action.id == 'org.freedesktop.resolve1.revert' ||
++              action.id == 'org.freedesktop.resolve1.set-dns-servers' ||
++              action.id == 'org.freedesktop.resolve1.set-domains') {
++              if (subject.user == '${config.systemd.services.dhcpcd.serviceConfig.User}') {
++                  return polkit.Result.YES;
++              }
++          }
++      });
++    '';
++
+   };
+ 
+ }
