@@ -49,7 +49,8 @@ with lib; {
       autoStart = true;
     };
 
-    security.tpm2.enable = false;
+    # boot.initrd.systemd.tpm2.enable = false;
+    # security.tpm2.enable = false;
 
     services.foreign-binary-emulation.enable = true;
     services.kbfs.enable = true;
