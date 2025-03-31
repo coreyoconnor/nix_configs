@@ -5,7 +5,7 @@
   ...
 }: {
   networking = {
-    defaultGateway = "192.168.86.1";
-    nameservers = ["1.1.1.1"]; # "192.168.86.2"];
+    defaultGateway = "192.168.88.1";
+    # nameservers = ["1.1.1.1"]; # "192.168.86.2"];
   };
 }

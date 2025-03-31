@@ -34,13 +34,14 @@ in {
 
       systemPackages = with pkgs; [k3s];
     };
-    networking.firewall.allowedTCPPorts = [6443 config.services.dockerRegistry.port];
+    networking.firewall.allowedTCPPorts = [6443 10250];
     virtualisation.containers.registries.insecure = ["ufo.local:5000"];
     services.dockerRegistry = {
       enable = true;
       enableDelete = true;
       enableGarbageCollect = true;
       listenAddress = "0.0.0.0";
+      openFirewall = true;
     };
     services.k3s = {
       enable = true;

@@ -4,24 +4,20 @@
   pkgs,
   ...
 }:
-with lib; let
-  localIPv4_1 = "192.168.86.6";
-  localIPv6_1 = "2601:602:9700:f0fc::6";
-in {
+with lib; {
   imports = [
     ../../network/home
+    ../../network/home/resource-media-server.nix
   ];
   config = {
     networking = {
       hostId = "abab4ab2";
       hostName = "ufo";
       useDHCP = true;
-
-      interfaces = {
-        eno1 = {
-          useDHCP = true;
-        };
-      };
     };
+    services.avahi = {
+      denyInterfaces = [ "eno1" "eno2" ];
+    };
+    services.resolved.enable = true;
   };
 }

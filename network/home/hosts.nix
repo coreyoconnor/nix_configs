@@ -5,11 +5,6 @@ let
       publicKeyFile = ./known-hosts/github.com.pub;
     };
 
-    grr = {
-      hostNames = ["grr"];
-      publicKeyFile = ./known-hosts/grr.pub;
-    };
-
     gitlab = {
       hostNames = ["gitlab.com"];
       publicKeyFile = ./known-hosts/gitlab.com.pub;
@@ -21,14 +16,8 @@ in {
   config = {
     networking = {
       extraHosts = ''
-        192.168.86.2 agh
-        192.168.86.3 glowness
-        192.168.86.5 thrash
-        192.168.86.6 ufo
-        192.168.86.7 grr
-        192.168.86.8 deny
-        192.168.86.17 grr-alt
-        192.168.86.8 atomicpi
+        192.168.88.4 ufo
+        192.168.88.18 glowness
       '';
     };
 

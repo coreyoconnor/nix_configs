@@ -15,7 +15,7 @@ in
 
           experimental-features = ["nix-command" "flakes"];
 
-          substituters = ["http://ufo:4999"];
+          # substituters = ["http://ufo:4999"];
           trusted-users = ["nix" "@wheel"];
 
           trusted-public-keys = [

@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: {
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       vaapiVdpau
@@ -21,5 +21,5 @@
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 
-  programs.gamemode.enable = false;
+  programs.gamemode.enable = true;
 }

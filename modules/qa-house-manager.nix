@@ -30,15 +30,15 @@ with lib; {
       enable = true;
 
       config = {
-        aarlo = {
-          username = "!secret arlo_username";
-          password = "!secret arlo_password";
-          tfa_source = "imap";
-          tfa_type = "email";
-          tfa_host = "!secret arlo_imap_host";
-          tfa_username = "!secret arlo_imap_username";
-          tfa_password = "!secret arlo_imap_password";
-        };
+        #aarlo = {
+        #  username = "!secret arlo_username";
+        #  password = "!secret arlo_password";
+        #  tfa_source = "imap";
+        #  tfa_type = "email";
+        #  tfa_host = "!secret arlo_imap_host";
+        #  tfa_username = "!secret arlo_imap_username";
+        #  tfa_password = "!secret arlo_imap_password";
+        #};
 
         "automation ui" = "!include automations.yaml";
 
@@ -74,7 +74,7 @@ with lib; {
               type = "trusted_networks";
               trusted_networks = [
                 # lan network
-                "192.168.86.0/24"
+                "192.168.88.0/24"
                 "127.0.0.1"
               ];
               allow_bypass_login = true;
@@ -520,6 +520,18 @@ with lib; {
         }
       ];
       package = pkgs.postgresql_14;
+    };
+
+    virtualisation.oci-containers.containers = {
+      # https://github.com/tsightler/ring-mqtt-ha-addon/blob/main/config.yaml
+      ring-mqtt = {
+        image = "tsightler/ring-mqtt";
+        autoStart = true;
+        user = "286:286";
+        volumes = [
+          "/mnt/storage/hass/ring-mqtt:/data"
+        ];
+      };
     };
 
     systemd.services.postgresql.serviceConfig.TimeoutSec = lib.mkOverride 10 666;

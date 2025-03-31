@@ -8,7 +8,6 @@
 with lib; {
   imports = [
     ../../domains/primary
-    ../../network/home/resource-media-server.nix
     ./boot.nix
     ./filesystems.nix
     ./memory.nix
@@ -26,7 +25,7 @@ with lib; {
     services.foreign-binary-emulation.enable = true;
 
     services.fail2ban = {
-      enable = true;
+      # enable = true;
 
       bantime-increment = {
         enable = true;
