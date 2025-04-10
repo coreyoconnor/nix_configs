@@ -25,6 +25,7 @@ with lib; {
     environment.systemPackages = with pkgs; [
       chiaki
       piper
+      valent
     ];
 
     hardware.bluetooth.enable = true;

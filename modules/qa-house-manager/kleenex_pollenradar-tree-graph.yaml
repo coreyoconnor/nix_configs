@@ -1,0 +1,85 @@
+# Sourcecode by vdbrink.github.io
+# Entities Card Configuration
+type: custom:apexcharts-card
+now:
+  show: true
+graph_span: 3d
+span:
+  start: day
+  offset: +2d
+all_series_config:
+  show:
+    legend_value: false
+series:
+  - name: Hazelaar
+    entity: sensor.kleenex_pollen_radar_home_trees
+    type: column
+    color: "#1f77b4"
+    data_generator: >
+      return entity.attributes.forecast.map(d => [new
+      Date(d.date).getTime(), d.details.find(t => t.name === "Hazelaar").value]);
+  - name: Iep
+    entity: sensor.kleenex_pollen_radar_huis_trees
+    type: column
+    color: "#ff7f0e"
+    data_generator: >
+      return entity.attributes.forecast.map(d => [new
+      Date(d.date).getTime(), d.details.find(t => t.name === "Iep").value]);
+  - name: Els
+    entity: sensor.kleenex_pollen_radar_huis_trees
+    type: column
+    color: "#2ca02c"
+    data_generator: >
+      return entity.attributes.forecast.map(d => [new
+      Date(d.date).getTime(), d.details.find(t => t.name === "Els").value]);
+  - name: Populier
+    entity: sensor.kleenex_pollen_radar_huis_trees
+    type: column
+    color: "#d62728"
+    data_generator: >
+      return entity.attributes.forecast.map(d => [new
+      Date(d.date).getTime(), d.details.find(t => t.name === "Populier").value]);
+  - name: Eik
+    entity: sensor.kleenex_pollen_radar_huis_trees
+    type: column
+    color: "#9467bd"
+    data_generator: >
+      return entity.attributes.forecast.map(d => [new
+      Date(d.date).getTime(), d.details.find(t => t.name === "Eik").value]);
+  - name: Plataan
+    entity: sensor.kleenex_pollen_radar_huis_trees
+    type: column
+    color: "#8c564b"
+    data_generator: >
+      return entity.attributes.forecast.map(d => [new
+      Date(d.date).getTime(), d.details.find(t => t.name === "Plataan").value]);
+  - name: Berk
+    entity: sensor.kleenex_pollen_radar_huis_trees
+    type: column
+    color: "#e377c2"
+    data_generator: >
+      return entity.attributes.forecast.map(d => [new
+      Date(d.date).getTime(), d.details.find(t => t.name === "Berk").value]);
+  - name: Cipres
+    entity: sensor.kleenex_pollen_radar_huis_trees
+    type: column
+    color: "#7f7f7f"
+    data_generator: >
+      return entity.attributes.forecast.map(d => [new
+      Date(d.date).getTime(), d.details.find(t => t.name === "Cipres").value]);
+apex_config:
+  chart:
+    type: bar
+  xaxis:
+    type: datetime
+  plotOptions:
+    bar:
+      columnWidth: 70%
+  tooltip:
+    enabled: true
+  legend:
+    labels:
+      useSeriesColors: true
+
+
+

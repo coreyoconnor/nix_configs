@@ -1,0 +1,14 @@
+diff --git a/a/manifest.json b/b/manifest.json
+index 56dd284..966717f 100644
+--- a/custom_components/kleenex_pollenradar/manifest.json
++++ b/custom_components/kleenex_pollenradar/manifest.json
+@@ -11,7 +11,7 @@
+   "integration_type": "hub",
+   "iot_class": "cloud_polling",
+   "issue_tracker": "https://github.com/MarcoGos/kleenex_pollenradar/issues",
+-  "requirements": ["beautifulsoup4==4.10.0"],
++  "requirements": ["beautifulsoup4>=4.10.0"],
+   "ssdp": [],
+   "version": "1.1.7",
+   "zeroconf": []
+

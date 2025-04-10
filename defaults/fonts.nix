@@ -4,7 +4,12 @@
   lib,
   ...
 }:
-with lib; {
+with lib;
+let
+  nerdfonts-pkgs = if builtins.hasAttr "nerd-fonts" pkgs
+    then builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts)
+    else [ pkgs.nerdfonts ];
+in {
   config =
     {
       boot.loader.grub = {
@@ -27,7 +32,7 @@ with lib; {
 
         enableDefaultPackages = true;
 
-        packages = with pkgs; [
+        packages = with pkgs; nerdfonts-pkgs ++ [
           anonymousPro
           atkinson-hyperlegible
           bakoma_ttf
@@ -43,7 +48,6 @@ with lib; {
           junicode
           # open-fonts
           oxygenfonts
-          nerdfonts
           noto-fonts-cjk-sans
           noto-fonts-cjk-serif
           siji

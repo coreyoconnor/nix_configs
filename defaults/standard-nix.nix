@@ -13,9 +13,11 @@ in
         settings = {
           auto-optimise-store = true;
 
+          download-buffer-size = 201326592;
+
           experimental-features = ["nix-command" "flakes"];
 
-          # substituters = ["http://ufo:4999"];
+          substituters = ["http://ufo:4999"];
           trusted-users = ["nix" "@wheel"];
 
           trusted-public-keys = [

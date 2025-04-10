@@ -1,6 +1,6 @@
 self: super: {
   libratbag = super.libratbag.overrideAttrs (oldAttrs: {
-    src = self. fetchFromGitHub {
+    src = self.fetchFromGitHub {
       owner  = "libratbag";
       repo   = "libratbag";
       rev    = "1c9662043f4a11af26537e394bbd90e38994066a";
