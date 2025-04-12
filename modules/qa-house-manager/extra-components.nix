@@ -15,6 +15,7 @@
   "apache_kafka"
   "apcupsd"
   "api"
+  "apple_tv"
   "application_credentials"
   "assist_pipeline"
   "asuswrt"

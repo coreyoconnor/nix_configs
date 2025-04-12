@@ -75,8 +75,11 @@
               heading = "Climate Control";
             }
             {
-              type = "markdown";
-              content = "TBD: Ecobee integration";
+              type = "entities";
+              entities = [
+                "sensor.living_room_current_humidity"
+                "sensor.living_room_current_temperature"
+              ];
             }
           ];
         }
