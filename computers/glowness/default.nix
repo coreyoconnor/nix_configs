@@ -39,6 +39,8 @@ with lib; {
       '';
     };
 
+    powerManagement.cpuFreqGovernor = "performance";
+
     programs.steam = {
       enable = true;
       gamescopeSession.enable = true;

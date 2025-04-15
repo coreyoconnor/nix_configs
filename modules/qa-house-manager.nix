@@ -42,8 +42,8 @@ in {
       pkgs = nixpkgs-unstable-pkgs;
     };
 
-    # MQTT
-    networking.firewall.allowedTCPPorts = [1883];
+    # MQTT and postgresql
+    networking.firewall.allowedTCPPorts = [1883 5432];
 
     nixpkgs = {
       config.permittedInsecurePackages = [
@@ -57,8 +57,13 @@ in {
     };
 
     services.postgresql = {
+      authentication = ''
+        host all all 192.168.88.0/24 trust
+        host all all 168.254.0.0/16 trust
+      '';
       dataDir = "/var/lib/postgresql/14";
       enable = true;
+      enableTCPIP = true;
       ensureDatabases = ["hass"];
       ensureUsers = [
         {

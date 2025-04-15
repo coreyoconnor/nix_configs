@@ -3,6 +3,7 @@
   "accuweather"
   "advantage_air"
   "air_quality"
+  "airnow"
   "airthings"
   "airthings_ble"
   "alert"
