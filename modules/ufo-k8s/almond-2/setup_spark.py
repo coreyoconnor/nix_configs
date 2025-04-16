@@ -62,6 +62,7 @@ def download_spark(
         spark_dir_name += f"-scala{scala_version}"
     LOGGER.info(f"Spark directory name: {spark_dir_name}")
     spark_url = spark_download_url / f"spark-{spark_version}" / f"{spark_dir_name}.tgz"
+    LOGGER.info(f"Spark download URL: {spark_url}")
 
     tmp_file = Path("/tmp/spark.tar.gz")
     subprocess.check_call(

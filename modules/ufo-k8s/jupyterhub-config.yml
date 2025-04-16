@@ -19,5 +19,16 @@ singleuser:
     name: ufo.local:5000/ufo/almond-2
     tag: latest
   cmd: null
+  networkPolicy:
+    egressAllowRules:
+      privateIPs: false
+    egress:
+      - to:
+          - ipBlock:
+              cidr: 192.168.88.4/32
+        ports:
+          - protocol: TCP
+            port: 5432
+
 
 

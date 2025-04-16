@@ -59,6 +59,7 @@ in {
     services.postgresql = {
       authentication = ''
         host all all 192.168.88.0/24 trust
+        host all all 10.42.0.0/24 trust
         host all all 168.254.0.0/16 trust
       '';
       dataDir = "/var/lib/postgresql/14";

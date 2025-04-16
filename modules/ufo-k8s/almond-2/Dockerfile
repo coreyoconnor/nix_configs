@@ -14,13 +14,13 @@ USER root
 ARG openjdk_version="21"
 
 # If spark_version is not set, latest stable Spark will be installed
-ARG spark_version="3.5.1"
+ARG spark_version="3.5.5"
 ARG hadoop_version="3"
 ARG scala2_version="2.13"
 ARG scala2_full_version="2.13.13"
 ARG scala3_version="3.3"
-ARG scala3_full_version="3.3.3"
-ARG almond_version="0.14.0-RC15"
+ARG scala3_full_version="3.3.5"
+ARG almond_version="0.14.1"
 ARG ammonite_spark_version="0.14.0-RC8"
 
 RUN apt-get update --yes && \

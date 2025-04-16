@@ -6,7 +6,7 @@ scala_full_version=$2
 kernel_id=$3
 kernel_desc=$4
 
-LAMP_VERSION=0.0.111
+LAMP_VERSION=0.0.116
 
 coursier launch --fork almond:${almond_version} --scala ${scala_full_version} \
       -- --install --id ${kernel_id} --display-name "${kernel_desc}" \
