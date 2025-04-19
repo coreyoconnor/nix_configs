@@ -7,6 +7,26 @@
         {
           type = "grid";
           cards = [
+            { type = "heading"; heading = "Outlets"; }
+            {
+              type = "entities";
+              entities = [
+                { name = "Den Near Guest Top Outlet"; entity = "switch.den_outlet_near_guest_outlet_1"; }
+                { name = "Den Near Guest Bottom Outlet"; entity = "switch.den_outlet_near_guest_outlet_2"; }
+              ];
+            }
+            {
+              type = "entities";
+              entities = [
+                { name = "Living Room Near Door Top Outlet"; entity = "switch.living_room_outlet_near_door_outlet_1"; }
+                { name = "Living Room Near Door Bottom Outlet"; entity = "switch.living_room_outlet_near_door_outlet_2"; }
+              ];
+            }
+          ];
+        }
+        {
+          type = "grid";
+          cards = [
             {
               type = "heading";
               heading = "Weather";

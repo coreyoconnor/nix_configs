@@ -88,5 +88,7 @@ in {
     };
 
     systemd.services.postgresql.serviceConfig.TimeoutSec = lib.mkOverride 10 666;
+
+    services.matter-server.enable = true;
   };
 }
