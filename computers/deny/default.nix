@@ -13,8 +13,16 @@ with lib; {
   ];
 
   config = {
-    networking.hostName = "deny";
     system.stateVersion = "23.05";
+
+    networking = {
+      extraHosts = ''
+        192.168.88.4 ufo
+        192.168.88.18 glowness
+        192.168.88.23 deny
+      '';
+      hostName = "deny";
+    };
 
     boot = {
       initrd = {
@@ -35,6 +43,11 @@ with lib; {
     networking.enableIPv6 = true;
 
     powerManagement.cpuFreqGovernor = "powersave";
+
+    programs.captive-browser = {
+      enable = true;
+      interface = "wlp0s20f3";
+    };
 
     programs.steam = {
       enable = true;
