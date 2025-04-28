@@ -7,8 +7,23 @@
 with lib;
 let
   nerdfonts-pkgs = if builtins.hasAttr "nerd-fonts" pkgs
-    then builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts)
-    else [ pkgs.nerdfonts ];
+    then with pkgs.nerd-fonts; [
+      fira-code
+      droid-sans-mono
+      inconsolata
+      comic-shanns-mono
+      nerd-fonts-symbols-only
+    ]
+    else [
+      (pkgs.nerdfonts.override {
+        fonts = [
+          "FiraCode" "DroidSansMono" "Inconsolata"
+          "ComicShannsMono" "DroidSansMono"
+          "Monoid"
+          "NerdFontsSymbolsOnly"
+        ];
+      })
+    ];
 in {
   config =
     {
@@ -28,16 +43,10 @@ in {
           allowBitmaps = false;
         };
 
-        fontDir.enable = true;
-
         enableDefaultPackages = true;
 
         packages = with pkgs; nerdfonts-pkgs ++ [
           anonymousPro
-          atkinson-hyperlegible
-          bakoma_ttf
-          borg-sans-mono
-          cm_unicode
           corefonts
           courier-prime
           dejavu_fonts
@@ -45,16 +54,14 @@ in {
           # google-fonts
           helvetica-neue-lt-std
           inconsolata
-          junicode
+          # junicode
           # open-fonts
           oxygenfonts
-          noto-fonts-cjk-sans
           noto-fonts-cjk-serif
+          noto-fonts-color-emoji
           siji
           # ucs-fonts
           unifont
-          wqy_microhei
-          wqy_zenhei
         ];
       };
     };

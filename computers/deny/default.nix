@@ -39,6 +39,11 @@ with lib; {
 
     desktop.enable = true;
     developer-base.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      networkmanagerapplet
+    ];
+
     networking.firewall.enable = true;
     networking.enableIPv6 = true;
 

@@ -31,7 +31,9 @@ with lib; {
     hardware.bluetooth.enable = true;
     hardware.spacenavd.enable = true;
 
-    networking.firewall.enable = false;
+    networking.firewall = {
+      enable = false;
+    };
 
     nix = {
       extraOptions = ''
@@ -47,13 +49,13 @@ with lib; {
       remotePlay.openFirewall = true;
     };
 
-    programs.streamdeck-ui = {
-      enable = true;
-      autoStart = true;
-    };
+    # flatpak works well enough
+    #programs.streamcontroller = {
+    #  enable = true;
+    #};
 
     # boot.initrd.systemd.tpm2.enable = false;
-    # security.tpm2.enable = false;
+    security.tpm2.enable = true;
 
     services.foreign-binary-emulation.enable = true;
     services.kbfs.enable = true;

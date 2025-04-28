@@ -90,8 +90,15 @@ in {
       };
     };
 
-    # i18n.inputMethod.enabled = "ibus";
-    # i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [mozc hangul libpinyin];
+    i18n.inputMethod = {
+      enable = true;
+      type = "fcitx5";
+
+      fcitx5 = {
+        addons = with pkgs; [ fcitx5-rime ];
+        waylandFrontend = true;
+      };
+    };
 
     sway-gnome.enable = true;
 

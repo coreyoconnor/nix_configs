@@ -18,6 +18,7 @@
   "api"
   "apple_tv"
   "application_credentials"
+  "aranet"
   "assist_pipeline"
   "asuswrt"
   "auth"
