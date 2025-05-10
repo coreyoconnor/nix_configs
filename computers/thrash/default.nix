@@ -27,6 +27,8 @@ with lib; {
 
     media-presenter.enable = true;
 
+    powerManagement.cpuFreqGovernor = "performance";
+
     retronix = {
       enable = true;
       # steamLauncher = true;
