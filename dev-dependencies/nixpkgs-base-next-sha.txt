@@ -1,20 +1,2 @@
-f9ebe33a928b5d529c895202263a5ce46bdf12f7
+1d3aeb5a193b9ff13f63f4d9cc169fb88129f860
 
-diff --git a/pkgs/applications/emulators/cdemu/vhba.nix b/pkgs/applications/emulators/cdemu/vhba.nix
-index 5ef0048324a4..5e73d2acb5cc 100644
---- a/pkgs/applications/emulators/cdemu/vhba.nix
-+++ b/pkgs/applications/emulators/cdemu/vhba.nix
-@@ -8,11 +8,11 @@
- 
- stdenv.mkDerivation rec {
-   pname = "vhba";
--  version = "20240917";
-+  version = "20250329";
- 
-   src = fetchurl {
-     url = "mirror://sourceforge/cdemu/vhba-module-${version}.tar.xz";
--    hash = "sha256-zjTLriw2zvjX0Jxfa9QtaHG5tTC7cLTKEA+WSCP+Dpg=";
-+    hash = "sha256-piog1yDd8M/lpTIo9FE9SY2JwurZ6a8LG2lZ/4EmB14=";
-   };
- 
-   makeFlags = kernelModuleMakeFlags ++ [
