@@ -28,8 +28,16 @@ with lib; {
       valent
     ];
 
-    hardware.bluetooth.enable = true;
+    hardware.bluetooth = {
+      enable = true;
+      settings = {
+        General = {
+          JustWorksRepairing = "confirm";
+        };
+      };
+    };
     hardware.spacenavd.enable = true;
+    hardware.xpadneo.enable = true;
 
     networking.firewall = {
       enable = false;
@@ -48,11 +56,6 @@ with lib; {
       gamescopeSession.enable = true;
       remotePlay.openFirewall = true;
     };
-
-    # flatpak works well enough
-    #programs.streamcontroller = {
-    #  enable = true;
-    #};
 
     # boot.initrd.systemd.tpm2.enable = false;
     security.tpm2.enable = true;

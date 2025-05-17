@@ -44,6 +44,15 @@ with lib; {
       networkmanagerapplet
     ];
 
+    hardware.bluetooth = {
+      enable = true;
+      settings = {
+        General = {
+          JustWorksRepairing = "confirm";
+        };
+      };
+    };
+
     networking.firewall.enable = true;
     networking.enableIPv6 = true;
 
