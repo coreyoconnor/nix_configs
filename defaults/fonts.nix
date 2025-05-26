@@ -12,7 +12,7 @@ let
       droid-sans-mono
       inconsolata
       comic-shanns-mono
-      nerd-fonts-symbols-only
+      symbols-only
     ]
     else [
       (pkgs.nerdfonts.override {
