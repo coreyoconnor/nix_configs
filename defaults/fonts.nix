@@ -51,16 +51,12 @@ in {
           courier-prime
           dejavu_fonts
           fira-mono
-          # google-fonts
           helvetica-neue-lt-std
           inconsolata
-          # junicode
-          # open-fonts
           oxygenfonts
           noto-fonts-cjk-serif
           noto-fonts-color-emoji
           siji
-          # ucs-fonts
           unifont
         ];
       };

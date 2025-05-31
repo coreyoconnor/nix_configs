@@ -23,19 +23,14 @@ in {
   config = mkIf cfg.enable {
     semi-active-av.enable = true;
 
-    #boot.kernelPatches = [
-    #  {
-    #    name = "enable RT_FULL";
-    #    patch = null;
-    #    extraConfig = ''
-    #      PREEMPT y
-    #      PREEMPT_BUILD y
-    #      PREEMPT_VOLUNTARY n
-    #      PREEMPT_COUNT y
-    #      PREEMPTION y
-    #    '';
-    #  }
-    #];
+    boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_14.override {
+      structuredExtraConfig = with lib.kernel; {
+          PREEMPT = lib.mkForce yes;
+          PREEMPT_RT = yes;
+          PREEMPT_COUNT = yes;
+      };
+      ignoreConfigErrors = true;
+    });
 
     environment.systemPackages = with pkgs; [
       appimage-run
@@ -93,8 +88,6 @@ in {
 
     sway-gnome.enable = true;
 
-    hardware.pulseaudio.enable = false;
-
     programs.dconf.profiles.gdm.databases = [{
       settings."org/gnome/login-screen" = {
         enable-fingerprint-authentication = false;
@@ -140,8 +133,10 @@ in {
 
       pipewire = {
         enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
+        alsa = {
+          enable = true;
+          support32Bit = true;
+        };
         pulse.enable = true;
       };
 

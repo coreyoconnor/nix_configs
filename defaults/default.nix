@@ -22,7 +22,7 @@ with lib; rec {
   };
 
   config = {
-    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_6_12;
+    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_6_14;
 
     console = {
       keyMap = "us";

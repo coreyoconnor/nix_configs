@@ -35,6 +35,9 @@ with lib; {
       "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
     ];
 
-    programs.gamemode.enable = true;
+    programs.gamemode = {
+      enable = true;
+      settings.general.inhibit_screensaver = 0;
+    };
   };
 }

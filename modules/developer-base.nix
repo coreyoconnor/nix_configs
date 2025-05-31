@@ -27,6 +27,7 @@ in {
       bloop
       buildah
       clang
+      cloudflared # for cloudflare tunnel ssh connections
       conmon
       coursier
       git

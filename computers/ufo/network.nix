@@ -19,5 +19,15 @@ with lib; {
       denyInterfaces = [ "eno1" "eno2" ];
     };
     services.resolved.enable = true;
+
+    services.cloudflared = {
+      enable = true;
+      tunnels = {
+        "uswest-0" = {
+          credentialsFile = "/root/secrets/cloudflared-uswest-0-creds.json";
+          default = "http_status:404";
+        };
+      };
+    };
   };
 }
