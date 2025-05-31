@@ -8,7 +8,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
 
     nixpkgs.url = "github:coreyoconnor/nixpkgs/main";
-    nixos-hardware.url = "github:coreyoconnor/nixos-hardware/master";
+    nixos-hardware.url = "github:coreyoconnor/nixos-hardware/main";
     nix-kube-modules.url = "github:coreyoconnor/nix-kube-modules";
     retronix = {
       url = "github:coreyoconnor/retronix/main";
