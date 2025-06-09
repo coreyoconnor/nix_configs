@@ -78,5 +78,12 @@ with lib; {
       waydroid.enable = true;
       lxd.enable = true;
     };
+
+    # disable fingerprint auth for initial login to ensure keychain unlock
+    programs.dconf.profiles.gdm.databases = [{
+      settings."org/gnome/login-screen" = {
+        enable-fingerprint-authentication = false;
+      };
+    }];
   };
 }

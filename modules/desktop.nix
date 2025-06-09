@@ -13,6 +13,10 @@ in {
         type = types.bool;
         default = false;
       };
+      rt = mkOption {
+        type = types.bool;
+        default = true;
+      };
     };
   };
 
@@ -26,8 +30,12 @@ in {
     boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_14.override {
       structuredExtraConfig = with lib.kernel; {
           PREEMPT = lib.mkForce yes;
-          PREEMPT_RT = yes;
+          PREEMPT_RT = if cfg.rt then yes else no;
           PREEMPT_COUNT = yes;
+          CONFIG_MK8 = yes;
+          CONFIG_GENERIC_CPU = unset;
+          CONFIG_X86_INTEL_USERCOPY = yes;
+          CONFIG_X86_USE_PPRO_CHECKSUM = yes;
       };
       ignoreConfigErrors = true;
     });
@@ -87,12 +95,6 @@ in {
     };
 
     sway-gnome.enable = true;
-
-    programs.dconf.profiles.gdm.databases = [{
-      settings."org/gnome/login-screen" = {
-        enable-fingerprint-authentication = false;
-      };
-    }];
 
     security.rtkit.enable = true;
 

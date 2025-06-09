@@ -10,6 +10,7 @@ with lib; {
     ../../hardware/AMD-Ryzen-2920X.nix
     ../../network/home/host-glowness.nix
     ../../domains/primary
+    ./audio.nix
     ./filesystems.nix
     ./memory.nix
     ./gpu.nix

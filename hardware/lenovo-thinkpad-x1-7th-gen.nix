@@ -14,8 +14,11 @@ with lib; {
       initrd = {
         availableKernelModules = ["xhci_pci" "nvme" "usb_storage" "sd_mod" "aesni_intel" "cryptd"];
       };
-      kernelModules = ["kvm-intel"];
+      kernelModules = ["kvm-intel" "i915" ];
     };
+
+    # i915 is not compatible with RT
+    desktop.rt = false;
 
     hardware.cpu.intel.updateMicrocode = true;
 
@@ -26,8 +29,6 @@ with lib; {
       sensitivity = 16;
       speed = 16;
     };
-
-    nixpkgs.hostPlatform = "x86_64-linux";
 
     services = {
       acpid = {
