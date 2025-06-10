@@ -26,63 +26,28 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixpkgs-unstable,
-    deploy-rs,
-    devshell,
-    flake-utils,
-    nixos-hardware,
-    nix-kube-modules,
-    retronix,
-    sway-gnome,
-  } @ inputs:
-    {
-      lib = import "${self}/lib" inputs;
-      nixosModules = {
-        default = {
-          imports = [
-            ./defaults
-            ./modules
-          ];
+  outputs = { self, ... }@inputs:
+    # for a consumer of this flake this line would be:
+    # nix_configs.lib.init inputs {
+    (import ./lib/init (inputs // { nix_configs = self; })) {
+      systems = {
+        deny = {system = "x86_64-linux";};
+        glowness = {system = "x86_64-linux";};
+        retronix-vm = {system = "x86_64-linux";};
+        thrash = {system = "x86_64-linux";};
+        ufo = {system = "x86_64-linux";};
+        installer-x86-iso = {
+          name = "installer-x86-iso";
+          system = "x86_64-linux";
+          configPath = "${self}/installer";
+        };
+        postpi-0-image = {
+          name = "postpi-0-image";
+          system = "aarch64-linux";
+          configPath = "${self}/computers/postpi-0.nix";
         };
       };
-      nixosConfigurations =
-        (self.lib.nixosConfigurations {
-          deny = {system = "x86_64-linux";};
-          glowness = {system = "x86_64-linux";};
-          retronix-vm = {system = "x86_64-linux";};
-          thrash = {system = "x86_64-linux";};
-          ufo = {system = "x86_64-linux";};
-        })
-        // {
-          installer-x86-iso = self.lib.nixosConfiguration {
-            name = "installer-x86-iso";
-            system = "x86_64-linux";
-            configPath = "${self}/installer";
-          };
-          postpi-0-image = self.lib.nixosConfiguration {
-            name = "postpi-0-image";
-            system = "aarch64-linux";
-            configPath = "${self}/computers/postpi-0.nix";
-          };
-        };
-      deploy.nodes = self.lib.deployNodes {
-        deny = {};
-        glowness = {};
-        thrash = {};
-        ufo = {remoteBuild = true;};
-      };
-      checks = self.lib.checks;
-    }
-    // flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [
-          devshell.overlays.default
-        ];
-      };
+
       devDependencies = {
         nixos-hardware = {
           url = "git@github.com:coreyoconnor/nixos-hardware";
@@ -115,21 +80,5 @@
           upstreamBranch = "nixos-25.05";
         };
       };
-    in
-      with nixpkgs.lib; {
-        formatter = self.lib.formatterUsingNativeSystem system;
-
-        devShells.default = pkgs.devshell.mkShell {
-          imports = [
-            (self.lib.devshellImport devDependencies)
-            (pkgs.devshell.importTOML ./devshell.toml)
-          ];
-        };
-
-        enterShell = ''
-          source /etc/profile
-        '';
-
-        packages.default = self.lib.allSystemsUsing system;
-      });
+    };
 }

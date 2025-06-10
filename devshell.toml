@@ -1,10 +1,5 @@
 [devshell]
 packages = [
-  "nix",
   "hub"
 ]
-
-[[commands]]
-
-package = "deploy-rs"
 
