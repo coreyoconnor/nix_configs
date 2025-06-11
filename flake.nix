@@ -27,25 +27,29 @@
   };
 
   outputs = { self, ... }@inputs:
+    let nix_configs_lib = import ./lib inputs;
+    in { lib = nix_configs_lib; } //
     # for a consumer of this flake this line would be:
     # nix_configs.lib.init inputs {
-    (import ./lib/init (inputs // { nix_configs = self; })) {
+    import ./lib/init ({ nix_configs = self; inherit nix_configs_lib; } // inputs) {
       systems = {
         deny = {system = "x86_64-linux";};
         glowness = {system = "x86_64-linux";};
         retronix-vm = {system = "x86_64-linux";};
         thrash = {system = "x86_64-linux";};
-        ufo = {system = "x86_64-linux";};
+        ufo = {system = "x86_64-linux"; remoteBuild = true; };
         # systems that are not in the `computers/<hostname>` structure:
         installer-x86-iso = {
           name = "installer-x86-iso";
           system = "x86_64-linux";
           configPath = "${self}/installer";
+          imageBuild = true;
         };
         postpi-0 = {
           name = "postpi-0-image";
           system = "aarch64-linux";
           configPath = "${self}/computers/postpi-0.nix";
+          imageBuild = true;
         };
       };
 

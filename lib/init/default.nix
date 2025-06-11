@@ -1,28 +1,24 @@
-{ nixpkgs, flake-utils, devshell, nix_configs, ... }@inputs: config:
+{ nix_configs, nix_configs_lib ? nix_configs.lib, ... }@inputs: config:
 let
-  self = nix_configs;
-  lib = import "${self}/lib" inputs;
-  deploy-nodes = {
-    deny = {};
-    glowness = {};
-    thrash = {};
-    ufo = {remoteBuild = true;};
-  };
+  lib = nix_configs_lib;
+  use-standard = attr: if (builtins.hasAttr attr inputs) then inputs.${attr} else nix_configs;
+  flake-utils = use-standard "flake-utils";
+  # eh. might not be the right one
+  nixpkgs = use-standard "nixpkgs";
+  devshell = use-standard "devshell";
 in rec {
-  inherit lib;
-
   nixosModules = {
     default = {
       imports = [
-        "${self}/defaults"
-        "${self}/modules"
+        "${nix_configs}/defaults"
+        "${nix_configs}/modules"
       ];
     };
   };
 
   nixosConfigurations = lib.nixosConfigurations config.systems;
 
-  deploy.nodes = lib.deployNodes deploy-nodes;
+  deploy.nodes = lib.nixosActivations config.systems;
 
   checks = lib.checks;
 } // flake-utils.lib.eachDefaultSystem (system: let

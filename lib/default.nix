@@ -5,7 +5,7 @@
   ...
 } @ inputs:
 with nixpkgs.lib; let
-  inputsMinusSelf = builtins.removeAttrs inputs ["self" "deploy-rs" "devshell" "flake-utils"];
+  inputsMinusSelf = builtins.removeAttrs inputs ["self"];
   nixosConfiguration = {
     name,
     system,
@@ -16,17 +16,21 @@ with nixpkgs.lib; let
       modules = [self.nixosModules.default configPath];
       inherit system;
     };
-  buildNode = name: attrs: ({
+  nixosActivation = systemName: systemConfig: ({
       hostname = name;
       profiles.system = {
         user = "root";
-        path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${name};
+        path = deploy-rs.lib.${systemConfig.system}.activate.nixos self.nixosConfigurations.${name};
       };
     }
-    // attrs);
+    // systemConfig);
   nixosConfigurationWithName = systemName: systemConfig: nixosConfiguration ({name = systemName;} // systemConfig);
   nixosConfigurations = nodes: builtins.mapAttrs nixosConfigurationWithName nodes;
-  deployNodes = nodes: builtins.mapAttrs buildNode nodes;
+  nixosActivations = nodes: builtins.mapAttrs nixosActivation (
+    attrsets.filterAttrs (systemName: systemConfig:
+      if (systemConfig ? "imageBuild") then !systemConfig.imageBuild else true
+    )
+  );
   devshellImport = devDependencies: let
     devArgs = builtins.concatMap (
       inputName: [
@@ -345,7 +349,8 @@ with nixpkgs.lib; let
 in {
   inherit
     allSystemsUsing
-    deployNodes
+    nixosActivation
+    nixosActivations
     devshellImport
     formatterUsingNativeSystem
     nixosConfiguration
