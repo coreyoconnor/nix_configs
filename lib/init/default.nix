@@ -8,8 +8,6 @@ let
     thrash = {};
     ufo = {remoteBuild = true;};
   };
-  standard-configs = nixpkgs.lib.attrsets.filterAttrs (system: !(builtins.hasAttr "name")) config.systems;
-  non-standard-configs = nixpkgs.lib.attrsets.filterAttrs (system: builtins.hasAttr "name") config.systems;
 in rec {
   inherit lib;
 
@@ -22,7 +20,7 @@ in rec {
     };
   };
 
-  nixosConfigurations = (lib.nixosConfigurations standard-configs) // non-standard-configs;
+  nixosConfigurations = lib.nixosConfigurations config.systems;
 
   deploy.nodes = lib.deployNodes deploy-nodes;
 

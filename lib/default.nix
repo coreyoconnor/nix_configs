@@ -16,7 +16,7 @@ with nixpkgs.lib; let
       modules = [self.nixosModules.default configPath];
       inherit system;
     };
-  node = name: attrs: ({
+  buildNode = name: attrs: ({
       hostname = name;
       profiles.system = {
         user = "root";
@@ -24,8 +24,9 @@ with nixpkgs.lib; let
       };
     }
     // attrs);
-  nixosConfigurations = nodes: builtins.mapAttrs (node: attrs: nixosConfiguration ({name = node;} // attrs)) nodes;
-  deployNodes = nodes: builtins.mapAttrs node nodes;
+  nixosConfigurationWithName = systemName: systemConfig: nixosConfiguration ({name = systemName;} // systemConfig);
+  nixosConfigurations = nodes: builtins.mapAttrs nixosConfigurationWithName nodes;
+  deployNodes = nodes: builtins.mapAttrs buildNode nodes;
   devshellImport = devDependencies: let
     devArgs = builtins.concatMap (
       inputName: [
