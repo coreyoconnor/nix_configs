@@ -1,11 +1,7 @@
-{ nix_configs, nix_configs_lib ? nix_configs.lib, ... }@inputs: config:
+{ self, devshell, flake-utils, nixpkgs, ... }@inputs: config:
 let
-  lib = nix_configs_lib;
-  use-standard = attr: if (builtins.hasAttr attr inputs) then inputs.${attr} else nix_configs;
-  flake-utils = use-standard "flake-utils";
-  # eh. might not be the right one
-  nixpkgs = use-standard "nixpkgs";
-  devshell = use-standard "devshell";
+  nix_configs = self;
+  lib = nix_configs.lib;
 in rec {
   nixosModules = {
     default = {

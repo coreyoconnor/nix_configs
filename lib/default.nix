@@ -10,6 +10,7 @@ with nixpkgs.lib; let
     name,
     system,
     configPath ? "${self}/computers/${name}",
+    ...
   }:
     nixpkgs.lib.nixosSystem {
       specialArgs = inputsMinusSelf // {inputs = inputsMinusSelf;};
@@ -17,10 +18,10 @@ with nixpkgs.lib; let
       inherit system;
     };
   nixosActivation = systemName: systemConfig: ({
-      hostname = name;
+      hostname = systemName;
       profiles.system = {
         user = "root";
-        path = deploy-rs.lib.${systemConfig.system}.activate.nixos self.nixosConfigurations.${name};
+        path = deploy-rs.lib.${systemConfig.system}.activate.nixos self.nixosConfigurations.${systemName};
       };
     }
     // systemConfig);
@@ -29,7 +30,7 @@ with nixpkgs.lib; let
   nixosActivations = nodes: builtins.mapAttrs nixosActivation (
     attrsets.filterAttrs (systemName: systemConfig:
       if (systemConfig ? "imageBuild") then !systemConfig.imageBuild else true
-    )
+    ) nodes
   );
   devshellImport = devDependencies: let
     devArgs = builtins.concatMap (
@@ -358,7 +359,7 @@ in {
     node
     ;
 
-  init = import ./init;
+  init = import ./init inputs;
 
   checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 }

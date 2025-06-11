@@ -32,8 +32,6 @@ with lib; {
       stress-ng
     ];
 
-    isoImage.isoBaseName = "my-nixos-installer";
-
     networking.firewall.enable = true;
     networking.enableIPv6 = false;
 

@@ -8,7 +8,7 @@
   };
 
   outputs = { self, nix_configs, ... }@inputs:
-    nix_configs.lib.init inputs {
+    nix_configs.lib.init {
       systems = {
         example = { system = "x86_84-linux"; };
       };
