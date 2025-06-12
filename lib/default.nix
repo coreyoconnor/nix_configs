@@ -15,7 +15,7 @@ with nixpkgs.lib; let
     }:
       nixpkgs.lib.nixosSystem {
         specialArgs = inputsMinusSelf // {inputs = inputsMinusSelf;};
-        modules = [self.nixosModules.default configPath { networking.hostName = name; }];
+        modules = [self.nixosModules.default configPath { networking.hostName = nixpkgs.lib.mkDefault name; }];
         inherit system;
       };
     nixosActivation = systemName: systemConfig: ({

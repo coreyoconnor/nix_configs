@@ -138,11 +138,11 @@
         "sway-gnome": "sway-gnome"
       },
       "locked": {
-        "lastModified": 1749695149,
-        "narHash": "sha256-fAfn/02wYFqPTLXAmZX3CTtS8y2jsA+m9f1hKsPtfmY=",
+        "lastModified": 1749702004,
+        "narHash": "sha256-V7lHEhEQxnpq9AuMLl1Oi9GXnjpNyP7uGU6+6n8BoDc=",
         "owner": "coreyoconnor",
         "repo": "nix_configs",
-        "rev": "08f46d794685063302c8e6a2ae0cf68d02612490",
+        "rev": "18ead4c20b86ef6816f324235e015b85bff020ba",
         "type": "github"
       },
       "original": {
