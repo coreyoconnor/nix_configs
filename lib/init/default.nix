@@ -1,20 +1,29 @@
-{ self, devshell, flake-utils, nixpkgs, ... }@inputs: config:
+{ devshell, flake-utils, nixpkgs, ... }@nix_config_inputs: inputs: config:
 let
-  nix_configs = self;
+  nix_configs = nix_config_inputs.self;
   lib = nix_configs.lib;
+  builder = lib.builder inputs;
 in rec {
   nixosModules = {
     default = {
       imports = [
         "${nix_configs}/defaults"
         "${nix_configs}/modules"
-      ];
+      ] ++ (
+        if (builtins.pathExists "${inputs.self}/defaults")
+          then [ "${inputs.self}/defaults" ]
+          else []
+      ) ++ (
+        if (builtins.pathExists "${inputs.self}/modules")
+          then [ "${inputs.self}/modules" ]
+          else []
+      );
     };
   };
 
-  nixosConfigurations = lib.nixosConfigurations config.systems;
+  nixosConfigurations = builder.nixosConfigurations config.systems;
 
-  deploy.nodes = lib.nixosActivations config.systems;
+  deploy.nodes = builder.nixosActivations config.systems;
 
   checks = lib.checks;
 } // flake-utils.lib.eachDefaultSystem (system: let
@@ -29,7 +38,7 @@ in rec {
 
         devShells.default = pkgs.devshell.mkShell {
           imports = [
-            (lib.devshellImport ( { devDependencies = {}; } // config ).devDependencies)
+            (builder.devshellImport ( { devDependencies = {}; } // config ).devDependencies)
             (pkgs.devshell.importTOML ./devshell.toml)
           ];
         };
@@ -38,5 +47,5 @@ in rec {
           source /etc/profile
         '';
 
-        packages.default = lib.allSystemsUsing system;
+        packages.default = builder.allSystemsUsing system;
     })

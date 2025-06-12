@@ -27,12 +27,12 @@
   };
 
   outputs = { self, ... }@inputs:
+    # for a consumer of this flake this would be:
+    # nix_configs.lib.init inputs {
     let
       nix_configs_lib = import ./lib inputs;
     in { lib = nix_configs_lib; } //
-    # for a consumer of this flake this line would be:
-    # nix_configs.lib.init {
-    nix_configs_lib.init {
+    nix_configs_lib.init inputs {
       systems = {
         deny = {system = "x86_64-linux";};
         glowness = {system = "x86_64-linux";};
