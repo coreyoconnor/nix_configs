@@ -29,7 +29,7 @@ in rec {
 
         devShells.default = pkgs.devshell.mkShell {
           imports = [
-            (lib.devshellImport config.devDependencies)
+            (lib.devshellImport ( { devDependencies = {}; } // config ).devDependencies)
             (pkgs.devshell.importTOML ./devshell.toml)
           ];
         };
