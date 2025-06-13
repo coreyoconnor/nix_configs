@@ -1,2 +1,37 @@
-7c43f080a7f28b2774f3b3f43234ca11661bf334
+fd487183437963a59ba763c0cc4f27e3447dd6dd
 
+diff --git a/pkgs/by-name/sw/sway-unwrapped/package.nix b/pkgs/by-name/sw/sway-unwrapped/package.nix
+index 22707fc19d99..279e711c923b 100644
+--- a/pkgs/by-name/sw/sway-unwrapped/package.nix
++++ b/pkgs/by-name/sw/sway-unwrapped/package.nix
+@@ -35,7 +35,7 @@
+ 
+ stdenv.mkDerivation (finalAttrs: {
+   pname = "sway-unwrapped";
+-  version = "1.11";
++  version = "1.10.1";
+ 
+   inherit
+     enableXWayland
+@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
+     owner = "swaywm";
+     repo = "sway";
+     rev = finalAttrs.version;
+-    hash = "sha256-xMrexVDpgkGnvAAglshsh7HjvcbU2/Q6JLUd5J487qg=";
++    hash = "sha256-uBtQk8uhW/i8lSbv6zwsRyiiImFBw1YCQHVWQ8jot5w=";
+   };
+ 
+   patches =
+diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
+index b4857387f1f3..db81bcfb396e 100644
+--- a/pkgs/top-level/all-packages.nix
++++ b/pkgs/top-level/all-packages.nix
+@@ -2070,7 +2070,7 @@ with pkgs;
+   coreboot-configurator = libsForQt5.callPackage ../tools/misc/coreboot-configurator { };
+ 
+   sway-unwrapped = callPackage ../by-name/sw/sway-unwrapped/package.nix {
+-    wlroots = wlroots_0_19;
++    wlroots = wlroots_0_18;
+   };
+ 
+   cambrinary = python3Packages.callPackage ../applications/misc/cambrinary { };
