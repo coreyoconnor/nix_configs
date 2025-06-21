@@ -78,7 +78,7 @@ in {
     virtualisation.oci-containers.containers = {
       # https://github.com/tsightler/ring-mqtt-ha-addon/blob/main/config.yaml
       ring-mqtt = {
-        image = "tsightler/ring-mqtt";
+        image = "tsightler/ring-mqtt:5.8.1";
         autoStart = true;
         user = "286:286";
         volumes = [
