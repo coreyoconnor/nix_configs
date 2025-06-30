@@ -2,10 +2,13 @@
   config,
   pkgs,
   lib,
+  nixpkgs-unstable,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.developer-base;
+  nixpkgs-unstable-pkgs = nixpkgs-unstable.legacyPackages.${pkgs.system};
 in {
   options = {
     developer-base = {
@@ -40,6 +43,7 @@ in {
       sbt
       scala-cli
       zig
+      nixpkgs-unstable-pkgs.gemini-cli
     ];
 
     nixpkgs.config = {
