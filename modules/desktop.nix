@@ -117,9 +117,9 @@ in {
             ids = ["*"];
             settings = {
               main = {
-                capslock = "overload(capslock, esc)";
+                capslock = "layer(capslock)";
+                "capslock:C" = {};
               };
-              "capslock:C" = {};
             };
           };
         };
