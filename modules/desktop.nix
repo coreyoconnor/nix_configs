@@ -118,8 +118,9 @@ in {
             settings = {
               main = {
                 capslock = "layer(capslock)";
-                "capslock:C" = {};
               };
+
+              "capslock:C" = {};
             };
           };
         };
