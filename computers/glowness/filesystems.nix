@@ -45,6 +45,12 @@ with lib; {
       depends = ["/"];
     };
 
+    fileSystems."/mnt/steam-slow" = {
+      device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S4EWNF0M518333K-part1";
+      fsType = "ext4";
+      depends = ["/"];
+    };
+
     swapDevices = [
       {device = "/dev/disk/by-uuid/fb7a013f-6c4c-4962-a95a-22f49c0f36a6";}
     ];

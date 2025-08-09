@@ -27,18 +27,18 @@ in {
   config = mkIf cfg.enable {
     semi-active-av.enable = true;
 
-    boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_15.override {
-      structuredExtraConfig = with lib.kernel; {
-          PREEMPT = lib.mkForce yes;
-          PREEMPT_RT = if cfg.rt then yes else no;
-          PREEMPT_COUNT = yes;
-          CONFIG_MK8 = yes;
-          CONFIG_GENERIC_CPU = unset;
-          CONFIG_X86_INTEL_USERCOPY = yes;
-          CONFIG_X86_USE_PPRO_CHECKSUM = yes;
-      };
-      ignoreConfigErrors = true;
-    });
+    #boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_15.override {
+    #  structuredExtraConfig = with lib.kernel; {
+    #      PREEMPT = lib.mkForce yes;
+    #      PREEMPT_RT = if cfg.rt then yes else no;
+    #      PREEMPT_COUNT = yes;
+    #      CONFIG_MK8 = yes;
+    #      CONFIG_GENERIC_CPU = unset;
+    #      CONFIG_X86_INTEL_USERCOPY = yes;
+    #      CONFIG_X86_USE_PPRO_CHECKSUM = yes;
+    #  };
+    #  ignoreConfigErrors = true;
+    #});
 
     environment.systemPackages = with pkgs; [
       appimage-run

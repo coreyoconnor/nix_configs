@@ -34,7 +34,8 @@ with lib; {
     services = {
       acpid.enable = true;
       avahi = {
-        enable = true;
+        # enable = true;
+        enable = false;
         nssmdns4 = true;
         openFirewall = true;
         publish = {

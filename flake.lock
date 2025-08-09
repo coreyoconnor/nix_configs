@@ -20,6 +20,23 @@
         "type": "gitlab"
       }
     },
+    "cpu-microcodes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1735409317,
+        "narHash": "sha256-08yRkyEKk94ax8KfqRFsffXH8J6DCOCE7vKLvHORWZM=",
+        "owner": "platomav",
+        "repo": "CPUMicrocodes",
+        "rev": "ec5200961ecdf78cf00e55d73902683e835edefd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "platomav",
+        "repo": "CPUMicrocodes",
+        "rev": "ec5200961ecdf78cf00e55d73902683e835edefd",
+        "type": "github"
+      }
+    },
     "deploy-rs": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -261,6 +278,7 @@
     },
     "root": {
       "inputs": {
+        "cpu-microcodes": "cpu-microcodes",
         "deploy-rs": "deploy-rs",
         "devshell": "devshell",
         "flake-utils": "flake-utils",
@@ -269,7 +287,8 @@
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "retronix": "retronix",
-        "sway-gnome": "sway-gnome"
+        "sway-gnome": "sway-gnome",
+        "ucodenix": "ucodenix"
       }
     },
     "sbt": {
@@ -362,6 +381,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "ucodenix": {
+      "inputs": {
+        "cpu-microcodes": [
+          "cpu-microcodes"
+        ]
+      },
+      "locked": {
+        "lastModified": 1753710885,
+        "narHash": "sha256-tCa/9BanHh8Yd3xFBy+RScTgOD5+wYNtrRYAcG8ZRZg=",
+        "owner": "e-tho",
+        "repo": "ucodenix",
+        "rev": "4b78ea35c157fd0a92872c143fa62810fd7693c7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "e-tho",
+        "repo": "ucodenix",
         "type": "github"
       }
     },

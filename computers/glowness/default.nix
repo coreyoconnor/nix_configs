@@ -69,7 +69,7 @@ with lib; {
     virtualisation = {
       containers.enable = true;
       waydroid.enable = true;
-      lxd.enable = true;
+      lxd.enable = false;
     };
   };
 }
