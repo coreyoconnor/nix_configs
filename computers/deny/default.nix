@@ -26,13 +26,14 @@ with lib; {
 
     boot = {
       initrd = {
-        preLVMCommands = ''
-          echo "██╗   ██╗███████╗ ██████╗               ██████╗ ███████╗███╗   ██╗██╗   ██╗"
-          echo "██║   ██║██╔════╝██╔═══██╗              ██╔══██╗██╔════╝████╗  ██║╚██╗ ██╔╝"
-          echo "██║   ██║█████╗  ██║   ██║    █████╗    ██║  ██║█████╗  ██╔██╗ ██║ ╚████╔╝ "
-          echo "██║   ██║██╔══╝  ██║   ██║    ╚════╝    ██║  ██║██╔══╝  ██║╚██╗██║  ╚██╔╝  "
-          echo "╚██████╔╝██║     ╚██████╔╝              ██████╔╝███████╗██║ ╚████║   ██║   "
-          echo " ╚═════╝ ╚═╝      ╚═════╝               ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝   "
+        preLVMCommands =
+          let banner = pkgs.runCommand "gen-banner" {} ''
+            mkdir $out
+            ${pkgs.figlet}/bin/figlet -f doh UFO > $out/banner.txt
+            ${pkgs.figlet}/bin/figlet -f broadway DENY >> $out/banner.txt
+          '';
+          in ''
+          cat ${banner}/banner.txt
         '';
       };
     };

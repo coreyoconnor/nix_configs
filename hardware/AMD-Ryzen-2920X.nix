@@ -18,7 +18,7 @@ with lib; {
 
     boot = {
       kernelModules = ["kvm-amd"];
-      # boot.kernelParams = [ "microcode.amd_sha_check=off" ];
+      kernelParams = [ "microcode.amd_sha_check=off" ];
     };
 
     hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

@@ -36,8 +36,7 @@ with lib; {
     services.hw-rand.enable = false;
 
     networking.firewall = {
-      allowedUDPPorts = [18080];
-      allowedTCPPorts = [4999 18080];
+      allowedTCPPorts = [4999];
     };
     services.nix-serve = {
       enable = true;
