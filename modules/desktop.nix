@@ -126,6 +126,7 @@ in {
         };
       };
 
+      # ipfs server
       kubo = {
         enable = true;
       };

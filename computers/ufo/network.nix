@@ -18,7 +18,18 @@ with lib; {
     services.avahi = {
       denyInterfaces = [ "eno1" "eno2" ];
     };
+
     services.resolved.enable = true;
+
+    services.kubo.settings = {
+      Addresses.API = "192.168.88.4";
+    };
+
+    services.nix-serve = {
+      port = 4999;
+      openFirewall = true;
+      bindAddress = "192.168.88.4";
+    };
 
     services.cloudflared = {
       enable = true;
@@ -28,6 +39,10 @@ with lib; {
           default = "http_status:404";
         };
       };
+    };
+
+    networking.firewall = {
+      allowedTCPPorts = [9191];
     };
   };
 }

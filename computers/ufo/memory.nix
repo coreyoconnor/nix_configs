@@ -20,6 +20,7 @@ with lib; {
     zramSwap = {
       enable = true;
       memoryPercent = 20;
+      algorithm = "lz4";
     };
   };
 }

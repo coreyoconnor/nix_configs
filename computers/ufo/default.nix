@@ -34,13 +34,8 @@ with lib; {
     };
 
     services.hw-rand.enable = false;
-
-    networking.firewall = {
-      allowedTCPPorts = [4999];
-    };
     services.nix-serve = {
       enable = true;
-      port = 4999;
       secretKeyFile = "/etc/nix/ufo-1.sec";
     };
 

@@ -26,7 +26,7 @@ singleuser:
     egress:
       - to:
           - ipBlock:
-              cidr: 192.168.88.7/32
+              cidr: 192.168.88.4/32
         ports:
           - protocol: TCP
             port: 5432
