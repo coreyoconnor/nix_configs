@@ -15,11 +15,6 @@ with lib; {
       hostName = "ufo";
       useDHCP = true;
     };
-    services.avahi = {
-      denyInterfaces = [ "eno1" "eno2" ];
-    };
-
-    services.resolved.enable = true;
 
     services.kubo.settings = {
       Addresses.API = "192.168.88.4";
@@ -43,6 +38,11 @@ with lib; {
 
     networking.firewall = {
       allowedTCPPorts = [9191];
+    };
+
+    services.resolved = {
+      dnssec = "true";
+      dnsovertls = "true";
     };
   };
 }

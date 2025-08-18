@@ -40,7 +40,7 @@ in {
       enable = true;
       enableDelete = true;
       enableGarbageCollect = true;
-      listenAddress = "0.0.0.0";
+      listenAddress = "192.168.88.4";
       openFirewall = true;
     };
     services.k3s = {

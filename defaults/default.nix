@@ -12,6 +12,7 @@ with lib; rec {
     ./standard-nix.nix
     ./standard-services.nix
     ./udev.nix
+    ./mdns.nix
   ];
 
   options = {
