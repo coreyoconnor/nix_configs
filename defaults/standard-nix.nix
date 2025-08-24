@@ -16,6 +16,7 @@ in
           download-buffer-size = 201326592;
 
           experimental-features = ["nix-command" "flakes"];
+          extra-experimental-features = ["nix-command" "flakes"];
 
           substituters = ["http://ufo:4999"];
           trusted-users = ["nix" "@wheel"];
@@ -28,6 +29,7 @@ in
 
           flake-registry = "";
           # Workaround for https://github.com/NixOS/nix/issues/9574
+          # still needed?
           nix-path = config.nix.nixPath;
         };
 
