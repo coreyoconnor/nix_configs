@@ -25,6 +25,7 @@ with pkgs.lib; {
         "plugdev"
         "systemd-journal"
         "transmission"
+        "tty"
         "vboxusers"
         "video"
         "wheel"

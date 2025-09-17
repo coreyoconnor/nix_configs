@@ -47,7 +47,7 @@
         glowness = {system = "x86_64-linux";};
         retronix-vm = {system = "x86_64-linux";};
         thrash = {system = "x86_64-linux";};
-        ufo = {system = "x86_64-linux"; remoteBuild = true; };
+        ufo = {system = "x86_64-linux"; };
         # systems that are not in the `computers/<hostname>` structure:
         installer-x86-iso = {
           name = "installer-x86-iso";
