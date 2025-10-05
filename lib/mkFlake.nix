@@ -1,8 +1,16 @@
 { devshell, flake-utils, nixpkgs, ... }@nix_config_inputs: inputs: config:
 let
+  default_config = {
+    systems = {};
+    devFlakes = {};
+    overlays = [];
+    devshellImports = [];
+    mkPackages = system: pkgs: {};
+  };
+  final_config = default_config // config;
   nix_configs = nix_config_inputs.self;
   lib = nix_configs.lib;
-  builder = lib.builder inputs;
+  builders = lib.mkBuilders inputs;
 in rec {
   nixosModules = {
     default = {
@@ -21,9 +29,9 @@ in rec {
     };
   };
 
-  nixosConfigurations = builder.nixosConfigurations config.systems;
+  nixosConfigurations = builders.nixosConfigurations final_config.systems;
 
-  deploy.nodes = builder.nixosActivations config.systems;
+  deploy.nodes = builders.nixosActivations final_config.systems;
 
   checks = lib.checks;
 } // flake-utils.lib.eachDefaultSystem (system: let
@@ -31,21 +39,19 @@ in rec {
       inherit system;
       overlays = [
         devshell.overlays.default
-      ];
+      ] ++ final_config.overlays;
     };
     in {
         formatter = lib.formatterUsingNativeSystem system;
 
         devShells.default = pkgs.devshell.mkShell {
           imports = [
-            (builder.devshellImport ( { devDependencies = {}; } // config ).devDependencies)
-            (pkgs.devshell.importTOML ./devshell.toml)
-          ];
+            (builders.devshellImport final_config.devFlakes)
+            (pkgs.devshell.importTOML ./default-devshell.toml)
+          ] ++ final_config.devshellImports;
         };
 
-        enterShell = ''
-          source /etc/profile
-        '';
-
-        packages.default = builder.allSystemsUsing system;
+        packages = {
+          default = builders.allSystemsUsing system;
+        } // (final_config.mkPackages system pkgs);
     })

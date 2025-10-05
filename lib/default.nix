@@ -4,7 +4,7 @@
   ...
 } @ nix_configs_inputs:
 with nixpkgs.lib; let
-  builder = { self, ...} @ inputs: let
+  mkBuilders = { self, ...} @ inputs: let
     # I was running into issues with recursion if inputs to nixosSystem included self.
     inputsMinusSelf = builtins.removeAttrs inputs ["self"];
     nixosConfiguration = {
@@ -48,14 +48,14 @@ with nixpkgs.lib; let
         )
         self.nixosConfigurations
       );
-    devshellImport = devDependencies: let
+    devshellImport = devFlakes: let
       devArgs = builtins.concatMap (
         inputName: [
           "--override-input"
           inputName
           "path:./dev-dependencies/${inputName}"
         ]
-      ) (builtins.attrNames devDependencies);
+      ) (builtins.attrNames devFlakes);
       devArgsShell = nixpkgs.lib.concatStringsSep " " devArgs;
       argToFragmentShell = arg: ''
         if [ -n  "${arg}" ] ; then
@@ -141,7 +141,7 @@ with nixpkgs.lib; let
             ]
             else []
         )
-        devDependencies
+        devFlakes
       );
       devUpdateCommands =
         nixpkgs.lib.mapAttrsToList (
@@ -155,7 +155,7 @@ with nixpkgs.lib; let
             help = "Update dev submodule of ${inputName} from ${mapping.url}@${mapping.branch}";
           }
         )
-        devDependencies;
+        devFlakes;
       prodIntegCommands =
         nixpkgs.lib.mapAttrsToList (
           inputName: mapping: {
@@ -172,7 +172,7 @@ with nixpkgs.lib; let
             help = "Integrate ${inputName} dev checkout into ${mapping.prodBranch} and update the input";
           }
         )
-        devDependencies;
+        devFlakes;
       prodUpdateCommands = map (
         inputName: {
           name = "prod-update-${inputName}";
@@ -192,7 +192,7 @@ with nixpkgs.lib; let
         ++ [
           (
             let
-              allIntegs = builtins.attrNames devDependencies;
+              allIntegs = builtins.attrNames devFlakes;
               allUpdates = builtins.attrNames (builtins.removeAttrs inputsMinusSelf allIntegs);
               integCmds = builtins.map (n: "prod-integ-${n}") allIntegs;
               updateCmds = builtins.map (n: "prod-update-${n}") allUpdates;
@@ -238,7 +238,7 @@ with nixpkgs.lib; let
           {
             name = "dev-fetch";
             command = let
-              inputDirs = builtins.attrNames devDependencies;
+              inputDirs = builtins.attrNames devFlakes;
             in ''
               cd $(git rev-parse --show-toplevel)/dev-dependencies
               for I in ${builtins.concatStringsSep " " inputDirs} ; do
@@ -274,7 +274,7 @@ with nixpkgs.lib; let
                     )
                   ''
                 )
-                devDependencies;
+                devFlakes;
             in ''
               cd $(git rev-parse --show-toplevel)/dev-dependencies
               ${builtins.concatStringsSep "\n\n" statusChecks}
@@ -324,7 +324,7 @@ with nixpkgs.lib; let
                     )
                   ''
                 )
-                devDependencies;
+                devFlakes;
             in ''
               cd $(git rev-parse --show-toplevel)/dev-dependencies
               ${builtins.concatStringsSep "\n\n" statusChecks}
@@ -360,7 +360,7 @@ with nixpkgs.lib; let
         "$@"
     '';
 in {
-  inherit builder formatterUsingNativeSystem;
+  inherit mkBuilders formatterUsingNativeSystem;
 
-  init = import ./init nix_configs_inputs;
+  mkFlake = import ./mkFlake.nix nix_configs_inputs;
 }

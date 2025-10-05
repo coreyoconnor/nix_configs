@@ -37,11 +37,11 @@
 
   outputs = { self, ... }@inputs:
     # for a consumer of this flake this would be:
-    # nix_configs.lib.init inputs {
+    # nix_configs.lib.mkFlake inputs {
     let
       nix_configs_lib = import ./lib inputs;
     in { lib = nix_configs_lib; } //
-    nix_configs_lib.init inputs {
+    nix_configs_lib.mkFlake inputs {
       systems = {
         deny = {system = "x86_64-linux";};
         glowness = {system = "x86_64-linux";};
@@ -63,8 +63,7 @@
         };
       };
 
-      # Can I embed this metadata in the inputs itself?
-      devDependencies = {
+      devFlakes = {
         nixos-hardware = {
           url = "git@github.com:coreyoconnor/nixos-hardware";
           branch = "dev";

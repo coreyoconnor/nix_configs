@@ -1,10 +1,10 @@
 [devshell]
+load_profiles = true
 packages = [
   "nix",
 ]
 
 [[commands]]
-
 package = "deploy-rs"
 
 
