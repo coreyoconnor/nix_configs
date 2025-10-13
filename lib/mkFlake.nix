@@ -1,4 +1,4 @@
-{ devshell, flake-utils, nixpkgs, ... }@nix_config_inputs: inputs: config:
+{ devshell, flake-utils, nixpkgs, ... }@nix_configs_inputs: inputs: config:
 let
   default_config = {
     systems = {};
@@ -8,7 +8,7 @@ let
     mkPackages = system: pkgs: {};
   };
   final_config = default_config // config;
-  nix_configs = nix_config_inputs.self;
+  nix_configs = nix_configs_inputs.self;
   lib = nix_configs.lib;
   builders = (import ./mkBuilders.nix nix_configs_inputs) inputs;
 in rec {
