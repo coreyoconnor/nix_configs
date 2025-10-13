@@ -4,7 +4,7 @@ let
     systems = {};
     devFlakes = {};
     overlays = [];
-    mkDevshellImports = devshell: [];
+    mkDevshellImports = system: pkgs: [];
     mkPackages = system: pkgs: {};
   };
   final_config = default_config // config;
