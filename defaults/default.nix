@@ -14,13 +14,13 @@ with lib; rec {
   config = {
     nix = {
       settings = {
-        download-buffer-size = 201326592;
+        download-buffer-size = mkDefault 201326592;
       };
     };
 
     programs = {
-      nix-index.enable = true;
-      command-not-found.enable = false;
+      nix-index.enable = mkDefault true;
+      command-not-found.enable = mkDefault false;
     };
   };
 }
