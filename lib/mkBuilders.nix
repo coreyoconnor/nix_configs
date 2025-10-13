@@ -47,15 +47,15 @@ with nixpkgs.lib; { self, ...} @ inputs: let
       )
       self.nixosConfigurations
     );
-  in {
-    inherit
-      allSystemsUsing
-      nixosActivation
-      nixosActivations
-      nixosConfiguration
-      nixosConfigurations;
+in {
+  inherit
+    allSystemsUsing
+    nixosActivation
+    nixosActivations
+    nixosConfiguration
+    nixosConfigurations;
 
-    devshellImport = import ./mkDevshellImport.nix nixpkgs inputsMinusSelf;
+  devshellImport = import ./mkDevshellImport.nix nixpkgs inputsMinusSelf;
 
-    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-  };
+  checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+}
