@@ -4,13 +4,13 @@ let
     systems = {};
     devFlakes = {};
     overlays = [];
-    devshellImports = [];
+    mkDevshellImports = devshell: [];
     mkPackages = system: pkgs: {};
   };
   final_config = default_config // config;
   nix_configs = nix_config_inputs.self;
   lib = nix_configs.lib;
-  builders = lib.mkBuilders inputs;
+  builders = (import ./mkBuilders.nix nix_configs_inputs) inputs;
 in rec {
   nixosModules = {
     default = {
@@ -48,7 +48,7 @@ in rec {
           imports = [
             (builders.devshellImport final_config.devFlakes)
             (pkgs.devshell.importTOML ./default-devshell.toml)
-          ] ++ final_config.devshellImports;
+          ] ++ (final_config.mkDevshellImports system pkgs);
         };
 
         packages = {

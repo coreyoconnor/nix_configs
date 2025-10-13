@@ -14,3 +14,6 @@
 	path = dev-dependencies/nixpkgs
 	url = git@github.com:coreyoconnor/nixpkgs
 	branch = dev
+[submodule "doc/nix_configs-example"]
+	path = doc/nix_configs-example
+	url = https://github.com/coreyoconnor/nix_configs-example.git

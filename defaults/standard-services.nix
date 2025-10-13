@@ -62,7 +62,5 @@ with lib; {
       udisks2.enable = true;
       upower.enable = true;
     };
-
-    systemd.tmpfiles.rules = ["R /tmp/nix* - - - 60d" "R! /tmp/* - - - 6m"];
   };
 }

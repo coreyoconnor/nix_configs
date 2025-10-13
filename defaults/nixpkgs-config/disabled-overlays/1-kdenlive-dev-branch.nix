@@ -1,1 +1,0 @@
-../dependencies/kdenlive-dev/use-local-src.nix

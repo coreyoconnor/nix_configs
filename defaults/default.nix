@@ -6,46 +6,21 @@
 }:
 with lib; rec {
   imports = [
-    ./nixpkgs-config.nix
-    ./fonts.nix
-    ./standard-admin.nix
-    ./standard-nix.nix
-    ./standard-services.nix
-    ./udev.nix
-    ./mdns.nix
+    ./nix-flake-support.nix
+    ./nix-gc.nix
+    ./user-admin-auth.nix
   ];
 
-  options = {
-    default.graphical = mkOption {
-      type = types.bool;
-      default = true;
-    };
-  };
-
   config = {
-    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_6_16;
-
-    console = {
-      keyMap = "us";
+    nix = {
+      settings = {
+        download-buffer-size = 201326592;
+      };
     };
 
-    environment = {
-      pathsToLink = ["/share" "/etc/gconf"];
-
-      shellInit = ''
-        export LC_ALL=${config.i18n.defaultLocale}
-      '';
+    programs = {
+      nix-index.enable = true;
+      command-not-found.enable = false;
     };
-
-    hardware = {
-      enableAllFirmware = lib.mkDefault true;
-      enableRedistributableFirmware = lib.mkDefault true;
-    };
-
-    i18n.defaultLocale = "en_US.UTF-8";
-
-    time.timeZone = lib.mkDefault "UTC";
-
-    services.journald.console = "/dev/tty12";
   };
 }
