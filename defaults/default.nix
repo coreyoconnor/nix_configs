@@ -8,6 +8,7 @@ with lib; rec {
   imports = [
     ./nix-flake-support.nix
     ./nix-gc.nix
+    ./standard-services.nix
     ./user-admin-auth.nix
   ];
 
