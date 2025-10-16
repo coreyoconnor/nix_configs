@@ -6,61 +6,16 @@
 }:
 with lib; {
   config = {
-    boot.blacklistedKernelModules = ["snd_pcsp"];
-
-    nix = {
-      gc = {
-        automatic = true;
-        options = "--delete-older-than 30d";
-      };
-
-      optimise.automatic = true;
-    };
-
-    networking = {
-      timeServers =
-        options.networking.timeServers.default
-        ++ [
-          "0.us.pool.ntp.org"
-          "1.us.pool.ntp.org"
-          "2.us.pool.ntp.org"
-          "3.us.pool.ntp.org"
-        ];
-    };
-
-    programs.dconf.enable = true;
-    programs.gnupg.agent.enable = true;
+    programs.dconf.enable = mkDefault true;
 
     services = {
-      acpid.enable = true;
-      avahi = {
-        # enable = true;
-        enable = false;
-        nssmdns4 = true;
-        openFirewall = true;
-        publish = {
-          enable = true;
-          addresses = true;
-          domain = true;
-          userServices = true;
-          workstation = true;
-        };
-      };
-
-      dbus.enable = true;
-
-      fstrim.enable = true;
-
-      fwupd.enable = true;
-
-      openssh.enable = true;
-
-      syslogd.extraConfig = ''
-        user.* /var/log/user
-      '';
-
-      udisks2.enable = true;
-      upower.enable = true;
+      acpid.enable = mkDefault true;
+      dbus.enable = mkDefault true;
+      fstrim.enable = mkDefault true;
+      fwupd.enable = mkDefault true;
+      openssh.enable = mkDefault true;
+      udisks2.enable = mkDefault true;
+      upower.enable = mkDefault true;
     };
   };
 }
