@@ -88,6 +88,22 @@ The `dev-` commands do not use the `flake.lock` like the `prod-` commands. Inste
 checkout under `dev/`. Which is useful to iterate on a flake dependency using submodules. While keeping the
 `prod-` builds clean of those changes.
 
+## Default Configuration
+
+This applies a default configuration to all `computers/` defined in `systems`:
+
+1. the nix flake registry is the flake used to build the computer
+2. hostname is the computer name
+3. nix regularly GCs
+4. `wheel` users are authorized to `journal`
+
+### 1. Configured Registry
+
+This ensures when using `nix shell nixpkgs#foo` the `nixpkgs` being referred to is *exactly* the `nixpkgs`
+used to build the computer. This is typically what I want: Consistency between the two.
+
+Add a `nixpkgs-unstable` import to your `flake.nix` and `nix flake update nixpkgs-unstable`. This provides an
+`nixpkgs-unstable` registry entry that is relatively easy to update.
 
 ## Development
 

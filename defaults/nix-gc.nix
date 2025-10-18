@@ -11,18 +11,18 @@ in
     config = {
       nix = {
         gc = {
-          automatic = true;
+          automatic = mkDefault true;
           options = "--delete-older-than 30d";
         };
 
-        optimise.automatic = true;
+        optimise.automatic = mkDefault true;
 
         settings = {
-          auto-optimise-store = true;
+          auto-optimise-store = mkDefault true;
         };
 
         # Opinionated: gc is overly aggressive
-        gc.dates = "weekly";
+        gc.dates = mkDefault "weekly";
       };
 
       systemd.tmpfiles.rules = ["R /tmp/nix* - - - 60d" "R! /tmp/* - - - 6m"];
