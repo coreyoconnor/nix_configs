@@ -129,7 +129,7 @@ nixpkgs: inputsMinusSelf: devFlakes: let
       command = ''
         set -ex
         cd $(git rev-parse --show-toplevel)
-        nix flake lock --update-input ${inputName}
+        nix flake update ${inputName}
       '';
       help = "Update the input ${inputName}";
     }

@@ -1,0 +1,124 @@
+diff --git a/pkgs/applications/networking/cluster/openshift/default.nix b/pkgs/applications/networking/cluster/openshift/default.nix
+index 5205bcca72d..656393664af 100644
+--- a/pkgs/applications/networking/cluster/openshift/default.nix
++++ b/pkgs/applications/networking/cluster/openshift/default.nix
+@@ -1,5 +1,5 @@
+ { stdenv, lib, fetchFromGitHub, fetchpatch, removeReferencesTo, which, go_1_9, go-bindata, makeWrapper, rsync, utillinux
+-, iptables, coreutils, kerberos, clang
++, iptables, coreutils, kerberos, clang, zfs
+ , components ? [
+   "cmd/oc"
+   "cmd/openshift"
+@@ -27,7 +27,7 @@ in stdenv.mkDerivation rec {
+     repo = "origin";
+     rev = "v${version}";
+     sha256 = "101awmbfa4v1qjwhwyvma4vrzqhkzf8cl3d7zhmxigyq8rz4akd8";
+-};
++  };
+ 
+   # go > 1.10
+   # [FATAL] [14:44:02+0000] Please install Go version go1.9 or use PERMISSIVE_GO=y to bypass this check.
+@@ -36,19 +36,23 @@ in stdenv.mkDerivation rec {
+   outputs = [ "out" ];
+ 
+   patchPhase = ''
+-    patchShebangs ./hack
+-
+-    substituteInPlace pkg/oc/bootstrap/docker/host/host.go  \
++    substituteInPlace ./pkg/oc/bootstrap/docker/host/host.go \
+       --replace 'nsenter --mount=/rootfs/proc/1/ns/mnt findmnt' \
+-      'nsenter --mount=/rootfs/proc/1/ns/mnt ${utillinux}/bin/findmnt'
+-
+-    substituteInPlace pkg/oc/bootstrap/docker/host/host.go  \
++      'nsenter --mount=/rootfs/proc/1/ns/mnt ${utillinux}/bin/findmnt' \
+       --replace 'nsenter --mount=/rootfs/proc/1/ns/mnt mount' \
+-      'nsenter --mount=/rootfs/proc/1/ns/mnt ${utillinux}/bin/mount'
+-
+-    substituteInPlace pkg/oc/bootstrap/docker/host/host.go  \
++      'nsenter --mount=/rootfs/proc/1/ns/mnt ${utillinux}/bin/mount' \
+       --replace 'nsenter --mount=/rootfs/proc/1/ns/mnt mkdir' \
+       'nsenter --mount=/rootfs/proc/1/ns/mnt ${utillinux}/bin/mount'
++
++    substituteInPlace ./vendor/github.com/mistifyio/go-zfs/zfs.go  \
++      --replace 'Command: "zfs"' \
++      'Command: "${zfs}/bin/zfs"'
++
++    substituteInPlace ./vendor/github.com/mistifyio/go-zfs/zpool.go  \
++      --replace 'Command: "zpool"' \
++      'Command: "${zfs}/bin/zpool"'
++
++    patchShebangs ./hack
+   '';
+ 
+   buildPhase = ''
+diff --git a/pkgs/applications/virtualization/containerd/default.nix b/pkgs/applications/virtualization/containerd/default.nix
+index 3854c577188..a6b119c1353 100644
+--- a/pkgs/applications/virtualization/containerd/default.nix
++++ b/pkgs/applications/virtualization/containerd/default.nix
+@@ -1,5 +1,5 @@
+ { stdenv, lib, fetchFromGitHub, removeReferencesTo
+-, go, libapparmor, apparmor-parser, libseccomp, btrfs-progs }:
++, go, libapparmor, apparmor-parser, libseccomp, btrfs-progs, zfs }:
+ 
+ with lib;
+ 
+@@ -22,6 +22,16 @@ stdenv.mkDerivation rec {
+   BUILDTAGS = []
+     ++ optional (btrfs-progs == null) "no_btrfs";
+ 
++  patchPhase = ''
++    substituteInPlace ./vendor/github.com/mistifyio/go-zfs/zfs.go  \
++      --replace 'Command: "zfs"' \
++      'Command: "${zfs}/bin/zfs"'
++
++    substituteInPlace ./vendor/github.com/mistifyio/go-zfs/zpool.go  \
++      --replace 'Command: "zpool"' \
++      'Command: "${zfs}/bin/zpool"'
++  '';
++
+   preConfigure = ''
+     # Extract the source
+     cd "$NIX_BUILD_TOP"
+diff --git a/pkgs/applications/virtualization/docker/default.nix b/pkgs/applications/virtualization/docker/default.nix
+index 2ab2bd02219..0bebc3ea912 100644
+--- a/pkgs/applications/virtualization/docker/default.nix
++++ b/pkgs/applications/virtualization/docker/default.nix
+@@ -2,7 +2,7 @@
+ , go-md2man, go, containerd, runc, docker-proxy, tini, libtool
+ , sqlite, iproute, bridge-utils, devicemapper, systemd
+ , btrfs-progs, iptables, e2fsprogs, xz, utillinux, xfsprogs
+-, procps, libseccomp
++, procps, libseccomp, zfs
+ }:
+ 
+ with lib;
+@@ -38,6 +38,8 @@ rec {
+ 
+       hardeningDisable = [ "fortify" ];
+ 
++      patchPhase = "";
++
+       buildInputs = [ removeReferencesTo go btrfs-progs ];
+     });
+ 
+@@ -123,11 +125,19 @@ rec {
+       patchShebangs .
+       substituteInPlace ./components/engine/hack/make.sh                   --replace libsystemd-journal libsystemd
+       substituteInPlace ./components/engine/daemon/logger/journald/read.go --replace libsystemd-journal libsystemd
++
++      substituteInPlace ./components/engine/vendor/github.com/mistifyio/go-zfs/zfs.go  \
++        --replace 'Command: "zfs"' \
++        'Command: "${zfs}/bin/zfs"'
++
++      substituteInPlace ./components/engine/vendor/github.com/mistifyio/go-zfs/zpool.go  \
++        --replace 'Command: "zpool"' \
++        'Command: "${zfs}/bin/zpool"'
+     '';
+ 
+     outputs = ["out" "man"];
+ 
+-    extraPath = optionals (stdenv.isLinux) (makeBinPath [ iproute iptables e2fsprogs xz xfsprogs procps utillinux ]);
++    extraPath = optionals (stdenv.isLinux) (makeBinPath [ iproute iptables e2fsprogs xz xfsprogs procps utillinux zfs ]);
+ 
+     installPhase = optionalString (stdenv.isLinux) ''
+       install -Dm755 ./components/engine/bundles/dynbinary-daemon/dockerd $out/libexec/docker/dockerd
