@@ -10,7 +10,10 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, ... }@inputs: rec {
+  outputs = { self, ... }@inputs:
+  let
     lib = import ./lib inputs;
+  in (lib.mkFlake inputs {}) // {
+    inherit lib;
   };
 }

@@ -162,7 +162,7 @@ in {
     ++ prodUpdateCommands
     ++ [
       {
-        name = "dev-nixpkgs-build";
+        name = "dev-nix-build";
         command = ''
           fragment="#$1"
           shift
