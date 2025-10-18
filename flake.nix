@@ -15,12 +15,14 @@
     lib = import ./lib inputs;
   in (lib.mkFlake inputs {
         devFlakes = {
-          url = "git@github.com:coreyoconnor/nixpkgs";
-          branch = "dev";
-          prodUrl = "git@github.com:coreyoconnor/nixpkgs";
-          prodBranch = "main";
-          upstreamUrl = "https://github.com/NixOS/nixpkgs.git";
-          upstreamBranch = "nixos-25.05";
+          nixpkgs = {
+            url = "git@github.com:coreyoconnor/nixpkgs";
+            branch = "dev";
+            prodUrl = "git@github.com:coreyoconnor/nixpkgs";
+            prodBranch = "main";
+            upstreamUrl = "https://github.com/NixOS/nixpkgs.git";
+            upstreamBranch = "nixos-25.05";
+          };
         };
       }) // {
     inherit lib;
