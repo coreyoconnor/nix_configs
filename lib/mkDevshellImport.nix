@@ -18,26 +18,29 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
   devBuilder = (import ./devshell/dev-builder.nix) {
     inherit pkgs devFlakes;
   };
-  mkDevDeployCmd = name: { subcommand ? "", help ? ""}:
-      {
-        package = devBuilder "dev-${name}" ./devshell/dev-deploy.fish {
-          inherit subcommand;
-          deploy-rs = deploy-rs-pkgs;
-        };
-        inherit help;
-      };
-  mkDevNixBuildCmd = name: { fragmentSplice, help ? "" }:
-      {
-        package = devBuilder "dev-nix-${name}" ./devshell/dev-nix-build.fish {
-          inherit fragmentSplice;
-        };
-        inherit help;
-      };
-  mkDevNixBuildPkgCmd = name: { help ? "" }:
-      {
-        package = devBuilder "dev-nix-${name}" ./devshell/dev-nix-build-pkg.fish {};
-        inherit help;
-      };
+  mkDevDeployCmd = name: {
+    subcommand ? "",
+    help ? "",
+  }: {
+    package = devBuilder "dev-${name}" ./devshell/dev-deploy.fish {
+      inherit subcommand;
+      deploy-rs = deploy-rs-pkgs;
+    };
+    inherit help;
+  };
+  mkDevNixBuildCmd = name: {
+    fragmentSplice,
+    help ? "",
+  }: {
+    package = devBuilder "dev-nix-${name}" ./devshell/dev-nix-build.fish {
+      inherit fragmentSplice;
+    };
+    inherit help;
+  };
+  mkDevNixBuildPkgCmd = name: {help ? ""}: {
+    package = devBuilder "dev-nix-${name}" ./devshell/dev-nix-build-pkg.fish {};
+    inherit help;
+  };
   mkProdDeployCmd = name: subcommand: {
     name = "prod-${name}";
     command = ''

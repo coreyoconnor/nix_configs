@@ -1,8 +1,7 @@
 {
   pkgs,
-  devFlakes
-}:
-let
+  devFlakes,
+}: let
   devArgs = builtins.concatMap (
     inputName: [
       "--override-input"
@@ -11,17 +10,16 @@ let
     ]
   ) (builtins.attrNames devFlakes);
   nixDevInputArgs = pkgs.lib.concatStringsSep " " devArgs;
-in name: src: {
-  subcommand ? "",
-  ...
-}@args:
-pkgs.replaceVarsWith {
-  inherit name src;
-  isExecutable = true;
-  dir = "bin";
-  replacements = args // {
-    fishShell = "${pkgs.fish}/bin/fish";
-    inherit nixDevInputArgs;
-  };
-}
-
+in
+  name: src: {subcommand ? "", ...} @ args:
+    pkgs.replaceVarsWith {
+      inherit name src;
+      isExecutable = true;
+      dir = "bin";
+      replacements =
+        args
+        // {
+          fishShell = "${pkgs.fish}/bin/fish";
+          inherit nixDevInputArgs;
+        };
+    }
