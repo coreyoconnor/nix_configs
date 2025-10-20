@@ -1,4 +1,5 @@
-nixpkgs: inputsMinusSelf: devFlakes: let
+nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
+  deploy-rs-pkgs = deploy-rs.packages.${system}.default;
   devArgs = builtins.concatMap (
     inputName: [
       "--override-input"
@@ -6,7 +7,6 @@ nixpkgs: inputsMinusSelf: devFlakes: let
       "path:./dev/${inputName}"
     ]
   ) (builtins.attrNames devFlakes);
-  devArgsShell = nixpkgs.lib.concatStringsSep " " devArgs;
   argToFragmentShell = arg: ''
     if [ -n  "${arg}" ] ; then
       fragment="#${arg}"
@@ -14,17 +14,30 @@ nixpkgs: inputsMinusSelf: devFlakes: let
       fragment=""
     fi
   '';
-  mkDevDeployCmd = name: subcommand: {
-    name = "dev-${name}";
-    command = ''
-      ${argToFragmentShell "\${1:-}"}
-      if [ -n "$fragment" ] ; then
-        shift
-      fi
-      exec deploy --skip-checks --auto-rollback false --keep-result .?submodules=1$fragment ${subcommand} -- ${devArgsShell} "$@";
-    '';
-    help = "${name} using the dev input overrides and git submodules";
+  devArgsShell = "";
+  devBuilder = (import ./devshell/dev-builder.nix) {
+    inherit pkgs devFlakes;
   };
+  mkDevDeployCmd = name: { subcommand ? "", help ? ""}:
+      {
+        package = devBuilder "dev-${name}" ./devshell/dev-deploy.fish {
+          inherit subcommand;
+          deploy-rs = deploy-rs-pkgs;
+        };
+        inherit help;
+      };
+  mkDevNixBuildCmd = name: { fragmentSplice, help ? "" }:
+      {
+        package = devBuilder "dev-nix-${name}" ./devshell/dev-nix-build.fish {
+          inherit fragmentSplice;
+        };
+        inherit help;
+      };
+  mkDevNixBuildPkgCmd = name: { help ? "" }:
+      {
+        package = devBuilder "dev-nix-${name}" ./devshell/dev-nix-build-pkg.fish {};
+        inherit help;
+      };
   mkProdDeployCmd = name: subcommand: {
     name = "prod-${name}";
     command = ''
@@ -35,20 +48,6 @@ nixpkgs: inputsMinusSelf: devFlakes: let
       exec deploy --skip-checks --auto-rollback false --keep-result .$fragment ${subcommand} "$@";
     '';
     help = "${name} using the production inputs";
-  };
-  devBuildVMCmd = {
-    name = "dev-build-vm";
-    command = ''
-      if [ -n  "$1" ] ; then
-        fragment="#$1"
-        shift
-      else
-        echo "requires computer to build vm for"
-        exit 1
-      fi
-      exec nixos-rebuild build-vm --flake .?submodules=1$fragment ${devArgsShell} "$@";
-    '';
-    help = "build vm launcher";
   };
   devIntegCommands = nixpkgs.lib.flatten (
     nixpkgs.lib.mapAttrsToList (
@@ -161,30 +160,37 @@ in {
     ]
     ++ prodUpdateCommands
     ++ [
-      {
-        name = "dev-nix-build";
-        command = ''
-          fragment="#$1"
-          shift
-          exec nix build ${devArgsShell} --show-trace .?submodules=1$fragment "$@"
+      (mkDevNixBuildCmd "build-self" {
+        fragmentSplice = "#$argv[1]";
+        help = "With dev flake inputs: like `nix build .#$argv[1] $argv[2..-1]`";
+      })
+      (mkDevNixBuildPkgCmd "build-pkg" {
+        help = "With dev flake inputs: build the pkgs.$argv[2] package from the $argv[1] computer pkgs.";
+      })
+      (mkDevNixBuildCmd "build-computer-toplevel" {
+        fragmentSplice = "#nixosConfigurations.$argv[1].config.system.build.toplevel";
+        help = "With dev flake inputs: builds the `config.system.build.toplevel` for the given computer.";
+      })
+      (mkDevDeployCmd "apply" {
+        help = ''
+          With dev flake inputs: like `deploy $argv[2..-1] .#$argv[1]`.
+          Which is like `nixos-rebuild apply` for a given computer.
         '';
-      }
-      {
-        name = "dev-build";
-        command = ''
-          if [ -n  "''${1:-}" ] ; then
-            fragment="#nixosConfigurations.$1.config.system.build.toplevel"
-            shift
-          else
-            fragment=""
-          fi
-          exec nix build ${devArgsShell} --show-trace .?submodules=1$fragment "$@"
+      })
+      (mkDevDeployCmd "boot" {
+        subcommand = "--boot";
+        help = ''
+          With dev flake inputs: like `deploy $argv[2..-1] --boot .#$argv[1]`.
+          Which is like `nixos-rebuild boot` for a given computer.
         '';
-        help = "Build using the dev input overrides and git submodules";
-      }
-      (mkDevDeployCmd "apply" "")
-      (mkDevDeployCmd "boot" "--boot")
-      (mkDevDeployCmd "dry-run" "--dry-activate")
+      })
+      (mkDevDeployCmd "dry-run" {
+        subcommand = "--dry-activate";
+        help = ''
+          With dev flake inputs: like `deploy $argv[2..-1] --dry-run .#$argv[1]`.
+          Which is like `nixos-rebuild dry-run` for a given computer.
+        '';
+      })
       {
         name = "dev-fetch";
         command = let
@@ -230,7 +236,6 @@ in {
           ${builtins.concatStringsSep "\n\n" statusChecks}
         '';
       }
-      devBuildVMCmd
       {
         name = "prod-build";
         command = ''

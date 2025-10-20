@@ -10,21 +10,22 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, ... }@inputs:
-  let
+  outputs = {self, ...} @ inputs: let
     lib = import ./lib inputs;
-  in (lib.mkFlake inputs {
-        devFlakes = {
-          nixpkgs = {
-            url = "git@github.com:coreyoconnor/nixpkgs";
-            branch = "dev";
-            prodUrl = "git@github.com:coreyoconnor/nixpkgs";
-            prodBranch = "main";
-            upstreamUrl = "https://github.com/NixOS/nixpkgs.git";
-            upstreamBranch = "nixos-25.05";
-          };
+  in
+    (lib.mkFlake inputs {
+      devFlakes = {
+        nixpkgs = {
+          url = "git@github.com:coreyoconnor/nixpkgs";
+          branch = "dev";
+          prodUrl = "git@github.com:coreyoconnor/nixpkgs";
+          prodBranch = "main";
+          upstreamUrl = "https://github.com/NixOS/nixpkgs.git";
+          upstreamBranch = "nixos-25.05";
         };
-      }) // {
-    inherit lib;
-  };
+      };
+    })
+    // {
+      inherit lib;
+    };
 }
