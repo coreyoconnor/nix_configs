@@ -1,19 +1,6 @@
 nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
   deploy-rs-pkgs = deploy-rs.packages.${system}.default;
-  devArgs = builtins.concatMap (
-    inputName: [
-      "--override-input"
-      inputName
-      "path:./dev/${inputName}"
-    ]
-  ) (builtins.attrNames devFlakes);
-  argToFragmentShell = arg: ''
-    if [ -n  "${arg}" ] ; then
-      fragment="#${arg}"
-    else
-      fragment=""
-    fi
-  '';
+  argToFragmentShell = arg: "";
   devArgsShell = "";
   devBuilder = (import ./devshell/dev-builder.nix) {
     inherit pkgs devFlakes;
@@ -173,6 +160,10 @@ in {
       (mkDevNixBuildCmd "build-computer-toplevel" {
         fragmentSplice = "#nixosConfigurations.$argv[1].config.system.build.toplevel";
         help = "With dev flake inputs: builds the `config.system.build.toplevel` for the given computer.";
+      })
+      (mkDevNixBuildCmd "build-all" {
+        fragmentSplice = "";
+        help = "With dev flake inputs: builds all the computer toplevels.";
       })
       (mkDevDeployCmd "apply" {
         help = ''
