@@ -152,14 +152,21 @@ in {
     ++ [
       (mkDevNixBuildCmd "build-self" {
         fragmentSplice = "#$argv[1]";
-        help = "With dev flake inputs: like `nix build .#$argv[1] $argv[2..-1]`";
+        help = ''
+          With dev flake inputs: like `nix build .#$argv[1] $argv[2..-1]`
+        '';
       })
       (mkDevNixBuildPkgCmd "build-pkg" {
-        help = "With dev flake inputs: build the pkgs.$argv[2] package from the $argv[1] computer pkgs.";
+        help = ''
+          With dev flake inputs: build the pkgs.$argv[2] package from the $argv[1] computer pkgs.
+        '';
       })
       (mkDevNixBuildCmd "build-computer-toplevel" {
         fragmentSplice = "#nixosConfigurations.$argv[1].config.system.build.toplevel";
-        help = "With dev flake inputs: builds the `config.system.build.toplevel` for the given computer.";
+        help = ''
+          With dev flake inputs: builds the `config.system.build.toplevel` for the $argv[1] computer.
+          Or all toplevels if no $argv[1].
+        '';
       })
       (mkDevDeployCmd "apply" {
         help = ''
@@ -183,6 +190,9 @@ in {
       })
       {
         name = "dev-fetch";
+        help = ''
+          `git fetch` on all ./dev submodules.
+        '';
         command = let
           inputDirs = builtins.attrNames devFlakes;
         in ''
