@@ -161,10 +161,6 @@ in {
         fragmentSplice = "#nixosConfigurations.$argv[1].config.system.build.toplevel";
         help = "With dev flake inputs: builds the `config.system.build.toplevel` for the given computer.";
       })
-      (mkDevNixBuildCmd "build-all" {
-        fragmentSplice = "";
-        help = "With dev flake inputs: builds all the computer toplevels.";
-      })
       (mkDevDeployCmd "apply" {
         help = ''
           With dev flake inputs: like `deploy $argv[2..-1] .#$argv[1]`.

@@ -1,12 +1,12 @@
 #!@fishShell@
 
-if not set -q argv[1]
-  echo "fragment argument required" >&2
-  exit 1
+if set -q argv[1]
+  set fragment "@fragmentSplice@"
+  set args $argv[2..-1]
+else
+  set fragment ""
+  set args $argv
 end
-
-set fragment "@fragmentSplice@"
-set args $argv[2..-1]
 
 exec nix build @nixDevInputArgs@ \
   ".?submodules=1$fragment" \
