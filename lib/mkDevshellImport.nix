@@ -1,9 +1,10 @@
 nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
   deploy-rs-pkgs = deploy-rs.packages.${system}.default;
-  argToFragmentShell = arg: "";
-  devArgsShell = "";
   devBuilder = (import ./devshell/dev-builder.nix) {
     inherit pkgs devFlakes;
+  };
+  prodBuilder = (import ./devshell/prod-builder.nix) {
+    inherit pkgs;
   };
   mkDevDeployCmd = name: {
     subcommand ? "",
@@ -19,25 +20,37 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
     fragmentSplice,
     help ? "",
   }: {
-    package = devBuilder "dev-nix-${name}" ./devshell/dev-nix-build.fish {
+    package = devBuilder "dev-${name}" ./devshell/dev-nix-build.fish {
       inherit fragmentSplice;
     };
     inherit help;
   };
   mkDevNixBuildPkgCmd = name: {help ? ""}: {
-    package = devBuilder "dev-nix-${name}" ./devshell/dev-nix-build-pkg.fish {};
+    package = devBuilder "dev-${name}" ./devshell/dev-nix-build-pkg.fish {};
     inherit help;
   };
-  mkProdDeployCmd = name: subcommand: {
-    name = "prod-${name}";
-    command = ''
-      ${argToFragmentShell "\${1:-}"}
-      if [ -n "$fragment" ] ; then
-        shift
-      fi
-      exec deploy --skip-checks --auto-rollback false --keep-result .$fragment ${subcommand} "$@";
-    '';
-    help = "${name} using the production inputs";
+  mkProdDeployCmd = name: {
+    subcommand ? "",
+    help ? "",
+  }: {
+    package = prodBuilder "prod-${name}" ./devshell/prod-deploy.fish {
+      inherit subcommand;
+      deploy-rs = deploy-rs-pkgs;
+    };
+    inherit help;
+  };
+  mkProdNixBuildCmd = name: {
+    fragmentSplice,
+    help ? "",
+  }: {
+    package = prodBuilder "prod-${name}" ./devshell/prod-nix-build.fish {
+      inherit fragmentSplice;
+    };
+    inherit help;
+  };
+  mkProdNixBuildPkgCmd = name: {help ? ""}: {
+    package = prodBuilder "prod-${name}" ./devshell/prod-nix-build-pkg.fish {};
+    inherit help;
   };
   devIntegCommands = nixpkgs.lib.flatten (
     nixpkgs.lib.mapAttrsToList (
@@ -150,22 +163,22 @@ in {
     ]
     ++ prodUpdateCommands
     ++ [
-      (mkDevNixBuildCmd "build-self" {
+      (mkDevNixBuildCmd "build" {
+        fragmentSplice = "#nixosConfigurations.$argv[1].config.system.build.toplevel";
+        help = ''
+          With dev flake inputs: builds the `config.system.build.toplevel` for the $argv[1] computer.
+          Or all toplevels if no $argv[1].
+        '';
+      })
+      (mkDevNixBuildCmd "build-self-pkg" {
         fragmentSplice = "#$argv[1]";
         help = ''
           With dev flake inputs: like `nix build .#$argv[1] $argv[2..-1]`
         '';
       })
-      (mkDevNixBuildPkgCmd "build-pkg" {
+      (mkDevNixBuildPkgCmd "build-computer-pkg" {
         help = ''
           With dev flake inputs: build the pkgs.$argv[2] package from the $argv[1] computer pkgs.
-        '';
-      })
-      (mkDevNixBuildCmd "build-computer-toplevel" {
-        fragmentSplice = "#nixosConfigurations.$argv[1].config.system.build.toplevel";
-        help = ''
-          With dev flake inputs: builds the `config.system.build.toplevel` for the $argv[1] computer.
-          Or all toplevels if no $argv[1].
         '';
       })
       (mkDevDeployCmd "apply" {
@@ -185,6 +198,44 @@ in {
         subcommand = "--dry-activate";
         help = ''
           With dev flake inputs: like `deploy $argv[2..-1] --dry-run .#$argv[1]`.
+          Which is like `nixos-rebuild dry-run` for a given computer.
+        '';
+      })
+      (mkProdNixBuildCmd "build" {
+        fragmentSplice = "#nixosConfigurations.$argv[1].config.system.build.toplevel";
+        help = ''
+          Builds the `config.system.build.toplevel` for the $argv[1] computer.
+          Or all toplevels if no $argv[1].
+        '';
+      })
+      (mkProdNixBuildCmd "build-self-pkg" {
+        fragmentSplice = "#$argv[1]";
+        help = ''
+          Like `nix build .#$argv[1] $argv[2..-1]`
+        '';
+      })
+      (mkProdNixBuildPkgCmd "build-computer-pkg" {
+        help = ''
+          Build the pkgs.$argv[2] package from the $argv[1] computer pkgs.
+        '';
+      })
+      (mkProdDeployCmd "apply" {
+        help = ''
+          Like `deploy $argv[2..-1] .#$argv[1]`.
+          Which is like `nixos-rebuild apply` for a given computer.
+        '';
+      })
+      (mkProdDeployCmd "boot" {
+        subcommand = "--boot";
+        help = ''
+          Like `deploy $argv[2..-1] --boot .#$argv[1]`.
+          Which is like `nixos-rebuild boot` for a given computer.
+        '';
+      })
+      (mkProdDeployCmd "dry-run" {
+        subcommand = "--dry-activate";
+        help = ''
+          Like `deploy $argv[2..-1] --dry-run .#$argv[1]`.
           Which is like `nixos-rebuild dry-run` for a given computer.
         '';
       })
@@ -236,24 +287,6 @@ in {
           ${builtins.concatStringsSep "\n\n" statusChecks}
         '';
       }
-      {
-        name = "prod-build";
-        command = ''
-          if [ -n  "''${1:-}" ] ; then
-            fragment="#nixosConfigurations.$1.config.system.build.toplevel"
-            outlink=$fragment
-            shift
-          else
-            fragment=""
-            outlink=all
-          fi
-          mkdir -p .gcroots
-          exec nix build --out-link .gcroots/$outlink --show-trace .$fragment "$@"
-        '';
-      }
-      (mkProdDeployCmd "apply" "")
-      (mkProdDeployCmd "boot" "--boot")
-      (mkProdDeployCmd "dry-run" "--dry-activate")
       {
         name = "prod-status";
         command = let

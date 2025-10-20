@@ -9,7 +9,6 @@ pkgs.replaceVarsWith {
     args
     // {
       fishShell = "${pkgs.fish}/bin/fish";
-      inherit nixDevInputArgs;
     };
 }
 
