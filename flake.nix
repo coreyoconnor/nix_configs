@@ -2,7 +2,7 @@
   description = "coreyoconnor's nixos configuration library";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
 
     deploy-rs.url = "github:serokell/deploy-rs";
@@ -17,11 +17,11 @@
       devFlakes = {
         nixpkgs = {
           url = "git@github.com:coreyoconnor/nixpkgs";
-          branch = "dev";
-          prodUrl = "git@github.com:coreyoconnor/nixpkgs";
-          prodBranch = "main";
+          branch = "nixos-25.11";
+          prodUrl = "https://github.com/NixOS/nixpkgs.git";
+          prodBranch = "nixos-25.11";
           upstreamUrl = "https://github.com/NixOS/nixpkgs.git";
-          upstreamBranch = "nixos-25.05";
+          upstreamBranch = "nixos-25.11";
         };
       };
     })

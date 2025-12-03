@@ -23,7 +23,7 @@ For the `flake.nix`:
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
 
     nix_configs = {
-      url = "github:coreyoconnor/nix_configs/dev-lib";
+      url = "github:coreyoconnor/nix_configs";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nixpkgs-unstable.follows = "nixpkgs-unstable";
