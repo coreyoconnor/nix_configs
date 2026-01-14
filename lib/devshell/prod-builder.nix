@@ -1,6 +1,4 @@
-{
-  pkgs
-}: name: src: {subcommand ? "", ...} @ args:
+{pkgs}: name: src: {subcommand ? "", ...} @ args:
 pkgs.replaceVarsWith {
   inherit name src;
   isExecutable = true;
@@ -11,4 +9,3 @@ pkgs.replaceVarsWith {
       fishShell = "${pkgs.fish}/bin/fish";
     };
 }
-
