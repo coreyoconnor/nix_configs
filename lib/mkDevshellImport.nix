@@ -48,14 +48,17 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
     };
     inherit help;
   };
-  mkProdNixBuildPkgCmd = name: {help ? ""}: {
+  prodNixBuildPkgCmd = rec {
+    name = "build-computer-pkg";
     package = prodBuilder "prod-${name}" ./devshell/prod-nix-build-pkg.fish {};
-    inherit help;
+    help = ''
+      Build the pkgs.$argv[2] package from the $argv[1] computer pkgs.
+    '';
   };
   devIntegCommands = nixpkgs.lib.flatten (
     nixpkgs.lib.mapAttrsToList (
       inputName: mapping:
-        if (mapping ? upstreamUrl)
+        if (mapping ? upstreamRemote)
         then [
           {
             name = "dev-integ-${inputName}-start";
@@ -71,7 +74,7 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
                 git rebase --interactive --onto upstream/${mapping.upstreamBranch} $baseSha ${mapping.branch}
               )
             '';
-            help = "Start integ dev submodule of ${inputName} from ${mapping.upstreamUrl}@${mapping.upstreamBranch}";
+            help = "Start integ dev submodule of ${inputName} from ${mapping.upstreamRemote}@${mapping.upstreamBranch}";
           }
           {
             name = "dev-integ-${inputName}-finish";
@@ -88,7 +91,7 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
                 git commit ${inputName}* -m 'update ${inputName}'
               )
             '';
-            help = "Finish integ dev submodule of ${inputName} from ${mapping.upstreamUrl}@${mapping.upstreamBranch}";
+            help = "Finish integ dev submodule of ${inputName} from ${mapping.upstreamRemote}@${mapping.upstreamBranch}";
           }
         ]
         else []
@@ -111,16 +114,12 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
   prodIntegCommands =
     nixpkgs.lib.mapAttrsToList (
       inputName: mapping: {
-        name = "prod-integ-${inputName}";
-        command = ''
-          set -ex
-          (
-            cd $(git rev-parse --show-toplevel)/dev/${inputName}
-            git push $@ ${mapping.prodUrl} HEAD:${mapping.prodBranch}
-          )
-          cd $(git rev-parse --show-toplevel)
-          prod-update-${inputName}
-        '';
+        package = prodBuilder "prod-integ-${inputName}" ./devshell/prod-integ.fish {
+          inherit inputName;
+          sourceBranch = mapping.branch;
+          targetBranch = mapping.prodBranch;
+          targetRemote = mapping.prodRemote;
+        };
         help = "Integrate ${inputName} dev checkout into ${mapping.prodBranch} and update the input";
       }
     )
@@ -214,11 +213,7 @@ in {
           Like `nix build .#$argv[1] $argv[2..-1]`
         '';
       })
-      (mkProdNixBuildPkgCmd "build-computer-pkg" {
-        help = ''
-          Build the pkgs.$argv[2] package from the $argv[1] computer pkgs.
-        '';
-      })
+      prodNixBuildPkgCmd
       (mkProdDeployCmd "apply" {
         help = ''
           Like `deploy $argv[2..-1] .#$argv[1]`.
@@ -264,9 +259,9 @@ in {
             nixpkgs.lib.mapAttrsToList (
               inputName: mapping: let
                 upstreamCheck =
-                  if (mapping ? upstreamUrl)
+                  if (mapping ? upstreamRemote)
                   then ''
-                    echo "Relative to ${mapping.upstreamUrl}/${mapping.upstreamBranch}:"
+                    echo "Relative to ${mapping.upstreamRemote}/${mapping.upstreamBranch}:"
                     echo -e "Behind\tAhead"
                     git rev-list --count --left-right upstream/${mapping.upstreamBranch}...HEAD
                   ''

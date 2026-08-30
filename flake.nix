@@ -18,9 +18,9 @@
         nixpkgs = {
           url = "git@github.com:coreyoconnor/nixpkgs";
           branch = "dev";
-          prodUrl = "https://github.com/NixOS/nixpkgs.git";
+          prodRemote = "git@github.com:coreyoconnor/nixpkgs";
           prodBranch = "nixos-26.05";
-          upstreamUrl = "https://github.com/NixOS/nixpkgs.git";
+          upstreamRemote = "https://github.com/NixOS/nixpkgs.git";
           upstreamBranch = "nixos-26.05";
         };
       };
