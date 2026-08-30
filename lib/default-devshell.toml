@@ -2,6 +2,7 @@
 load_profiles = true
 packages = [
   "nix",
+  "alejandra"
 ]
 
 [[commands]]

@@ -1,11 +1,20 @@
 nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
   deploy-rs-pkgs = deploy-rs.packages.${system}.default;
-  devBuilder = (import ./devshell/dev-builder.nix) {
-    inherit pkgs devFlakes;
-  };
-  prodBuilder = (import ./devshell/prod-builder.nix) {
-    inherit pkgs;
-  };
+  # the arguments to nix flake build that override the inputs to use the `dev/` submodules
+  devOverrideArgs = builtins.concatMap (
+    inputName: [
+      "--override-input"
+      inputName
+      "path:./dev/${inputName}"
+    ]
+  ) (builtins.attrNames devFlakes);
+  nixDevInputArgs = pkgs.lib.concatStringsSep " " devOverrideArgs;
+  # Fish script builder with substitutions
+  builder = (import ./devshell/builder.nix) {inherit pkgs;};
+  devBuilder = name: src: {subcommand ? "", ...} @ args:
+    builder name src (args // {inherit nixDevInputArgs;});
+  prodBuilder = builder;
+  # dev build and deploy command builders
   mkDevDeployCmd = name: {
     subcommand ? "",
     help ? "",
@@ -29,6 +38,7 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
     package = devBuilder "dev-${name}" ./devshell/dev-nix-build-pkg.fish {};
     inherit help;
   };
+  # prod build and deploy command builders
   mkProdDeployCmd = name: {
     subcommand ? "",
     help ? "",
@@ -55,6 +65,7 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
       Build the pkgs.$argv[2] package from the $argv[1] computer pkgs.
     '';
   };
+  # dev-integ-* commands - one per dev flake
   devIntegCommands = nixpkgs.lib.flatten (
     nixpkgs.lib.mapAttrsToList (
       inputName: mapping:
@@ -98,6 +109,7 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
     )
     devFlakes
   );
+  # dev-update-* commands - one per dev flake
   devUpdateCommands =
     nixpkgs.lib.mapAttrsToList (
       inputName: mapping: {
@@ -107,10 +119,11 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
           git submodule update --init --merge -- \
             $(git rev-parse --show-toplevel)/dev/${inputName}
         '';
-        help = "Update dev submodule of ${inputName} from ${mapping.url}@${mapping.branch}";
+        help = "Update dev submodule of ${inputName} from ${mapping.remote}@${mapping.branch}";
       }
     )
     devFlakes;
+  # prod-integ-* commands - one per dev flake input
   prodIntegCommands =
     nixpkgs.lib.mapAttrsToList (
       inputName: mapping: {
@@ -124,6 +137,7 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
       }
     )
     devFlakes;
+  # prod-update-* commands - one per flake input
   prodUpdateCommands = map (
     inputName: {
       name = "prod-update-${inputName}";
@@ -289,7 +303,7 @@ in {
             nixpkgs.lib.mapAttrsToList (
               inputName: mapping: let
                 upstreamCheck = ''
-                  echo "Relative to ${mapping.url}/${mapping.branch}:"
+                  echo "Relative to ${mapping.remote}/${mapping.branch}:"
                   echo '`main` relative to `dev` is'
                   echo -e "Behind\tAhead"
                   git rev-list --count --left-right origin/${mapping.branch}...origin/${mapping.prodBranch}

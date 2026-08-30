@@ -16,7 +16,7 @@
     (lib.mkFlake inputs {
       devFlakes = {
         nixpkgs = {
-          url = "git@github.com:coreyoconnor/nixpkgs";
+          remote = "git@github.com:coreyoconnor/nixpkgs";
           branch = "dev";
           prodRemote = "git@github.com:coreyoconnor/nixpkgs";
           prodBranch = "nixos-26.05";

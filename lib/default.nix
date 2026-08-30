@@ -7,15 +7,13 @@ with nixpkgs.lib; let
   formatterUsingNativeSystem = system:
     nixpkgs.legacyPackages.${system}.writeScriptBin "alejandra" ''
       #!/bin/sh
+      cd $(git rev-parse --show-toplevel)
+
+      gitExcludes=$(cat .gitignore | awk '{print "--exclude " $1;}')
       exec ${nixpkgs.legacyPackages.${system}.alejandra}/bin/alejandra \
         --exclude ./dev \
         --exclude ./.git \
-        --exclude ./result \
-        --exclude ./.bsp \
-        --exclude ./.deploy-gc \
-        --exclude ./.gcroots \
-        --exclude ./.metals \
-        --exclude ./.doc \
+        $gitExcludes \
         "$@"
     '';
 in {
