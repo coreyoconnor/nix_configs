@@ -10,9 +10,9 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
   ) (builtins.attrNames devFlakes);
   nixDevInputArgs = pkgs.lib.concatStringsSep " " devOverrideArgs;
   # Fish script builder with substitutions
-  builder = (import ./devshell/builder.nix) {inherit pkgs;};
+  builder = (import ./devshell/builder.nix) { inherit pkgs; };
   devBuilder = name: src: {subcommand ? "", ...} @ args:
-    builder name src (args // {inherit nixDevInputArgs;});
+    builder name src (args // { inherit nixDevInputArgs; });
   prodBuilder = builder;
   # dev build and deploy command builders
   mkDevDeployCmd = name: {
@@ -73,35 +73,22 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
         then [
           {
             name = "dev-integ-${inputName}-start";
-            command = ''
-              set -ex
-              (
-                cd $(git rev-parse --show-toplevel)/dev
-                baseSha=$(cat ${inputName}-base-sha.txt)
-                echo "rebase from base: $baseSha"
-                cd ${inputName}
-                git fetch upstream
-                git show '--format=%H' upstream/${mapping.upstreamBranch} > ../${inputName}-base-next-sha.txt
-                git rebase --interactive --onto upstream/${mapping.upstreamBranch} $baseSha ${mapping.branch}
-              )
-            '';
+            package = builder "dev-integ-${inputName}-start" ./devshell/dev-integ-start.fish {
+              inherit inputName;
+              sourceBranch = mapping.upstreamBranch;
+              sourceRemote = mapping.upstreamRemote;
+              targetBranch = mapping.branch;
+            };
             help = "Start integ dev submodule of ${inputName} from ${mapping.upstreamRemote}@${mapping.upstreamBranch}";
           }
           {
             name = "dev-integ-${inputName}-finish";
-            command = ''
-              set -ex
-              (
-                cd $(git rev-parse --show-toplevel)/dev
-                (
-                  cd ${inputName}
-                  git push -f origin HEAD
-                )
-                cp ${inputName}-base-next-sha.txt ${inputName}-base-sha.txt
-                git add ${inputName}*
-                git commit ${inputName}* -m 'update ${inputName}'
-              )
-            '';
+            package = builder "dev-integ-${inputName}-finish" ./devshell/dev-integ-finish.fish {
+              inherit inputName;
+              sourceBranch = mapping.branch;
+              targetBranch = mapping.branch;
+              targetRemote = mapping.remote;
+            };
             help = "Finish integ dev submodule of ${inputName} from ${mapping.upstreamRemote}@${mapping.upstreamBranch}";
           }
         ]
@@ -140,12 +127,9 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
   # prod-update-* commands - one per flake input
   prodUpdateCommands = map (
     inputName: {
-      name = "prod-update-${inputName}";
-      command = ''
-        set -ex
-        cd $(git rev-parse --show-toplevel)
-        nix flake update ${inputName}
-      '';
+      package = prodBuilder "prod-update-${inputName}" ./devshell/prod-update.fish {
+        inherit inputName;
+      };
       help = "Update the input ${inputName}";
     }
   ) (builtins.attrNames inputsMinusSelf);
