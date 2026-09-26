@@ -3,7 +3,7 @@ cd "$(git rev-parse --show-toplevel)"
 
 cd dev
 
-baseSha=$(cat "@inputName@-base-sha.txt")
+set baseSha $(cat "@inputName@-base-sha.txt")
 echo "rebase from upstream base revision: $baseSha"
 
 cd "@inputName@"
