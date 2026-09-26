@@ -1,4 +1,6 @@
 #!@fishShell@
+set hive_dir "$(git rev-parse --show-toplevel)"
+cd "$hive_dir"
 
 if not set -q argv[1]
   set fragment ""

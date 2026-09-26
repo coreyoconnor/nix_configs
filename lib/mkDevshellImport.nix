@@ -5,7 +5,7 @@ nixpkgs: deploy-rs: inputsMinusSelf: system: pkgs: devFlakes: let
     inputName: [
       "--override-input"
       inputName
-      "path:./dev/${inputName}"
+      "path:$hive_dir/dev/${inputName}"
     ]
   ) (builtins.attrNames devFlakes);
   nixDevInputArgs = pkgs.lib.concatStringsSep " " devOverrideArgs;

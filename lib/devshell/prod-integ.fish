@@ -1,5 +1,7 @@
 #!@fishShell@
-cd $(git rev-parse --show-toplevel)/dev/@inputName@
+set hive_dir "$(git rev-parse --show-toplevel)"
+cd "$hive_dir"
+cd dev/@inputName@
 
 git rev-parse --abbrev-ref HEAD | read actualBranch
 
