@@ -4,7 +4,7 @@ cd "$hive_dir"
 
 cd dev
 
-set baseSha $(cat "@inputName@-base-sha.txt")
+read baseSha < @inputName@-base-sha.txt
 echo "rebase from upstream base revision: $baseSha"
 
 cd "@inputName@"

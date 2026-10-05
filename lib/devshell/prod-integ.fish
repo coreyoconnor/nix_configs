@@ -38,7 +38,7 @@ end
 
 git push --force $argv origin @sourceBranch@:@targetBranch@
 
-cd $(git rev-parse --show-toplevel)
+cd "$hive_dir"
 
 prod-update-@inputName@
 
